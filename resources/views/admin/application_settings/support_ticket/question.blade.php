@@ -3,6 +3,9 @@
     {{ $title }}
 @endsection
 @section('content')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.repeater/jquery.repeater.min.js"></script>
     <!-- Page content area start -->
     <div class="page-body">
         <div class="page-content">
@@ -59,8 +62,7 @@
 
                                                         <div class="col-lg-1 mb-3 removeClass">
                                                             <label class="text-lg-right text-black opacity-0">{{ __('Remove') }}</label>
-                                                            <a href="javascript:;" data-repeater-delete=""
-                                                            class="btn btn-icon-remove btn-danger">
+                                                            <a href="javascript:;" data-repeater-delete="" class="btn btn-icon-remove btn-danger" onclick="deleteMember({{ @$question['id'] }})">
                                                                 <i class="fas fa-times"></i>
                                                             </a>
                                                         </div>
@@ -115,5 +117,65 @@
     </div>
 
     <!-- Page content area end -->
+    <script>
+        (function($) {
+            "use strict";
+            $(document).ready(function() {
+                let formRepeaterId = "#add_repeater";
+
+                let KTFormRepeater = function() {
+                    let demo1 = function() {
+                        $(formRepeaterId).repeater({
+                            initEmpty: false,
+                            defaultValues: {
+                                'text-input': 'foo'
+                            },
+                            show: function() {
+                                $(this).slideDown();
+                            },
+                            hide: function(deleteElement) {
+                                $(this).slideUp(deleteElement);
+                            }
+                        });
+                    };
+
+                    return {
+                        // public functions
+                        init: function() {
+                            demo1();
+                        }
+                    };
+                }();
+
+                // Initialize the repeater
+                KTFormRepeater.init();
+
+                // Bind add button to create new repeater item
+                $("#add").on("click", function() {
+                    $(formRepeaterId).repeater('add');
+                });
+            });
+
+            // Function to handle member deletion
+            window.deleteMember = function(memberId) {
+                if (confirm("Are you sure you want to delete this member?")) {
+                    $.ajax({
+                        url: '{{ url('admin/settings/support-ticket/questionAnsDelete') }}',
+                        method: 'POST',
+                        data: {
+                            _token: '{{ csrf_token() }}',
+                            id: memberId
+                        },
+                        success: function(response) {
+                            location.reload();
+                        },
+                        error: function(response) {
+                            alert('Failed to delete the member.');
+                        }
+                    });
+                }
+            };
+        })(jQuery);
+    </script>
 @endsection
 

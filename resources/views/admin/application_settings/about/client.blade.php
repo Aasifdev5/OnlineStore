@@ -3,6 +3,9 @@
     {{ $title }}
 @endsection
 @section('content')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.repeater/jquery.repeater.min.js"></script>
     <!-- Page content area start -->
     <div class="page-body">
         <div class="page-content">
@@ -34,7 +37,7 @@
                         <div class="card">
                             <div class="card-header"><h2>{{ __(@$title) }}</h2></div>
                             <div class="card-body">
-                                <form action="{{route('settings.about.client.update')}}" method="post" enctype="multipart/form-data">
+                                <form action="{{ route('settings.about.client.update') }}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     <div id="add_repeater" class="mb-3">
                                         <div data-repeater-list="client_details" class="">
@@ -43,10 +46,10 @@
                                                     <div data-repeater-item="" class="form-group row">
                                                         <input type="hidden" name="id" value="{{ @$client['id'] }}"/>
                                                         <div class="custom-form-group mb-3 col-md-12 col-lg-3 col-xl-3 col-xxl-2">
-                                                            <label for="image_{{ @$client['id'] }}" class=" text-lg-right text-black"> {{ __('Client Logo') }} </label>
+                                                            <label for="image_{{ @$client['id'] }}" class="text-lg-right text-black"> {{ __('Client Logo') }} </label>
                                                             <div class="upload-img-box">
                                                                 @if($client->logo)
-                                                                    <img src="{{getImageFile($client->image_path)}}">
+                                                                    <img src="{{ getImageFile($client->image_path) }}">
                                                                 @else
                                                                     <img src="">
                                                                 @endif
@@ -67,23 +70,22 @@
                                                         <div class="col-lg-1 mb-3 removeClass">
                                                             <label class="text-lg-right text-black opacity-0">{{ __('Remove') }}</label>
                                                             <a href="javascript:;" data-repeater-delete=""
-                                                               class="btn btn-icon-remove btn-danger">
+                                                               class="btn btn-icon-remove btn-danger" onclick="deleteClient({{ @$client['id'] }})">
                                                                 <i class="fas fa-times"></i>
                                                             </a>
                                                         </div>
-
                                                     </div>
                                                 @endforeach
                                             @else
                                                 <div data-repeater-item="" class="form-group row">
                                                     <div class="custom-form-group mb-3 col-md-12 col-lg-3 col-xl-3 col-xxl-2">
-                                                        <label for="image" class=" text-lg-right text-black"> {{ __('Client Logo') }} </label>
+                                                        <label for="image" class="text-lg-right text-black"> {{ __('Client Logo') }} </label>
                                                         <div class="upload-img-box">
                                                             <img src="">
                                                             <input type="file" name="logo" id="image" accept="image/*"  onchange="preview12041DimensionFile(this)">
                                                             <div class="upload-img-box-icon">
                                                                 <i class="fa fa-camera"></i>
-                                                                <p class="m-0">{{__('Image')}}</p>
+                                                                <p class="m-0">{{ __('Image') }}</p>
                                                             </div>
                                                         </div>
                                                         <p><span class="text-black">{{ __('Accepted Files') }}:</span> {{ __('PNG') }} <br> <span class="text-black">{{ __('Accepted Size') }}:</span> 120 x 41</p>
@@ -102,18 +104,15 @@
                                                             <i class="fas fa-times"></i>
                                                         </a>
                                                     </div>
-
                                                 </div>
                                             @endif
                                         </div>
 
                                         <div class="col-lg-2">
-                                            <a id="add" href="javascript:;" data-repeater-create=""
-                                               class="btn btn-blue">
+                                            <a id="add" href="javascript:;" data-repeater-create="" class="btn btn-blue">
                                                 <i class="fas fa-plus"></i> {{ __('Add') }}
                                             </a>
                                         </div>
-
                                     </div>
 
                                     <div class="row justify-content-end">
@@ -121,7 +120,6 @@
                                             <button type="submit" class="btn btn-primary btn-sm">{{ __('Update') }}</button>
                                         </div>
                                     </div>
-
                                 </form>
                             </div>
 
@@ -133,5 +131,67 @@
     </div>
 
     <!-- Page content area end -->
+
+
+    <script>
+        (function ($) {
+            "use strict";
+            $(document).ready(function () {
+                let formRepeaterId = "#add_repeater";
+
+                let KTFormRepeater = function () {
+                    let demo1 = function () {
+                        $(formRepeaterId).repeater({
+                            initEmpty: false,
+                            defaultValues: {
+                                'text-input': 'foo'
+                            },
+                            show: function () {
+                                $(this).slideDown();
+                            },
+                            hide: function (deleteElement) {
+                                $(this).slideUp(deleteElement);
+                            }
+                        });
+                    };
+
+                    return {
+                        // public functions
+                        init: function () {
+                            demo1();
+                        }
+                    };
+                }();
+
+                // Initialize the repeater
+                KTFormRepeater.init();
+
+                // Bind add button to create new repeater item
+                $("#add").on("click", function () {
+                    $(formRepeaterId).repeater('add');
+                });
+            });
+
+            // Function to handle delete operation
+            window.deleteClient = function (clientId) {
+                if (confirm("Are you sure you want to delete this client?")) {
+                    $.ajax({
+                        url: '{{ url("admin/settings/about/clientDelete") }}',
+                        method: 'POST',
+                        data: {
+                            _token: '{{ csrf_token() }}',
+                            id: clientId
+                        },
+                        success: function (response) {
+                            location.reload();
+                        },
+                        error: function (response) {
+                            alert('Failed to delete the client.');
+                        }
+                    });
+                }
+            };
+        })(jQuery);
+    </script>
 @endsection
 

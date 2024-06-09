@@ -1,5 +1,7 @@
-@extends('layouts.admin')
-
+@extends('admin.Master')
+@section('title')
+    {{ $title }}
+@endsection
 @section('content')
     <!-- Page content area start -->
     <div class="page-content">

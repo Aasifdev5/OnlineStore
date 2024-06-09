@@ -445,7 +445,6 @@ class SettingController extends Controller
             $q->delete();
         });
 
-        $this->showToastrMessage('success', __('Updated Successful'));
         return redirect()->back();
     }
 
@@ -502,7 +501,6 @@ class SettingController extends Controller
             $q->delete();
         });
 
-        $this->showToastrMessage('success', __('Updated Successful'));
         return redirect()->back();
     }
 
@@ -543,6 +541,16 @@ class SettingController extends Controller
         return redirect()->back();
     }
 
+    public function questionAnsDelete(Request $request)
+{
+    try {
+        $question = SupportTicketQuestion::findOrFail($request->id);
+        $question->delete();
 
+        return response()->json(['success' => 'Support ticket question deleted successfully']);
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'Failed to delete support ticket question'], 500);
+    }
+}
 
 }
