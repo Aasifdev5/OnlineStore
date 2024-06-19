@@ -3,95 +3,152 @@
     {{ __('Registrarse') }}
 @endsection
 @section('content')
+    <main class="main__content_wrapper">
 
+        <!-- Start breadcrumb section -->
+        <section class="breadcrumb__section breadcrumb__bg">
+            <div class="container">
+                <div class="row row-cols-1">
+                    <div class="col">
+                        <div class="breadcrumb__content text-center">
+                            <ul class="breadcrumb__content--menu d-flex justify-content-center">
+                                <li class="breadcrumb__content--menu__items"><a href="index.html">Home</a></li>
+                                <li class="breadcrumb__content--menu__items"><span>Account</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End breadcrumb section -->
 
-    <section class="login-register">
-        <div class="container">
+        <!-- Start login section  -->
+        <div class="login__section section--padding">
+            <div class="container">
+                <form action="{{ url('reg') }}" method="post">
+                    @if (Session::has('success'))
+                    <div class="alert alert-success" style="background-color: green;">
+                        <p style="color: #fff;">{{ session::get('success') }}</p>
+                    </div>
+                @endif
+                @if (Session::has('fail'))
+                    <div class="alert alert-danger" style="background-color: red;">
+                        <p style="color: #fff;">{{ session::get('fail') }}</p>
+                    </div>
+                @endif
+                @csrf
+                    <div class="login__section--inner">
+                        <div class="row row-cols-md-2 row-cols-1">
 
-            <div class="row">
+                            <div class="col">
+                                <div class="account__login register">
+                                    <div class="account__login--header mb-25">
+                                        <h2 class="account__login--header__title mb-10">Create an Account</h2>
+                                        <p class="account__login--header__desc">Register here if you are a new customer</p>
+                                    </div>
+                                    <div class="account__login--inner">
+                                        <label>
+                                            <input class="account__login--input" placeholder="Username" value="{{ old('name') }}" name="name" type="text">
+                                            <span class="text-danger">
+                                                @error('name')
+                                                    {{ $message }}
+                                                @enderror
+                                            </span>
+                                        </label>
+                                        <label>
+                                            <input class="account__login--input" placeholder="Email Addres" value="{{ old('email') }}" name="email" type="email">
+                                            <span class="text-danger">
+                                                @error('email')
+                                                    {{ $message }}
+                                                @enderror
+                                            </span>
+                                        </label>
+                                        <label>
+                                            <input class="account__login--input" placeholder="Mobile Number" value="{{ old('mobile_number') }}" name="mobile_number" type="text">
+                                            <span class="text-danger">
+                                                @error('mobile_number')
+                                                    {{ $message }}
+                                                @enderror
+                                            </span>
+                                        </label>
+                                        <label>
+                                            <input class="account__login--input" placeholder="Password" value="{{ old('password') }}" name="password" type="password">
+                                            <span class="text-danger">
+                                                @error('password')
+                                                    {{ $message }}
+                                                @enderror
+                                            </span>
+                                        </label>
+                                        <label>
+                                            <input class="account__login--input" placeholder="Confirm Password" value="{{ old('confirm_password') }}" name="confirm_password" type="password">
+                                            <span class="text-danger">
+                                                @error('confirm_password')
+                                                    {{ $message }}
+                                                @enderror
+                                            </span>
+                                        </label>
+                                        <div class="account__login--remember position__relative">
+                                            <input class="checkout__checkbox--input" id="check2" type="checkbox">
+                                            <span class="checkout__checkbox--checkmark"></span>
+                                            <label class="checkout__checkbox--label login__remember--label" for="check2">
+                                                I have read and agree to the terms & conditions</label>
+                                        </div>
+                                        <button class="account__login--btn primary__btn mb-10" type="submit">Submit & Register</button>
 
-                <div class="col-lg-12">
-                    <h3 class="login-register__title">{{ __('Registrarse') }}</h3><!-- /.login-register__title -->
-                    <form class="login-register__form" action="{{ url('reg') }}" method="post">
-                        @if (Session::has('success'))
-                            <div class="alert alert-success" style="background-color: green;">
-                                <p style="color: #fff;">{{ session::get('success') }}</p>
+                                    </div>
+                                </div>
                             </div>
-                        @endif
-                        @if (Session::has('fail'))
-                            <div class="alert alert-danger" style="background-color: red;">
-                                <p style="color: #fff;">{{ session::get('fail') }}</p>
-                            </div>
-                        @endif
-                        @csrf
-                        <div class="contact-form__input-box">
-                            <label class=""><i class="fa fa-asterisk"></i>{{ __('Nombre') }}</label>
-                            <input name="name" type="text" value="{{ old('name') }}" class="form-control">
-                            <span class="text-danger">
-                                @error('name')
-                                    {{ $message }}
-                                @enderror
-                            </span>
-                        </div><!-- /.contact-form__input-box -->
-                        <div class="contact-form__input-box">
-                            <label class="">{{ __('Correo Electrónico') }}</label>
-                            <input name="email" type="email" placeholder="Correo Electrónico" autocomplete="off"
-                                value="{{ old('email') }}" class="form-control">
-                            <span class="text-danger">
-                                @error('email')
-                                    {{ $message }}
-                                @enderror
-                            </span>
                         </div>
-                        <div class="contact-form__input-box">
-                            <label class="control-label">{{ __('Contraseña') }}</label>
-                            <input name="password" type="password" placeholder="Contraseña" value="{{ old('password') }}"
-                                autocomplete="new-password" class="form-control" id="password-input">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- End login section  -->
 
-                            <span class="text-danger" style="color:red;">
-                                @error('password')
-                                    {{ $message }}
-                                @enderror
-                            </span>
+        <!-- Start shipping section -->
+        <section class="shipping__section">
+            <div class="container">
+                <div class="shipping__inner style2 d-flex">
+                    <div class="shipping__items style2 d-flex align-items-center">
+                        <div class="shipping__icon">
+                            <img src="assets/img/other/shipping1.webp" alt="icon-img">
                         </div>
-                        <div class="contact-form__input-box">
-                            <label class="">{{ __('Número de Teléfono Móvil') }}</label>
-                            <input name="mobile_number" type="text" placeholder="Número de Teléfono Móvil" autocomplete="off"
-                                value="{{ old('mobile_number') }}" class="form-control">
-                            <span class="text-danger">
-                                @error('mobile_number')
-                                    {{ $message }}
-                                @enderror
-                            </span>
+                        <div class="shipping__content">
+                            <h2 class="shipping__content--title h3">Free Shipping</h2>
+                            <p class="shipping__content--desc">Free shipping over $100</p>
                         </div>
-                        <div class="contact-form__input-box">
-                            <label class="">{{ __('Tipo de Cuenta') }}</label>
-                            <select name="account_type" id="" class="form-control">
-                                <option value="">{{ __('Por favor seleccione') }}</option>
-                                <option value="creators">{{ __('Creadores') }}</option>
-
-                                <option value="backers">{{ __('Patrocinadores') }}</option>
-
-                            </select>
-                            <span class="text-danger">
-                                @error('account_type')
-                                    {{ $message }}
-                                @enderror
-                            </span>
+                    </div>
+                    <div class="shipping__items style2 d-flex align-items-center">
+                        <div class="shipping__icon">
+                            <img src="assets/img/other/shipping2.webp" alt="icon-img">
                         </div>
+                        <div class="shipping__content">
+                            <h2 class="shipping__content--title h3">Support 24/7</h2>
+                            <p class="shipping__content--desc">Contact us 24 hours a day</p>
+                        </div>
+                    </div>
+                    <div class="shipping__items style2 d-flex align-items-center">
+                        <div class="shipping__icon">
+                            <img src="assets/img/other/shipping3.webp" alt="icon-img">
+                        </div>
+                        <div class="shipping__content">
+                            <h2 class="shipping__content--title h3">100% Money Back</h2>
+                            <p class="shipping__content--desc">You have 30 days to Return</p>
+                        </div>
+                    </div>
+                    <div class="shipping__items style2 d-flex align-items-center">
+                        <div class="shipping__icon">
+                            <img src="assets/img/other/shipping4.webp" alt="icon-img">
+                        </div>
+                        <div class="shipping__content">
+                            <h2 class="shipping__content--title h3">Payment Secure</h2>
+                            <p class="shipping__content--desc">We ensure secure payment</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End shipping section -->
 
-                        <div class="login-register__info">
-                            <button type="submit" class="thm-btn login-register__btn">{{ __('Registrarse') }}</button>
-
-                        </div><!-- /.login-register__info -->
-
-                    </form>
-                    <div class="login-register__info">
-                        <a href="{{ url('Userlogin') }}" class="thm-btn login-register__btn pull-right">{{ __('Iniciar sesión') }}</a>
-                        <!-- Register link -->
-                    </div><!-- /.login-register__info -->
-                </div><!-- /.col-lg-6 -->
-            </div><!-- /.row -->
-        </div><!-- /.container -->
-    </section><!-- /.login-register -->
+    </main>
 @endsection

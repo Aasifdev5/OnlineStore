@@ -207,7 +207,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|unique:users',
             'password' => ['required', 'string', 'min:8', 'max:30'],
-            'account_type' => 'required',
+
             'mobile_number' => 'required'
         ]);
         $mobileNumber = $request->mobile_number;
@@ -218,7 +218,7 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password,
-            'account_type' => $request->account_type,
+
             'mobile_number' => $prefixedMobileNumber,
             'ip_address' => getIp(),
         ]);
@@ -320,33 +320,20 @@ class UserController extends Controller
             ->paginate(5);
         return response()->json($notifications);
     }
-    public function MyPendingProject()
+    public function checkout()
     {
-        if (Session::has('LoggedIn')) {
 
-            $pages = Page::all();
-            $user_session = User::where('id', Session::get('LoggedIn'))->first();
-            $campaign = Campaign::where('user_id', Session::get('LoggedIn'))->where('status', 0)->get();
-
-            $general_setting = GeneralSetting::find('1');
-            return view('mypendingproject', compact('campaign', 'user_session', 'general_setting', 'pages'));
-        } else {
-            return Redirect()->with('fail', 'You have to login first');
-        }
+        $pages = Page::all();
+        $user_session = User::where('id', Session::get('LoggedIn'))->first();
+        return view('checkout', compact('user_session', 'pages'));
     }
-    public function MyActiveProject()
+    public function wishlist()
     {
-        if (Session::has('LoggedIn')) {
 
-            $pages = Page::all();
-            $user_session = User::where('id', Session::get('LoggedIn'))->first();
-            $campaign = Campaign::where('user_id', Session::get('LoggedIn'))->where('status', 1)->get();
+        $pages = Page::all();
+        $user_session = User::where('id', Session::get('LoggedIn'))->first();
 
-            $general_setting = GeneralSetting::find('1');
-            return view('myActiveproject', compact('campaign', 'user_session', 'general_setting', 'pages'));
-        } else {
-            return Redirect()->with('fail', 'You have to login first');
-        }
+        return view('wishlist', compact('user_session','pages'));
     }
     public function edit_project(Request $request)
     {
@@ -621,26 +608,39 @@ class UserController extends Controller
     }
 
 
-    public function add_address($id)
+    public function add_address()
     {
-        $blog_details = Blog::where('slug', $id)->first();
 
         $user_session = User::where('id', Session::get('LoggedIn'))->first();
-        $data['blogComments'] = BlogComment::active();
-        $blogComments = $data['blogComments']->where('blog_id', $blog_details->id)->whereNull('parent_id')->get();
+
         $pages = Page::all();
-        $latest_posts = Blog::orderBy('id', 'DESC')->paginate(3);
 
 
-        return view('add_address', compact('blog_details', 'user_session', 'latest_posts', 'blogComments', 'pages'));
+        return view('add_address', compact('user_session', 'pages'));
     }
-    public function CreateProject()
+    public function edit_address()
     {
-        $category = Category::all();
-        $countries = Country::all();
+
+        $user_session = User::where('id', Session::get('LoggedIn'))->first();
+
+        $pages = Page::all();
+
+
+        return view('edit_address', compact('user_session', 'pages'));
+    }
+    public function shop()
+    {
+
         $user_session = User::where('id', Session::get('LoggedIn'))->first();
         $pages = Page::all();
-        return view('post', compact('countries', 'category', 'pages', 'user_session'));
+        return view('shop', compact('pages', 'user_session'));
+    }
+    public function cart()
+    {
+
+        $user_session = User::where('id', Session::get('LoggedIn'))->first();
+        $pages = Page::all();
+        return view('cart', compact('pages', 'user_session'));
     }
     public function ProjectStore(Request $request)
     {
@@ -818,6 +818,22 @@ class UserController extends Controller
         # Update the new Password
         $data = User::find($request->user_id);
         $data->password = ($request->new_password);
+        $data->save();
+
+        return back()->with('success', 'Successfully Updated');
+    }
+    public function save_address(Request $request)
+    {
+
+
+        $request->validate([
+            'address' => 'required',
+            'city' => 'required',
+        ]);
+
+        # Update the new Password
+        $data = User::find($request->user_id);
+        $data->address = ($request->address.' '.$request->city);
         $data->save();
 
         return back()->with('success', 'Successfully Updated');

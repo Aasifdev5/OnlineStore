@@ -34,7 +34,7 @@
     <!-- my account section start -->
     <section class="my__account--section section--padding">
         <div class="container">
-            <p class="account__welcome--text">Hello, Admin welcome to your dashboard!</p>
+            <p class="account__welcome--text">Hello, {{ $user_session->name }} welcome to your dashboard!</p>
             <div class="my__account--section__inner border-radius-10 d-flex">
                 <div class="account__left--sidebar">
                     <h2 class="account__content--title mb-20">My Profile</h2>

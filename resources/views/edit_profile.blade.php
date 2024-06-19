@@ -4,16 +4,7 @@
 @endsection
 @section('content')
 <main class="main__content_wrapper">
-    @if(Session::has('success'))
-    <div class="alert alert-success" style="background-color: green;">
-        <p style="color: #fff;">{{session::get('success')}}</p>
-    </div>
-    @endif
-    @if(Session::has('fail'))
-    <div class="alert alert-danger" style="background-color: red;">
-        <p style="color: #fff;">{{session::get('fail')}}</p>
-    </div>
-    @endif
+
     <!-- Start breadcrumb section -->
     <section class="breadcrumb__section breadcrumb__bg">
         <div class="container">
