@@ -43,19 +43,6 @@ use Illuminate\Support\Facades\Route;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -91,7 +78,8 @@ Route::group(['middleware' => 'prevent-back-history', SetLocale::class], functio
     Route::get('/ad_photo', [UserController::class, 'ad_photo'])->name('ad_photo')->middleware('isLoggedIn');
     Route::post('/post-insert', [UserController::class, 'Ad_insert'])->name('Ad_insert')->middleware('isLoggedIn');
     Route::get('/back/{id}', [UserController::class, 'back'])->name('back')->middleware('isLoggedIn');
-    Route::get('/visibity', [UserController::class, 'visibity'])->name('visibity')->middleware('isLoggedIn');
+    Route::get('address', [UserController::class, 'address'])->name('address')->middleware('isLoggedIn');
+    Route::get('add_address', [UserController::class, 'add_address'])->name('add_address')->middleware('isLoggedIn');
     Route::post('/storeBack', [UserController::class, 'storeBack'])->name('storeBack');
     Route::get('/change_password', [UserController::class, 'change_password'])->name('change_password')->middleware('isLoggedIn');
     Route::post('/update_password', [UserController::class, 'update_password'])->name('update_password');

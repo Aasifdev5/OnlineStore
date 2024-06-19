@@ -11,34 +11,18 @@ use App\Models\Blog;
 use App\Models\BlogCategory;
 use App\Models\BlogComment;
 use App\Models\Campaign;
-
 use App\Models\Category;
 use App\Models\City;
-
-
 use App\Models\Country;
-
 use App\Models\GeneralSetting;
-
-
 use App\Models\Like;
-
-
-
 use App\Models\Notification;
 use App\Models\Page;
-
-
 use App\Models\PasswordReset;
-
-
 use App\Models\Payment;
-
 use App\Models\Role;
-
 use App\Models\User;
 use App\Notifications\NewUserRegisteredNotification;
-
 use App\Notifications\ResetPasswordNotification;
 use App\Notifications\UserRegisteredNotification;
 use App\Notifications\VerifyEmailNotification;
@@ -637,7 +621,7 @@ class UserController extends Controller
     }
 
 
-    public function blog_details($id)
+    public function add_address($id)
     {
         $blog_details = Blog::where('slug', $id)->first();
 
@@ -648,7 +632,7 @@ class UserController extends Controller
         $latest_posts = Blog::orderBy('id', 'DESC')->paginate(3);
 
 
-        return view('ad_details', compact('blog_details', 'user_session', 'latest_posts', 'blogComments', 'pages'));
+        return view('add_address', compact('blog_details', 'user_session', 'latest_posts', 'blogComments', 'pages'));
     }
     public function CreateProject()
     {
@@ -748,6 +732,12 @@ class UserController extends Controller
         $user_session = User::where('id', Session::get('LoggedIn'))->first();
         $pages = Page::all();
         return view('back', compact('qrcode', 'campaign', 'pages', 'user_session'));
+    }
+    public function address()
+    {
+        $user_session = User::where('id', Session::get('LoggedIn'))->first();
+        $pages = Page::all();
+        return view('address', compact('pages', 'user_session'));
     }
     public function storeBack(Request $request)
     {

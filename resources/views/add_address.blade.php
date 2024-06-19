@@ -1,6 +1,6 @@
 @extends('dashboard')
 @section('title')
-    {{ __('Cambiar Contraseña') }}
+    {{ __('Add Address') }}
 @endsection
 @section('content')
 
@@ -41,9 +41,9 @@
                         <h2 class="account__content--title mb-20">My Profile</h2>
                         <ul class="account__menu">
                             <li class="account__menu--list "><a href="{{ url('dashboard') }}">Dashboard</a></li>
-                            <li class="account__menu--list"><a href="{{ url('address') }}">Addresses</a></li>
+                            <li class="account__menu--list active"><a href="{{ url('address') }}">Addresses</a></li>
                             <li class="account__menu--list "><a href="{{ url('edit_profile') }}">Edit Profile</a></li>
-                            <li class="account__menu--list active"><a href="{{ url('change_password') }}">Change Password</a></li>
+                            <li class="account__menu--list "><a href="{{ url('change_password') }}">Change Password</a></li>
                             <li class="account__menu--list"><a href="{{ url('orders') }}">Orders</a></li>
                             <li class="account__menu--list"><a href="wishlist.html">Wishlist</a></li>
                             <li class="account__menu--list"><a href="{{ url('logout') }}">Log Out</a></li>
@@ -51,9 +51,9 @@
                     </div>
                     <div class="account__wrapper">
                         <div class="account__content">
-                            <h2 class="account__content--title h3 mb-20">Change Password</h2>
+                            <h2 class="account__content--title h3 mb-20">Add Address</h2>
                             <div class="account__table--area">
-                                <form class="theme-form" action="update_password" method="post">
+                                <form class="theme-form" action="{{ url('save_address') }}" method="post">
                                     @if (Session::has('success'))
                                         <div class="alert alert-success">
                                             <p>{{ session::get('success') }}</p>
@@ -69,11 +69,11 @@
                                     <div class="row g-1">
 
                                             <div class="mb-3">
-                                                <label class="col-form-label">{{ __('Nueva Contraseña') }}</label>
-                                                <input class="form-control" type="password" name="new_password"
-                                                    value="{{ old('new_password') }}">
+                                                <label class="col-form-label">{{ __('Address') }}</label>
+                                                <input class="form-control" type="text" name="address"
+                                                    value="{{ old('address') }}">
                                                 <span class="text-danger">
-                                                    @error('new_password')
+                                                    @error('address')
                                                         {{ $message }}
                                                     @enderror
                                                 </span>
@@ -81,11 +81,11 @@
 
                                     </div>
                                     <div class="mb-3">
-                                        <label class="col-form-label">{{ __('Confirmar Contraseña') }}</label>
-                                        <input class="form-control" type="password" name="confirm_password"
-                                            value="{{ old('confirm_password') }}">
+                                        <label class="col-form-label">{{ __('City') }}</label>
+                                        <input class="form-control" type="text" name="city"
+                                            value="{{ old('city') }}">
                                         <span class="text-danger">
-                                            @error('confirm_password')
+                                            @error('city')
                                                 {{ $message }}
                                             @enderror
                                         </span>
