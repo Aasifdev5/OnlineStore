@@ -55,7 +55,7 @@
                 </video>
                 <div class="authentication-box">
                     <div class="text-center">
-                        <h1 style="font-weight: 100;"><img src="{{ asset('site_logo/') }}<?php echo '/' . $general_setting->site_logo; ?>" width="200"  alt=""></h1>
+                        <h1 style="font-weight: 100;"><a href="{{ url('/') }}"><img src="{{ asset('site_logo/') }}<?php echo '/' . $general_setting->site_logo; ?>" width="200"  alt=""></a></h1>
                     </div>
                     <div class="card mt-4">
                         <div class="card-body">

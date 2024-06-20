@@ -463,7 +463,7 @@ class Admin extends Controller
             $permissions = Permissions::all();
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
             $title = 'Permission Create';
-            return view('admin.permissions.create', compact('user_session', 'permissions','title'));
+            return view('admin.permissions.create', compact('user_session', 'permissions', 'title'));
         }
     }
     public function Plist()
@@ -472,7 +472,7 @@ class Admin extends Controller
             $permissions = Permissions::all();
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
             $title = 'Permission List';
-            return view('admin.permissions.index', compact('user_session', 'permissions','title'));
+            return view('admin.permissions.index', compact('user_session', 'permissions', 'title'));
         }
     }
     public function Pstore(Request $request)
@@ -496,33 +496,33 @@ class Admin extends Controller
             $permissions = Permissions::all();
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
             $title = 'Permission Edit';
-            return view('admin.permissions.edit', compact('user_session', 'permission', 'permissions','title'));
+            return view('admin.permissions.edit', compact('user_session', 'permission', 'permissions', 'title'));
         }
     }
     public function Pupdate(Request $request, $id)
-{
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'parent_id' => 'nullable|exists:permissions,id',
-    ]);
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'parent_id' => 'nullable|exists:permissions,id',
+        ]);
 
-    $permission = Permissions::findOrFail($id);
-    $permission->name = $request->name;
-    $permission->parent_id = $request->parent_id;
-    $permission->save();
-
-    return redirect()->route('permissions.index')->with('success', 'Permission updated successfully');
-}
-public function pdestroy($id)
-{
-    try {
         $permission = Permissions::findOrFail($id);
-        $permission->delete();
-        return response()->json(['success' => 'Permission deleted successfully.']);
-    } catch (\Exception $e) {
-        return response()->json(['error' => 'Failed to delete permission.'], 500);
+        $permission->name = $request->name;
+        $permission->parent_id = $request->parent_id;
+        $permission->save();
+
+        return redirect()->route('permissions.index')->with('success', 'Permission updated successfully');
     }
-}
+    public function pdestroy($id)
+    {
+        try {
+            $permission = Permissions::findOrFail($id);
+            $permission->delete();
+            return response()->json(['success' => 'Permission deleted successfully.']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to delete permission.'], 500);
+        }
+    }
 
 
     public function registration(Request $request)
@@ -735,7 +735,15 @@ public function pdestroy($id)
         $request->validate([
             'name' => 'required',
             'email' => 'required|unique:users',
-            'password' => 'required'
+            'password' => 'required',
+            'price' => 'required',
+            'categories' => 'required',
+            'alter_mobile_number' => 'required',
+            'mobile_number' => 'required',
+            'location' => 'required',
+            'department' => 'required',
+            'store' => 'required',
+            'city' => 'required'
         ]);
         if (!empty($request->profile_photo)) {
 
@@ -751,7 +759,13 @@ public function pdestroy($id)
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password,
-            'country' => ($request->country),
+            'city' => ($request->city),
+            'store' => $request->store,
+            'department' => $request->department,
+            'location' => $request->location,
+            'price' => implode(',', $request->price),
+            'categories' => implode(',', $request->categories),
+            'alter_mobile_number' => $request->alter_mobile_number,
             'profile_photo' => $_FILES['profile_photo']['name'],
             'status' => $request->status,
             'ip_address' => request()->ip(),
@@ -759,7 +773,6 @@ public function pdestroy($id)
 
         // Send email verification notification
         $user->notify(new VerifyEmailNotification($user));
-
 
         if ($user) {
             return redirect('users')->with('success', 'User Add Successfully');
