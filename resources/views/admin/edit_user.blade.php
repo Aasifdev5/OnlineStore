@@ -11,118 +11,222 @@ Edit User
       <video id="bgvid" poster="{{asset('admin/images/coming-soon-bg.jpg')}}" playsinline="" autoplay="" muted="" loop="">
                <source src="{{asset('admin/video/auth-bg.mp4')}}" type="video/mp4">
             </video>
-         <div class="authentication-box">
+         <div class="col-sm-8">
             <div class="text-center"><img src="assets/images/endless-logo.png" alt=""></div>
             <div class="card mt-4 p-4">
                <h4 class="text-center">Edit User</h4>
 
-               <form class="theme-form" action="{{url('admin/update_user')}}" method="post" enctype="multipart/form-data">
-                  @if(Session::has('success'))
-                  <div class="alert alert-success">
-                     <p>{{session::get('success')}}</p>
-                  </div>
-                  @endif
-                  @if(Session::has('fail'))
-                  <div class="alert alert-danger">
-                     <p>{{session::get('fail')}}</p>
-                  </div>
-                  @endif
-                  @csrf
-                  <input type="hidden" name="user_id" value="{{$userData->id}}">
-                  <div class="row g-1">
-                     <div class="col-md-12">
+               <form class="theme-form" action="{{ url('admin/update_user') }}" method="post" enctype="multipart/form-data">
+                @csrf
+                @if (Session::has('success'))
+                    <div class="alert alert-success">
+                        <p>{{ Session::get('success') }}</p>
+                    </div>
+                @endif
+                @if (Session::has('fail'))
+                    <div class="alert alert-danger">
+                        <p>{{ Session::get('fail') }}</p>
+                    </div>
+                @endif
+<input type="hidden" name="user_id" value="{{ $userData->id }}">
+                <div class="row g-1">
+                    <div class="col-md-12">
                         <div class="mb-2">
-                          
-                           <div class="personal-image">
-                              <label class="label">
-                                 <input type="file" name="profile_photo" id="profilePhotoInput" onchange="previewImage(this)" />
-                                 <figure class="personal-figure">
-                                    @if(!empty($userData->profile_photo))
-                                    <img src="{{asset('profile_photo/')}}<?php echo '/' . $userData->profile_photo; ?>" class="personal-avatar" alt="avatar" id="profileImagePreview">
-                                    @else
-                                    <img src="images/profile photo.png" class="personal-avatar" alt="avatar" id="profileImagePreview">
-                                    @endif
-
-                                    
-                                 </figure>
-                              </label>
-                              <p>PNG, JPG, JPEG</p>
-                           </div>
-                           <!-- ... (rest of your form code) ... -->
-
-
-                           <script>
-                              function previewImage(input) {
-                                 var preview = document.getElementById('profileImagePreview');
-                                 var file = input.files[0];
-                                 var reader = new FileReader();
-
-                                 reader.onloadend = function() {
-                                    preview.src = reader.result;
-                                 }
-
-                                 if (file) {
-                                    reader.readAsDataURL(file);
-                                 } else {
-                                    preview.src = "images/profile photo.png"; // Default image when no file selected
-                                 }
-                              }
-                           </script>
-                           <span class="text-danger">@error('profile_photo'){{$message}}@enderror</span>
-                        </div>
-                     </div>
-                     <div class="col-md-6">
-                        <div class="mb-3">
-                           <label class="col-form-label">Full Name</label>
-                           <input class="form-control" type="text" name="name" value="{{$userData->name}}" placeholder="John">
-                           <span class="text-danger">@error('name'){{$message}}@enderror</span>
-                        </div>
-                     </div>
-                     <div class="col-md-6">
-                        <div class="mb-3">
-                           <label class="col-form-label">Country </label>
-                           <input class="form-control" type="text" name="country" value="{{$userData->country}}" placeholder="India">
-                           <span class="text-danger">@error ('country'){{$message}}@enderror</span>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="mb-3">
-                     <label class="col-form-label">Email</label>
-                     <input class="form-control" type="email" name="email" value="{{$userData->email}}" placeholder="John Deo">
-                     <span class="text-danger">@error ('email'){{$message}}@enderror</span>
-
-                  </div>
-                  <div class="col-lg-12">
-                        <label class="form-label">Email Address </label>
-                        <div class="input-group">
-                            <input type="email" name="email" class="form-control form-control-lg"
-                                value="{{ $userData->email }}" required>
-                            <button class="btn btn-dark" type="button" data-bs-toggle="modal"
-                                data-bs-target="#sendMailModal"><i data-feather="mail"></i> Send Email</button>
+                            <div class="personal-image">
+                                <label class="label">
+                                    <input type="file" name="profile_photo" id="profilePhotoInput" onchange="previewImage(this)" />
+                                    <figure class="personal-figure">
+                                        <img src="{{ asset('profile_photo/' . $userData->profile_photo ?? '149071.png') }}" class="personal-avatar" alt="avatar" id="profileImagePreview">
+                                    </figure>
+                                </label>
+                                <p>PNG, JPG, JPEG</p>
+                            </div>
+                            <span class="text-danger">
+                                @error('profile_photo')
+                                    {{ $message }}
+                                @enderror
+                            </span>
                         </div>
                     </div>
-                  <div class="mb-3">
-                    
-                     <label class="col-form-label">Status</label>
-                           <select class="form-control select2" name="status">
-                              <option value="">Please Select</option>
-                              <option value="1" @if($userData->status=="1") selected @endif>Yes</option>
-                              <option value="0" @if($userData->status=="0") selected @endif>No</option>
 
-                           </select>
-                           <span class="text-danger">@error('status'){{$message}}@enderror</span>
+                    <div class="col-sm-6">
+                        <label class="col-form-label">Nombre completo</label>
+                        <input class="form-control" type="text" name="name" value="{{ old('name', $userData->name) }}" placeholder="John">
+                        <span class="text-danger">
+                            @error('name')
+                                {{ $message }}
+                            @enderror
+                        </span>
+                    </div>
 
-                  </div>
+                    <div class="col-sm-6">
+                        <label class="col-form-label">Store Name</label>
+                        <input class="form-control" type="text" name="store" value="{{ old('store', $userData->store) }}">
+                        <span class="text-danger">
+                            @error('store')
+                                {{ $message }}
+                            @enderror
+                        </span>
+                    </div>
 
+                    <div class="col-sm-6">
+                        <label class="col-form-label">Department</label>
+                        <input class="form-control" type="text" name="department" value="{{ old('department', $userData->department) }}">
+                        <span class="text-danger">
+                            @error('department')
+                                {{ $message }}
+                            @enderror
+                        </span>
+                    </div>
 
-                  <div class="row g-2">
-                     <div class="col-sm-4">
-                        <button class="btn btn-primary" type="submit">Update</button>
-                     </div>
+                    <div class="col-sm-6">
+                        <label class="col-form-label">City</label>
+                        <input class="form-control" type="text" name="city" value="{{ old('city', $userData->city) }}" placeholder="India">
+                        <span class="text-danger">
+                            @error('city')
+                                {{ $message }}
+                            @enderror
+                        </span>
+                    </div>
 
-                  </div>
+                    <div class="col-sm-6">
+                        <label class="col-form-label">Location</label>
+                        <input class="form-control" type="text" name="location" value="{{ old('location', $userData->location) }}" placeholder="India">
+                        <span class="text-danger">
+                            @error('location')
+                                {{ $message }}
+                            @enderror
+                        </span>
+                    </div>
 
-               </form>
+                    <div class="col-sm-6">
+                        <label class="col-form-label">Correo electrónico</label>
+                        <input class="form-control" type="email" name="email" value="{{ old('email', $userData->email) }}">
+                        <span class="text-danger">
+                            @error('email')
+                                {{ $message }}
+                            @enderror
+                        </span>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label class="col-form-label">Contraseña</label>
+                        <input class="form-control" type="password" name="password" value="{{ old('password', $userData->password) }}">
+                        <span class="text-danger">
+                            @error('password')
+                                {{ $message }}
+                            @enderror
+                        </span>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label class="col-form-label">Mobile Number</label>
+                        <input class="form-control" type="text" name="mobile_number" value="{{ old('mobile_number', $userData->mobile_number) }}">
+                        <span class="text-danger">
+                            @error('mobile_number')
+                                {{ $message }}
+                            @enderror
+                        </span>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label class="col-form-label">Alter Mobile Number</label>
+                        <input class="form-control" type="text" name="alter_mobile_number" value="{{ old('alter_mobile_number', $userData->alter_mobile_number) }}">
+                        <span class="text-danger">
+                            @error('alter_mobile_number')
+                                {{ $message }}
+                            @enderror
+                        </span>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label class="col-form-label">Assign Category</label>
+                        <select class="form-control select2" multiple name="categories[]">
+                            <option value="">Please Select</option>
+                            @php
+                                $categories = explode(',', $userData->categories ?? '');
+                            @endphp
+                            <option value="bicycle" @if(in_array('bicycle', old('categories', $categories))) selected @endif>Bicycle</option>
+                            <option value="motorcycle" @if(in_array('motorcycle', old('categories', $categories))) selected @endif>Motorcycle</option>
+                            <option value="shimano" @if(in_array('shimano', old('categories', $categories))) selected @endif>Shimano</option>
+                            <option value="loadline" @if(in_array('loadline', old('categories', $categories))) selected @endif>Load Line</option>
+
+                        </select>
+                        <span class="text-danger">
+                            @error('categories')
+                                {{ $message }}
+                            @enderror
+                        </span>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label class="col-form-label">Assign Price</label>
+                        <br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" id="priceBicycle" name="price" value="price1" @if(old('price', $userData->price) == 'price1') checked @endif required>
+                            <label class="form-check-label" for="priceBicycle">Price 1</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" id="priceMotorcycle" name="price" value="price2" @if(old('price', $userData->price) == 'price2') checked @endif required>
+                            <label class="form-check-label" for="priceMotorcycle">Price 2</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" id="priceShimano" name="price" value="price3" @if(old('price', $userData->price) == 'price3') checked @endif required>
+                            <label class="form-check-label" for="priceShimano">Price 3</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" id="priceLoadline" name="price" value="price4" @if(old('price', $userData->price) == 'price4') checked @endif required>
+                            <label class="form-check-label" for="priceLoadline">Price 4</label>
+                        </div>
+                        <span class="text-danger">
+                            @error('price')
+                                {{ $message }}
+                            @enderror
+                        </span>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label class="col-form-label">Estado</label>
+                        <br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" id="statusYes" name="status" value="1" @if(old('status', $userData->status) == '1') checked @endif required>
+                            <label class="form-check-label" for="statusYes">Sí</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" id="statusNo" name="status" value="0" @if(old('status', $userData->status) == '0') checked @endif required>
+                            <label class="form-check-label" for="statusNo">No</label>
+                        </div>
+                        <span class="text-danger">
+                            @error('status')
+                                {{ $message }}
+                            @enderror
+                        </span>
+                    </div>
+
+                    <div class="row g-2">
+                        <div class="col-sm-4">
+                            <button class="btn btn-primary" type="submit">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <script>
+                function previewImage(input) {
+                    var preview = document.getElementById('profileImagePreview');
+                    var file = input.files[0];
+                    var reader = new FileReader();
+                    reader.onloadend = function() {
+                        preview.src = reader.result;
+                    }
+                    if (file) {
+                        reader.readAsDataURL(file);
+                    } else {
+                        preview.src = "149071.png"; // Default image when no file selected
+                    }
+                }
+            </script>
+
             </div>
          </div>
       </div>

@@ -763,7 +763,7 @@ class Admin extends Controller
             'store' => $request->store,
             'department' => $request->department,
             'location' => $request->location,
-            'price' => implode(',', $request->price),
+            'price' =>  $request->price,
             'categories' => implode(',', $request->categories),
             'alter_mobile_number' => $request->alter_mobile_number,
             'profile_photo' => $_FILES['profile_photo']['name'],
@@ -775,7 +775,7 @@ class Admin extends Controller
         $user->notify(new VerifyEmailNotification($user));
 
         if ($user) {
-            return redirect('users')->with('success', 'User Add Successfully');
+            return redirect('admin.users')->with('success', 'User Add Successfully');
         } else {
             return back()->with('fail', 'failed');
         }
@@ -808,8 +808,6 @@ class Admin extends Controller
         $request->validate([
             'profile_photo' => 'required',
 
-            'country' => 'required',
-
         ]);
 
         if (!empty($request->profile_photo)) {
@@ -827,7 +825,7 @@ class Admin extends Controller
         $data = User::find(Session::get('LoggedIn'));
         $data = User::where('id', '=', $request->user_id)->update([
             'name' => ($request->name),
-            'country' => ($request->country),
+
             'email' => ($request->email),
             'profile_photo' => $profile,
 
@@ -841,11 +839,30 @@ class Admin extends Controller
 
     public function update_user(Request $request)
     {
+        $user = User::findOrFail($request->user_id);
+        // Perform validation, including potentially unique email for existing users other than the current one
         $request->validate([
-
-            'country' => 'required',
-
+            'name' => 'required',
+            'email' => 'required|unique:users,email,' . $user->id, // Exclude current user from email uniqueness check
+            // 'password' => 'nullable|confirmed', // Only validate password if provided
+            'price' => 'required',
+            'categories' => 'required',
+            'alter_mobile_number' => 'required',
+            'mobile_number' => 'required',
+            'location' => 'required',
+            'department' => 'required',
+            'store' => 'required',
+            'city' => 'required'
         ]);
+
+        // Update user information only if fields are filled (prevents unnecessary updates)
+        if ($request->has('name')) {
+            $user->name = $request->name;
+        }
+        if ($request->has('email')) {
+            $user->email = $request->email;
+        }
+
 
         if (!empty($request->profile_photo)) {
 
@@ -861,11 +878,21 @@ class Admin extends Controller
         }
         $data = User::find(Session::get('LoggedIn'));
         $data = User::where('id', '=', $request->user_id)->update([
-            'name' => ($request->name),
-            'country' => ($request->country),
-            'email' => ($request->email),
+           'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+            'city' => ($request->city),
+            'store' => $request->store,
+            'department' => $request->department,
+            'location' => $request->location,
+            'price' =>  $request->price,
+            'categories' => implode(',', $request->categories),
+            'mobile_number' => $request->mobile_number,
+            'alter_mobile_number' => $request->alter_mobile_number,
+            'status' => $request->status,
+            'ip_address' => request()->ip(),
             'profile_photo' => $profile,
-            'status' => $request->status
+
 
         ]);
         if ($data) {

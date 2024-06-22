@@ -15,9 +15,6 @@ return [
 
     'asset_url' => env('ASSET_URL', null),
 
-    'show_version' => env('SHOW_VERSION', true),
-
-    'upgrade_mode' => env('UPGRADE_MODE', false),
 
     'timezone' => 'UTC',
 

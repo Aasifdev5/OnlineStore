@@ -18,19 +18,21 @@ use App\Http\Controllers\Admin\RoleController;
 
 use App\Http\Controllers\Admin\SettingController;
 
+use App\Http\Controllers\Admin\SubcategoryController;
+
 use App\Http\Controllers\Admin\SupportTicketController;
 
 use App\Http\Controllers\Admin\TagController;
 
 use App\Http\Controllers\ChatController;
-
 use App\Http\Controllers\EmailAppController;
 use App\Http\Controllers\FacebookSocialiteController;
-use App\Http\Controllers\FundController;
 
+use App\Http\Controllers\FundController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\MailTemplateController;
 use App\Http\Controllers\Pages;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\QRCodeController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\SubscriptionPlanController;
@@ -40,6 +42,8 @@ use App\Http\Middleware\SetLocale;
 use App\Models\Language;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
+
+
 
 
 
@@ -348,6 +352,22 @@ Route::group(['prefix' => 'admin'], function () {
             Route::get('edit/{uuid}', [CategoryController::class, 'edit'])->name('category.edit')->middleware('AdminIsLoggedIn');
             Route::post('update/{uuid}', [CategoryController::class, 'update'])->name('category.update');
             Route::get('delete/{uuid}', [CategoryController::class, 'delete'])->name('category.delete');
+        });
+        Route::prefix('subcategory')->group(function () {
+            Route::get('/', [SubcategoryController::class, 'index'])->name('subcategory.index');
+            Route::get('create', [SubcategoryController::class, 'create'])->name('subcategory.create');
+            Route::post('store', [SubcategoryController::class, 'store'])->name('subcategory.store');
+            Route::get('edit/{uuid}', [SubcategoryController::class, 'edit'])->name('subcategory.edit');
+            Route::post('update/{uuid}', [SubcategoryController::class, 'update'])->name('subcategory.update');
+            Route::delete('delete/{uuid}', [SubcategoryController::class, 'delete'])->name('subcategory.delete');
+        });
+        Route::prefix('product')->group(function () {
+            Route::get('/', [ProductController::class, 'index'])->name('product.index');
+            Route::get('create', [ProductController::class, 'create'])->name('product.create');
+            Route::post('store', [ProductController::class, 'store'])->name('product.store');
+            Route::get('edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
+            Route::post('update/{id}', [ProductController::class, 'update'])->name('product.update');
+            Route::delete('delete/{id}', [ProductController::class, 'delete'])->name('product.delete');
         });
         Route::group(['prefix' => 'blog', 'as' => 'blog.'], function () {
             Route::get('/', [BlogController::class, 'index'])->name('index')->middleware('AdminIsLoggedIn');

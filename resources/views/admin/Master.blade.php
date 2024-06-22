@@ -359,7 +359,7 @@
                                 </ul>
                             </li>
 
-                            <li>
+                            {{-- <li>
                                 <a class="sidebar-header" href="#">
                                     <i data-feather="settings"></i>
                                     <span>{{ __('Application') }}</span>
@@ -383,12 +383,7 @@
                                     </li>
 
 
-                                    {{-- <li class="">
-                            <a href="{{ route('settings.theme-setting') }}">
-                                <i class="fa fa-circle"></i>
-                                <span>{{__('Home Settings')}}</span>
-                            </a>
-                        </li> --}}
+
 
 
 
@@ -410,12 +405,7 @@
 
 
 
-                                    {{-- <li class="">
-                            <a href="{{ route('settings.faq.cms') }}">
-                                <i class="fa fa-circle"></i>
-                                <span>{{__('FAQ')}}</span>
-                            </a>
-                        </li> --}}
+
                                     <li class="">
                                         <a href="{{ route('settings.support-ticket.cms') }}">
                                             <i class="fa fa-circle"></i>
@@ -442,7 +432,7 @@
 
 
                                 </ul>
-                            </li>
+                            </li> --}}
 
                             <li><a class="sidebar-header" href="{{ url('admin/banners') }}"><i
                                         data-feather="monitor"></i><span>{{ __('Configuración de la Página de Inicio') }}
@@ -521,19 +511,24 @@
                             </li>
 
                             <li><a class="sidebar-header" href="#"><i data-feather="layers"></i><span>
-                                        {{ __('Gestión de Proyectos') }} </span><i
+                                        {{ __('Product Management') }} </span><i
                                         class="fa fa-angle-right pull-right"></i></a>
                                 <ul class="sidebar-submenu">
                                     <li>
                                         <a href="{{ route('category.index') }}">
                                             <i class="fa fa-circle"></i>
-                                            <span>{{ __('Categoría de Proyecto') }}</span>
+                                            <span>{{ __('Categoría') }}</span>
                                         </a>
                                     </li>
-                                    {{-- <li><a href="categories"><i class="fa fa-circle"></i>Project Category</a></li> --}}
-                                    <li><a href="{{ url('admin/Course_list') }}"><i
-                                                class="fa fa-circle"></i>{{ __('Lista de Proyectos') }}
-                                        </a></li>
+                                    <li>
+
+                                        <a href="{{route('subcategory.index')}}">
+                                            <i class="fa fa-circle"></i>
+                                            <span>{{__('Subcategory')}}</span>
+                                        </a>
+                                    </li>
+                                    <li><a href="{{ url('products') }}"><i class="fa fa-circle"></i>Product</a></li>
+
 
                                 </ul>
                             </li>

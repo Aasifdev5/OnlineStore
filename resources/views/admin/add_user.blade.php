@@ -41,8 +41,8 @@
                                                     onchange="previewImage(this)" />
                                                 <figure class="personal-figure">
 
-                                                    <img src="images/profile photo.png" class="personal-avatar"
-                                                        alt="avatar" id="profileImagePreview">
+                                                    <img src="149071.png" class="personal-avatar" alt="avatar"
+                                                        id="profileImagePreview">
 
 
                                                 </figure>
@@ -65,7 +65,7 @@
                                                 if (file) {
                                                     reader.readAsDataURL(file);
                                                 } else {
-                                                    preview.src = "images/profile photo.png"; // Default image when no file selected
+                                                    preview.src = "149071.png"; // Default image when no file selected
                                                 }
                                             }
                                         </script>
@@ -177,57 +177,89 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <label class="col-form-label">Assign Category</label>
-                                    <select class="form-control select2" multiple name="categories[]">
-                                        <option value="">Please Select</option>
-                                        <option value="bicycle">Bicycle</option>
-                                        <option value="motorcycle">Motorcycle</option>
-                                        <option value="shimano">Shimano</option>
-                                        <option value="loadline">Load Line</option>
-                                    </select>
-                                    <span class="text-danger">
-                                        @error('categories')
-                                            {{ $message }}
+                                    <div class="form-group">
+                                      <div>
+                                        <input type="radio" name="category" id="category_bicycle" value="bicycle">
+                                        <label for="category_bicycle">Bicycle</label>
+                                      </div>
+                                      <div>
+                                        <input type="radio" name="category" id="category_motorcycle" value="motorcycle">
+                                        <label for="category_motorcycle">Motorcycle</label>
+                                      </div>
+                                      <div>
+                                        <input type="radio" name="category" id="category_shimano" value="shimano">
+                                        <label for="category_shimano">Shimano</label>
+                                      </div>
+                                      <div>
+                                        <input type="radio" name="category" id="category_loadline" value="loadline">
+                                        <label for="category_loadline">Load Line</label>
+                                      </div>
+                                      <span class="text-danger">
+                                        @error('category')
+                                          {{ $message }}
                                         @enderror
-                                    </span>
-
-                                </div>
+                                      </span>
+                                    </div>
+                                  </div>
                                 <div class="col-sm-6">
                                     <label class="col-form-label">Assign Price</label>
-                                    <select class="form-control select2" multiple name="price[]">
-                                        <option value="">Please Select</option>
-                                        <option value="bicycle">Price 1</option>
-                                        <option value="motorcycle">Price 2</option>
-                                        <option value="shimano">Price 3</option>
-                                        <option value="loadline">Price 4</option>
-                                    </select>
+                                    <br>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" id="priceBicycle" name="price"
+                                            value="price1" required>
+                                        <label class="form-check-label" for="priceBicycle">Price 1 </label>
+                                    </div>
+
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" id="priceMotorcycle"
+                                            name="price" value="price2" required>
+                                        <label class="form-check-label" for="priceMotorcycle">Price 2 </label>
+                                    </div>
+
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" id="priceShimano" name="price"
+                                            value="price3" required>
+                                        <label class="form-check-label" for="priceShimano">Price 3 </label>
+                                    </div>
+
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" id="priceLoadline" name="price"
+                                            value="price4" required>
+                                        <label class="form-check-label" for="priceLoadline">Price 4 </label>
+                                    </div>
+
                                     <span class="text-danger">
                                         @error('price')
                                             {{ $message }}
                                         @enderror
                                     </span>
-
                                 </div>
                                 <div class="col-sm-6">
-
                                     <label class="col-form-label">Estado</label>
-                                    <select class="form-control select2" name="status">
-                                        <option value="">Please Select</option>
-                                        <option value="1">Sí</option>
-                                        <option value="0">No</option>
+                                    <br>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" id="statusYes" name="status"
+                                            value="1" required>
+                                        <label class="form-check-label" for="statusYes">Sí </label>
+                                    </div>
 
-                                    </select>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" id="statusNo" name="status"
+                                            value="0" required>
+                                        <label class="form-check-label" for="statusNo">No</label>
+                                    </div>
+
                                     <span class="text-danger">
                                         @error('status')
                                             {{ $message }}
                                         @enderror
                                     </span>
-
                                 </div>
 
 
                                 <div class="row g-2">
                                     <div class="col-sm-4">
-                                        <button class="btn btn-primary" type="submit">Ahorrar</button>
+                                        <button class="btn btn-primary" type="submit">submit</button>
                                     </div>
 
                                 </div>

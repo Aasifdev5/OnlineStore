@@ -100,10 +100,12 @@
                                     <label for="checkbox1">Recordarme</label>
                                 </div>
                                 <div class="form-row mt-3">
-                                    <button class="btn btn-primary btn-block w-100" type="submit">Iniciar sesión</button>
+                                    <button class="btn  btn-block w-100" style="background-color: black;
+  color:#fff;" type="submit">Iniciar sesión</button>
                                 </div>
                                 <div class="form-row mt-3">
-                                    <a href="forget_password" class="btn btn-secondary btn-block w-100" type="submit">
+                                    <a href="forget_password" style="background-color: #fadc00;color:#fff;
+  " class="btn  btn-block w-100" type="submit">
                                         Olvidé Contraseña</a>
                                 </div>
                                 <!-- <div class="login-divider"></div> -->
