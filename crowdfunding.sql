@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 09, 2024 at 03:42 PM
+-- Generation Time: Jun 22, 2024 at 02:32 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -55,6 +55,29 @@ CREATE TABLE `about_us_generals` (
 
 INSERT INTO `about_us_generals` (`id`, `gallery_area_title`, `gallery_area_subtitle`, `gallery_third_image`, `gallery_second_image`, `gallery_first_image`, `our_history_title`, `our_history_subtitle`, `upgrade_skill_logo`, `upgrade_skill_title`, `upgrade_skill_subtitle`, `upgrade_skill_button_name`, `team_member_logo`, `team_member_title`, `team_member_subtitle`, `instructor_support_title`, `instructor_support_subtitle`, `created_at`, `updated_at`) VALUES
 (1, 'Mere Tranquil Existence, That I Neglect My Talents Should', 'Possession Of My Entire Soul, Like These Sweet Mornings Of Spring Which I Enjoy With My Whole Heart. I Am Alone, And Charm Of Existence In This Spot, Which Was Created For The Bliss Of Souls Like Mine. I Am So Happy, My Dear Friend, So Absorbed In The Exquisite Sense Of Mere Tranquil', 'uploads_demo/gallery/3.jpg', 'uploads_demo/gallery/2.jpg', 'uploads_demo/gallery/1.jpg', 'Our History', 'Possession Of My Entire Soul, Like These Sweet Mornings Of Spring Which I Enjoy With My Whole Heart. I Am Alone, And Charm Of Existence In This Spot Which', 'uploads_demo/about_us_general/upgrade.jpg', 'Upgrade Your Skills Today For Upgrading Your Life A.', 'Noticed by me when I hear the buzz of the little world among the stalks, and grow familiar with the countless indescribable forms of the insects and flies, then I feel the presence stalks, and grow familiar with the countless', 'Find Your Course', 'uploads_demo/about_us_general/team-members-heading-img.png', 'Our Passionate Team Members', 'CHOOSE FROM 5,000 ONLINE VIDEO COURSES WITH NEW ADDITIONS', 'Quality Course, Instructor And Support', 'CHOOSE FROM 5,000 ONLINE VIDEO COURSES WITH NEW ADDITIONS', NULL, '2024-06-09 01:05:40');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `attributes`
+--
+
+CREATE TABLE `attributes` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `att_type` varchar(100) DEFAULT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  `color` varchar(100) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `attributes`
+--
+
+INSERT INTO `attributes` (`id`, `att_type`, `name`, `color`, `created_at`, `updated_at`) VALUES
+(1, NULL, 'Kg', NULL, '2022-08-02 03:44:19', '2022-08-02 03:44:42'),
+(2, NULL, 'Box', NULL, '2022-08-02 03:44:51', '2022-08-02 03:44:51');
 
 -- --------------------------------------------------------
 
@@ -267,6 +290,36 @@ INSERT INTO `blog_tags` (`id`, `blog_id`, `tag_id`, `created_at`, `updated_at`) 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `brands`
+--
+
+CREATE TABLE `brands` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(191) DEFAULT NULL,
+  `thumbnail` text DEFAULT NULL,
+  `is_featured` int(11) DEFAULT NULL,
+  `is_publish` int(11) DEFAULT NULL,
+  `lan` varchar(100) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `brands`
+--
+
+INSERT INTO `brands` (`id`, `name`, `thumbnail`, `is_featured`, `is_publish`, `lan`, `created_at`, `updated_at`) VALUES
+(1, 'Kari', '09092022091522-400x400-brand-3.png', 1, 1, 'en', '2022-07-30 03:05:01', '2022-09-08 21:45:53'),
+(2, 'Mina', '09092022091526-400x400-brand-5.png', 1, 1, 'en', '2022-07-30 03:05:28', '2022-09-08 21:46:05'),
+(3, 'Arod', '09092022091535-400x400-brand-7.png', 1, 1, 'en', '2022-07-30 03:05:43', '2022-09-08 21:46:16'),
+(4, 'Pana Food', '09092022091519-400x400-brand-2.png', 1, 1, 'en', '2022-07-30 03:06:07', '2022-09-08 21:46:25'),
+(5, 'Choicy', '09092022091528-400x400-brand-6.png', 1, 1, 'en', '2022-07-30 03:06:26', '2022-09-08 21:47:13'),
+(6, 'Vegeta', '09092022091517-400x400-brand-1.png', 1, 1, 'en', '2022-07-30 03:08:03', '2022-09-08 21:47:23'),
+(7, 'Nisha Dairy', '09092022091524-400x400-brand-4.png', 1, 1, 'en', '2022-07-30 03:08:17', '2022-09-08 21:47:32');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `campaigns`
 --
 
@@ -343,8 +396,6 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `uuid`, `name`, `image`, `is_feature`, `slug`, `meta_title`, `meta_description`, `meta_keywords`, `og_image`, `status`, `created_at`, `updated_at`) VALUES
-(3, 'd8cde16c-e98b-4991-adf9-f2b150789c90', 'Productividad', 'uploads/category/1711894889-NRPFi85om6.png', 'yes', 'Productividad', NULL, NULL, NULL, 'uploads/meta/1711894889-c7C4iAoMTz.png', 1, '2022-12-04 17:05:33', '2024-03-31 08:51:29'),
-(6, '57e18cf4-0050-4baf-8e10-3d9a65eaf8ed', 'Educación', 'uploads/category/1711873444-trQS5wLXcg.png', 'no', 'Educación', NULL, NULL, NULL, 'uploads/meta/1711873444-bKCFx43l6p.png', 1, '2022-12-04 17:05:33', '2024-03-31 02:54:04'),
 (7, '90cd37ac-b804-4095-a471-3651ec40718a', 'Diseño', 'uploads/category/1711952243-bxpq7BT3hU.png', 'no', 'Diseño', NULL, NULL, NULL, 'uploads/meta/1711873741-Pp45UkDnvf.png', 1, '2022-12-04 17:05:33', '2024-04-01 00:47:23'),
 (9, 'a1d1c370-5ce4-4bbc-9b27-5e8645282259', 'Tecnología', 'uploads/category/1711873546-zEEkXFlIHs.png', 'no', 'Tecnología', NULL, NULL, NULL, 'uploads/meta/1711873546-AhtaJbnpyt.png', 1, '2022-12-04 17:05:33', '2024-03-31 02:59:53'),
 (14, '86008391-2012-4caa-8a23-671590e5ce89', 'Médico', 'uploads/category/1711873644-7BrNKAri9h.png', 'no', 'Médico', NULL, NULL, NULL, 'uploads/meta/1711873644-LR7hxcxK2M.png', 1, '2024-03-31 01:43:56', '2024-03-31 02:57:24'),
@@ -735,7 +786,7 @@ CREATE TABLE `general_settings` (
 --
 
 INSERT INTO `general_settings` (`id`, `time_zone`, `default_language`, `styling`, `address`, `site_name`, `site_email`, `site_logo`, `site_favicon`, `site_description`, `site_keywords`, `site_header_code`, `site_footer_code`, `site_copyright`, `currency_code`, `footer_fb_link`, `footer_twitter_link`, `footer_instagram_link`, `footer_google_play_link`, `footer_apple_store_link`, `smtp_host`, `smtp_port`, `smtp_email`, `smtp_password`, `smtp_encryption`, `google_login`, `facebook_login`, `google_client_id`, `google_client_secret`, `google_redirect`, `facebook_app_id`, `facebook_client_secret`, `facebook_redirect`, `linkedin_login`, `linkedin_client_id`, `linkedin_app_id`, `Instagram_login`, `Instagram_client_id`, `instagram_app_id`, `git_login`, `git_client_id`, `git_app_id`, `twitter_login`, `twitter_client_id`, `twitter_app_id`, `created_at`, `updated_at`) VALUES
-(1, 'Pacific/Midway', 'English', '5619876543210', '722 NY ,US', 'ACELERA', 'acelera@gmail.com', 'logohorizontal.png', 'FAVICON.png', '<p>ACELERA</p>', 'ACELERA', '', '', '© Copyright by ACELERA 2024', 'Afghan Afghani', 'https://www.facebook.com/', 'https://twitter.com/?lang=en', 'https://www.instagram.com/', '', '', 'smtp.gmail.com', '465', 'ars3sssssss@gmail.com', 'aexvmzqihfdqmnno', 'TLS', 'yes', NULL, '8', '9876543210', 'http://127.0.0.1:8000/auth/git/callback', NULL, NULL, 'http://127.0.0.1:8000/auth/twitter/callback', 'yes', '6546544654', '512sd213sad1232df13sd2f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-03-30 23:31:36');
+(1, 'Pacific/Midway', 'English', '5619876543210', '722 NY ,US', 'BIKEBROS', 'BIKEBROS@gmail.com', 'logos bikebros.png', 'WhatsApp_Image_2024-06-19_at_20.37.04-removebg-preview.png', '<p>BIKEBROS</p>', 'BIKEBROS', '', '', '© Copyright by BIKEBROS 2024', 'Afghan Afghani', 'https://www.facebook.com/', 'https://twitter.com/?lang=en', 'https://www.instagram.com/', '', '', 'smtp.gmail.com', '465', 'ars3sssssss@gmail.com', 'aexvmzqihfdqmnno', 'TLS', 'yes', NULL, '8', '9876543210', 'http://127.0.0.1:8000/auth/git/callback', NULL, NULL, 'http://127.0.0.1:8000/auth/twitter/callback', 'yes', '6546544654', '512sd213sad1232df13sd2f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-21 23:19:37');
 
 -- --------------------------------------------------------
 
@@ -856,6 +907,289 @@ INSERT INTO `mail_templates` (`id`, `alias`, `name`, `subject`, `body`, `shortco
 (10, 'password_reset', 'Restablecer Contraseña', 'Notificación de Restablecimiento de Contraseña', '<p><strong>Reset Password Notification</strong></p><p><img src=\"../../../logo-removebg-preview.png\" alt=\"\"></p><h2><strong>Hello!</strong></h2><p>You are receiving this email because we received a password reset request for your account, please click on the link below to reset your password.</p><p><a href=\"{{link}}\">{{link}}</a></p><p>This password reset link will expire in <strong>15</strong> minutes. If you did not request a password reset, no further action is required.</p><p><strong>Best Regards</strong></p><p><strong>ACELERA Team</strong></p><p>&nbsp;<a href=\"https://www.instagram.com/skyforecasting/\"><img src=\"https://skyforecasting.net/help-center/media/images/ofBRYlvT1cu30VS_1700260141.png\"></a> <a href=\"https://twitter.com/skyforecasting\"><img src=\"https://skyforecasting.net/help-center/media/images/lSr0pUYldGRD46h_1700260215.png\"></a> <img src=\"https://skyforecasting.net/help-center/media/images/pk8iEq2c7f3mICO_1700260869.png\"> <img src=\"https://skyforecasting.net/help-center/media/images/krFVCzRVOornVih_1700260896.png\"></p><p>You received this email because you subscribed to our list.<br>&nbsp;<a href=\"https://skyforecasting.net/unsubscribepage/unsubscribe.html\">Unsubscribe</a> from future emails or update email preferences.<br>© 2024 ACELERA. All Rights Reserved.</p><p>&nbsp;</p><p><br>&nbsp;</p><p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</p><p>&nbsp;</p>', '{\n\"link\":\"Password reset link\",\n\"expiry_time\":\"Link expiry time\",\n\"website_name\":\"Your website name\"\n}', 1),
 (11, 'email_verification', 'Verificación de Correo Electrónico', 'Verificar Dirección de Correo Electrónico', '<p><strong>Verify Email Address</strong></p><p><img src=\"../../../logo-removebg-preview.png\" alt=\"\"></p><h2>Hello!</h2><p>Please click on the link below to verify your email address.</p><p><a href=\"{{link}}\">{{link}}</a></p><p>If you did not create an account, no further action is required.</p><p><br><strong>Best Regards</strong></p><p><strong>ACELERA&nbsp; Team</strong></p><p>&nbsp;<a href=\"https://www.instagram.com/skyforecasting/\"><img src=\"https://skyforecasting.net/help-center/media/images/ofBRYlvT1cu30VS_1700260141.png\"></a> <a href=\"https://twitter.com/skyforecasting\"><img src=\"https://skyforecasting.net/help-center/media/images/lSr0pUYldGRD46h_1700260215.png\"></a> <a href=\"https://www.facebook.com/profile.php?id=61553152322786\"><img src=\"https://skyforecasting.net/help-center/media/images/pk8iEq2c7f3mICO_1700260869.png\"></a> <a href=\"https://www.youtube.com/channel/UCscdHPJ4f79CAmiO2f9gJoA\"><img src=\"https://skyforecasting.net/help-center/media/images/krFVCzRVOornVih_1700260896.png\"></a></p><p>You received this email because you subscribed to our list.<br>&nbsp;<a href=\"https://skyforecasting.net/unsubscribepage/unsubscribe.html\">Unsubscribe</a> from future emails or update email preferences.<br>© 2024 ACELERA. All Rights Reserved.</p>', '{\"link\":\"Email verification link\",\"website_name\":\"Your website name\"}', 1),
 (18, 'welcome', 'Bienvenida', 'Bienvenido a ACELERA', '<h2><strong>Welcome to ACELERA&nbsp;</strong></h2><p><strong><img src=\"../../../logo-removebg-preview.png\" alt=\"\"></strong></p><p>Hey {{name}},&nbsp;</p><p>Welcome to &nbsp;<strong>ACELERA</strong>! We’re so excited to have you on board.</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Start Exploring</p><p>If you have any questions along the way, don’t hesitate to reach out to our customer success team. We’re always here to help.</p><p><br><strong>Best Regards</strong></p><p><strong>ACELERA&nbsp; Team</strong></p><p>&nbsp;<a href=\"https://www.instagram.com/skyforecasting/\"><img src=\"https://skyforecasting.net/help-center/media/images/ofBRYlvT1cu30VS_1700260141.png\"></a> <a href=\"https://twitter.com/skyforecasting\"><img src=\"https://skyforecasting.net/help-center/media/images/lSr0pUYldGRD46h_1700260215.png\"></a> <a href=\"https://www.facebook.com/profile.php?id=61553152322786\"><img src=\"https://skyforecasting.net/help-center/media/images/pk8iEq2c7f3mICO_1700260869.png\"></a> <a href=\"https://www.youtube.com/channel/UCscdHPJ4f79CAmiO2f9gJoA\"><img src=\"https://skyforecasting.net/help-center/media/images/krFVCzRVOornVih_1700260896.png\"></a></p><p>You received this email because you subscribed to our list.<br>&nbsp;<a href=\"https://skyforecasting.net/unsubscribepage/unsubscribe.html\">Unsubscribe</a> from future emails or update email preferences.<br>© 2024 &nbsp;ACELERA. All Rights Reserved.</p>', '{\"name\":\"name\",\"website_name\":\"Your website name\"}', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `media_options`
+--
+
+CREATE TABLE `media_options` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `title` text DEFAULT NULL,
+  `alt_title` text DEFAULT NULL,
+  `thumbnail` text DEFAULT NULL,
+  `large_image` text DEFAULT NULL,
+  `option_value` longtext DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `media_options`
+--
+
+INSERT INTO `media_options` (`id`, `title`, `alt_title`, `thumbnail`, `large_image`, `option_value`, `created_at`, `updated_at`) VALUES
+(247, 'photo', 'photo', '06082021041147-photo.png', '06082021041147-photo.png', '21950', '2021-08-05 16:41:47', '2021-08-05 16:41:47'),
+(331, 'payment', 'payment', '16112021165416-200x200-payment.png', '16112021165416-payment.png', '8212', '2021-11-16 05:24:16', '2021-11-16 05:24:16'),
+(441, 'favicon', 'favicon', '24062022060012-favicon.ico', '24062022060012-favicon.ico', '5430', '2022-06-23 18:30:12', '2022-06-23 18:30:12'),
+(442, 'logo', 'logo', '24062022060027-200x200-logo.png', '24062022060027-logo.png', '16775', '2022-06-23 18:30:27', '2022-06-23 18:30:27'),
+(443, 'h1-layer1', 'h1-layer1', '01072022095731-200x200-h1-layer1.png', '01072022095731-h1-layer1.png', '1040462', '2022-06-30 22:27:31', '2022-06-30 22:27:31'),
+(444, 'h1-layer5', 'h1-layer5', '01072022095735-200x200-h1-layer5.png', '01072022095735-h1-layer5.png', '366096', '2022-06-30 22:27:35', '2022-06-30 22:27:35'),
+(445, 'h1-layer2', 'h1-layer2', '01072022095745-200x200-h1-layer2.png', '01072022095745-h1-layer2.png', '33634', '2022-06-30 22:27:45', '2022-06-30 22:27:45'),
+(446, 'h1-layer3', 'h1-layer3', '01072022095750-200x200-h1-layer3.png', '01072022095750-h1-layer3.png', '50012', '2022-06-30 22:27:50', '2022-06-30 22:27:50'),
+(447, 'h1-layer4', 'h1-layer4', '01072022095752-200x200-h1-layer4.png', '01072022095752-h1-layer4.png', '49803', '2022-06-30 22:27:52', '2022-06-30 22:27:52'),
+(448, 'h1-layer6', 'h1-layer6', '01072022095755-200x200-h1-layer6.png', '01072022095755-h1-layer6.png', '36640', '2022-06-30 22:27:55', '2022-06-30 22:27:55'),
+(449, 'h1-layer7', 'h1-layer7', '01072022095757-200x200-h1-layer7.png', '01072022095757-h1-layer7.png', '46145', '2022-06-30 22:27:57', '2022-06-30 22:27:57'),
+(450, 'h1-layer8', 'h1-layer8', '01072022095801-200x200-h1-layer8.png', '01072022095801-h1-layer8.png', '35519', '2022-06-30 22:28:01', '2022-06-30 22:28:01'),
+(452, 'vegetables', 'vegetables', '01072022115801-600x600-vegetables.png', '01072022115801-vegetables.png', '184224', '2022-07-01 00:28:01', '2022-07-01 00:28:01'),
+(453, 'fruit', 'fruit', '01072022120122-600x600-fruit.png', '01072022120122-fruit.png', '177132', '2022-07-01 00:31:22', '2022-07-01 00:31:22'),
+(454, 'nutt-and-seeds', 'nutt-and-seeds', '01072022120255-600x600-nutt-and-seeds.png', '01072022120255-nutt-and-seeds.png', '191746', '2022-07-01 00:32:55', '2022-07-01 00:32:55'),
+(455, 'bread-and-bakery', 'bread-and-bakery', '01072022120359-600x600-bread-and-bakery.png', '01072022120359-bread-and-bakery.png', '274261', '2022-07-01 00:33:59', '2022-07-01 00:33:59'),
+(456, 'juice', 'juice', '01072022120554-600x600-juice.png', '01072022120554-juice.png', '125565', '2022-07-01 00:35:54', '2022-07-01 00:35:54'),
+(457, 'fast-food', 'fast-food', '01072022120657-600x600-fast-food.png', '01072022120657-fast-food.png', '245879', '2022-07-01 00:36:57', '2022-07-01 00:36:57'),
+(458, 'milk-and-dairy', 'milk-and-dairy', '01072022120745-600x600-milk-and-dairy.png', '01072022120745-milk-and-dairy.png', '166360', '2022-07-01 00:37:45', '2022-07-01 00:37:45'),
+(459, 'fresh-meat', 'fresh-meat', '01072022120831-600x600-fresh-meat.png', '01072022120831-fresh-meat.png', '150740', '2022-07-01 00:38:31', '2022-07-01 00:38:31'),
+(460, 'fresh-seafood', 'fresh-seafood', '01072022120911-600x600-fresh-seafood.png', '01072022120911-fresh-seafood.png', '158387', '2022-07-01 00:39:11', '2022-07-01 00:39:11'),
+(461, 'dry-food', 'dry-food', '01072022121020-600x600-dry-food.png', '01072022121020-dry-food.png', '172173', '2022-07-01 00:40:20', '2022-07-01 00:40:20'),
+(462, 'coffee-and-tea', 'coffee-and-tea', '01072022121100-600x600-coffee-and-tea.png', '01072022121100-coffee-and-tea.png', '157391', '2022-07-01 00:41:00', '2022-07-01 00:41:00'),
+(463, 'offer-1', 'offer-1', '17072022160150-200x200-offer-1.png', '17072022160150-offer-1.png', '60795', '2022-07-17 04:31:50', '2022-07-17 04:31:50'),
+(464, 'offer-2', 'offer-2', '17072022161053-200x200-offer-2.png', '17072022161053-offer-2.png', '52478', '2022-07-17 04:40:53', '2022-07-17 04:40:53'),
+(465, 'offer-3', 'offer-3', '17072022161130-200x200-offer-3.png', '17072022161130-offer-3.png', '61968', '2022-07-17 04:41:30', '2022-07-17 04:41:30'),
+(466, 'h1_video_bg', 'h1_video_bg', '17072022175837-200x200-h1_video_bg.jpg', '17072022175837-h1_video_bg.jpg', '340793', '2022-07-17 06:28:38', '2022-07-17 06:28:38'),
+(467, 'footer-top', 'footer-top', '22072022102835-200x200-footer-top.jpg', '22072022102835-footer-top.jpg', '90298', '2022-07-21 22:58:35', '2022-07-21 22:58:35'),
+(490, '12', '12', '31072022063509-200x200-12.jpg', '31072022063509-12.jpg', '41008', '2022-07-30 19:05:09', '2022-07-30 19:05:09'),
+(491, '14', '14', '31072022063515-200x200-14.jpg', '31072022063515-14.jpg', '63049', '2022-07-30 19:05:16', '2022-07-30 19:05:16'),
+(494, '3', '3', '31072022063546-200x200-3.jpg', '31072022063546-3.jpg', '46379', '2022-07-30 19:05:46', '2022-07-30 19:05:46'),
+(496, '5', '5', '31072022063557-200x200-5.jpg', '31072022063557-5.jpg', '46928', '2022-07-30 19:05:57', '2022-07-30 19:05:57'),
+(499, '30', '30', '31072022063653-200x200-30.jpg', '31072022063653-30.jpg', '55133', '2022-07-30 19:06:53', '2022-07-30 19:06:53'),
+(500, '29', '29', '31072022063710-200x200-29.jpg', '31072022063710-29.jpg', '61829', '2022-07-30 19:07:10', '2022-07-30 19:07:10'),
+(503, '10', '10', '31072022063732-200x200-10.jpg', '31072022063732-10.jpg', '35410', '2022-07-30 19:07:32', '2022-07-30 19:07:32'),
+(505, '5', '5', '31072022063751-200x200-5.jpg', '31072022063751-5.jpg', '35048', '2022-07-30 19:07:51', '2022-07-30 19:07:51'),
+(507, '2', '2', '31072022063809-200x200-2.jpg', '31072022063809-2.jpg', '63377', '2022-07-30 19:08:09', '2022-07-30 19:08:09'),
+(510, '11', '11', '31072022063840-200x200-11.jpg', '31072022063840-11.jpg', '86598', '2022-07-30 19:08:40', '2022-07-30 19:08:40'),
+(511, '8', '8', '31072022063845-200x200-8.jpg', '31072022063845-8.jpg', '61285', '2022-07-30 19:08:45', '2022-07-30 19:08:45'),
+(512, '2', '2', '31072022063900-200x200-2.jpg', '31072022063900-2.jpg', '75753', '2022-07-30 19:09:00', '2022-07-30 19:09:00'),
+(516, '9', '9', '31072022063932-200x200-9.jpg', '31072022063932-9.jpg', '68512', '2022-07-30 19:09:32', '2022-07-30 19:09:32'),
+(517, '5', '5', '31072022063945-200x200-5.jpg', '31072022063945-5.jpg', '62257', '2022-07-30 19:09:45', '2022-07-30 19:09:45'),
+(520, '1', '1', '31072022064011-200x200-1.jpg', '31072022064011-1.jpg', '57186', '2022-07-30 19:10:11', '2022-07-30 19:10:11'),
+(521, '4', '4', '31072022064016-200x200-4.jpg', '31072022064016-4.jpg', '46090', '2022-07-30 19:10:16', '2022-07-30 19:10:16'),
+(522, '10', '10', '31072022064024-200x200-10.jpg', '31072022064024-10.jpg', '49349', '2022-07-30 19:10:24', '2022-07-30 19:10:24'),
+(526, '27', '27', '31072022064110-200x200-27.jpg', '31072022064110-27.jpg', '62831', '2022-07-30 19:11:10', '2022-07-30 19:11:10'),
+(528, '10', '10', '31072022064129-200x200-10.jpg', '31072022064129-10.jpg', '75878', '2022-07-30 19:11:29', '2022-07-30 19:11:29'),
+(529, '8', '8', '31072022064141-200x200-8.jpg', '31072022064141-8.jpg', '72609', '2022-07-30 19:11:41', '2022-07-30 19:11:41'),
+(531, '11', '11', '31072022064207-200x200-11.jpg', '31072022064207-11.jpg', '73004', '2022-07-30 19:12:07', '2022-07-30 19:12:07'),
+(532, '5', '5', '31072022064214-200x200-5.jpg', '31072022064214-5.jpg', '77496', '2022-07-30 19:12:14', '2022-07-30 19:12:14'),
+(533, '3', '3', '31072022064218-200x200-3.jpg', '31072022064218-3.jpg', '60534', '2022-07-30 19:12:18', '2022-07-30 19:12:18'),
+(536, '7', '7', '01082022172357-400x400-7.jpg', '01082022172357-7.jpg', '56749', '2022-08-01 05:53:57', '2022-08-01 05:53:57'),
+(537, '18', '18', '01082022172527-400x400-18.jpg', '01082022172527-18.jpg', '55772', '2022-08-01 05:55:27', '2022-08-01 05:55:27'),
+(538, '1', '1', '01082022172600-400x400-1.jpg', '01082022172600-1.jpg', '54636', '2022-08-01 05:56:00', '2022-08-01 05:56:00'),
+(539, '24', '24', '01082022172650-400x400-24.jpg', '01082022172650-24.jpg', '62342', '2022-08-01 05:56:51', '2022-08-01 05:56:51'),
+(540, '7', '7', '01082022172712-400x400-7.jpg', '01082022172712-7.jpg', '66843', '2022-08-01 05:57:12', '2022-08-01 05:57:12'),
+(541, '3', '3', '01082022172737-400x400-3.jpg', '01082022172737-3.jpg', '75007', '2022-08-01 05:57:37', '2022-08-01 05:57:37'),
+(542, '3', '3', '01082022172802-400x400-3.jpg', '01082022172802-3.jpg', '43906', '2022-08-01 05:58:03', '2022-08-01 05:58:03'),
+(543, '11', '11', '01082022172825-400x400-11.jpg', '01082022172825-11.jpg', '58720', '2022-08-01 05:58:25', '2022-08-01 05:58:25'),
+(544, '9', '9', '01082022172846-400x400-9.jpg', '01082022172846-9.jpg', '65534', '2022-08-01 05:58:46', '2022-08-01 05:58:46'),
+(545, '1', '1', '01082022172932-400x400-1.jpg', '01082022172932-1.jpg', '59010', '2022-08-01 05:59:32', '2022-08-01 05:59:32'),
+(546, '8', '8', '01082022172956-400x400-8.jpg', '01082022172956-8.jpg', '70583', '2022-08-01 05:59:56', '2022-08-01 05:59:56'),
+(547, '17', '17', '01082022173019-400x400-17.jpg', '01082022173019-17.jpg', '59888', '2022-08-01 06:00:19', '2022-08-01 06:00:19'),
+(548, '9', '9', '01082022173052-400x400-9.jpg', '01082022173052-9.jpg', '69396', '2022-08-01 06:00:52', '2022-08-01 06:00:52'),
+(549, '4', '4', '01082022173115-400x400-4.jpg', '01082022173115-4.jpg', '65766', '2022-08-01 06:01:15', '2022-08-01 06:01:15'),
+(550, '1', '1', '01082022173141-400x400-1.jpg', '01082022173141-1.jpg', '65230', '2022-08-01 06:01:41', '2022-08-01 06:01:41'),
+(551, '4', '4', '01082022173225-400x400-4.jpg', '01082022173225-4.jpg', '33162', '2022-08-01 06:02:25', '2022-08-01 06:02:25'),
+(552, '1', '1', '01082022173248-400x400-1.jpg', '01082022173248-1.jpg', '51039', '2022-08-01 06:02:48', '2022-08-01 06:02:48'),
+(553, '14', '14', '01082022173741-400x400-14.jpg', '01082022173741-14.jpg', '43219', '2022-08-01 06:07:41', '2022-08-01 06:07:41'),
+(555, '4', '4', '01082022174052-400x400-4.jpg', '01082022174052-4.jpg', '61634', '2022-08-01 06:10:52', '2022-08-01 06:10:52'),
+(556, '18', '18', '02082022143408-400x400-18.jpg', '02082022143408-18.jpg', '44654', '2022-08-02 03:04:08', '2022-08-02 03:04:08'),
+(557, '8', '8', '02082022143457-400x400-8.jpg', '02082022143457-8.jpg', '46149', '2022-08-02 03:04:57', '2022-08-02 03:04:57'),
+(558, '5', '5', '02082022143530-400x400-5.jpg', '02082022143530-5.jpg', '51760', '2022-08-02 03:05:30', '2022-08-02 03:05:30'),
+(560, '1', '1', '02082022143652-400x400-1.jpg', '02082022143652-1.jpg', '57333', '2022-08-02 03:06:52', '2022-08-02 03:06:52'),
+(561, '6', '6', '02082022143742-400x400-6.jpg', '02082022143742-6.jpg', '39486', '2022-08-02 03:07:42', '2022-08-02 03:07:42'),
+(562, '4', '4', '02082022143827-400x400-4.jpg', '02082022143827-4.jpg', '42217', '2022-08-02 03:08:27', '2022-08-02 03:08:27'),
+(563, '2', '2', '02082022143908-400x400-2.jpg', '02082022143908-2.jpg', '41853', '2022-08-02 03:09:08', '2022-08-02 03:09:08'),
+(564, '9', '9', '02082022143955-400x400-9.jpg', '02082022143955-9.jpg', '31239', '2022-08-02 03:09:55', '2022-08-02 03:09:55'),
+(565, '4', '4', '02082022144027-400x400-4.jpg', '02082022144027-4.jpg', '35467', '2022-08-02 03:10:27', '2022-08-02 03:10:27'),
+(566, '5', '5', '02082022144140-400x400-5.jpg', '02082022144140-5.jpg', '41636', '2022-08-02 03:11:40', '2022-08-02 03:11:40'),
+(567, '6', '6', '02082022144221-400x400-6.jpg', '02082022144221-6.jpg', '32997', '2022-08-02 03:12:21', '2022-08-02 03:12:21'),
+(568, '4', '4', '02082022144310-400x400-4.jpg', '02082022144310-4.jpg', '38297', '2022-08-02 03:13:10', '2022-08-02 03:13:10'),
+(569, '3', '3', '02082022144346-400x400-3.jpg', '02082022144346-3.jpg', '40960', '2022-08-02 03:13:46', '2022-08-02 03:13:46'),
+(572, '26', '26', '05082022165653-400x400-26.jpg', '05082022165653-26.jpg', '59629', '2022-08-05 05:26:53', '2022-08-05 05:26:53'),
+(578, '1-garlic', '1-garlic', '18082022123324-600x600-1-garlic.jpg', '18082022123324-1-garlic.jpg', '69229', '2022-08-18 01:03:24', '2022-08-18 01:03:24'),
+(579, '2-garlic', '2-garlic', '18082022123333-600x600-2-garlic.jpg', '18082022123333-2-garlic.jpg', '71703', '2022-08-18 01:03:33', '2022-08-18 01:03:33'),
+(580, '3-garlic', '3-garlic', '18082022123337-600x600-3-garlic.jpg', '18082022123337-3-garlic.jpg', '69346', '2022-08-18 01:03:37', '2022-08-18 01:03:37'),
+(581, '4-garlic', '4-garlic', '18082022123536-600x600-4-garlic.jpg', '18082022123536-4-garlic.jpg', '69533', '2022-08-18 01:05:36', '2022-08-18 01:05:36'),
+(582, '5-garlic', '5-garlic', '18082022123541-600x600-5-garlic.jpg', '18082022123541-5-garlic.jpg', '61794', '2022-08-18 01:05:41', '2022-08-18 01:05:41'),
+(583, '6-garlic', '6-garlic', '18082022123544-600x600-6-garlic.jpg', '18082022123544-6-garlic.jpg', '71937', '2022-08-18 01:05:44', '2022-08-18 01:05:44'),
+(584, '1-red-pepper', '1-red-pepper', '18082022135056-600x600-1-red-pepper.jpg', '18082022135056-1-red-pepper.jpg', '67020', '2022-08-18 02:20:56', '2022-08-18 02:20:56'),
+(585, '2-red-pepper', '2-red-pepper', '18082022135100-600x600-2-red-pepper.jpg', '18082022135100-2-red-pepper.jpg', '70681', '2022-08-18 02:21:00', '2022-08-18 02:21:00'),
+(586, '3-red-pepper', '3-red-pepper', '18082022135103-600x600-3-red-pepper.jpg', '18082022135103-3-red-pepper.jpg', '83263', '2022-08-18 02:21:03', '2022-08-18 02:21:03'),
+(587, '4-red-pepper', '4-red-pepper', '18082022135106-600x600-4-red-pepper.jpg', '18082022135106-4-red-pepper.jpg', '97895', '2022-08-18 02:21:06', '2022-08-18 02:21:06'),
+(588, '5-red-pepper', '5-red-pepper', '18082022135110-600x600-5-red-pepper.jpg', '18082022135110-5-red-pepper.jpg', '85304', '2022-08-18 02:21:10', '2022-08-18 02:21:10'),
+(589, '6-red-pepper', '6-red-pepper', '18082022135113-600x600-6-red-pepper.jpg', '18082022135113-6-red-pepper.jpg', '86126', '2022-08-18 02:21:13', '2022-08-18 02:21:13'),
+(590, 'home1-bg-slider', 'home1-bg-slider', '18082022135936-400x400-home1-bg-slider.jpg', '18082022135936-home1-bg-slider.jpg', '46631', '2022-08-18 02:29:36', '2022-08-18 02:29:36'),
+(591, 'home1-bg-offer', 'home1-bg-offer', '18082022140338-400x400-home1-bg-offer.jpg', '18082022140338-home1-bg-offer.jpg', '39542', '2022-08-18 02:33:38', '2022-08-18 02:33:38'),
+(592, 'footer_bg', 'footer_bg', '18082022140802-400x400-footer_bg.jpg', '18082022140802-footer_bg.jpg', '39542', '2022-08-18 02:38:02', '2022-08-18 02:38:02'),
+(593, '1-potato', '1-potato', '18082022140944-600x600-1-potato.jpg', '18082022140944-1-potato.jpg', '64023', '2022-08-18 02:39:44', '2022-08-18 02:39:44'),
+(594, '2-potato', '2-potato', '18082022140948-600x600-2-potato.jpg', '18082022140948-2-potato.jpg', '79022', '2022-08-18 02:39:48', '2022-08-18 02:39:48'),
+(595, '3-potato', '3-potato', '18082022140954-600x600-3-potato.jpg', '18082022140954-3-potato.jpg', '78839', '2022-08-18 02:39:54', '2022-08-18 02:39:54'),
+(596, '4-potato', '4-potato', '18082022140957-600x600-4-potato.jpg', '18082022140957-4-potato.jpg', '78735', '2022-08-18 02:39:57', '2022-08-18 02:39:57'),
+(597, '5-potato', '5-potato', '18082022141000-600x600-5-potato.jpg', '18082022141000-5-potato.jpg', '69201', '2022-08-18 02:40:00', '2022-08-18 02:40:00'),
+(598, '6-potato', '6-potato', '18082022141004-600x600-6-potato.jpg', '18082022141004-6-potato.jpg', '97305', '2022-08-18 02:40:04', '2022-08-18 02:40:04'),
+(599, '7-potato', '7-potato', '18082022141007-600x600-7-potato.jpg', '18082022141007-7-potato.jpg', '99215', '2022-08-18 02:40:08', '2022-08-18 02:40:08'),
+(600, '1-lotus-seeds', '1-lotus-seeds', '18082022150003-600x600-1-lotus-seeds.jpg', '18082022150003-1-lotus-seeds.jpg', '76427', '2022-08-18 03:30:03', '2022-08-18 03:30:03'),
+(601, '2-lotus-seeds', '2-lotus-seeds', '18082022150007-600x600-2-lotus-seeds.jpg', '18082022150007-2-lotus-seeds.jpg', '62658', '2022-08-18 03:30:07', '2022-08-18 03:30:07'),
+(602, '3-lotus-seeds', '3-lotus-seeds', '18082022150010-600x600-3-lotus-seeds.jpg', '18082022150010-3-lotus-seeds.jpg', '72466', '2022-08-18 03:30:10', '2022-08-18 03:30:10'),
+(603, '4-lotus-seeds', '4-lotus-seeds', '18082022150026-600x600-4-lotus-seeds.jpg', '18082022150026-4-lotus-seeds.jpg', '57106', '2022-08-18 03:30:26', '2022-08-18 03:30:26'),
+(604, '5-lotus-seeds', '5-lotus-seeds', '18082022150029-600x600-5-lotus-seeds.jpg', '18082022150029-5-lotus-seeds.jpg', '83364', '2022-08-18 03:30:29', '2022-08-18 03:30:29'),
+(605, '6-lotus-seeds', '6-lotus-seeds', '18082022150032-600x600-6-lotus-seeds.jpg', '18082022150032-6-lotus-seeds.jpg', '86399', '2022-08-18 03:30:32', '2022-08-18 03:30:32'),
+(606, '7-lotus-seeds', '7-lotus-seeds', '18082022150036-600x600-7-lotus-seeds.jpg', '18082022150036-7-lotus-seeds.jpg', '75138', '2022-08-18 03:30:36', '2022-08-18 03:30:36'),
+(607, '1-pistachio', '1-pistachio', '18082022151446-600x600-1-pistachio.jpg', '18082022151446-1-pistachio.jpg', '77898', '2022-08-18 03:44:46', '2022-08-18 03:44:46'),
+(608, '2-pistachio', '2-pistachio', '18082022151450-600x600-2-pistachio.jpg', '18082022151450-2-pistachio.jpg', '111159', '2022-08-18 03:44:50', '2022-08-18 03:44:50'),
+(609, '3-pistachio', '3-pistachio', '18082022151452-600x600-3-pistachio.jpg', '18082022151452-3-pistachio.jpg', '79510', '2022-08-18 03:44:53', '2022-08-18 03:44:53'),
+(610, '4-pistachio', '4-pistachio', '18082022151457-600x600-4-pistachio.jpg', '18082022151457-4-pistachio.jpg', '74206', '2022-08-18 03:44:57', '2022-08-18 03:44:57'),
+(611, '5-pistachio', '5-pistachio', '18082022151500-600x600-5-pistachio.jpg', '18082022151500-5-pistachio.jpg', '77471', '2022-08-18 03:45:00', '2022-08-18 03:45:00'),
+(612, '6-pistachio', '6-pistachio', '18082022151502-600x600-6-pistachio.jpg', '18082022151502-6-pistachio.jpg', '92185', '2022-08-18 03:45:02', '2022-08-18 03:45:02'),
+(613, '7-pistachio', '7-pistachio', '18082022151504-600x600-7-pistachio.jpg', '18082022151504-7-pistachio.jpg', '70181', '2022-08-18 03:45:04', '2022-08-18 03:45:04'),
+(614, '1-walnuts', '1-walnuts', '18082022153802-600x600-1-walnuts.jpg', '18082022153802-1-walnuts.jpg', '98086', '2022-08-18 04:08:02', '2022-08-18 04:08:02'),
+(615, '2-walnuts', '2-walnuts', '18082022153806-600x600-2-walnuts.jpg', '18082022153806-2-walnuts.jpg', '83638', '2022-08-18 04:08:06', '2022-08-18 04:08:06'),
+(616, '3-walnuts', '3-walnuts', '18082022153808-600x600-3-walnuts.jpg', '18082022153808-3-walnuts.jpg', '83992', '2022-08-18 04:08:08', '2022-08-18 04:08:08'),
+(617, '4-walnuts', '4-walnuts', '18082022153810-600x600-4-walnuts.jpg', '18082022153810-4-walnuts.jpg', '104663', '2022-08-18 04:08:10', '2022-08-18 04:08:10'),
+(618, '5-walnuts', '5-walnuts', '18082022153812-600x600-5-walnuts.jpg', '18082022153812-5-walnuts.jpg', '67250', '2022-08-18 04:08:12', '2022-08-18 04:08:12'),
+(619, '1-milk-splash', '1-milk-splash', '18082022155122-600x600-1-milk-splash.jpg', '18082022155122-1-milk-splash.jpg', '51650', '2022-08-18 04:21:22', '2022-08-18 04:21:22'),
+(620, '2-milk-splash', '2-milk-splash', '18082022155126-600x600-2-milk-splash.jpg', '18082022155126-2-milk-splash.jpg', '54281', '2022-08-18 04:21:26', '2022-08-18 04:21:26'),
+(621, '3-milk-splash', '3-milk-splash', '18082022155129-600x600-3-milk-splash.jpg', '18082022155129-3-milk-splash.jpg', '54653', '2022-08-18 04:21:29', '2022-08-18 04:21:29'),
+(623, '5-milk-splash', '5-milk-splash', '18082022155136-600x600-5-milk-splash.jpg', '18082022155136-5-milk-splash.jpg', '53022', '2022-08-18 04:21:36', '2022-08-18 04:21:36'),
+(624, '4-milk-splash', '4-milk-splash', '18082022155447-600x600-4-milk-splash.jpg', '18082022155447-4-milk-splash.jpg', '53873', '2022-08-18 04:24:47', '2022-08-18 04:24:47'),
+(625, '1-cheese', '1-cheese', '18082022171458-600x600-1-cheese.jpg', '18082022171458-1-cheese.jpg', '62012', '2022-08-18 05:44:58', '2022-08-18 05:44:58'),
+(626, '2-cheese', '2-cheese', '18082022171502-600x600-2-cheese.jpg', '18082022171502-2-cheese.jpg', '63404', '2022-08-18 05:45:02', '2022-08-18 05:45:02'),
+(627, '3-cheese', '3-cheese', '18082022171507-600x600-3-cheese.jpg', '18082022171507-3-cheese.jpg', '95590', '2022-08-18 05:45:07', '2022-08-18 05:45:07'),
+(628, '4-cheese', '4-cheese', '18082022171511-600x600-4-cheese.jpg', '18082022171511-4-cheese.jpg', '76437', '2022-08-18 05:45:11', '2022-08-18 05:45:11'),
+(629, '5-cheese', '5-cheese', '18082022171514-600x600-5-cheese.jpg', '18082022171514-5-cheese.jpg', '71338', '2022-08-18 05:45:14', '2022-08-18 05:45:14'),
+(631, '6-cheese', '6-cheese', '18082022171602-600x600-6-cheese.jpg', '18082022171602-6-cheese.jpg', '86087', '2022-08-18 05:46:02', '2022-08-18 05:46:02'),
+(632, '7-cheese', '7-cheese', '18082022171605-600x600-7-cheese.jpg', '18082022171605-7-cheese.jpg', '84398', '2022-08-18 05:46:05', '2022-08-18 05:46:05'),
+(633, '1-dairy-products', '1-dairy-products', '18082022174441-600x600-1-dairy-products.jpg', '18082022174441-1-dairy-products.jpg', '69181', '2022-08-18 06:14:41', '2022-08-18 06:14:41'),
+(634, '2-dairy-products', '2-dairy-products', '18082022174445-600x600-2-dairy-products.jpg', '18082022174445-2-dairy-products.jpg', '77043', '2022-08-18 06:14:45', '2022-08-18 06:14:45'),
+(635, '3-dairy-products', '3-dairy-products', '18082022174448-600x600-3-dairy-products.jpg', '18082022174448-3-dairy-products.jpg', '85353', '2022-08-18 06:14:48', '2022-08-18 06:14:48'),
+(636, '4-dairy-products', '4-dairy-products', '18082022174452-600x600-4-dairy-products.jpg', '18082022174452-4-dairy-products.jpg', '68236', '2022-08-18 06:14:52', '2022-08-18 06:14:52'),
+(637, '5-dairy-products', '5-dairy-products', '18082022174457-600x600-5-dairy-products.jpg', '18082022174457-5-dairy-products.jpg', '97186', '2022-08-18 06:14:57', '2022-08-18 06:14:57'),
+(638, '6-dairy-products', '6-dairy-products', '18082022174502-600x600-6-dairy-products.jpg', '18082022174502-6-dairy-products.jpg', '68351', '2022-08-18 06:15:02', '2022-08-18 06:15:02'),
+(639, '6-fruit-juice', '6-fruit-juice', '18082022175722-600x600-6-fruit-juice.jpg', '18082022175722-6-fruit-juice.jpg', '76520', '2022-08-18 06:27:22', '2022-08-18 06:27:22'),
+(640, '5-fruit-juice', '5-fruit-juice', '18082022175726-600x600-5-fruit-juice.jpg', '18082022175726-5-fruit-juice.jpg', '84859', '2022-08-18 06:27:26', '2022-08-18 06:27:26'),
+(641, '4-fruit-juice', '4-fruit-juice', '18082022175730-600x600-4-fruit-juice.jpg', '18082022175730-4-fruit-juice.jpg', '71046', '2022-08-18 06:27:30', '2022-08-18 06:27:30'),
+(642, '3-fruit-juice', '3-fruit-juice', '18082022175734-600x600-3-fruit-juice.jpg', '18082022175734-3-fruit-juice.jpg', '76620', '2022-08-18 06:27:34', '2022-08-18 06:27:34'),
+(643, '2-fruit-juice', '2-fruit-juice', '18082022175917-600x600-2-fruit-juice.jpg', '18082022175917-2-fruit-juice.jpg', '76224', '2022-08-18 06:29:17', '2022-08-18 06:29:17'),
+(644, '2-pomegranate-juice', '2-pomegranate-juice', '18082022180759-600x600-2-pomegranate-juice.jpg', '18082022180759-2-pomegranate-juice.jpg', '91928', '2022-08-18 06:37:59', '2022-08-18 06:37:59'),
+(645, '1-pomegranate-juice', '1-pomegranate-juice', '18082022180809-600x600-1-pomegranate-juice.jpg', '18082022180809-1-pomegranate-juice.jpg', '78788', '2022-08-18 06:38:09', '2022-08-18 06:38:09'),
+(646, '4-pomegranate-juice', '4-pomegranate-juice', '18082022180824-600x600-4-pomegranate-juice.jpg', '18082022180824-4-pomegranate-juice.jpg', '93754', '2022-08-18 06:38:24', '2022-08-18 06:38:24'),
+(647, '3-pomegranate-juice', '3-pomegranate-juice', '18082022180829-600x600-3-pomegranate-juice.jpg', '18082022180829-3-pomegranate-juice.jpg', '84217', '2022-08-18 06:38:29', '2022-08-18 06:38:29'),
+(648, '1-cocktail-soft-drink', '1-cocktail-soft-drink', '19082022031029-600x600-1-cocktail-soft-drink.jpg', '19082022031029-1-cocktail-soft-drink.jpg', '65934', '2022-08-18 15:40:29', '2022-08-18 15:40:29'),
+(649, '2-cocktail-soft-drink', '2-cocktail-soft-drink', '19082022031032-600x600-2-cocktail-soft-drink.jpg', '19082022031032-2-cocktail-soft-drink.jpg', '68499', '2022-08-18 15:40:32', '2022-08-18 15:40:32'),
+(650, '3-cocktail-soft-drink', '3-cocktail-soft-drink', '19082022031036-600x600-3-cocktail-soft-drink.jpg', '19082022031036-3-cocktail-soft-drink.jpg', '96044', '2022-08-18 15:40:36', '2022-08-18 15:40:36'),
+(651, '4-cocktail-soft-drink', '4-cocktail-soft-drink', '19082022031039-600x600-4-cocktail-soft-drink.jpg', '19082022031039-4-cocktail-soft-drink.jpg', '69707', '2022-08-18 15:40:39', '2022-08-18 15:40:39'),
+(652, '1-snow-crab', '1-snow-crab', '19082022032359-600x600-1-snow-crab.jpg', '19082022032359-1-snow-crab.jpg', '119920', '2022-08-18 15:53:59', '2022-08-18 15:53:59'),
+(653, '2-snow-crab', '2-snow-crab', '19082022032402-600x600-2-snow-crab.jpg', '19082022032402-2-snow-crab.jpg', '107453', '2022-08-18 15:54:02', '2022-08-18 15:54:02'),
+(654, '3-snow-crab', '3-snow-crab', '19082022032405-600x600-3-snow-crab.jpg', '19082022032405-3-snow-crab.jpg', '87903', '2022-08-18 15:54:05', '2022-08-18 15:54:05'),
+(655, '4-snow-crab', '4-snow-crab', '19082022032408-600x600-4-snow-crab.jpg', '19082022032408-4-snow-crab.jpg', '76649', '2022-08-18 15:54:08', '2022-08-18 15:54:08'),
+(656, '1-crayfish', '1-crayfish', '19082022035247-600x600-1-crayfish.jpg', '19082022035247-1-crayfish.jpg', '92013', '2022-08-18 16:22:47', '2022-08-18 16:22:47'),
+(657, '2-crayfish', '2-crayfish', '19082022035252-600x600-2-crayfish.jpg', '19082022035252-2-crayfish.jpg', '78224', '2022-08-18 16:22:52', '2022-08-18 16:22:52'),
+(658, '3-crayfish', '3-crayfish', '19082022035255-600x600-3-crayfish.jpg', '19082022035255-3-crayfish.jpg', '85027', '2022-08-18 16:22:55', '2022-08-18 16:22:55'),
+(659, '4-crayfish', '4-crayfish', '19082022035258-600x600-4-crayfish.jpg', '19082022035258-4-crayfish.jpg', '80280', '2022-08-18 16:22:58', '2022-08-18 16:22:58'),
+(660, '1-squid', '1-squid', '19082022040651-600x600-1-squid.jpg', '19082022040651-1-squid.jpg', '68159', '2022-08-18 16:36:51', '2022-08-18 16:36:51'),
+(661, '2-squid', '2-squid', '19082022040654-600x600-2-squid.jpg', '19082022040654-2-squid.jpg', '63012', '2022-08-18 16:36:54', '2022-08-18 16:36:54'),
+(662, '3-squid', '3-squid', '19082022040657-600x600-3-squid.jpg', '19082022040657-3-squid.jpg', '68586', '2022-08-18 16:36:57', '2022-08-18 16:36:57'),
+(663, '4-squid', '4-squid', '19082022040700-600x600-4-squid.jpg', '19082022040700-4-squid.jpg', '91243', '2022-08-18 16:37:00', '2022-08-18 16:37:00'),
+(664, '1-chicken', '1-chicken', '19082022041622-400x400-1-chicken.jpg', '19082022041622-1-chicken.jpg', '68397', '2022-08-18 16:46:22', '2022-08-18 16:46:22'),
+(665, '2-chicken', '2-chicken', '19082022041625-400x400-2-chicken.jpg', '19082022041625-2-chicken.jpg', '69711', '2022-08-18 16:46:25', '2022-08-18 16:46:25'),
+(666, '3-chicken', '3-chicken', '19082022041628-400x400-3-chicken.jpg', '19082022041628-3-chicken.jpg', '70607', '2022-08-18 16:46:28', '2022-08-18 16:46:28'),
+(667, '4-chicken', '4-chicken', '19082022041949-600x600-4-chicken.jpg', '19082022041949-4-chicken.jpg', '79294', '2022-08-18 16:49:49', '2022-08-18 16:49:49'),
+(668, '1-rack-of-lamb', '1-rack-of-lamb', '19082022042756-600x600-1-rack-of-lamb.jpg', '19082022042756-1-rack-of-lamb.jpg', '87603', '2022-08-18 16:57:56', '2022-08-18 16:57:56'),
+(669, '2-rack-of-lamb', '2-rack-of-lamb', '19082022042800-600x600-2-rack-of-lamb.jpg', '19082022042800-2-rack-of-lamb.jpg', '69080', '2022-08-18 16:58:00', '2022-08-18 16:58:00'),
+(670, '3-rack-of-lamb', '3-rack-of-lamb', '19082022042803-600x600-3-rack-of-lamb.jpg', '19082022042803-3-rack-of-lamb.jpg', '96447', '2022-08-18 16:58:03', '2022-08-18 16:58:03'),
+(671, '4-rack-of-lamb', '4-rack-of-lamb', '19082022042805-600x600-4-rack-of-lamb.jpg', '19082022042805-4-rack-of-lamb.jpg', '71427', '2022-08-18 16:58:06', '2022-08-18 16:58:06'),
+(672, '2-chicken', '2-chicken', '19082022043756-600x600-2-chicken.jpg', '19082022043756-2-chicken.jpg', '80055', '2022-08-18 17:07:57', '2022-08-18 17:07:57'),
+(673, '4-chicken', '4-chicken', '19082022043759-600x600-4-chicken.jpg', '19082022043759-4-chicken.jpg', '91099', '2022-08-18 17:07:59', '2022-08-18 17:07:59'),
+(674, '1-raw-chicken-legs', '1-raw-chicken-legs', '19082022043919-600x600-1-raw-chicken-legs.jpg', '19082022043919-1-raw-chicken-legs.jpg', '75564', '2022-08-18 17:09:19', '2022-08-18 17:09:19'),
+(675, '3-raw-chicken-legs', '3-raw-chicken-legs', '19082022043922-600x600-3-raw-chicken-legs.jpg', '19082022043922-3-raw-chicken-legs.jpg', '124101', '2022-08-18 17:09:23', '2022-08-18 17:09:23'),
+(676, '1-blackberry', '1-blackberry', '19082022044622-400x400-1-blackberry.jpg', '19082022044622-1-blackberry.jpg', '84951', '2022-08-18 17:16:22', '2022-08-18 17:16:22'),
+(677, '2-blackberry', '2-blackberry', '19082022044625-400x400-2-blackberry.jpg', '19082022044625-2-blackberry.jpg', '80751', '2022-08-18 17:16:25', '2022-08-18 17:16:25'),
+(678, '3-blackberry', '3-blackberry', '19082022044628-400x400-3-blackberry.jpg', '19082022044628-3-blackberry.jpg', '89988', '2022-08-18 17:16:28', '2022-08-18 17:16:28'),
+(679, '1-passion', '1-passion', '19082022050242-600x600-1-passion.jpg', '19082022050242-1-passion.jpg', '108207', '2022-08-18 17:32:42', '2022-08-18 17:32:42'),
+(680, '2-passion', '2-passion', '19082022050245-600x600-2-passion.jpg', '19082022050245-2-passion.jpg', '105597', '2022-08-18 17:32:46', '2022-08-18 17:32:46'),
+(681, '3-passion', '3-passion', '19082022050248-600x600-3-passion.jpg', '19082022050248-3-passion.jpg', '92662', '2022-08-18 17:32:48', '2022-08-18 17:32:48'),
+(682, '4-passion', '4-passion', '19082022050251-600x600-4-passion.jpg', '19082022050251-4-passion.jpg', '87726', '2022-08-18 17:32:51', '2022-08-18 17:32:51'),
+(683, '1-peach', '1-peach', '19082022051624-600x600-1-peach.jpg', '19082022051624-1-peach.jpg', '92705', '2022-08-18 17:46:24', '2022-08-18 17:46:24'),
+(684, '2-peach', '2-peach', '19082022051627-600x600-2-peach.jpg', '19082022051627-2-peach.jpg', '84713', '2022-08-18 17:46:27', '2022-08-18 17:46:27'),
+(685, '3-peach', '3-peach', '19082022051631-600x600-3-peach.jpg', '19082022051631-3-peach.jpg', '83777', '2022-08-18 17:46:31', '2022-08-18 17:46:31'),
+(686, '4-peach', '4-peach', '19082022051634-600x600-4-peach.jpg', '19082022051634-4-peach.jpg', '90291', '2022-08-18 17:46:34', '2022-08-18 17:46:34'),
+(687, '1-pizza', '1-pizza', '19082022052814-600x600-1-pizza.jpg', '19082022052814-1-pizza.jpg', '93117', '2022-08-18 17:58:14', '2022-08-18 17:58:14'),
+(688, '2-pizza', '2-pizza', '19082022052817-600x600-2-pizza.jpg', '19082022052817-2-pizza.jpg', '104220', '2022-08-18 17:58:17', '2022-08-18 17:58:17'),
+(689, '3-pizza', '3-pizza', '19082022052820-600x600-3-pizza.jpg', '19082022052820-3-pizza.jpg', '100579', '2022-08-18 17:58:20', '2022-08-18 17:58:20'),
+(690, '4-pizza', '4-pizza', '19082022052823-600x600-4-pizza.jpg', '19082022052823-4-pizza.jpg', '89992', '2022-08-18 17:58:23', '2022-08-18 17:58:23'),
+(691, '1-chicken-wings', '1-chicken-wings', '19082022054547-600x600-1-chicken-wings.jpg', '19082022054547-1-chicken-wings.jpg', '100222', '2022-08-18 18:15:47', '2022-08-18 18:15:47'),
+(692, '2-chicken-wings', '2-chicken-wings', '19082022054551-600x600-2-chicken-wings.jpg', '19082022054551-2-chicken-wings.jpg', '77458', '2022-08-18 18:15:51', '2022-08-18 18:15:51'),
+(693, '3-chicken-wings', '3-chicken-wings', '19082022054554-600x600-3-chicken-wings.jpg', '19082022054554-3-chicken-wings.jpg', '83574', '2022-08-18 18:15:54', '2022-08-18 18:15:54'),
+(694, '4-chicken-wings', '4-chicken-wings', '19082022054557-600x600-4-chicken-wings.jpg', '19082022054557-4-chicken-wings.jpg', '82045', '2022-08-18 18:15:57', '2022-08-18 18:15:57'),
+(697, '1-sandwich', '1-sandwich', '19082022093540-600x600-1-sandwich.jpg', '19082022093540-1-sandwich.jpg', '121445', '2022-08-18 22:05:40', '2022-08-18 22:05:40'),
+(698, '2-sandwich', '2-sandwich', '19082022093545-600x600-2-sandwich.jpg', '19082022093545-2-sandwich.jpg', '112183', '2022-08-18 22:05:45', '2022-08-18 22:05:45'),
+(699, '3-sandwich', '3-sandwich', '19082022093548-600x600-3-sandwich.jpg', '19082022093548-3-sandwich.jpg', '92642', '2022-08-18 22:05:49', '2022-08-18 22:05:49'),
+(700, '4-sandwich', '4-sandwich', '19082022093552-600x600-4-sandwich.jpg', '19082022093552-4-sandwich.jpg', '97780', '2022-08-18 22:05:52', '2022-08-18 22:05:52'),
+(701, '5-sandwich', '5-sandwich', '19082022093555-600x600-5-sandwich.jpg', '19082022093555-5-sandwich.jpg', '74895', '2022-08-18 22:05:55', '2022-08-18 22:05:55'),
+(702, '1-mixed-dry-fruits', '1-mixed-dry-fruits', '19082022094844-400x400-1-mixed-dry-fruits.jpg', '19082022094844-1-mixed-dry-fruits.jpg', '100759', '2022-08-18 22:18:45', '2022-08-18 22:18:45'),
+(703, '2-mixed-dry-fruits', '2-mixed-dry-fruits', '19082022094855-400x400-2-mixed-dry-fruits.jpg', '19082022094855-2-mixed-dry-fruits.jpg', '76614', '2022-08-18 22:18:55', '2022-08-18 22:18:55'),
+(704, '3-mixed-dry-fruits', '3-mixed-dry-fruits', '19082022094858-400x400-3-mixed-dry-fruits.jpg', '19082022094858-3-mixed-dry-fruits.jpg', '81772', '2022-08-18 22:18:58', '2022-08-18 22:18:58'),
+(705, '4-mixed-dry-fruits', '4-mixed-dry-fruits', '19082022094902-400x400-4-mixed-dry-fruits.jpg', '19082022094902-4-mixed-dry-fruits.jpg', '75634', '2022-08-18 22:19:02', '2022-08-18 22:19:02'),
+(706, '1-cashews', '1-cashews', '19082022100202-400x400-1-cashews.jpg', '19082022100202-1-cashews.jpg', '72320', '2022-08-18 22:32:02', '2022-08-18 22:32:02'),
+(707, '2-cashews', '2-cashews', '19082022100205-400x400-2-cashews.jpg', '19082022100205-2-cashews.jpg', '78948', '2022-08-18 22:32:05', '2022-08-18 22:32:05'),
+(708, '3-cashews', '3-cashews', '19082022100208-400x400-3-cashews.jpg', '19082022100208-3-cashews.jpg', '70591', '2022-08-18 22:32:08', '2022-08-18 22:32:08'),
+(709, '1-almond-badam', '1-almond-badam', '19082022100759-400x400-1-almond-badam.jpg', '19082022100759-1-almond-badam.jpg', '76824', '2022-08-18 22:37:59', '2022-08-18 22:37:59'),
+(710, '2-almond-badam', '2-almond-badam', '19082022100801-400x400-2-almond-badam.jpg', '19082022100801-2-almond-badam.jpg', '73805', '2022-08-18 22:38:01', '2022-08-18 22:38:01'),
+(711, '3-almond-badam', '3-almond-badam', '19082022100804-400x400-3-almond-badam.jpg', '19082022100804-3-almond-badam.jpg', '90721', '2022-08-18 22:38:04', '2022-08-18 22:38:04'),
+(712, '1-herbal-tea', '1-herbal-tea', '19082022101914-600x600-1-herbal-tea.jpg', '19082022101914-1-herbal-tea.jpg', '64659', '2022-08-18 22:49:15', '2022-08-18 22:49:15'),
+(713, '2-herbal-tea', '2-herbal-tea', '19082022101918-600x600-2-herbal-tea.jpg', '19082022101918-2-herbal-tea.jpg', '65182', '2022-08-18 22:49:18', '2022-08-18 22:49:18'),
+(714, '3-herbal-tea', '3-herbal-tea', '19082022101920-600x600-3-herbal-tea.jpg', '19082022101920-3-herbal-tea.jpg', '62257', '2022-08-18 22:49:20', '2022-08-18 22:49:20'),
+(715, '1-coffee-latte', '1-coffee-latte', '19082022102541-600x600-1-coffee-latte.jpg', '19082022102541-1-coffee-latte.jpg', '71705', '2022-08-18 22:55:41', '2022-08-18 22:55:41'),
+(716, '2-coffee-latte', '2-coffee-latte', '19082022102545-600x600-2-coffee-latte.jpg', '19082022102545-2-coffee-latte.jpg', '64828', '2022-08-18 22:55:45', '2022-08-18 22:55:45'),
+(717, '1-green-tea', '1-green-tea', '19082022103010-400x400-1-green-tea.jpg', '19082022103010-1-green-tea.jpg', '81500', '2022-08-18 23:00:10', '2022-08-18 23:00:10'),
+(718, '2-green-tea', '2-green-tea', '19082022103014-400x400-2-green-tea.jpg', '19082022103014-2-green-tea.jpg', '80422', '2022-08-18 23:00:14', '2022-08-18 23:00:14'),
+(719, '3-green-tea', '3-green-tea', '19082022103017-400x400-3-green-tea.jpg', '19082022103017-3-green-tea.jpg', '67458', '2022-08-18 23:00:17', '2022-08-18 23:00:17'),
+(720, '2-pastry', '2-pastry', '19082022103844-400x400-2-pastry.jpg', '19082022103844-2-pastry.jpg', '76709', '2022-08-18 23:08:44', '2022-08-18 23:08:44'),
+(721, '1-pastry', '1-pastry', '19082022103847-400x400-1-pastry.jpg', '19082022103847-1-pastry.jpg', '63752', '2022-08-18 23:08:47', '2022-08-18 23:08:47'),
+(722, '3-pastry', '3-pastry', '19082022103850-400x400-3-pastry.jpg', '19082022103850-3-pastry.jpg', '96196', '2022-08-18 23:08:50', '2022-08-18 23:08:50'),
+(723, '1-w-bread', '1-w-bread', '19082022104438-600x600-1-w-bread.jpg', '19082022104438-1-w-bread.jpg', '82945', '2022-08-18 23:14:38', '2022-08-18 23:14:38'),
+(724, '2-w-bread', '2-w-bread', '19082022104442-600x600-2-w-bread.jpg', '19082022104442-2-w-bread.jpg', '79438', '2022-08-18 23:14:42', '2022-08-18 23:14:42'),
+(725, '3-w-bread', '3-w-bread', '19082022104445-600x600-3-w-bread.jpg', '19082022104445-3-w-bread.jpg', '93877', '2022-08-18 23:14:45', '2022-08-18 23:14:45'),
+(726, '1-hand-painted-bread', '1-hand-painted-bread', '19082022104904-600x600-1-hand-painted-bread.jpg', '19082022104904-1-hand-painted-bread.jpg', '79208', '2022-08-18 23:19:04', '2022-08-18 23:19:04'),
+(727, '2-hand-painted-bread', '2-hand-painted-bread', '19082022104907-600x600-2-hand-painted-bread.jpg', '19082022104907-2-hand-painted-bread.jpg', '72555', '2022-08-18 23:19:07', '2022-08-18 23:19:07'),
+(728, '3-hand-painted-bread', '3-hand-painted-bread', '19082022104911-600x600-3-hand-painted-bread.jpg', '19082022104911-3-hand-painted-bread.jpg', '94362', '2022-08-18 23:19:11', '2022-08-18 23:19:11'),
+(737, 'slider-1', 'slider-1', '19082022181217-400x400-slider-1.jpg', '19082022181217-slider-1.jpg', '87168', '2022-08-19 06:42:18', '2022-08-19 06:42:18'),
+(739, 'slider-2', 'slider-2', '19082022181336-400x400-slider-2.jpg', '19082022181336-slider-2.jpg', '102493', '2022-08-19 06:43:36', '2022-08-19 06:43:36'),
+(743, 'slider_h2_1', 'slider_h2_1', '20082022150916-400x400-slider_h2_1.jpg', '20082022150916-slider_h2_1.jpg', '137276', '2022-08-20 03:39:16', '2022-08-20 03:39:16'),
+(744, 'slider_h2_2', 'slider_h2_2', '20082022151519-400x400-slider_h2_2.jpg', '20082022151519-slider_h2_2.jpg', '119365', '2022-08-20 03:45:19', '2022-08-20 03:45:19'),
+(753, 'banner_5', 'banner_5', '22082022150919-400x400-banner_5.jpg', '22082022150919-banner_5.jpg', '22454', '2022-08-22 03:39:19', '2022-08-22 03:39:19'),
+(754, 'banner_4', 'banner_4', '22082022151023-400x400-banner_4.jpg', '22082022151023-banner_4.jpg', '20568', '2022-08-22 03:40:23', '2022-08-22 03:40:23'),
+(755, 'banner-3', 'banner-3', '22082022151100-400x400-banner-3.jpg', '22082022151100-banner-3.jpg', '24255', '2022-08-22 03:41:00', '2022-08-22 03:41:00'),
+(756, 'banner-2', 'banner-2', '22082022151301-400x400-banner-2.jpg', '22082022151301-banner-2.jpg', '28504', '2022-08-22 03:43:01', '2022-08-22 03:43:01'),
+(757, 'banner_1', 'banner_1', '22082022151335-400x400-banner_1.jpg', '22082022151335-banner_1.jpg', '89410', '2022-08-22 03:43:35', '2022-08-22 03:43:35'),
+(758, 'deals_offer', 'deals_offer', '02092022061039-400x400-deals_offer.png', '02092022061039-deals_offer.png', '407063', '2022-09-01 18:40:39', '2022-09-01 18:40:39'),
+(759, 'brand-1', 'brand-1', '09092022091517-400x400-brand-1.png', '09092022091517-brand-1.png', '15694', '2022-09-08 21:45:17', '2022-09-08 21:45:17'),
+(760, 'brand-2', 'brand-2', '09092022091519-400x400-brand-2.png', '09092022091519-brand-2.png', '57554', '2022-09-08 21:45:20', '2022-09-08 21:45:20'),
+(761, 'brand-3', 'brand-3', '09092022091522-400x400-brand-3.png', '09092022091522-brand-3.png', '17331', '2022-09-08 21:45:22', '2022-09-08 21:45:22'),
+(762, 'brand-4', 'brand-4', '09092022091524-400x400-brand-4.png', '09092022091524-brand-4.png', '44480', '2022-09-08 21:45:24', '2022-09-08 21:45:24'),
+(763, 'brand-5', 'brand-5', '09092022091526-400x400-brand-5.png', '09092022091526-brand-5.png', '14029', '2022-09-08 21:45:26', '2022-09-08 21:45:26'),
+(764, 'brand-6', 'brand-6', '09092022091528-400x400-brand-6.png', '09092022091528-brand-6.png', '20563', '2022-09-08 21:45:28', '2022-09-08 21:45:28'),
+(765, 'brand-7', 'brand-7', '09092022091535-400x400-brand-7.png', '09092022091535-brand-7.png', '12292', '2022-09-08 21:45:35', '2022-09-08 21:45:35'),
+(770, 'blog_12', 'blog_12', '19102022165845-800x800-blog_12.jpg', '19102022165845-blog_12.jpg', '310824', '2022-10-19 05:28:45', '2022-10-19 05:28:45'),
+(771, 'blog_11', 'blog_11', '19102022165907-800x800-blog_11.jpg', '19102022165907-blog_11.jpg', '577105', '2022-10-19 05:29:07', '2022-10-19 05:29:07'),
+(772, 'blog_10', 'blog_10', '19102022170549-800x800-blog_10.jpg', '19102022170549-blog_10.jpg', '606860', '2022-10-19 05:35:49', '2022-10-19 05:35:49'),
+(773, 'blog_9', 'blog_9', '19102022173946-800x800-blog_9.jpg', '19102022173946-blog_9.jpg', '363638', '2022-10-19 06:09:46', '2022-10-19 06:09:46'),
+(774, 'blog_8', 'blog_8', '19102022174215-800x800-blog_8.jpg', '19102022174215-blog_8.jpg', '757841', '2022-10-19 06:12:15', '2022-10-19 06:12:15'),
+(775, 'blog_7', 'blog_7', '20102022160647-800x800-blog_7.jpg', '20102022160647-blog_7.jpg', '512132', '2022-10-20 04:36:47', '2022-10-20 04:36:47'),
+(776, 'blog_6', 'blog_6', '20102022160908-800x800-blog_6.jpg', '20102022160908-blog_6.jpg', '736939', '2022-10-20 04:39:08', '2022-10-20 04:39:08'),
+(777, 'blog_5', 'blog_5', '20102022161346-800x800-blog_5.jpg', '20102022161346-blog_5.jpg', '692822', '2022-10-20 04:43:46', '2022-10-20 04:43:46'),
+(778, 'blog_4', 'blog_4', '21102022130649-800x800-blog_4.jpg', '21102022130649-blog_4.jpg', '516776', '2022-10-21 01:36:50', '2022-10-21 01:36:50'),
+(779, 'blog_3', 'blog_3', '21102022130816-800x800-blog_3.jpg', '21102022130816-blog_3.jpg', '581185', '2022-10-21 01:38:16', '2022-10-21 01:38:16'),
+(780, 'blog_2', 'blog_2', '21102022130938-800x800-blog_2.jpg', '21102022130938-blog_2.jpg', '702738', '2022-10-21 01:39:38', '2022-10-21 01:39:38'),
+(781, 'blog_1', 'blog_1', '21102022131056-800x800-blog_1.jpg', '21102022131056-blog_1.jpg', '432895', '2022-10-21 01:40:57', '2022-10-21 01:40:57');
 
 -- --------------------------------------------------------
 
@@ -1030,8 +1364,8 @@ INSERT INTO `notifications` (`id`, `uuid`, `sender_id`, `user_id`, `text`, `targ
 (31, 'be0ea40d-2fe9-4d38-9175-ca774b9a4b69', 3, 4, ']]]', 'http://127.0.0.1:8000/chat', 'yes', 2, '2024-04-09 08:13:14', '2024-04-09 08:17:58'),
 (32, '16117097-583a-4823-a3d1-5cea773cbbdb', 1, 1, 'Project status is unknown.', 'http://127.0.0.1:8000/project-details/non-qui-dolor-et-et-iste-veniam-1', 'yes', 2, '2024-04-12 01:21:22', '2024-04-17 00:22:03'),
 (33, '720ad673-f95a-4147-a2bb-ace8e5be806d', 1, 1, 'Project has been approved.', 'http://127.0.0.1:8000/project-details/unogesic-mr-250mg50mg325mg-tablet-wow', 'yes', 2, '2024-04-12 01:29:28', '2024-04-17 00:22:03'),
-(34, '1fbba4c0-e899-497a-bf64-bf9a0e901dc3', 28, 28, 'A new user has registered on the platform.', 'http://127.0.0.1:8000/admin/users', 'no', 1, '2024-04-12 05:25:38', '2024-04-12 05:25:38'),
-(35, '4f3f8f95-9fda-4cbc-a40f-cadbd39efb79', 29, 29, 'A new user has registered on the platform.', 'http://127.0.0.1:8000/admin/users', 'no', 1, '2024-04-12 05:28:38', '2024-04-12 05:28:38'),
+(34, '1fbba4c0-e899-497a-bf64-bf9a0e901dc3', 28, 28, 'A new user has registered on the platform.', 'http://127.0.0.1:8000/admin/users', 'yes', 1, '2024-04-12 05:25:38', '2024-06-21 23:24:55'),
+(35, '4f3f8f95-9fda-4cbc-a40f-cadbd39efb79', 29, 29, 'A new user has registered on the platform.', 'http://127.0.0.1:8000/admin/users', 'yes', 1, '2024-04-12 05:28:38', '2024-06-21 23:24:51'),
 (36, '1b2972b6-a34f-45e3-8043-e39be6969d17', 1, 1, 'Project has been approved.', 'http://127.0.0.1:8000/project-details/audiophile-first-smart-wireless-headphones-1', 'yes', 2, '2024-04-13 21:45:02', '2024-04-17 00:22:03'),
 (37, '68c8c01e-0bb9-460c-8692-53bce08fe6e8', 1, 1, 'Project has been approved.', 'http://127.0.0.1:8000/project-details/audiophile-first-smart-wireless-headphones', 'yes', 2, '2024-04-13 21:45:29', '2024-04-17 00:22:03'),
 (38, 'f2a4898a-f63c-4cc4-9804-319d6b6ce29a', 1, 1, 'Project has been approved.', 'http://127.0.0.1:8000/project-details/aut-distinctio-molestiae-accusamus-sint-reprehenderit-aut-et-1', 'yes', 2, '2024-04-13 21:47:17', '2024-04-17 00:22:03'),
@@ -1227,6 +1561,568 @@ INSERT INTO `permissions` (`id`, `name`, `parent_id`, `created_at`, `updated_at`
 (6, 'Add Blog', 5, '2024-06-09 04:04:09', '2024-06-09 04:04:09'),
 (7, 'Blog Comments', 5, '2024-06-09 04:04:59', '2024-06-09 04:04:59'),
 (8, 'Pages', NULL, '2024-06-09 04:05:45', '2024-06-09 04:05:45');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `products`
+--
+
+CREATE TABLE `products` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `title` text DEFAULT NULL,
+  `slug` varchar(191) NOT NULL,
+  `f_thumbnail` text DEFAULT NULL,
+  `short_desc` text DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `extra_desc` text DEFAULT NULL,
+  `cost_price` double(12,3) DEFAULT NULL,
+  `sale_price` double(12,3) DEFAULT NULL,
+  `old_price` double(12,3) DEFAULT NULL,
+  `start_date` date DEFAULT NULL,
+  `end_date` date DEFAULT NULL,
+  `is_discount` int(11) DEFAULT NULL,
+  `is_stock` int(11) DEFAULT NULL,
+  `sku` varchar(191) DEFAULT NULL,
+  `stock_status_id` int(11) DEFAULT NULL,
+  `stock_qty` int(11) DEFAULT NULL,
+  `u_stock_qty` int(11) DEFAULT NULL,
+  `category_ids` varchar(191) DEFAULT NULL,
+  `cat_id` int(11) DEFAULT NULL,
+  `brand_id` int(11) DEFAULT NULL,
+  `collection_id` int(11) DEFAULT NULL,
+  `label_id` int(11) DEFAULT NULL,
+  `variation_color` text DEFAULT NULL,
+  `variation_size` text DEFAULT NULL,
+  `tax_id` int(11) DEFAULT NULL,
+  `is_featured` int(11) DEFAULT NULL,
+  `is_publish` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `lan` varchar(100) DEFAULT NULL,
+  `og_title` text DEFAULT NULL,
+  `og_image` text DEFAULT NULL,
+  `og_description` text DEFAULT NULL,
+  `og_keywords` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`id`, `title`, `slug`, `f_thumbnail`, `short_desc`, `description`, `extra_desc`, `cost_price`, `sale_price`, `old_price`, `start_date`, `end_date`, `is_discount`, `is_stock`, `sku`, `stock_status_id`, `stock_qty`, `u_stock_qty`, `category_ids`, `cat_id`, `brand_id`, `collection_id`, `label_id`, `variation_color`, `variation_size`, `tax_id`, `is_featured`, `is_publish`, `user_id`, `lan`, `og_title`, `og_image`, `og_description`, `og_keywords`, `created_at`, `updated_at`) VALUES
+(130, 'Hand Painted Bread', 'hand-painted-bread', '02082022144346-400x400-3.jpg', 'Bread is a staple food prepared from a dough of flour (usually wheat) and water, usually by baking.', '<p><font color=\"#202122\" face=\"sans-serif\">Bread is a staple food prepared from a dough of flour (usually wheat) and water, usually by baking. Throughout recorded history and around the world, it has been an important part of many cultures\' diets. It is one of the oldest human-made foods, having been of significance since the dawn of agriculture, and plays an essential role in both religious rituals and secular culture.</font></p><p><font color=\"#202122\" face=\"sans-serif\"><br></font></p><ul><li><font color=\"#202122\" face=\"sans-serif\">Bread is one of the oldest prepared foods.</font></li><li><font color=\"#202122\" face=\"sans-serif\">Evidence from 30,000 years ago in Europe and Australia revealed starch residue on rocks used for pounding plants.</font></li><li><font color=\"#202122\" face=\"sans-serif\">It is possible that during this time, starch extract from the roots of plants, such as cattails and ferns, was spread on a flat rock, placed over a fire, and cooked into a primitive form of flatbread.</font></li><li><font color=\"#202122\" face=\"sans-serif\">The world\'s oldest evidence of bread-making has been found in a 14,500-year-old Natufian site in Jordan\'s northeastern desert.</font></li><li><font color=\"#202122\" face=\"sans-serif\">&nbsp;Around 10,000 BC, with the dawn of the Neolithic age and the spread of agriculture, grains became the mainstay of making bread.</font></li><li><font color=\"#202122\" face=\"sans-serif\">Yeast spores are ubiquitous, including on the surface of cereal grains, so any dough left to rest leavens naturally.</font></li></ul><p><font color=\"#202122\" face=\"sans-serif\"><br></font></p><p><font color=\"#202122\" face=\"sans-serif\">An early leavened bread was baked as early as 6000 BC by the Sumerians, who may have passed on their knowledge to the Egyptians around 3000 BC. The Egyptians refined the process and started adding yeast to the flour. The Sumerians were already using ash to supplement the dough as it was baked.</font></p><p><font color=\"#202122\" face=\"sans-serif\"><br></font></p><p><font color=\"#202122\" face=\"sans-serif\"><br></font></p><p><font color=\"#202122\" face=\"sans-serif\"><br></font></p><p><br></p>', NULL, 15.000, 24.000, NULL, NULL, NULL, 0, 1, 'T-906', 1, 200, NULL, '4', 4, 3, 0, NULL, NULL, 'Kg', 38, 1, 1, 47, 'en', 'Hand Painted Bread', '19082022104904-600x600-1-hand-painted-bread.jpg', 'Bread is a staple food prepared from a dough of flour (usually wheat) and water, usually by baking.', 'Hand, Painted, Bread', '2022-07-30 19:28:10', '2022-09-02 00:08:09'),
+(131, 'White bread Bakery Sliced bread Loaf', 'white-bread-bakery-sliced-bread-loaf', '02082022144310-400x400-4.jpg', 'Bread is a staple food prepared from a dough of flour (usually wheat) and water, usually by baking.', '<p><font color=\"#202122\" face=\"sans-serif\">Bread is a staple food prepared from a dough of flour (usually wheat) and water, usually by baking. Throughout recorded history and around the world, it has been an important part of many cultures\' diets. It is one of the oldest human-made foods, having been of significance since the dawn of agriculture, and plays an essential role in both religious rituals and secular culture.</font></p><p><font color=\"#202122\" face=\"sans-serif\"><br></font></p><ul><li><font color=\"#202122\" face=\"sans-serif\">Bread is one of the oldest prepared foods.</font></li><li><font color=\"#202122\" face=\"sans-serif\">Evidence from 30,000 years ago in Europe and Australia revealed starch residue on rocks used for pounding plants.</font></li><li><font color=\"#202122\" face=\"sans-serif\">It is possible that during this time, starch extract from the roots of plants, such as cattails and ferns, was spread on a flat rock, placed over a fire, and cooked into a primitive form of flatbread.</font></li><li><font color=\"#202122\" face=\"sans-serif\">The world\'s oldest evidence of bread-making has been found in a 14,500-year-old Natufian site in Jordan\'s northeastern desert.</font></li><li><font color=\"#202122\" face=\"sans-serif\">&nbsp;Around 10,000 BC, with the dawn of the Neolithic age and the spread of agriculture, grains became the mainstay of making bread.</font></li><li><font color=\"#202122\" face=\"sans-serif\">Yeast spores are ubiquitous, including on the surface of cereal grains, so any dough left to rest leavens naturally.</font></li></ul><p><font color=\"#202122\" face=\"sans-serif\"><br></font></p><p><font color=\"#202122\" face=\"sans-serif\">An early leavened bread was baked as early as 6000 BC by the Sumerians, who may have passed on their knowledge to the Egyptians around 3000 BC. The Egyptians refined the process and started adding yeast to the flour. The Sumerians were already using ash to supplement the dough as it was baked.</font></p><p><font color=\"#202122\" face=\"sans-serif\"><br></font></p><p><font color=\"#202122\" face=\"sans-serif\"><br></font></p><p><font color=\"#202122\" face=\"sans-serif\"><br></font></p><p><br></p>', NULL, 40.000, 50.000, NULL, NULL, NULL, NULL, 1, 'WB-3489', 1, 400, NULL, '4', 4, 5, 0, NULL, NULL, 'Kg', 38, 1, 1, 47, 'en', 'White bread Bakery Sliced bread Loaf', '19082022104438-600x600-1-w-bread.jpg', 'Bread is a staple food prepared from a dough of flour (usually wheat) and water, usually by baking.', 'White bread Bakery Sliced bread Loaf', '2022-07-31 00:31:13', '2022-08-22 06:04:44'),
+(132, 'Croissant Pain au chocolat Viennoiserie Danish pastry Puff pastry', 'croissant-pain-au-chocolat-viennoiserie-danish-pastry-puff-pastry-2', '19082022103844-400x400-2-pastry.jpg', 'Pastry is baked food made with a dough of flour, water and shortening (solid fats, including butter or lard) that may be savoury or sweetened.', '<p>The pastry is baked food made with a dough of flour, water, and shortening (solid fats, including butter or lard) that may be savory or sweetened. Sweetened pastries are often described as bakers\' confectionery. The word \"pastries\" suggests many kinds of baked products made from ingredients such as flour, sugar, milk, butter, shortening, baking powder, and eggs. Small tarts and other sweet baked products are called pastries. Common pastry dishes include pies, tarts, quiches, croissants, and pasties.</p><p><br></p><ul><li>The French word pâtisserie is also used in English (with or without the accent) for the same foods.</li><li>Originally, the French word patisserie referred to anything, such as a meat pie, made in the dough (paste, later pâte) and not typically a luxurious or sweet product.</li><li>This meaning persisted in the nineteenth century, though by then the term more often referred to the sweet and often ornate confections implied today.</li></ul><p>Pastry can also refer to the pastry dough,[4] from which such baked products are made. Pastry dough is rolled out thinly and used as a base for baked products.</p><p><br></p><p><br></p><p><br></p>', NULL, 30.000, 40.000, NULL, NULL, NULL, NULL, 1, 'P-43546', 1, 200, NULL, '4', 4, 3, 0, NULL, NULL, 'Kg', 38, 1, 1, 47, 'en', 'Croissant Pain au chocolat Viennoiserie Danish pastry Puff pastry', '19082022103844-400x400-2-pastry.jpg', 'Pastry is baked food made with a dough of flour, water and shortening (solid fats, including butter or lard) that may be savoury or sweetened.', 'Croissant Pain au chocolat Viennoiserie Danish pastry Puff pastry', '2022-07-31 00:50:31', '2022-08-22 06:03:31'),
+(133, 'Green tea Coffee Iced tea Lemon', 'green-tea-coffee-iced-tea-lemon', '19082022103010-400x400-1-green-tea.jpg', 'Green tea is a type of tea that is made from Camellia sinensis leaves', '<p><font color=\"#202122\" face=\"sans-serif\">Green tea is a type of tea that is made from Camellia sinensis leaves and buds that have not undergone the same withering and oxidation process used to make oolong teas and black teas. Green tea originated in China, and since then its production and manufacture have spread to other countries in East Asia.</font></p><p><font color=\"#202122\" face=\"sans-serif\"><br></font></p><ul><li><font color=\"#202122\" face=\"sans-serif\">Several varieties of green tea exist, which differ substantially based on the variety of C. Sinensis used in growing conditions, horticultural methods, production processing, and time of harvest. </font></li><li><font color=\"#202122\" face=\"sans-serif\">Although there has been considerable research on the possible health effects of consuming green tea regularly, there is little evidence that drinking green tea has any effects on health.</font></li></ul><p><font color=\"#202122\" face=\"sans-serif\"><br></font></p><p><font color=\"#202122\" face=\"sans-serif\">Regular green tea is 99.9% water, provides 1 kcal per 100 mL serving, is devoid of significant nutrient content (table), and contains phytochemicals such as polyphenols and caffeine.</font></p><p><font color=\"#202122\" face=\"sans-serif\"><br></font></p><p><font color=\"#202122\" face=\"sans-serif\"><br></font></p><p><br></p>', NULL, 90.000, 100.000, 125.000, '2022-09-02', '2022-08-06', 0, 1, 'GT-7842', 1, 400, NULL, '11', 11, 5, 0, NULL, NULL, 'Box', 38, 1, 1, 47, 'en', 'Green tea Coffee Iced tea Lemon', '19082022103010-400x400-1-green-tea.jpg', 'Green tea is a type of tea that is made from Camellia sinensis leaves', 'Green tea Coffee Iced tea Lemon', '2022-07-31 02:01:08', '2022-09-02 00:04:14'),
+(134, 'Coffee Latte Cappuccino', 'coffee-latte-cappuccino', '02082022144027-400x400-4.jpg', 'Coffee is a brewed drink prepared from roasted coffee beans, the seeds of berries from certain flowering plants in the Coffea genus.', '<p style=\"margin-top: 0.5em; margin-bottom: 0.5em;\"><font color=\"#202122\" face=\"sans-serif\">Coffee is a brewed drink prepared from roasted coffee beans, the seeds of berries from certain flowering plants in the Coffea genus. From the coffee fruit, the seeds are separated to produce a stable, raw product: unroasted green coffee. The seeds are then roasted, a process that transforms them into a consumable product: roasted coffee, which is ground into fine particles that are typically steeped in hot water before being filtered out, producing a cup of coffee.</font></p><ul><li style=\"margin-top: 0.5em; margin-bottom: 0.5em;\"><font color=\"#202122\" face=\"sans-serif\">Coffee is darkly colored, bitter, slightly acidic, and has a stimulating effect on humans, primarily due to its caffeine content.</font></li><li style=\"margin-top: 0.5em; margin-bottom: 0.5em;\"><font color=\"#202122\" face=\"sans-serif\">It is one of the most popular drinks in the world[4] and can be prepared and presented in a variety of ways.</font></li><li style=\"margin-top: 0.5em; margin-bottom: 0.5em;\"><font color=\"#202122\" face=\"sans-serif\">It is usually served hot, although chilled or iced coffee is common. Sugar, sugar substitutes, milk, or cream are often used to lessen the bitter taste or enhance the flavor.</font></li></ul><p style=\"margin-top: 0.5em; margin-bottom: 0.5em;\"><font color=\"#202122\" face=\"sans-serif\">It may be served with coffee cake or another sweet dessert, like doughnuts.</font></p>', NULL, NULL, 80.000, NULL, NULL, NULL, NULL, 1, 'C-743248', 1, 700, NULL, '11', 11, 5, 0, NULL, NULL, 'Box', 38, 1, 1, 47, 'en', 'Coffee Latte Cappuccino', '19082022102541-600x600-1-coffee-latte.jpg', 'Coffee is a brewed drink prepared from roasted coffee beans, the seeds of berries from certain flowering plants in the Coffea genus.', 'Coffee Latte Cappuccino', '2022-07-31 02:13:12', '2022-09-02 00:02:09'),
+(135, 'Herbal tea Clove Spice Flavor', 'herbal-tea-clove-spice-flavor-2', '19082022101914-600x600-1-herbal-tea.jpg', 'Herbal teas, also known as herbal infusions and less commonly called tisanes', '<p>Herbal teas, also known as herbal infusions and less commonly called tisanes are beverages made from the infusion or decoction of herbs, spices, or other plant material in hot water. Oftentimes herb tea or the plain term tea is used as a reference to all sorts of herbal teas. Some herbal blends contain actual tea.</p><p><br></p><ul><li>The term \"herbal\" tea is often used in contrast to the so-called true teas (e.g., black, green, white, yellow, oolong), which are prepared from the cured leaves of the tea plant, Camellia sinensis.</li><li>Unlike true teas (which are also available decaffeinated), most tisanes do not naturally contain caffeine.</li><li>There are several plants, however, that do contain caffeine or another stimulant, like theobromine, cocaine, or ephedrine. Some common infusions have specific names such as coffee, mate (yerba mate), and rooibos (Aspalathus linearis).</li></ul><p><br></p><p>Herbal teas can be made with fresh or dried flowers, fruit, leaves, seeds, or roots. They are made by pouring boiling water over the plant parts and letting them steep for a few minutes. The herbal tea is then strained, sweetened if desired, and served. Many companies produce herbal tea bags for such infusions.</p>', NULL, 47.000, 60.000, NULL, NULL, NULL, NULL, 1, 'HT-t787', 1, 1000, NULL, '11', 11, 5, 0, NULL, NULL, 'Box', 38, 1, 1, 47, 'en', 'Herbal tea Clove Spice Flavor', '19082022101914-600x600-1-herbal-tea.jpg', 'Herbal teas, also known as herbal infusions and less commonly called tisanes', 'Herbal tea Clove Spice Flavor', '2022-07-31 02:26:55', '2022-09-02 00:01:09'),
+(136, 'Almond (Badam)', 'almond-badam', '19082022100759-400x400-1-almond-badam.jpg', 'The almond is a species of tree native to Iran and surrounding countries, including the Levant.', '<p>The almond is a species of tree native to Iran and surrounding countries, including the Levant. The almond is also the name of the edible and widely cultivated seed of this tree. Within the genus Prunus, it is classified with the peach in the subgenus Amygdalus, distinguished from the other subgenera by corrugations on the shell (endocarp) surrounding the seed.</p><p><br></p><ul><li>The fruit of the almond is a drupe, consisting of an outer hull and a hard shell with the seed, which is not a true nut.</li><li>Shelling almonds refers to removing the shell to reveal the seed.</li><li>Almonds are sold shelled or unshelled. Blanched almonds are shelled almonds that have been treated with hot water to soften the seedcoat, which is then removed to reveal the white embryo.</li><li>Once almonds are cleaned and processed, they can be stored over time. Almonds are used in many food cuisines, often featuring prominently in desserts, such as marzipan.</li></ul><p>The almond tree prospers in a moderate Mediterranean climate with cool winter weather. California produces over half of the world\'s almond supply. Due to high acreage and water demand for almond cultivation, and the need for pesticides, California almond production may be unsustainable, especially during the persistent drought and heat from climate change in the 21st century. Droughts in California have caused some producers to leave the industry, leading to lower supply and increased prices.</p><p><br></p><p><br></p><p><br></p>', NULL, 50.000, 70.000, NULL, NULL, NULL, NULL, 1, 'T-678', 1, 200, NULL, '10', 10, 1, 0, NULL, NULL, 'Kg', 38, 1, 1, 63, 'en', 'Almond (Badam)', '19082022100759-400x400-1-almond-badam.jpg', 'The almond is a species of tree native to Iran and surrounding countries, including the Levant.', 'Almond (Badam)', '2022-07-31 03:01:48', '2022-08-22 05:58:57'),
+(137, 'Shara Cashew Nuts (Kaju) 1Kg', 'shara-cashew-nuts-kaju-1kg', '19082022100202-400x400-1-cashews.jpg', 'The cashew tree (Anacardium occidentale) is a tropical evergreen tree that produces the cashew seed and the cashew apple accessory fruit.', '<p>The cashew tree (Anacardium occidentale) is a tropical evergreen tree that produces the cashew seed and the cashew apple accessory fruit. The tree can grow as tall as 14 meters (46 feet), but the dwarf cultivars, growing up to 6 m (20 ft), prove more profitable, with earlier maturity and greater yields. The cashew seed is commonly considered a snack nut (cashew nut) eaten on its own, used in recipes, or processed into cashew cheese or cashew butter. Like the tree, the nut is often simply called cashew.</p><p><br></p><ul><li>Cashew allergies are triggered by the proteins found in tree nuts, and cooking often does not remove or change these proteins.</li><li>As well to the nut and fruit, the plant has several other uses.</li><li>The shell of the cashew seed yields derivatives that can be used in many applications including lubricants, waterproofing, paints, and, starting in World War II, arms production.</li><li>The cashew apple is a light reddish to yellow fruit, whose pulp and juice can be processed into a sweet, astringent fruit drink or fermented and distilled into liquor.</li></ul><p>Its English name derives from the Portuguese name for the fruit of the cashew tree: caju , also known as acaju, which itself is from the Tupian word acajú, literally meaning \"nut that produces itself\"</p>', NULL, 65.000, 75.000, NULL, NULL, NULL, NULL, 1, 'U-y8546', 1, 98, NULL, '10', 10, 1, 0, NULL, NULL, 'Kg', 38, 0, 1, 63, 'en', 'Shara Cashew Nuts (Kaju) 1Kg', '19082022100202-400x400-1-cashews.jpg', 'The cashew tree (Anacardium occidentale) is a tropical evergreen tree that produces the cashew seed and the cashew apple accessory fruit.', 'Shara Cashew Nuts (Kaju) 1Kg', '2022-07-31 03:53:45', '2022-09-01 23:36:50'),
+(138, 'Mixed dry fruits and nuts premium 500 gm', 'mixed-dry-fruits-and-nuts-premium-500-gm-2', '19082022094844-400x400-1-mixed-dry-fruits.jpg', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,', '<p>The cashew tree (Anacardium occidentale) is a tropical evergreen tree that produces the cashew seed and the cashew apple accessory fruit. The tree can grow as tall as 14 meters (46 feet), but the dwarf cultivars, growing up to 6 m (20 ft), prove more profitable, with earlier maturity and greater yields. The cashew seed is commonly considered a snack nut (cashew nut) eaten on its own, used in recipes, or processed into cashew cheese or cashew butter. Like the tree, the nut is often simply called cashew.</p><p><br></p><ul><li>Cashew allergies are triggered by the proteins found in tree nuts, and cooking often does not remove or change these proteins.</li><li>As well to the nut and fruit, the plant has several other uses.</li><li>The shell of the cashew seed yields derivatives that can be used in many applications including lubricants, waterproofing, paints, and, starting in World War II, arms production.</li><li>The cashew apple is a light reddish to yellow fruit, whose pulp and juice can be processed into a sweet, astringent fruit drink or fermented and distilled into liquor.</li></ul><p>Its English name derives from the Portuguese name for the fruit of the cashew tree: caju , also known as acaju, which itself is from the Tupian word acajú, literally meaning \"nut that produces itself\"</p>', NULL, 65.000, 85.000, NULL, NULL, NULL, NULL, 1, 'u-6589', 1, 800, NULL, '10', 10, 2, 0, NULL, NULL, 'Kg', 38, 1, 1, 63, 'en', 'Mixed dry fruits and nuts premium 500 gm', '19082022094844-400x400-1-mixed-dry-fruits.jpg', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,', 'Mixed dry fruits and nuts premium 500 gm', '2022-07-31 04:37:27', '2022-09-01 23:33:35'),
+(139, 'Sandwich', 'sandwich', '02082022143652-400x400-1.jpg', 'A sandwich is a food typically consisting of vegetables, sliced cheese, or meat, placed on or between slices of bread, or more generally any dish wherein bread serves as a container or wrapper for another food type.', '<p>A sandwich is a food typically consisting of vegetables, sliced cheese, or meat, placed on or between slices of bread, or more generally any dish wherein bread serves as a container or wrapper for another food type. The sandwich began as portable, convenient finger food in the Western world, though over time it has become prevalent worldwide.</p><p><br></p><ul><li>Sandwiches are a popular type of lunch food, taken to work, school, or picnics to be eaten as part of a packed lunch.</li><li>The bread may be plain or be coated with condiments, such as mayonnaise or mustard, to enhance its flavor and texture.</li><li>As well as being homemade, sandwiches are also widely sold in various retail outlets and can be served hot or cold.</li><li>There are both savory sandwiches, such as deli meat sandwiches, and sweet sandwiches, such as peanut butter and jelly sandwich.</li></ul><p><br></p><p>The sandwich is named after its supposed inventor, John Montagu, 4th Earl of Sandwich. The Wall Street Journal has described it as Britain\'s \"biggest contribution to gastronomy\".</p>', NULL, 15.000, 20.000, NULL, NULL, NULL, NULL, 1, 'S-54680', 1, 40, NULL, '6', 6, 4, 0, NULL, NULL, 'Kg', 38, 1, 1, 62, 'en', 'Sandwich', '19082022093540-600x600-1-sandwich.jpg', 'A sandwich is a food typically consisting of vegetables, sliced cheese, or meat, placed on or between slices of bread, or more generally any dish wherein bread serves as a container or wrapper for another food type.', 'Sandwich', '2022-07-31 05:09:37', '2022-09-01 23:31:13'),
+(140, 'Fried Chicken Wings', 'fried-chicken-wings', '02082022143530-400x400-5.jpg', 'Fried chicken, also known as Southern fried chicken, is a dish consisting of chicken pieces that have been coated with seasoned flour or batter and pan-fried, deep fried, pressure fried, or air fried.', '<p>Fried chicken, also known as Southern fried chicken, is a dish consisting of chicken pieces that have been coated with seasoned flour or batter and pan-fried, deep fried, pressure fried, or air fried. </p><ul><li>The breading adds a crisp coating or crust to the exterior of the chicken while retaining juices in the meat.</li><li> Broiler chickens are most commonly used.</li><li>The first dish known to have been deep fried was frittered, which was popular in the European Middle Ages. </li><li>However, the Scottish were the first Europeans to deep fry their chicken in fat (though without seasoning). </li><li>Meanwhile, many West African peoples had traditions of seasoned fried chicken (though battering and cooking the chicken in palm oil).</li></ul><p>Scottish frying techniques and West African seasoning techniques were combined by enslaved Africans and African-Americans in the American South</p>', NULL, 54.000, 75.000, NULL, NULL, NULL, NULL, 1, 'FCW-564', 1, 200, NULL, '6', 6, 4, 0, NULL, NULL, 'Kg', 38, 1, 1, 62, 'en', 'Fried Chicken Wings', '19082022054547-600x600-1-chicken-wings.jpg', 'Fried chicken, also known as Southern fried chicken, is a dish consisting of chicken pieces that have been coated with seasoned flour or batter and pan-fried, deep fried, pressure fried, or air fried.', 'Fried Chicken Wings', '2022-07-31 05:25:17', '2022-09-01 23:29:55'),
+(141, 'Pizza', 'pizza', '02082022143457-400x400-8.jpg', 'Pizza is a dish of Italian origin consisting of a usually round', '<p style=\"margin-top: 0.5em; margin-bottom: 0.5em;\"><font color=\"#202122\" face=\"sans-serif\">Pizza is a dish of Italian origin consisting of a usually round, flat base of leavened wheat-based dough topped with tomatoes, cheese, and often various other ingredients, which is then baked at a high temperature, traditionally in a wood-fired oven. A small pizza is sometimes called a pizzetta.&nbsp;</font></p><p style=\"margin-top: 0.5em; margin-bottom: 0.5em;\"><font color=\"#202122\" face=\"sans-serif\"><br></font></p><ul><li style=\"margin-top: 0.5em; margin-bottom: 0.5em;\"><font color=\"#202122\" face=\"sans-serif\">A person who makes pizza is known as a pizzaiolo.</font></li></ul><ul><li style=\"margin-top: 0.5em; margin-bottom: 0.5em;\"><font color=\"#202122\" face=\"sans-serif\">In Italy, pizza served in a restaurant is presented unsliced, and is eaten with the use of a knife and fork.</font></li></ul><p style=\"margin-top: 0.5em; margin-bottom: 0.5em;\"><font color=\"#202122\" face=\"sans-serif\"><br></font></p><p style=\"margin-top: 0.5em; margin-bottom: 0.5em;\"><font color=\"#202122\" face=\"sans-serif\">In casual settings, however, it is cut into wedges to be eaten while held in the hand.</font></p>', NULL, 40.000, 60.000, NULL, NULL, NULL, NULL, 1, 'P-576', 1, 200, NULL, '6', 6, 4, 0, NULL, NULL, 'Kg', 38, 1, 1, 62, 'en', 'Pizza', '19082022052814-600x600-1-pizza.jpg', 'Pizza is a dish of Italian origin consisting of a usually round', 'Pizza', '2022-07-31 05:48:49', '2022-09-01 23:28:16'),
+(142, 'Peach', 'peach', '02082022143408-400x400-18.jpg', 'The peach (Prunus persica) is a deciduous tree first domesticated and cultivated in the Zhejiang province of Eastern China.', '<p>The blackberry is an edible fruit produced by many species in the genus Rubus in the family Rosaceae, hybrids among these species within the subgenus Rubus, and hybrids between the subgenera Rubus and Idaeobatus. <br></p><ul><li>The taxonomy of blackberries has historically been confused because of hybridization and apomixis, so species have often been grouped and called species aggregates.</li><li>For example, the entire subgenus Rubus has been called the Rubus fruticosus aggregate, although the species R. fruticosus is considered a synonym of R. plicatus.</li></ul><p>Rubus armeniacus (\"Himalayan\" blackberry) is considered a noxious weed and invasive species in many regions of the Pacific Northwest of Canada and the United States, where it grows out of control in urban and suburban parks and woodlands.</p><p><br></p>', NULL, 60.000, 80.000, NULL, NULL, NULL, 0, 1, 'P-43524', 1, 1000, NULL, '2', 2, 6, 0, NULL, NULL, 'Kg', 38, 1, 1, 47, 'en', 'Peach', '19082022051624-600x600-1-peach.jpg', 'The peach (Prunus persica) is a deciduous tree first domesticated and cultivated in the Zhejiang province of Eastern China.', 'Peach', '2022-07-31 06:04:03', '2022-09-01 23:26:21'),
+(143, 'Passion', 'passion', '01082022174052-400x400-4.jpg', 'Passiflora edulis, commonly known as passion fruit, is a vine species of passion flower native to southern Brazil through Paraguay and northern Argentina.', '<p>The blackberry is an edible fruit produced by many species in the genus Rubus in the family Rosaceae, hybrids among these species within the subgenus Rubus, and hybrids between the subgenera Rubus and Idaeobatus.&nbsp;</p><p><br></p><ul><li>The taxonomy of blackberries has historically been confused because of hybridization and apomixis, so species have often been grouped and called species aggregates.</li><li>For example, the entire subgenus Rubus has been called the Rubus fruticosus aggregate, although the species R. fruticosus is considered a synonym of R. plicatus.</li></ul><p><br></p><p>Rubus armeniacus (\"Himalayan\" blackberry) is considered a noxious weed and invasive species in many regions of the Pacific Northwest of Canada and the United States, where it grows out of control in urban and suburban parks and woodlands.</p><br>', NULL, 30.000, 50.000, NULL, NULL, NULL, NULL, 1, 'P-4834', 1, 400, NULL, '2', 2, 6, 1, NULL, NULL, 'Kg', 38, 1, 1, 48, 'en', 'Passion', '19082022050242-600x600-1-passion.jpg', 'Passiflora edulis, commonly known as passion fruit, is a vine species of passion flower native to southern Brazil through Paraguay and northern Argentina.', 'Passion', '2022-07-31 06:09:59', '2022-09-01 23:24:32'),
+(144, 'Blackberry', 'blackberry', '19082022044622-400x400-1-blackberry.jpg', 'The blackberry is an edible fruit produced by many species in the genus Rubus in the family Rosaceae, hybrids among these species within the subgenus Rubus, and hybrids between the subgenera Rubus and Idaeobatus.', '<p>The blackberry is an edible fruit produced by many species in the genus Rubus in the family Rosaceae, hybrids among these species within the subgenus Rubus, and hybrids between the subgenera Rubus and Idaeobatus.&nbsp;</p><p><br></p><ul><li>The taxonomy of blackberries has historically been confused because of hybridization and apomixis, so species have often been grouped and called species aggregates.</li><li>For example, the entire subgenus Rubus has been called the Rubus fruticosus aggregate, although the species R. fruticosus is considered a synonym of R. plicatus.</li></ul><p><br></p><p>Rubus armeniacus (\"Himalayan\" blackberry) is considered a noxious weed and invasive species in many regions of the Pacific Northwest of Canada and the United States, where it grows out of control in urban and suburban parks and woodlands.</p><p><br></p>', NULL, 20.000, 40.000, NULL, NULL, NULL, NULL, 1, 'BB-3428', 1, 100, NULL, '2', 2, 6, 0, NULL, NULL, 'Kg', 38, 1, 1, 63, 'en', 'Blackberry', '19082022044622-400x400-1-blackberry.jpg', 'The blackberry is an edible fruit produced by many species in the genus Rubus in the family Rosaceae, hybrids among these species within the subgenus Rubus, and hybrids between the subgenera Rubus and Idaeobatus.', 'Blackberry', '2022-07-31 06:26:38', '2022-09-01 23:19:56'),
+(145, 'Raw Chicken Legs', 'raw-chicken-legs', '19082022043919-600x600-1-raw-chicken-legs.jpg', 'Chicken is the most common type of poultry in the world.', '<p>Chicken is the most common type of poultry in the world. Owing to the relative ease and low cost of raising chickens—in comparison to mammals such as cattle or hogs—chicken meat (commonly called just \"chicken\") and chicken eggs have become prevalent in numerous cuisines.</p><ul><li>Chicken can be prepared in a vast range of ways, including baking, grilling, barbecuing, frying, and boiling.</li><li>Since the latter half of the 20th century, prepared chicken has become a staple of fast food.</li><li>Chicken is sometimes cited as being more healthful than red meat, with lower concentrations of cholesterol and saturated fat.</li></ul><p>The poultry farming industry that accounts for chicken production takes on a range of forms across different parts of the world. In developed countries, chickens are typically subject to intensive farming methods while less-developed areas raise chickens using more traditional farming techniques. The United Nations estimates there to be 19 billion chickens on Earth today, making them outnumber humans by more than two to one</p><p><br></p>', NULL, 70.000, 80.000, NULL, NULL, NULL, 0, 1, 'CL-456', 1, 800, NULL, '8', 8, 2, 0, NULL, NULL, 'Kg', 38, 1, 1, 47, 'en', 'Raw Chicken Legs', '19082022043919-600x600-1-raw-chicken-legs.jpg', 'Chicken is the most common type of poultry in the world.', 'Raw Chicken Legs', '2022-07-31 06:34:15', '2022-09-01 23:18:32'),
+(146, 'Rack of Lamb', 'rack-of-lamb-2', '01082022173248-400x400-1.jpg', 'Fried chicken, also known as Southern fried chicken, is a dish consisting of chicken pieces that have been coated with seasoned flour or batter and pan-fried, deep fried, pressure fried, or air fried.', '<br><p>Fried chicken, also known as Southern fried chicken, is a dish consisting of chicken pieces that have been coated with seasoned flour or batter and pan-fried, deep fried, pressure fried, or air fried.</p><p><br></p><ul><li>The breading adds a crisp coating or crust to the exterior of the chicken while retaining juices in the meat. Broiler chickens are most commonly used.</li><li>The first dish known to have been deep fried was frittered, which was popular in the European Middle Ages.</li><li>However, the Scottish were the first Europeans to deep fry their chicken in fat (though without seasoning).</li><li>Meanwhile, many West African peoples had traditions of seasoned fried chicken (though battering and cooking the chicken in palm oil)</li></ul><p><br></p><p>Scottish frying techniques and West African seasoning techniques were combined by enslaved Africans and African-Americans in the American South<br></p>', NULL, 30.000, 100.000, 80.000, '2022-08-01', '2022-08-31', NULL, 1, 'L-5736', 1, 456, NULL, '8', 8, 7, 0, NULL, NULL, 'Kg', 38, 1, 1, 47, 'en', 'Rack of Lamb', '19082022042756-600x600-1-rack-of-lamb.jpg', 'Fried chicken, also known as Southern fried chicken, is a dish consisting of chicken pieces that have been coated with seasoned flour or batter and pan-fried, deep fried, pressure fried, or air fried.', 'Rack of Lamb', '2022-07-31 06:41:57', '2022-09-01 22:58:23'),
+(147, 'Chicken', 'chicken', '19082022041622-400x400-1-chicken.jpg', 'Fried chicken, also known as Southern fried chicken, is a dish consisting of chicken pieces that have been coated with seasoned flour or batter and pan-fried, deep fried, pressure fried, or air fried.', '<p>Fried chicken, also known as Southern fried chicken, is a dish consisting of chicken pieces that have been coated with seasoned flour or batter and pan-fried, deep fried, pressure fried, or air fried.</p><p><br></p><ul><li>The breading adds a crisp coating or crust to the exterior of the chicken while retaining juices in the meat. Broiler chickens are most commonly used.</li><li>The first dish known to have been deep fried was frittered, which was popular in the European Middle Ages. </li><li>However, the Scottish were the first Europeans to deep fry their chicken in fat (though without seasoning). </li><li>Meanwhile, many West African peoples had traditions of seasoned fried chicken (though battering and cooking the chicken in palm oil)</li></ul><p><br></p><p>Scottish frying techniques and West African seasoning techniques were combined by enslaved Africans and African-Americans in the American South</p>\r\n<br>', NULL, 80.000, 90.000, NULL, NULL, NULL, NULL, 1, 'C-675', 1, 879, NULL, '8', 8, 2, 0, NULL, NULL, 'Kg', 38, 1, 1, 63, 'en', 'Chicken', '19082022041622-400x400-1-chicken.jpg', 'Fried chicken, also known as Southern fried chicken, is a dish consisting of chicken pieces that have been coated with seasoned flour or batter and pan-fried, deep fried, pressure fried, or air fried.', 'Chicken', '2022-07-31 06:46:38', '2022-09-01 22:56:20'),
+(148, 'Squid', 'squid', '19082022040651-600x600-1-squid.jpg', 'Seafood is any form of sea life regarded as food by humans, prominently including fish and shellfish.', '<p>Seafood is any form of sea life regarded as food by humans, prominently including fish and shellfish. Shellfish include various species of mollusks (e.g. bivalve mollusks such as clams, oysters, and mussels, and cephalopods such as octopus and squid), crustaceans (e.g. shrimp, crabs, and lobster), and echinoderms (e.g. sea cucumbers and sea urchins). Historically, marine mammals such as cetaceans (whales and dolphins) as well as seals have been eaten as food, though that happens to a lesser extent in modern times. Edible sea plants such as some seaweeds and microalgae are widely eaten as sea vegetables around the world, especially in Asia.</p><ul><li>Seafood is an important source of (animal) protein in many diets around the world, especially in coastal areas.</li><li>Semi-vegetarians who consume seafood as the only source of meat are said to adhere to pescetarianism.</li><li>The harvesting of wild seafood is usually known as fishing or hunting, while the cultivation and farming of seafood are known as aquaculture and fish farming (in the case of fish).</li><li>Most of the seafood harvest is consumed by humans, but a significant proportion is used as fish food to farm other fish or rear farm animals.</li><li>Some seafood (i.e. kelp) is used as food for other plants (a fertilizer).</li><li>In these ways, seafood is used to produce further food for human consumption.</li><li>Also, products such as fish oil and spirulina tablets are extracted from seafood. <br></li></ul><p>Some seafood is fed to aquarium fish or used to feed domestic pets such as cats. A small proportion is used in medicine or is used industrially for nonfood purposes (e.g. leather).</p>', NULL, 45.000, 60.000, NULL, NULL, NULL, NULL, 1, 'Fs-678', 1, 967, NULL, '9', 9, 4, 1, NULL, NULL, 'Kg', 38, 1, 1, 62, 'en', 'Squid', '19082022040651-600x600-1-squid.jpg', 'Seafood is any form of sea life regarded as food by humans, prominently including fish and shellfish.', 'Squid', '2022-07-31 07:13:41', '2022-09-01 22:53:58'),
+(149, 'Crayfish', 'crayfish', '19082022035247-600x600-1-crayfish.jpg', 'Seafood is any form of sea life regarded as food by humans, prominently including fish and shellfish.', '<p>Seafood is any form of sea life regarded as food by humans, prominently including fish and shellfish. Shellfish include various species of mollusks (e.g. bivalve mollusks such as clams, oysters, and mussels, and cephalopods such as octopus and squid), crustaceans (e.g. shrimp, crabs, and lobster), and echinoderms (e.g. sea cucumbers and sea urchins). Historically, marine mammals such as cetaceans (whales and dolphins) as well as seals have been eaten as food, though that happens to a lesser extent in modern times. Edible sea plants such as some seaweeds and microalgae are widely eaten as sea vegetables around the world, especially in Asia.</p><p><br></p><ul><li>Seafood is an important source of (animal) protein in many diets around the world, especially in coastal areas.</li><li>Semi-vegetarians who consume seafood as the only source of meat are said to adhere to pescetarianism.</li><li>The harvesting of wild seafood is usually known as fishing or hunting, while the cultivation and farming of seafood are known as aquaculture and fish farming (in the case of fish).</li><li>Most of the seafood harvest is consumed by humans, but a significant proportion is used as fish food to farm other fish or rear farm animals.</li><li>Some seafood (i.e. kelp) is used as food for other plants (a fertilizer).</li><li>In these ways, seafood is used to produce further food for human consumption.</li><li>Also, products such as fish oil and spirulina tablets are extracted from seafood.&nbsp;</li></ul><p><br></p><p>Some seafood is fed to aquarium fish or used to feed domestic pets such as cats. A small proportion is used in medicine or is used industrially for nonfood purposes (e.g. leather).</p>', NULL, 70.000, 98.000, 115.000, '2022-09-02', '2023-12-28', 1, 1, 'HU-89576', 1, 100, NULL, '9', 9, 4, 1, NULL, NULL, 'Kg', 38, 1, 1, 62, 'en', 'Crayfish', '19082022035247-600x600-1-crayfish.jpg', 'Seafood is any form of sea life regarded as food by humans, prominently including fish and shellfish.', 'Crayfish', '2022-07-31 07:51:03', '2022-09-01 22:51:05'),
+(150, 'Snow Crab', 'snow-crab', '19082022032359-600x600-1-snow-crab.jpg', 'Seafood is any form of sea life regarded as food by humans, prominently including fish and shellfish.', '<p>Seafood is any form of sea life regarded as food by humans, prominently including fish and shellfish. Shellfish include various species of mollusks (e.g. bivalve mollusks such as clams, oysters, and mussels, and cephalopods such as octopus and squid), crustaceans (e.g. shrimp, crabs, and lobster), and echinoderms (e.g. sea cucumbers and sea urchins). Historically, marine mammals such as cetaceans (whales and dolphins) as well as seals have been eaten as food, though that happens to a lesser extent in modern times. Edible sea plants such as some seaweeds and microalgae are widely eaten as sea vegetables around the world, especially in Asia.</p><p><br></p><ul><li>Seafood is an important source of (animal) protein in many diets around the world, especially in coastal areas.</li><li>Semi-vegetarians who consume seafood as the only source of meat are said to adhere to pescetarianism.</li><li>The harvesting of wild seafood is usually known as fishing or hunting, while the cultivation and farming of seafood are known as aquaculture and fish farming (in the case of fish).</li><li>Most of the seafood harvest is consumed by humans, but a significant proportion is used as fish food to farm other fish or rear farm animals.</li><li>Some seafood (i.e. kelp) is used as food for other plants (a fertilizer).</li><li>In these ways, seafood is used to produce further food for human consumption.</li><li>Also, products such as fish oil and spirulina tablets are extracted from seafood.&nbsp;</li></ul><p><br></p><p>Some seafood is fed to aquarium fish or used to feed domestic pets such as cats. A small proportion is used in medicine or is used industrially for nonfood purposes (e.g. leather).</p>', NULL, 110.000, 130.000, 153.000, '2022-09-02', '2023-12-28', 1, 1, 'J-768', 1, 300, NULL, '9', 9, 2, 1, NULL, NULL, 'Kg', 38, 1, 1, 63, 'en', 'Snow Crab', '19082022032359-600x600-1-snow-crab.jpg', 'Seafood is any form of sea life regarded as food by humans, prominently including fish and shellfish.', 'Snow Crab', '2022-07-31 08:15:31', '2022-09-01 22:44:48'),
+(151, 'Cocktail Soft Drink Juice', 'cocktail-soft-drink-juice', '01082022173019-400x400-17.jpg', 'Juice is a drink made from the extraction or pressing of the natural liquid contained in fruit and vegetables.', '<p>Juice is a drink made from the extraction or pressing of the natural liquid contained in fruit and vegetables.</p><p><br></p><ul><li>It can also refer to liquids that are flavored with concentrate or other biological food sources, such as meat or seafood, such as clam juice.</li><li>Juice is commonly consumed as a beverage or used as an ingredient or flavoring in foods or other beverages, such as smoothies.</li><li>Juice emerged as a popular beverage choice after the development of pasteurization methods enabled its preservation without using fermentation (which is used in wine production).</li></ul><p><br></p><p>The largest fruit juice consumers are New Zealand (nearly a cup, or 8 ounces, each day) and Colombia (more than three-quarters of a cup each day). Fruit juice consumption on average increases with the country\'s income level.</p><p><br></p>', NULL, 30.000, 40.000, 49.000, '2022-09-02', '2023-08-10', 1, 1, 'ED-8976', 1, 80, NULL, '5', 5, 6, 0, NULL, NULL, 'Kg', 38, 1, 1, 47, 'en', 'Cocktail Soft Drink Juice', '19082022031029-600x600-1-cocktail-soft-drink.jpg', 'Juice is a drink made from the extraction or pressing of the natural liquid contained in fruit and vegetables.', 'Cocktail Soft Drink Juice', '2022-07-31 08:21:22', '2022-09-01 22:41:03'),
+(152, 'Pomegranate juice', 'pomegranate-juice-2', '01082022172956-400x400-8.jpg', 'Juice is a drink made from the extraction or pressing of the natural liquid contained in fruit and vegetables.', '<p>Juice is a drink made from the extraction or pressing of the natural liquid contained in fruit and vegetables.</p><p><br></p><ul><li>It can also refer to liquids that are flavored with concentrate or other biological food sources, such as meat or seafood, such as clam juice.</li><li>Juice is commonly consumed as a beverage or used as an ingredient or flavoring in foods or other beverages, such as smoothies.</li><li>Juice emerged as a popular beverage choice after the development of pasteurization methods enabled its preservation without using fermentation (which is used in wine production).</li></ul><p><br></p><p>The largest fruit juice consumers are New Zealand (nearly a cup, or 8 ounces, each day) and Colombia (more than three-quarters of a cup each day). Fruit juice consumption on average increases with the country\'s income level.</p><p><br></p>', NULL, 100.000, 120.000, NULL, NULL, NULL, 0, 1, 'U-5463', 1, 300, NULL, '5', 5, 4, 1, NULL, NULL, 'Kg', 38, 1, 1, 47, 'en', 'Pomegranate juice', '18082022175726-600x600-5-fruit-juice.jpg', 'Juice is a drink made from the extraction or pressing of the natural liquid contained in fruit and vegetables.', 'Pomegranate juice', '2022-07-31 08:26:46', '2022-09-01 22:37:46'),
+(153, 'Fruit Juice', 'fruit-juice', '01082022172932-400x400-1.jpg', 'Juice is a drink made from the extraction or pressing of the natural liquid contained in fruit and vegetables.', '<p>Juice is a drink made from the extraction or pressing of the natural liquid contained in fruit and vegetables.</p><p><br></p><ul><li>It can also refer to liquids that are flavored with concentrate or other biological food sources, such as meat or seafood, such as clam juice.</li><li>Juice is commonly consumed as a beverage or used as an ingredient or flavoring in foods or other beverages, such as smoothies.</li><li>Juice emerged as a popular beverage choice after the development of pasteurization methods enabled its preservation without using fermentation (which is used in wine production).</li></ul><p><br></p><p>The largest fruit juice consumers are New Zealand (nearly a cup, or 8 ounces, each day) and Colombia (more than three-quarters of a cup each day). Fruit juice consumption on average increases with the country\'s income level.</p><p><br></p>', NULL, 90.000, 100.000, 130.000, '2022-09-02', '2023-12-31', 1, 1, 'T-5467', 1, 600, NULL, '5', 5, 7, 0, NULL, NULL, 'Kg', 38, 1, 1, 47, 'en', 'Fruit Juice', '18082022175722-600x600-6-fruit-juice.jpg', 'Juice is a drink made from the extraction or pressing of the natural liquid contained in fruit and vegetables.', 'Fruit Juice', '2022-07-31 08:29:56', '2022-09-01 22:34:00'),
+(154, 'Dairy Products', 'dairy-products', '01082022172846-400x400-9.jpg', 'Dairy products or milk products, also known as vaccinia, are food products made from (or containing) milk.', '<p>Dairy products or milk products, also known as vaccinia, are food products made from milk.&nbsp;</p><p><br></p><ul><li>The most common dairy animals are cow, water buffalo, nanny goat, and ewe.</li><li>Dairy products include common grocery store food items in the Western world such as yogurt, cheese, and butter.</li><li>A facility that produces dairy products is known as a dairy.</li><li>Dairy products are consumed worldwide to varying degrees (see consumption patterns worldwide).&nbsp;</li></ul><p><br></p><p>Some people avoid some or all dairy products either because of lactose intolerance, veganism, or other health reasons or beliefs.</p><p><br></p>', NULL, 100.000, 120.000, NULL, NULL, NULL, 0, 1, 'DP-0985', 1, 100, NULL, '7', 7, 2, 0, NULL, NULL, 'Kg', 38, 1, 1, 47, 'en', 'Dairy Products', '18082022174441-600x600-1-dairy-products.jpg', 'Dairy products or milk products, also known as vaccinia, are food products made from (or containing) milk.', 'Dairy Products', '2022-07-31 08:33:51', '2022-09-01 22:31:58'),
+(155, 'Cheese', 'cheese', '01082022172825-400x400-11.jpg', 'Dairy products or milk products, also known as vaccinia, are food products made from (or containing) milk.', '<p>Dairy products or milk products, also known as vaccinia, are food products made from milk. <br></p><ul><li>The most common dairy animals are cow, water buffalo, nanny goat, and ewe.</li><li>Dairy products include common grocery store food items in the Western world such as yogurt, cheese, and butter.</li><li>A facility that produces dairy products is known as a dairy.</li><li>Dairy products are consumed worldwide to varying degrees (see consumption patterns worldwide). <br></li></ul><p>Some people avoid some or all dairy products either because of lactose intolerance, veganism, or other health reasons or beliefs.</p><p><br></p>', NULL, 80.000, 90.000, 100.000, '2022-10-18', '2022-10-21', 1, 1, 'TP-785', 1, 600, NULL, '7', 7, 6, 0, NULL, NULL, 'Kg', 38, 1, 1, 62, 'en', 'Cheese', '18082022171458-600x600-1-cheese.jpg', 'Dairy products or milk products, also known as vaccinia, are food products made from (or containing) milk.', 'Cheese', '2022-07-31 08:38:26', '2022-10-18 05:49:57'),
+(156, 'Milk Splash', 'milk-splash', '01082022172802-400x400-3.jpg', 'Dairy products or milk products, also known as vaccinia, are food products made from (or containing) milk.', '<p>Dairy products or milk products, also known as vaccinia, are food products made from milk. <br></p><ul><li>The most common dairy animals are cow, water buffalo, nanny goat, and ewe.</li><li>Dairy products include common grocery store food items in the Western world such as yogurt, cheese, and butter.</li><li>A facility that produces dairy products is known as a dairy.</li><li>Dairy products are consumed worldwide to varying degrees (see consumption patterns worldwide). <br></li></ul><p>Some people avoid some or all dairy products either because of lactose intolerance, veganism, or other health reasons or beliefs.</p><p><br></p>', NULL, NULL, 30.000, NULL, NULL, NULL, 0, 1, 'MS-543', 1, 350, NULL, '7', 7, 3, 1, NULL, NULL, 'Kg', 38, 1, 1, 48, 'en', 'Milk Splash', '18082022155122-600x600-1-milk-splash.jpg', 'Dairy products or milk products, also known as vaccinia, are food products made from (or containing) milk.', 'Milk Splash', '2022-07-31 08:41:17', '2022-09-01 22:25:20');
+INSERT INTO `products` (`id`, `title`, `slug`, `f_thumbnail`, `short_desc`, `description`, `extra_desc`, `cost_price`, `sale_price`, `old_price`, `start_date`, `end_date`, `is_discount`, `is_stock`, `sku`, `stock_status_id`, `stock_qty`, `u_stock_qty`, `category_ids`, `cat_id`, `brand_id`, `collection_id`, `label_id`, `variation_color`, `variation_size`, `tax_id`, `is_featured`, `is_publish`, `user_id`, `lan`, `og_title`, `og_image`, `og_description`, `og_keywords`, `created_at`, `updated_at`) VALUES
+(157, 'Walnuts', 'walnuts', '01082022172737-400x400-3.jpg', 'Dried food products are often laden with bacterial and fungal spores.', '<p>Dried food products are often laden with bacterial and fungal spores.&nbsp;</p><ul><li>It has been suggested that the water activity, humidity in the environment, temperature of the product, and applied ozone concentration influence the efficacy of gaseous ozone against microbial contaminants on dry food and food ingredients.</li><li>The surface properties of foods also influence the ozone inactivation of microorganisms in dried foods.</li><li>Higher ozone concentration and longer treatment time were needed for cereal flour and ground pepper to achieve a comparable effect for the whole cereal and pepper.&nbsp;</li></ul><p>Similarly, higher detoxification of aflatoxins was achieved in whole pistachio kernels as compared to ground pistachios upon treatment with gaseous ozone.</p>', NULL, 90.000, 110.000, 170.000, '2022-09-02', '2023-09-03', 1, 1, 'DF-564', 1, 900, NULL, '3', 3, 5, 1, NULL, NULL, 'Kg', 38, 1, 1, 63, 'en', 'Walnuts', '18082022153802-600x600-1-walnuts.jpg', 'Dried food products are often laden with bacterial and fungal spores.', 'Walnuts', '2022-07-31 08:47:16', '2022-09-01 22:20:44'),
+(158, 'Pistachio', 'pistachio-2', '01082022172712-400x400-7.jpg', 'Dried food products are often laden with bacterial and fungal spores.', '<p>Dried food products are often laden with bacterial and fungal spores.&nbsp;</p><ul><li>It has been suggested that the water activity, humidity in the environment, temperature of the product, and applied ozone concentration influence the efficacy of gaseous ozone against microbial contaminants on dry food and food ingredients (Kim et al., 2003). </li><li>The surface properties of foods also influence the ozone inactivation of microorganisms in dried foods. </li><li>Higher ozone concentration and longer treatment time were needed for cereal flour and ground pepper to achieve a comparable microbicidal effect for the whole cereal and pepper (Naitoh et al., 1992; Zagon et al., 1992).&nbsp;</li></ul><p>Similarly, higher detoxification of aflatoxins was achieved in whole pistachio kernels as compared to ground pistachios upon treatment with gaseous ozone (Akbas and Ozdemir, 2006).</p>', NULL, 50.000, 60.000, NULL, NULL, NULL, 0, 1, 'TP-765', 1, 500, NULL, '3', 3, 2, 0, NULL, NULL, 'Kg', 38, 1, 1, 47, 'en', 'Pistachio', '18082022151446-600x600-1-pistachio.jpg', 'Dried food products are often laden with bacterial and fungal spores.', 'Pistachio', '2022-07-31 09:03:08', '2022-09-01 22:17:59'),
+(159, 'Lotus Seeds', 'lotus-seeds-2', '01082022172650-400x400-24.jpg', 'Dried food products are often laden with bacterial and fungal spores.', '<p>Dried food products are often laden with bacterial and fungal spores. <br></p><ul><li>It has been suggested that the water activity, humidity in the environment, temperature of the product, and applied ozone concentration influence the efficacy of gaseous ozone against microbial contaminants on dry food and food ingredients (Kim et al., 2003). </li><li>The surface properties of foods also influence the ozone inactivation of microorganisms in dried foods. </li><li>Higher ozone concentration and longer treatment time were needed for cereal flour and ground pepper to achieve a comparable effect for the whole cereal and pepper. <br></li></ul><p>Similarly, higher detoxification of aflatoxins was achieved in whole pistachio kernels as compared to ground pistachios upon treatment with gaseous ozone.</p>', NULL, 30.000, 60.000, NULL, NULL, NULL, NULL, 1, 'KL-7645', 1, 650, NULL, '3', 3, 4, 1, NULL, NULL, 'Kg', 38, 1, 1, 47, 'en', 'Lotus Seeds', '18082022150003-600x600-1-lotus-seeds.jpg', 'Dried food products are often laden with bacterial and fungal spores.', 'Lotus Seeds', '2022-07-31 09:14:44', '2022-09-01 22:13:19'),
+(160, 'Potato', 'potato', '01082022172600-400x400-1.jpg', 'Vegetables are parts of plants that are consumed by humans or other animals as food.', '<p>Vegetables are parts of plants that are consumed by humans or other animals as food. The original meaning is still commonly used and is applied to plants collectively to refer to all edible plant matter, including the flowers, fruits, stems, leaves, roots, and seeds.</p><ul><li>An alternative definition of the term is applied somewhat arbitrarily, often by culinary and cultural tradition.</li><li>It may exclude foods derived from some plants that are fruits, flowers, nuts, and cereal grains, but include savory fruits such as tomatoes and courgettes, flowers such as broccoli, and seeds such as pulses.</li><li>Originally, vegetables were collected from the wild by hunter-gatherers and entered cultivation in several parts of the world, probably during the period 10,000 BC to 7,000 BC, when a new agricultural way of life developed.</li></ul><p>At first, plants that grew locally would have been cultivated, but as time went on, trade brought exotic crops from elsewhere to add to domestic types.</p>', NULL, 20.000, 25.000, NULL, NULL, NULL, 0, 1, 'PT-76835', 1, 250, NULL, '1', 1, 4, 1, NULL, NULL, 'Kg', 38, 1, 1, 63, 'en', 'Potatoe', '18082022140944-600x600-1-potato.jpg', 'Vegetables are parts of plants that are consumed by humans or other animals as food.', 'Potatoe, Alo, Gol Alo', '2022-07-31 09:18:41', '2022-09-01 22:06:52'),
+(161, 'Red Pepper', 'red-pepper-2', '01082022172527-400x400-18.jpg', 'Vegetables are parts of plants that are consumed by humans or other animals as food.', '<p>Vegetables are parts of plants that are consumed by humans or other animals as food. The original meaning is still commonly used and is applied to plants collectively to refer to all edible plant matter, including the flowers, fruits, stems, leaves, roots, and seeds.</p><ul><li>An alternative definition of the term is applied somewhat arbitrarily, often by culinary and cultural tradition.</li><li>It may exclude foods derived from some plants that are fruits, flowers, nuts, and cereal grains, but include savory fruits such as tomatoes and courgettes, flowers such as broccoli, and seeds such as pulses.</li><li>Originally, vegetables were collected from the wild by hunter-gatherers and entered cultivation in several parts of the world, probably during the period 10,000 BC to 7,000 BC, when a new agricultural way of life developed.</li></ul><p>At first, plants that grew locally would have been cultivated, but as time went on, trade brought exotic crops from elsewhere to add to domestic types.</p><div><br></div>', NULL, 25.000, 30.360, 40.000, '2022-09-02', '2023-08-30', 1, 1, 'TP-874578', 1, 200, NULL, '1', 1, 1, 0, NULL, NULL, 'Kg', 38, 1, 1, 47, 'en', 'Red Pepper', '18082022135056-600x600-1-red-pepper.jpg', 'Vegetables are parts of plants that are consumed by humans or other animals as food.', 'Red Pepper, Vegetables, chili', '2022-07-31 09:23:05', '2023-04-25 02:17:04'),
+(162, 'Garlic China', 'garlic-china', '01082022172357-400x400-7.jpg', 'Vegetables are parts of plants that are consumed by humans or other animals as food.', '<p>Vegetables are parts of plants that are consumed by humans or other animals as food. The original meaning is still commonly used and is applied to plants collectively to refer to all edible plant matter, including the flowers, fruits, stems, leaves, roots, and seeds.</p><ul><li>An alternative definition of the term is applied somewhat arbitrarily, often by culinary and cultural tradition.</li><li>It may exclude foods derived from some plants that are fruits, flowers, nuts, and cereal grains, but include savory fruits such as tomatoes and courgettes, flowers such as broccoli, and seeds such as pulses.</li><li>Originally, vegetables were collected from the wild by hunter-gatherers and entered cultivation in several parts of the world, probably during the period 10,000 BC to 7,000 BC, when a new agricultural way of life developed.</li></ul><p>At first, plants that grew locally would have been cultivated, but as time went on, trade brought exotic crops from elsewhere to add to domestic types.</p>', NULL, 15.000, 20.240, 25.000, '2022-12-09', '2023-05-31', 1, 1, 'PT-856054', 1, 120, NULL, '1', 1, 7, 1, NULL, NULL, 'Kg', 38, 1, 1, 63, 'en', 'Garlic China', '18082022123324-600x600-1-garlic.jpg', 'Vegetables are parts of plants that are consumed by humans or other animals as food.', 'Garlic China', '2022-07-31 09:25:59', '2023-04-25 02:17:33');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_images`
+--
+
+CREATE TABLE `product_images` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `product_id` bigint(20) UNSIGNED NOT NULL,
+  `image` varchar(191) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_reviews`
+--
+
+CREATE TABLE `product_reviews` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `product_id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `rating` varchar(191) NOT NULL,
+  `comment` text NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pro_categories`
+--
+
+CREATE TABLE `pro_categories` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(191) DEFAULT NULL,
+  `slug` varchar(191) NOT NULL,
+  `thumbnail` text DEFAULT NULL,
+  `subheader_image` text DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `layout` varchar(100) DEFAULT NULL,
+  `lan` varchar(100) DEFAULT NULL,
+  `parent_id` int(11) DEFAULT NULL,
+  `is_subheader` int(11) DEFAULT NULL,
+  `is_publish` int(11) DEFAULT NULL,
+  `og_title` text DEFAULT NULL,
+  `og_image` text DEFAULT NULL,
+  `og_description` text DEFAULT NULL,
+  `og_keywords` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `pro_categories`
+--
+
+INSERT INTO `pro_categories` (`id`, `name`, `slug`, `thumbnail`, `subheader_image`, `description`, `layout`, `lan`, `parent_id`, `is_subheader`, `is_publish`, `og_title`, `og_image`, `og_description`, `og_keywords`, `created_at`, `updated_at`) VALUES
+(1, 'Vegetables', 'vegetables', '01072022115801-600x600-vegetables.png', NULL, '', NULL, 'en', NULL, 0, 1, 'Vegetables', '01072022115801-600x600-vegetables.png', 'Vegetables', 'Vegetables', '2022-07-01 00:28:35', '2022-07-01 00:28:35'),
+(2, 'Fresh Fruit', 'fresh-fruit', '01072022120122-600x600-fruit.png', '01072022120122-600x600-fruit.png', '', NULL, 'en', NULL, 0, 1, 'Fresh Fruit', '01072022120122-600x600-fruit.png', 'Fresh Fruit', 'Fresh Fruit', '2022-07-01 00:32:00', '2022-07-01 00:32:00'),
+(3, 'Nutt and Seeds', 'nutt-and-seeds', '01072022120255-600x600-nutt-and-seeds.png', '01072022120255-600x600-nutt-and-seeds.png', '', NULL, 'en', NULL, 0, 1, 'Nutt and Seeds', '01072022120255-600x600-nutt-and-seeds.png', 'Nutt and Seeds', 'Nutt and Seeds', '2022-07-01 00:33:12', '2022-07-01 00:35:30'),
+(4, 'Bread and Bakery', 'bread-and-bakery', '01072022120359-600x600-bread-and-bakery.png', '01072022120359-600x600-bread-and-bakery.png', '', NULL, 'en', NULL, 0, 1, 'Bread and Bakery', '01072022120359-600x600-bread-and-bakery.png', 'Bread and Bakery', 'Bread and Bakery', '2022-07-01 00:34:14', '2022-07-01 00:35:10'),
+(5, 'Juice', 'juice', '01072022120554-600x600-juice.png', '01072022120554-600x600-juice.png', '', NULL, 'en', NULL, 0, 1, 'Juice', '01072022120554-600x600-juice.png', 'Juice', 'Juice', '2022-07-01 00:36:15', '2022-07-01 00:36:15'),
+(6, 'Fast food', 'fast-food', '01072022120657-600x600-fast-food.png', '01072022120657-600x600-fast-food.png', '', NULL, 'en', NULL, 0, 1, 'Fast food', '01072022120657-600x600-fast-food.png', 'Fast food', 'Fast food', '2022-07-01 00:37:10', '2022-07-01 00:37:10'),
+(7, 'Milk and Dairy', 'milk-and-dairy', '01072022120745-600x600-milk-and-dairy.png', '01072022120745-600x600-milk-and-dairy.png', '', NULL, 'en', NULL, 0, 1, 'Milk and Dairy', '01072022120745-600x600-milk-and-dairy.png', 'Milk and Dairy', 'Milk and Dairy', '2022-07-01 00:38:03', '2022-07-01 00:38:03'),
+(8, 'Fresh Meat', 'fresh-meat', '01072022120831-600x600-fresh-meat.png', '01072022120831-600x600-fresh-meat.png', '', NULL, 'en', NULL, 0, 1, 'Fresh Meat', '01072022120831-600x600-fresh-meat.png', 'Fresh Meat', 'Fresh Meat', '2022-07-01 00:38:45', '2022-07-01 00:38:45'),
+(9, 'Fresh Seafood', 'fresh-seafood', '01072022120911-600x600-fresh-seafood.png', '01072022120911-600x600-fresh-seafood.png', '', NULL, 'en', NULL, 0, 1, 'Fresh Seafood', '01072022120911-600x600-fresh-seafood.png', 'Fresh Seafood', 'Fresh Seafood', '2022-07-01 00:39:30', '2022-07-01 00:39:30'),
+(10, 'Dry Food', 'dry-food', '01072022121020-600x600-dry-food.png', '01072022121020-600x600-dry-food.png', '', NULL, 'en', NULL, 0, 1, 'Dry Food', '01072022121020-600x600-dry-food.png', 'Dry Food', 'Dry Food', '2022-07-01 00:40:35', '2022-07-01 00:40:35'),
+(11, 'Coffee and Tea', 'coffee-and-tea', '01072022121100-600x600-coffee-and-tea.png', '01072022121100-600x600-coffee-and-tea.png', '', NULL, 'en', NULL, 0, 1, 'Coffee and Tea', '01072022121100-600x600-coffee-and-tea.png', 'Coffee and Tea', 'Coffee and Tea', '2022-07-01 00:41:13', '2022-12-09 02:10:39');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pro_images`
+--
+
+CREATE TABLE `pro_images` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `thumbnail` text DEFAULT NULL,
+  `large_image` text DEFAULT NULL,
+  `desc` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `pro_images`
+--
+
+INSERT INTO `pro_images` (`id`, `product_id`, `thumbnail`, `large_image`, `desc`, `created_at`, `updated_at`) VALUES
+(378, 162, '18082022123324-600x600-1-garlic.jpg', '18082022123324-1-garlic.jpg', NULL, '2022-08-18 01:06:07', '2022-08-18 01:06:07'),
+(379, 162, '18082022123333-600x600-2-garlic.jpg', '18082022123333-2-garlic.jpg', NULL, '2022-08-18 01:06:14', '2022-08-18 01:06:14'),
+(380, 162, '18082022123337-600x600-3-garlic.jpg', '18082022123337-3-garlic.jpg', NULL, '2022-08-18 01:06:22', '2022-08-18 01:06:22'),
+(381, 162, '18082022123536-600x600-4-garlic.jpg', '18082022123536-4-garlic.jpg', NULL, '2022-08-18 01:06:27', '2022-08-18 01:06:27'),
+(382, 162, '18082022123541-600x600-5-garlic.jpg', '18082022123541-5-garlic.jpg', NULL, '2022-08-18 01:06:38', '2022-08-18 01:06:38'),
+(383, 162, '18082022123544-600x600-6-garlic.jpg', '18082022123544-6-garlic.jpg', NULL, '2022-08-18 01:06:43', '2022-08-18 01:06:43'),
+(384, 161, '18082022135056-600x600-1-red-pepper.jpg', '18082022135056-1-red-pepper.jpg', NULL, '2022-08-18 02:21:25', '2022-08-18 02:21:25'),
+(385, 161, '18082022135100-600x600-2-red-pepper.jpg', '18082022135100-2-red-pepper.jpg', NULL, '2022-08-18 02:21:30', '2022-08-18 02:21:30'),
+(386, 161, '18082022135103-600x600-3-red-pepper.jpg', '18082022135103-3-red-pepper.jpg', NULL, '2022-08-18 02:21:36', '2022-08-18 02:21:36'),
+(387, 161, '18082022135106-600x600-4-red-pepper.jpg', '18082022135106-4-red-pepper.jpg', NULL, '2022-08-18 02:21:45', '2022-08-18 02:21:45'),
+(388, 161, '18082022135110-600x600-5-red-pepper.jpg', '18082022135110-5-red-pepper.jpg', NULL, '2022-08-18 02:21:51', '2022-08-18 02:21:51'),
+(389, 161, '18082022135113-600x600-6-red-pepper.jpg', '18082022135113-6-red-pepper.jpg', NULL, '2022-08-18 02:21:56', '2022-08-18 02:21:56'),
+(390, 160, '18082022140944-600x600-1-potato.jpg', '18082022140944-1-potato.jpg', NULL, '2022-08-18 02:40:18', '2022-08-18 02:40:18'),
+(391, 160, '18082022140948-600x600-2-potato.jpg', '18082022140948-2-potato.jpg', NULL, '2022-08-18 02:40:23', '2022-08-18 02:40:23'),
+(392, 160, '18082022140954-600x600-3-potato.jpg', '18082022140954-3-potato.jpg', NULL, '2022-08-18 02:40:27', '2022-08-18 02:40:27'),
+(393, 160, '18082022140957-600x600-4-potato.jpg', '18082022140957-4-potato.jpg', NULL, '2022-08-18 02:40:34', '2022-08-18 02:40:34'),
+(394, 160, '18082022141000-600x600-5-potato.jpg', '18082022141000-5-potato.jpg', NULL, '2022-08-18 02:40:40', '2022-08-18 02:40:40'),
+(395, 160, '18082022141004-600x600-6-potato.jpg', '18082022141004-6-potato.jpg', NULL, '2022-08-18 02:40:45', '2022-08-18 02:40:45'),
+(396, 160, '18082022141007-600x600-7-potato.jpg', '18082022141007-7-potato.jpg', NULL, '2022-08-18 02:40:49', '2022-08-18 02:40:49'),
+(397, 159, '18082022150003-600x600-1-lotus-seeds.jpg', '18082022150003-1-lotus-seeds.jpg', NULL, '2022-08-18 03:30:42', '2022-08-18 03:30:42'),
+(398, 159, '18082022150007-600x600-2-lotus-seeds.jpg', '18082022150007-2-lotus-seeds.jpg', NULL, '2022-08-18 03:30:47', '2022-08-18 03:30:47'),
+(399, 159, '18082022150010-600x600-3-lotus-seeds.jpg', '18082022150010-3-lotus-seeds.jpg', NULL, '2022-08-18 03:30:52', '2022-08-18 03:30:52'),
+(400, 159, '18082022150026-600x600-4-lotus-seeds.jpg', '18082022150026-4-lotus-seeds.jpg', NULL, '2022-08-18 03:30:57', '2022-08-18 03:30:57'),
+(401, 159, '18082022150029-600x600-5-lotus-seeds.jpg', '18082022150029-5-lotus-seeds.jpg', NULL, '2022-08-18 03:31:02', '2022-08-18 03:31:02'),
+(402, 159, '18082022150032-600x600-6-lotus-seeds.jpg', '18082022150032-6-lotus-seeds.jpg', NULL, '2022-08-18 03:31:16', '2022-08-18 03:31:16'),
+(403, 159, '18082022150036-600x600-7-lotus-seeds.jpg', '18082022150036-7-lotus-seeds.jpg', NULL, '2022-08-18 03:31:24', '2022-08-18 03:31:24'),
+(404, 158, '18082022151446-600x600-1-pistachio.jpg', '18082022151446-1-pistachio.jpg', NULL, '2022-08-18 03:45:13', '2022-08-18 03:45:13'),
+(405, 158, '18082022151450-600x600-2-pistachio.jpg', '18082022151450-2-pistachio.jpg', NULL, '2022-08-18 03:45:20', '2022-08-18 03:45:20'),
+(406, 158, '18082022151452-600x600-3-pistachio.jpg', '18082022151452-3-pistachio.jpg', NULL, '2022-08-18 03:45:26', '2022-08-18 03:45:26'),
+(407, 158, '18082022151457-600x600-4-pistachio.jpg', '18082022151457-4-pistachio.jpg', NULL, '2022-08-18 03:45:30', '2022-08-18 03:45:30'),
+(408, 158, '18082022151500-600x600-5-pistachio.jpg', '18082022151500-5-pistachio.jpg', NULL, '2022-08-18 03:45:36', '2022-08-18 03:45:36'),
+(409, 158, '18082022151502-600x600-6-pistachio.jpg', '18082022151502-6-pistachio.jpg', NULL, '2022-08-18 03:45:42', '2022-08-18 03:45:42'),
+(410, 158, '18082022151504-600x600-7-pistachio.jpg', '18082022151504-7-pistachio.jpg', NULL, '2022-08-18 03:45:48', '2022-08-18 03:45:48'),
+(411, 157, '18082022153802-600x600-1-walnuts.jpg', '18082022153802-1-walnuts.jpg', NULL, '2022-08-18 04:08:20', '2022-08-18 04:08:20'),
+(412, 157, '18082022153806-600x600-2-walnuts.jpg', '18082022153806-2-walnuts.jpg', NULL, '2022-08-18 04:08:25', '2022-08-18 04:08:25'),
+(413, 157, '18082022153808-600x600-3-walnuts.jpg', '18082022153808-3-walnuts.jpg', NULL, '2022-08-18 04:08:30', '2022-08-18 04:08:30'),
+(414, 157, '18082022153810-600x600-4-walnuts.jpg', '18082022153810-4-walnuts.jpg', NULL, '2022-08-18 04:08:36', '2022-08-18 04:08:36'),
+(415, 157, '18082022153812-600x600-5-walnuts.jpg', '18082022153812-5-walnuts.jpg', NULL, '2022-08-18 04:08:41', '2022-08-18 04:08:41'),
+(416, 156, '18082022155122-600x600-1-milk-splash.jpg', '18082022155122-1-milk-splash.jpg', NULL, '2022-08-18 04:22:15', '2022-08-18 04:22:15'),
+(417, 156, '18082022155126-600x600-2-milk-splash.jpg', '18082022155126-2-milk-splash.jpg', NULL, '2022-08-18 04:22:20', '2022-08-18 04:22:20'),
+(418, 156, '18082022155129-600x600-3-milk-splash.jpg', '18082022155129-3-milk-splash.jpg', NULL, '2022-08-18 04:22:25', '2022-08-18 04:22:25'),
+(420, 156, '18082022155136-600x600-5-milk-splash.jpg', '18082022155136-5-milk-splash.jpg', NULL, '2022-08-18 04:22:39', '2022-08-18 04:22:39'),
+(421, 156, '18082022155447-600x600-4-milk-splash.jpg', '18082022155447-4-milk-splash.jpg', NULL, '2022-08-18 04:24:55', '2022-08-18 04:24:55'),
+(422, 155, '18082022171458-600x600-1-cheese.jpg', '18082022171458-1-cheese.jpg', NULL, '2022-08-18 05:46:48', '2022-08-18 05:46:48'),
+(423, 155, '18082022171502-600x600-2-cheese.jpg', '18082022171502-2-cheese.jpg', NULL, '2022-08-18 05:46:53', '2022-08-18 05:46:53'),
+(424, 155, '18082022171507-600x600-3-cheese.jpg', '18082022171507-3-cheese.jpg', NULL, '2022-08-18 05:46:59', '2022-08-18 05:46:59'),
+(425, 155, '18082022171511-600x600-4-cheese.jpg', '18082022171511-4-cheese.jpg', NULL, '2022-08-18 05:47:04', '2022-08-18 05:47:04'),
+(426, 155, '18082022171514-600x600-5-cheese.jpg', '18082022171514-5-cheese.jpg', NULL, '2022-08-18 05:47:10', '2022-08-18 05:47:10'),
+(427, 155, '18082022171602-600x600-6-cheese.jpg', '18082022171602-6-cheese.jpg', NULL, '2022-08-18 05:47:16', '2022-08-18 05:47:16'),
+(428, 155, '18082022171605-600x600-7-cheese.jpg', '18082022171605-7-cheese.jpg', NULL, '2022-08-18 05:47:21', '2022-08-18 05:47:21'),
+(429, 154, '18082022174441-600x600-1-dairy-products.jpg', '18082022174441-1-dairy-products.jpg', NULL, '2022-08-18 06:15:23', '2022-08-18 06:15:23'),
+(430, 154, '18082022174445-600x600-2-dairy-products.jpg', '18082022174445-2-dairy-products.jpg', NULL, '2022-08-18 06:15:29', '2022-08-18 06:15:29'),
+(431, 154, '18082022174448-600x600-3-dairy-products.jpg', '18082022174448-3-dairy-products.jpg', NULL, '2022-08-18 06:15:34', '2022-08-18 06:15:34'),
+(432, 154, '18082022174452-600x600-4-dairy-products.jpg', '18082022174452-4-dairy-products.jpg', NULL, '2022-08-18 06:15:40', '2022-08-18 06:15:40'),
+(433, 154, '18082022174457-600x600-5-dairy-products.jpg', '18082022174457-5-dairy-products.jpg', NULL, '2022-08-18 06:15:45', '2022-08-18 06:15:45'),
+(434, 154, '18082022174502-600x600-6-dairy-products.jpg', '18082022174502-6-dairy-products.jpg', NULL, '2022-08-18 06:15:52', '2022-08-18 06:15:52'),
+(435, 153, '18082022175722-600x600-6-fruit-juice.jpg', '18082022175722-6-fruit-juice.jpg', NULL, '2022-08-18 06:27:43', '2022-08-18 06:27:43'),
+(437, 153, '18082022175730-600x600-4-fruit-juice.jpg', '18082022175730-4-fruit-juice.jpg', NULL, '2022-08-18 06:27:53', '2022-08-18 06:27:53'),
+(439, 153, '18082022175734-600x600-3-fruit-juice.jpg', '18082022175734-3-fruit-juice.jpg', NULL, '2022-08-18 06:28:51', '2022-08-18 06:28:51'),
+(440, 153, '18082022175917-600x600-2-fruit-juice.jpg', '18082022175917-2-fruit-juice.jpg', NULL, '2022-08-18 06:29:25', '2022-08-18 06:29:25'),
+(441, 152, '18082022175726-600x600-5-fruit-juice.jpg', '18082022175726-5-fruit-juice.jpg', NULL, '2022-08-18 06:37:42', '2022-08-18 06:37:42'),
+(442, 152, '18082022180759-600x600-2-pomegranate-juice.jpg', '18082022180759-2-pomegranate-juice.jpg', NULL, '2022-08-18 06:38:34', '2022-08-18 06:38:34'),
+(443, 152, '18082022180809-600x600-1-pomegranate-juice.jpg', '18082022180809-1-pomegranate-juice.jpg', NULL, '2022-08-18 06:38:38', '2022-08-18 06:38:38'),
+(444, 152, '18082022180824-600x600-4-pomegranate-juice.jpg', '18082022180824-4-pomegranate-juice.jpg', NULL, '2022-08-18 06:38:43', '2022-08-18 06:38:43'),
+(445, 152, '18082022180829-600x600-3-pomegranate-juice.jpg', '18082022180829-3-pomegranate-juice.jpg', NULL, '2022-08-18 06:38:49', '2022-08-18 06:38:49'),
+(446, 151, '19082022031029-600x600-1-cocktail-soft-drink.jpg', '19082022031029-1-cocktail-soft-drink.jpg', NULL, '2022-08-18 15:40:46', '2022-08-18 15:40:46'),
+(447, 151, '19082022031032-600x600-2-cocktail-soft-drink.jpg', '19082022031032-2-cocktail-soft-drink.jpg', NULL, '2022-08-18 15:40:51', '2022-08-18 15:40:51'),
+(448, 151, '19082022031036-600x600-3-cocktail-soft-drink.jpg', '19082022031036-3-cocktail-soft-drink.jpg', NULL, '2022-08-18 15:40:56', '2022-08-18 15:40:56'),
+(449, 151, '19082022031039-600x600-4-cocktail-soft-drink.jpg', '19082022031039-4-cocktail-soft-drink.jpg', NULL, '2022-08-18 15:41:02', '2022-08-18 15:41:02'),
+(450, 150, '19082022032359-600x600-1-snow-crab.jpg', '19082022032359-1-snow-crab.jpg', NULL, '2022-08-18 15:54:14', '2022-08-18 15:54:14'),
+(451, 150, '19082022032402-600x600-2-snow-crab.jpg', '19082022032402-2-snow-crab.jpg', NULL, '2022-08-18 15:54:21', '2022-08-18 15:54:21'),
+(452, 150, '19082022032405-600x600-3-snow-crab.jpg', '19082022032405-3-snow-crab.jpg', NULL, '2022-08-18 15:54:25', '2022-08-18 15:54:25'),
+(453, 150, '19082022032408-600x600-4-snow-crab.jpg', '19082022032408-4-snow-crab.jpg', NULL, '2022-08-18 15:54:31', '2022-08-18 15:54:31'),
+(454, 149, '19082022035247-600x600-1-crayfish.jpg', '19082022035247-1-crayfish.jpg', NULL, '2022-08-18 16:26:12', '2022-08-18 16:26:12'),
+(455, 149, '19082022035252-600x600-2-crayfish.jpg', '19082022035252-2-crayfish.jpg', NULL, '2022-08-18 16:26:18', '2022-08-18 16:26:18'),
+(456, 149, '19082022035255-600x600-3-crayfish.jpg', '19082022035255-3-crayfish.jpg', NULL, '2022-08-18 16:26:24', '2022-08-18 16:26:24'),
+(457, 149, '19082022035258-600x600-4-crayfish.jpg', '19082022035258-4-crayfish.jpg', NULL, '2022-08-18 16:26:29', '2022-08-18 16:26:29'),
+(458, 148, '19082022040651-600x600-1-squid.jpg', '19082022040651-1-squid.jpg', NULL, '2022-08-18 16:37:08', '2022-08-18 16:37:08'),
+(459, 148, '19082022040654-600x600-2-squid.jpg', '19082022040654-2-squid.jpg', NULL, '2022-08-18 16:37:50', '2022-08-18 16:37:50'),
+(460, 148, '19082022040700-600x600-4-squid.jpg', '19082022040700-4-squid.jpg', NULL, '2022-08-18 16:37:54', '2022-08-18 16:37:54'),
+(461, 148, '19082022040657-600x600-3-squid.jpg', '19082022040657-3-squid.jpg', NULL, '2022-08-18 16:37:59', '2022-08-18 16:37:59'),
+(462, 147, '19082022041622-400x400-1-chicken.jpg', '19082022041622-1-chicken.jpg', NULL, '2022-08-18 16:46:53', '2022-08-18 16:46:53'),
+(466, 146, '19082022042756-600x600-1-rack-of-lamb.jpg', '19082022042756-1-rack-of-lamb.jpg', NULL, '2022-08-18 16:58:26', '2022-08-18 16:58:26'),
+(467, 146, '19082022042800-600x600-2-rack-of-lamb.jpg', '19082022042800-2-rack-of-lamb.jpg', NULL, '2022-08-18 16:58:34', '2022-08-18 16:58:34'),
+(468, 146, '19082022042803-600x600-3-rack-of-lamb.jpg', '19082022042803-3-rack-of-lamb.jpg', NULL, '2022-08-18 16:58:39', '2022-08-18 16:58:39'),
+(469, 146, '19082022042805-600x600-4-rack-of-lamb.jpg', '19082022042805-4-rack-of-lamb.jpg', NULL, '2022-08-18 16:58:44', '2022-08-18 16:58:44'),
+(470, 147, '19082022043756-600x600-2-chicken.jpg', '19082022043756-2-chicken.jpg', NULL, '2022-08-18 17:08:09', '2022-08-18 17:08:09'),
+(471, 147, '19082022041628-400x400-3-chicken.jpg', '19082022041628-3-chicken.jpg', NULL, '2022-08-18 17:08:14', '2022-08-18 17:08:14'),
+(472, 147, '19082022043759-600x600-4-chicken.jpg', '19082022043759-4-chicken.jpg', NULL, '2022-08-18 17:08:19', '2022-08-18 17:08:19'),
+(473, 145, '19082022043919-600x600-1-raw-chicken-legs.jpg', '19082022043919-1-raw-chicken-legs.jpg', NULL, '2022-08-18 17:09:31', '2022-08-18 17:09:31'),
+(474, 145, '19082022041949-600x600-4-chicken.jpg', '19082022041949-4-chicken.jpg', NULL, '2022-08-18 17:09:41', '2022-08-18 17:09:41'),
+(475, 145, '19082022043922-600x600-3-raw-chicken-legs.jpg', '19082022043922-3-raw-chicken-legs.jpg', NULL, '2022-08-18 17:09:45', '2022-08-18 17:09:45'),
+(476, 145, '19082022041625-400x400-2-chicken.jpg', '19082022041625-2-chicken.jpg', NULL, '2022-08-18 17:09:50', '2022-08-18 17:09:50'),
+(477, 144, '19082022044622-400x400-1-blackberry.jpg', '19082022044622-1-blackberry.jpg', NULL, '2022-08-18 17:16:56', '2022-08-18 17:16:56'),
+(478, 144, '19082022044625-400x400-2-blackberry.jpg', '19082022044625-2-blackberry.jpg', NULL, '2022-08-18 17:17:02', '2022-08-18 17:17:02'),
+(479, 144, '19082022044628-400x400-3-blackberry.jpg', '19082022044628-3-blackberry.jpg', NULL, '2022-08-18 17:17:06', '2022-08-18 17:17:06'),
+(480, 143, '19082022050242-600x600-1-passion.jpg', '19082022050242-1-passion.jpg', NULL, '2022-08-18 17:32:59', '2022-08-18 17:32:59'),
+(481, 143, '19082022050245-600x600-2-passion.jpg', '19082022050245-2-passion.jpg', NULL, '2022-08-18 17:33:04', '2022-08-18 17:33:04'),
+(482, 143, '19082022050248-600x600-3-passion.jpg', '19082022050248-3-passion.jpg', NULL, '2022-08-18 17:33:09', '2022-08-18 17:33:09'),
+(483, 143, '19082022050251-600x600-4-passion.jpg', '19082022050251-4-passion.jpg', NULL, '2022-08-18 17:33:16', '2022-08-18 17:33:16'),
+(484, 142, '19082022051624-600x600-1-peach.jpg', '19082022051624-1-peach.jpg', NULL, '2022-08-18 17:47:15', '2022-08-18 17:47:15'),
+(485, 142, '19082022051627-600x600-2-peach.jpg', '19082022051627-2-peach.jpg', NULL, '2022-08-18 17:47:19', '2022-08-18 17:47:19'),
+(486, 142, '19082022051631-600x600-3-peach.jpg', '19082022051631-3-peach.jpg', NULL, '2022-08-18 17:47:23', '2022-08-18 17:47:23'),
+(487, 142, '19082022051634-600x600-4-peach.jpg', '19082022051634-4-peach.jpg', NULL, '2022-08-18 17:47:27', '2022-08-18 17:47:27'),
+(488, 141, '19082022052814-600x600-1-pizza.jpg', '19082022052814-1-pizza.jpg', NULL, '2022-08-18 17:58:31', '2022-08-18 17:58:31'),
+(489, 141, '19082022052817-600x600-2-pizza.jpg', '19082022052817-2-pizza.jpg', NULL, '2022-08-18 17:58:35', '2022-08-18 17:58:35'),
+(490, 141, '19082022052820-600x600-3-pizza.jpg', '19082022052820-3-pizza.jpg', NULL, '2022-08-18 17:58:42', '2022-08-18 17:58:42'),
+(491, 141, '19082022052823-600x600-4-pizza.jpg', '19082022052823-4-pizza.jpg', NULL, '2022-08-18 17:58:46', '2022-08-18 17:58:46'),
+(492, 140, '19082022054547-600x600-1-chicken-wings.jpg', '19082022054547-1-chicken-wings.jpg', NULL, '2022-08-18 18:16:10', '2022-08-18 18:16:10'),
+(493, 140, '19082022054551-600x600-2-chicken-wings.jpg', '19082022054551-2-chicken-wings.jpg', NULL, '2022-08-18 18:16:15', '2022-08-18 18:16:15'),
+(494, 140, '19082022054554-600x600-3-chicken-wings.jpg', '19082022054554-3-chicken-wings.jpg', NULL, '2022-08-18 18:16:20', '2022-08-18 18:16:20'),
+(495, 140, '19082022054557-600x600-4-chicken-wings.jpg', '19082022054557-4-chicken-wings.jpg', NULL, '2022-08-18 18:16:29', '2022-08-18 18:16:29'),
+(496, 139, '19082022093540-600x600-1-sandwich.jpg', '19082022093540-1-sandwich.jpg', NULL, '2022-08-18 22:06:02', '2022-08-18 22:06:02'),
+(497, 139, '19082022093545-600x600-2-sandwich.jpg', '19082022093545-2-sandwich.jpg', NULL, '2022-08-18 22:06:06', '2022-08-18 22:06:06'),
+(498, 139, '19082022093548-600x600-3-sandwich.jpg', '19082022093548-3-sandwich.jpg', NULL, '2022-08-18 22:06:10', '2022-08-18 22:06:10'),
+(499, 139, '19082022093552-600x600-4-sandwich.jpg', '19082022093552-4-sandwich.jpg', NULL, '2022-08-18 22:06:14', '2022-08-18 22:06:14'),
+(501, 139, '19082022093555-600x600-5-sandwich.jpg', '19082022093555-5-sandwich.jpg', NULL, '2022-08-18 22:06:27', '2022-08-18 22:06:27'),
+(502, 138, '19082022094844-400x400-1-mixed-dry-fruits.jpg', '19082022094844-1-mixed-dry-fruits.jpg', NULL, '2022-08-18 22:19:32', '2022-08-18 22:19:32'),
+(503, 138, '19082022094855-400x400-2-mixed-dry-fruits.jpg', '19082022094855-2-mixed-dry-fruits.jpg', NULL, '2022-08-18 22:19:36', '2022-08-18 22:19:36'),
+(504, 138, '19082022094858-400x400-3-mixed-dry-fruits.jpg', '19082022094858-3-mixed-dry-fruits.jpg', NULL, '2022-08-18 22:19:40', '2022-08-18 22:19:40'),
+(505, 138, '19082022094902-400x400-4-mixed-dry-fruits.jpg', '19082022094902-4-mixed-dry-fruits.jpg', NULL, '2022-08-18 22:19:45', '2022-08-18 22:19:45'),
+(506, 137, '19082022100202-400x400-1-cashews.jpg', '19082022100202-1-cashews.jpg', NULL, '2022-08-18 22:32:34', '2022-08-18 22:32:34'),
+(507, 137, '19082022100205-400x400-2-cashews.jpg', '19082022100205-2-cashews.jpg', NULL, '2022-08-18 22:32:40', '2022-08-18 22:32:40'),
+(508, 137, '19082022100208-400x400-3-cashews.jpg', '19082022100208-3-cashews.jpg', NULL, '2022-08-18 22:32:44', '2022-08-18 22:32:44'),
+(509, 136, '19082022100759-400x400-1-almond-badam.jpg', '19082022100759-1-almond-badam.jpg', NULL, '2022-08-18 22:38:29', '2022-08-18 22:38:29'),
+(510, 136, '19082022100801-400x400-2-almond-badam.jpg', '19082022100801-2-almond-badam.jpg', NULL, '2022-08-18 22:38:34', '2022-08-18 22:38:34'),
+(511, 136, '19082022100804-400x400-3-almond-badam.jpg', '19082022100804-3-almond-badam.jpg', NULL, '2022-08-18 22:38:39', '2022-08-18 22:38:39'),
+(512, 135, '19082022101914-600x600-1-herbal-tea.jpg', '19082022101914-1-herbal-tea.jpg', NULL, '2022-08-18 22:49:25', '2022-08-18 22:49:25'),
+(513, 135, '19082022101918-600x600-2-herbal-tea.jpg', '19082022101918-2-herbal-tea.jpg', NULL, '2022-08-18 22:49:30', '2022-08-18 22:49:30'),
+(514, 135, '19082022101920-600x600-3-herbal-tea.jpg', '19082022101920-3-herbal-tea.jpg', NULL, '2022-08-18 22:49:37', '2022-08-18 22:49:37'),
+(515, 134, '19082022102541-600x600-1-coffee-latte.jpg', '19082022102541-1-coffee-latte.jpg', NULL, '2022-08-18 22:55:49', '2022-08-18 22:55:49'),
+(516, 134, '19082022102545-600x600-2-coffee-latte.jpg', '19082022102545-2-coffee-latte.jpg', NULL, '2022-08-18 22:55:54', '2022-08-18 22:55:54'),
+(517, 133, '19082022103010-400x400-1-green-tea.jpg', '19082022103010-1-green-tea.jpg', NULL, '2022-08-18 23:00:45', '2022-08-18 23:00:45'),
+(518, 133, '19082022103014-400x400-2-green-tea.jpg', '19082022103014-2-green-tea.jpg', NULL, '2022-08-18 23:00:51', '2022-08-18 23:00:51'),
+(519, 133, '19082022103017-400x400-3-green-tea.jpg', '19082022103017-3-green-tea.jpg', NULL, '2022-08-18 23:00:57', '2022-08-18 23:00:57'),
+(520, 132, '19082022103844-400x400-2-pastry.jpg', '19082022103844-2-pastry.jpg', NULL, '2022-08-18 23:09:11', '2022-08-18 23:09:11'),
+(521, 132, '19082022103847-400x400-1-pastry.jpg', '19082022103847-1-pastry.jpg', NULL, '2022-08-18 23:09:16', '2022-08-18 23:09:16'),
+(522, 132, '19082022103850-400x400-3-pastry.jpg', '19082022103850-3-pastry.jpg', NULL, '2022-08-18 23:09:22', '2022-08-18 23:09:22'),
+(523, 131, '19082022104438-600x600-1-w-bread.jpg', '19082022104438-1-w-bread.jpg', NULL, '2022-08-18 23:14:53', '2022-08-18 23:14:53'),
+(524, 131, '19082022104442-600x600-2-w-bread.jpg', '19082022104442-2-w-bread.jpg', NULL, '2022-08-18 23:14:57', '2022-08-18 23:14:57'),
+(525, 131, '19082022104445-600x600-3-w-bread.jpg', '19082022104445-3-w-bread.jpg', NULL, '2022-08-18 23:15:03', '2022-08-18 23:15:03'),
+(526, 130, '19082022104904-600x600-1-hand-painted-bread.jpg', '19082022104904-1-hand-painted-bread.jpg', NULL, '2022-08-18 23:19:15', '2022-08-18 23:19:15'),
+(528, 130, '19082022104907-600x600-2-hand-painted-bread.jpg', '19082022104907-2-hand-painted-bread.jpg', NULL, '2022-08-18 23:21:49', '2022-08-18 23:21:49'),
+(529, 130, '19082022104911-600x600-3-hand-painted-bread.jpg', '19082022104911-3-hand-painted-bread.jpg', NULL, '2022-08-18 23:21:52', '2022-08-18 23:21:52');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `related_products`
+--
+
+CREATE TABLE `related_products` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `related_item_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `related_products`
+--
+
+INSERT INTO `related_products` (`id`, `product_id`, `related_item_id`, `created_at`, `updated_at`) VALUES
+(21, 132, 131, '2022-07-31 00:59:08', '2022-07-31 00:59:08'),
+(22, 132, 130, '2022-07-31 00:59:09', '2022-07-31 00:59:09'),
+(23, 134, 133, '2022-07-31 02:24:07', '2022-07-31 02:24:07'),
+(24, 135, 134, '2022-07-31 02:43:49', '2022-07-31 02:43:49'),
+(25, 135, 133, '2022-07-31 02:43:50', '2022-07-31 02:43:50'),
+(26, 137, 136, '2022-07-31 04:34:46', '2022-07-31 04:34:46'),
+(27, 138, 137, '2022-07-31 05:05:10', '2022-07-31 05:05:10'),
+(28, 138, 136, '2022-07-31 05:05:11', '2022-07-31 05:05:11'),
+(29, 140, 139, '2022-07-31 05:32:15', '2022-07-31 05:32:15'),
+(30, 141, 140, '2022-07-31 05:56:38', '2022-07-31 05:56:38'),
+(31, 141, 139, '2022-07-31 05:56:39', '2022-07-31 05:56:39'),
+(33, 143, 142, '2022-07-31 06:23:18', '2022-07-31 06:23:18'),
+(34, 144, 143, '2022-07-31 06:30:22', '2022-07-31 06:30:22'),
+(35, 144, 142, '2022-07-31 06:30:23', '2022-07-31 06:30:23'),
+(36, 146, 145, '2022-07-31 06:44:36', '2022-07-31 06:44:36'),
+(37, 147, 146, '2022-07-31 06:48:40', '2022-07-31 06:48:40'),
+(38, 147, 145, '2022-07-31 06:48:41', '2022-07-31 06:48:41'),
+(39, 149, 148, '2022-07-31 08:14:04', '2022-07-31 08:14:04'),
+(40, 150, 149, '2022-07-31 08:17:32', '2022-07-31 08:17:32'),
+(41, 150, 148, '2022-07-31 08:17:32', '2022-07-31 08:17:32'),
+(42, 152, 151, '2022-07-31 08:28:51', '2022-07-31 08:28:51'),
+(43, 153, 152, '2022-07-31 08:31:40', '2022-07-31 08:31:40'),
+(44, 153, 151, '2022-07-31 08:31:41', '2022-07-31 08:31:41'),
+(46, 155, 154, '2022-07-31 08:40:03', '2022-07-31 08:40:03'),
+(47, 156, 155, '2022-07-31 08:42:59', '2022-07-31 08:42:59'),
+(48, 156, 154, '2022-07-31 08:43:00', '2022-07-31 08:43:00'),
+(49, 158, 157, '2022-07-31 09:05:34', '2022-07-31 09:05:34'),
+(50, 159, 158, '2022-07-31 09:16:41', '2022-07-31 09:16:41'),
+(51, 159, 157, '2022-07-31 09:16:42', '2022-07-31 09:16:42'),
+(52, 161, 160, '2022-07-31 09:24:47', '2022-07-31 09:24:47'),
+(53, 162, 161, '2022-07-31 09:27:22', '2022-07-31 09:27:22'),
+(54, 162, 160, '2022-07-31 09:27:23', '2022-07-31 09:27:23'),
+(60, 162, 159, '2022-08-05 05:32:10', '2022-08-05 05:32:10'),
+(61, 162, 157, '2022-08-05 05:32:30', '2022-08-05 05:32:30'),
+(65, 156, 143, '2022-08-05 05:38:54', '2022-08-05 05:38:54'),
+(66, 157, 159, '2022-08-24 03:04:18', '2022-08-24 03:04:18'),
+(68, 157, 158, '2022-08-24 03:04:28', '2022-08-24 03:04:28'),
+(69, 157, 137, '2022-08-24 03:04:36', '2022-08-24 03:04:36'),
+(70, 157, 136, '2022-08-24 03:04:38', '2022-08-24 03:04:38'),
+(71, 157, 139, '2022-08-24 03:04:40', '2022-08-24 03:04:40'),
+(72, 157, 132, '2022-08-24 03:04:43', '2022-08-24 03:04:43'),
+(73, 157, 131, '2022-08-24 03:04:44', '2022-08-24 03:04:44'),
+(74, 157, 130, '2022-08-24 03:04:45', '2022-08-24 03:04:45'),
+(75, 162, 161, '2022-09-01 21:51:21', '2022-09-01 21:51:21'),
+(76, 162, 133, '2022-09-01 21:51:43', '2022-09-01 21:51:43'),
+(77, 162, 135, '2022-09-01 21:51:44', '2022-09-01 21:51:44'),
+(78, 162, 136, '2022-09-01 21:51:45', '2022-09-01 21:51:45'),
+(79, 161, 162, '2022-09-01 21:58:45', '2022-09-01 21:58:45'),
+(80, 161, 159, '2022-09-01 21:58:48', '2022-09-01 21:58:48'),
+(81, 161, 158, '2022-09-01 21:58:49', '2022-09-01 21:58:49'),
+(82, 161, 157, '2022-09-01 21:58:50', '2022-09-01 21:58:50'),
+(83, 161, 156, '2022-09-01 21:58:51', '2022-09-01 21:58:51'),
+(84, 161, 154, '2022-09-01 21:58:53', '2022-09-01 21:58:53'),
+(85, 161, 153, '2022-09-01 21:58:54', '2022-09-01 21:58:54'),
+(86, 161, 150, '2022-09-01 21:59:01', '2022-09-01 21:59:01'),
+(87, 160, 162, '2022-09-01 22:05:06', '2022-09-01 22:05:06'),
+(88, 160, 161, '2022-09-01 22:05:06', '2022-09-01 22:05:06'),
+(89, 160, 157, '2022-09-01 22:05:08', '2022-09-01 22:05:08'),
+(90, 160, 155, '2022-09-01 22:05:10', '2022-09-01 22:05:10'),
+(91, 160, 159, '2022-09-01 22:05:12', '2022-09-01 22:05:12'),
+(92, 160, 150, '2022-09-01 22:05:15', '2022-09-01 22:05:15'),
+(93, 160, 149, '2022-09-01 22:05:17', '2022-09-01 22:05:17'),
+(94, 160, 144, '2022-09-01 22:05:19', '2022-09-01 22:05:19'),
+(95, 160, 136, '2022-09-01 22:05:27', '2022-09-01 22:05:27'),
+(96, 159, 161, '2022-09-01 22:11:39', '2022-09-01 22:11:39'),
+(97, 159, 162, '2022-09-01 22:11:43', '2022-09-01 22:11:43'),
+(98, 159, 157, '2022-09-01 22:11:46', '2022-09-01 22:11:46'),
+(99, 159, 143, '2022-09-01 22:11:51', '2022-09-01 22:11:51'),
+(100, 159, 144, '2022-09-01 22:11:52', '2022-09-01 22:11:52'),
+(101, 159, 138, '2022-09-01 22:12:00', '2022-09-01 22:12:00'),
+(102, 159, 137, '2022-09-01 22:12:01', '2022-09-01 22:12:01'),
+(103, 158, 159, '2022-09-01 22:16:53', '2022-09-01 22:16:53'),
+(104, 158, 137, '2022-09-01 22:17:02', '2022-09-01 22:17:02'),
+(105, 158, 138, '2022-09-01 22:17:02', '2022-09-01 22:17:02'),
+(106, 158, 136, '2022-09-01 22:17:11', '2022-09-01 22:17:11'),
+(109, 158, 143, '2022-09-01 22:17:27', '2022-09-01 22:17:27'),
+(110, 158, 144, '2022-09-01 22:17:27', '2022-09-01 22:17:27'),
+(111, 156, 152, '2022-09-01 22:24:28', '2022-09-01 22:24:28'),
+(112, 156, 151, '2022-09-01 22:24:32', '2022-09-01 22:24:32'),
+(113, 156, 143, '2022-09-01 22:24:36', '2022-09-01 22:24:36'),
+(114, 156, 142, '2022-09-01 22:24:37', '2022-09-01 22:24:37'),
+(115, 155, 156, '2022-09-01 22:27:47', '2022-09-01 22:27:47'),
+(116, 155, 153, '2022-09-01 22:27:48', '2022-09-01 22:27:48'),
+(117, 155, 152, '2022-09-01 22:27:49', '2022-09-01 22:27:49'),
+(118, 155, 151, '2022-09-01 22:27:50', '2022-09-01 22:27:50'),
+(119, 155, 143, '2022-09-01 22:27:54', '2022-09-01 22:27:54'),
+(120, 155, 142, '2022-09-01 22:27:55', '2022-09-01 22:27:55'),
+(121, 155, 133, '2022-09-01 22:28:01', '2022-09-01 22:28:01'),
+(122, 155, 134, '2022-09-01 22:28:02', '2022-09-01 22:28:02'),
+(123, 154, 157, '2022-09-01 22:30:44', '2022-09-01 22:30:44'),
+(124, 154, 155, '2022-09-01 22:30:46', '2022-09-01 22:30:46'),
+(125, 154, 141, '2022-09-01 22:30:56', '2022-09-01 22:30:56'),
+(126, 154, 140, '2022-09-01 22:30:56', '2022-09-01 22:30:56'),
+(127, 154, 139, '2022-09-01 22:30:57', '2022-09-01 22:30:57'),
+(128, 154, 131, '2022-09-01 22:31:05', '2022-09-01 22:31:05'),
+(129, 154, 130, '2022-09-01 22:31:06', '2022-09-01 22:31:06'),
+(130, 154, 132, '2022-09-01 22:31:13', '2022-09-01 22:31:13'),
+(131, 153, 156, '2022-09-01 22:33:14', '2022-09-01 22:33:14'),
+(132, 153, 155, '2022-09-01 22:33:15', '2022-09-01 22:33:15'),
+(133, 153, 154, '2022-09-01 22:33:19', '2022-09-01 22:33:19'),
+(134, 153, 133, '2022-09-01 22:33:29', '2022-09-01 22:33:29'),
+(135, 153, 134, '2022-09-01 22:33:29', '2022-09-01 22:33:29'),
+(136, 153, 135, '2022-09-01 22:33:31', '2022-09-01 22:33:31'),
+(137, 152, 156, '2022-09-01 22:36:38', '2022-09-01 22:36:38'),
+(138, 152, 155, '2022-09-01 22:36:38', '2022-09-01 22:36:38'),
+(139, 152, 154, '2022-09-01 22:36:39', '2022-09-01 22:36:39'),
+(140, 152, 153, '2022-09-01 22:36:41', '2022-09-01 22:36:41'),
+(141, 152, 151, '2022-09-01 22:36:43', '2022-09-01 22:36:43'),
+(142, 152, 133, '2022-09-01 22:36:50', '2022-09-01 22:36:50'),
+(143, 151, 156, '2022-09-01 22:39:53', '2022-09-01 22:39:53'),
+(144, 151, 155, '2022-09-01 22:39:54', '2022-09-01 22:39:54'),
+(145, 151, 154, '2022-09-01 22:39:55', '2022-09-01 22:39:55'),
+(146, 151, 153, '2022-09-01 22:39:55', '2022-09-01 22:39:55'),
+(147, 151, 152, '2022-09-01 22:39:57', '2022-09-01 22:39:57'),
+(148, 151, 143, '2022-09-01 22:40:14', '2022-09-01 22:40:14'),
+(149, 151, 142, '2022-09-01 22:40:14', '2022-09-01 22:40:14'),
+(150, 150, 147, '2022-09-01 22:43:48', '2022-09-01 22:43:48'),
+(151, 150, 146, '2022-09-01 22:43:49', '2022-09-01 22:43:49'),
+(152, 150, 145, '2022-09-01 22:43:50', '2022-09-01 22:43:50'),
+(153, 149, 147, '2022-09-01 22:46:09', '2022-09-01 22:46:09'),
+(154, 149, 146, '2022-09-01 22:46:09', '2022-09-01 22:46:09'),
+(155, 149, 150, '2022-09-01 22:46:11', '2022-09-01 22:46:11'),
+(156, 149, 145, '2022-09-01 22:46:16', '2022-09-01 22:46:16'),
+(157, 148, 150, '2022-09-01 22:52:45', '2022-09-01 22:52:45'),
+(158, 148, 149, '2022-09-01 22:52:45', '2022-09-01 22:52:45'),
+(159, 148, 147, '2022-09-01 22:52:47', '2022-09-01 22:52:47'),
+(160, 148, 146, '2022-09-01 22:52:47', '2022-09-01 22:52:47'),
+(161, 148, 145, '2022-09-01 22:52:48', '2022-09-01 22:52:48'),
+(162, 147, 149, '2022-09-01 22:54:52', '2022-09-01 22:54:52'),
+(163, 147, 148, '2022-09-01 22:54:53', '2022-09-01 22:54:53'),
+(165, 147, 160, '2022-09-01 22:55:35', '2022-09-01 22:55:35'),
+(166, 147, 162, '2022-09-01 22:55:37', '2022-09-01 22:55:37'),
+(167, 147, 161, '2022-09-01 22:55:38', '2022-09-01 22:55:38'),
+(168, 146, 150, '2022-09-01 22:58:06', '2022-09-01 22:58:06'),
+(169, 146, 149, '2022-09-01 22:58:07', '2022-09-01 22:58:07'),
+(170, 146, 148, '2022-09-01 22:58:08', '2022-09-01 22:58:08'),
+(171, 146, 147, '2022-09-01 22:58:13', '2022-09-01 22:58:13'),
+(172, 145, 150, '2022-09-01 23:18:00', '2022-09-01 23:18:00'),
+(173, 145, 149, '2022-09-01 23:18:01', '2022-09-01 23:18:01'),
+(174, 145, 148, '2022-09-01 23:18:02', '2022-09-01 23:18:02'),
+(175, 145, 147, '2022-09-01 23:18:03', '2022-09-01 23:18:03'),
+(176, 145, 146, '2022-09-01 23:18:04', '2022-09-01 23:18:04'),
+(177, 144, 158, '2022-09-01 23:19:17', '2022-09-01 23:19:17'),
+(178, 144, 159, '2022-09-01 23:19:17', '2022-09-01 23:19:17'),
+(179, 144, 152, '2022-09-01 23:19:22', '2022-09-01 23:19:22'),
+(180, 144, 151, '2022-09-01 23:19:25', '2022-09-01 23:19:25'),
+(181, 143, 144, '2022-09-01 23:20:47', '2022-09-01 23:20:47'),
+(182, 143, 152, '2022-09-01 23:20:49', '2022-09-01 23:20:49'),
+(183, 143, 153, '2022-09-01 23:20:50', '2022-09-01 23:20:50'),
+(184, 143, 154, '2022-09-01 23:20:51', '2022-09-01 23:20:51'),
+(185, 143, 155, '2022-09-01 23:20:52', '2022-09-01 23:20:52'),
+(186, 142, 159, '2022-09-01 23:25:42', '2022-09-01 23:25:42'),
+(187, 142, 158, '2022-09-01 23:25:43', '2022-09-01 23:25:43'),
+(188, 142, 152, '2022-09-01 23:25:45', '2022-09-01 23:25:45'),
+(189, 142, 153, '2022-09-01 23:25:46', '2022-09-01 23:25:46'),
+(190, 142, 151, '2022-09-01 23:25:46', '2022-09-01 23:25:46'),
+(191, 142, 143, '2022-09-01 23:25:49', '2022-09-01 23:25:49'),
+(192, 142, 144, '2022-09-01 23:25:49', '2022-09-01 23:25:49'),
+(193, 141, 154, '2022-09-01 23:27:28', '2022-09-01 23:27:28'),
+(194, 141, 155, '2022-09-01 23:27:29', '2022-09-01 23:27:29'),
+(195, 141, 156, '2022-09-01 23:27:30', '2022-09-01 23:27:30'),
+(196, 141, 153, '2022-09-01 23:27:31', '2022-09-01 23:27:31'),
+(197, 141, 151, '2022-09-01 23:27:33', '2022-09-01 23:27:33'),
+(198, 141, 152, '2022-09-01 23:27:33', '2022-09-01 23:27:33'),
+(199, 140, 141, '2022-09-01 23:28:55', '2022-09-01 23:28:55'),
+(203, 140, 132, '2022-09-01 23:29:02', '2022-09-01 23:29:02'),
+(204, 140, 131, '2022-09-01 23:29:02', '2022-09-01 23:29:02'),
+(205, 140, 130, '2022-09-01 23:29:03', '2022-09-01 23:29:03'),
+(206, 139, 141, '2022-09-01 23:30:43', '2022-09-01 23:30:43'),
+(207, 139, 140, '2022-09-01 23:30:43', '2022-09-01 23:30:43'),
+(208, 139, 132, '2022-09-01 23:30:45', '2022-09-01 23:30:45'),
+(209, 139, 131, '2022-09-01 23:30:46', '2022-09-01 23:30:46'),
+(210, 139, 130, '2022-09-01 23:30:47', '2022-09-01 23:30:47'),
+(211, 138, 159, '2022-09-01 23:32:21', '2022-09-01 23:32:21'),
+(212, 138, 158, '2022-09-01 23:32:23', '2022-09-01 23:32:23'),
+(213, 138, 157, '2022-09-01 23:32:24', '2022-09-01 23:32:24'),
+(214, 137, 159, '2022-09-01 23:34:20', '2022-09-01 23:34:20'),
+(215, 137, 158, '2022-09-01 23:34:22', '2022-09-01 23:34:22'),
+(216, 137, 157, '2022-09-01 23:34:22', '2022-09-01 23:34:22'),
+(217, 137, 138, '2022-09-01 23:34:26', '2022-09-01 23:34:26'),
+(218, 137, 136, '2022-09-01 23:34:27', '2022-09-01 23:34:27'),
+(219, 136, 159, '2022-09-01 23:37:14', '2022-09-01 23:37:14'),
+(220, 136, 158, '2022-09-01 23:37:14', '2022-09-01 23:37:14'),
+(221, 136, 138, '2022-09-01 23:37:19', '2022-09-01 23:37:19'),
+(222, 136, 137, '2022-09-01 23:37:20', '2022-09-01 23:37:20'),
+(223, 136, 157, '2022-09-01 23:37:28', '2022-09-01 23:37:28'),
+(224, 135, 154, '2022-09-02 00:00:31', '2022-09-02 00:00:31'),
+(225, 135, 155, '2022-09-02 00:00:31', '2022-09-02 00:00:31'),
+(226, 135, 153, '2022-09-02 00:00:34', '2022-09-02 00:00:34'),
+(227, 135, 152, '2022-09-02 00:00:36', '2022-09-02 00:00:36'),
+(228, 134, 156, '2022-09-02 00:02:02', '2022-09-02 00:02:02'),
+(229, 134, 155, '2022-09-02 00:02:02', '2022-09-02 00:02:02'),
+(230, 134, 154, '2022-09-02 00:02:03', '2022-09-02 00:02:03'),
+(231, 134, 153, '2022-09-02 00:02:03', '2022-09-02 00:02:03'),
+(232, 134, 152, '2022-09-02 00:02:04', '2022-09-02 00:02:04'),
+(233, 133, 134, '2022-09-02 00:03:59', '2022-09-02 00:03:59'),
+(234, 133, 135, '2022-09-02 00:04:00', '2022-09-02 00:04:00'),
+(235, 133, 153, '2022-09-02 00:04:05', '2022-09-02 00:04:05'),
+(236, 133, 152, '2022-09-02 00:04:05', '2022-09-02 00:04:05'),
+(237, 133, 151, '2022-09-02 00:04:06', '2022-09-02 00:04:06'),
+(238, 133, 156, '2022-09-02 00:04:07', '2022-09-02 00:04:07'),
+(239, 133, 155, '2022-09-02 00:04:08', '2022-09-02 00:04:08'),
+(240, 132, 159, '2022-09-02 00:04:51', '2022-09-02 00:04:51'),
+(241, 132, 157, '2022-09-02 00:04:52', '2022-09-02 00:04:52'),
+(242, 132, 139, '2022-09-02 00:04:58', '2022-09-02 00:04:58'),
+(243, 132, 140, '2022-09-02 00:04:59', '2022-09-02 00:04:59'),
+(244, 131, 130, '2022-09-02 00:05:58', '2022-09-02 00:05:58'),
+(245, 131, 132, '2022-09-02 00:05:58', '2022-09-02 00:05:58'),
+(246, 131, 139, '2022-09-02 00:06:00', '2022-09-02 00:06:00'),
+(247, 131, 140, '2022-09-02 00:06:01', '2022-09-02 00:06:01'),
+(248, 131, 157, '2022-09-02 00:06:38', '2022-09-02 00:06:38'),
+(249, 131, 159, '2022-09-02 00:06:40', '2022-09-02 00:06:40'),
+(250, 131, 158, '2022-09-02 00:06:41', '2022-09-02 00:06:41'),
+(251, 130, 131, '2022-09-02 00:07:45', '2022-09-02 00:07:45'),
+(252, 130, 132, '2022-09-02 00:07:46', '2022-09-02 00:07:46'),
+(253, 130, 139, '2022-09-02 00:07:48', '2022-09-02 00:07:48'),
+(254, 130, 140, '2022-09-02 00:07:49', '2022-09-02 00:07:49'),
+(255, 130, 141, '2022-09-02 00:07:50', '2022-09-02 00:07:50');
 
 -- --------------------------------------------------------
 
@@ -1576,6 +2472,53 @@ INSERT INTO `states` (`id`, `country_id`, `name`, `created_at`, `updated_at`) VA
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `subcategories`
+--
+
+CREATE TABLE `subcategories` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `uuid` char(36) NOT NULL,
+  `category_id` bigint(20) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `meta_title` varchar(191) DEFAULT NULL,
+  `meta_description` text DEFAULT NULL,
+  `meta_keywords` text DEFAULT NULL,
+  `og_image` varchar(191) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `subcategories`
+--
+
+INSERT INTO `subcategories` (`id`, `uuid`, `category_id`, `name`, `slug`, `meta_title`, `meta_description`, `meta_keywords`, `og_image`, `created_at`, `updated_at`) VALUES
+(1, '9f2e9f01-4b48-40a3-9d11-d1badce66abe', 1, 'Web Development', 'web-development', NULL, NULL, NULL, NULL, '2022-12-04 17:05:33', '2022-12-04 17:05:33'),
+(2, 'ee7dbc19-7ad1-4567-9c4f-12b1d5447e2d', 1, 'Data Science', 'data-science', NULL, NULL, NULL, NULL, '2022-12-04 17:05:33', '2022-12-04 17:05:33'),
+(3, '7cc4d2f8-529f-4e89-b28a-ed3a9a243883', 1, 'Mobile Development', 'mobile-development', NULL, NULL, NULL, NULL, '2022-12-04 17:05:33', '2022-12-04 17:05:33'),
+(4, '50017599-5bf8-401e-b8e8-ac74a5483ec4', 1, 'Programming Language', 'programming-language', NULL, NULL, NULL, NULL, '2022-12-04 17:05:33', '2022-12-04 17:05:33'),
+(5, '2d9561f5-abb6-49a9-8f01-b9871e0e377f', 1, 'Game Development', 'game-development', NULL, NULL, NULL, NULL, '2022-12-04 17:05:33', '2022-12-04 17:05:33'),
+(6, 'e5bd8dee-2b3d-4b4c-bc1f-5717b4049a00', 2, 'IT Certifications', 'it-certifications', NULL, NULL, NULL, NULL, '2022-12-04 17:05:33', '2022-12-04 17:05:33'),
+(7, 'aee6a731-0f3d-4abf-87d4-59636ce657f2', 2, 'Network & Security', 'network-security', NULL, NULL, NULL, NULL, '2022-12-04 17:05:33', '2022-12-04 17:05:33'),
+(8, '04ec60ec-ee72-4bbf-a58e-bce7fe2e8cbb', 2, 'Hardware', 'hardware', NULL, NULL, NULL, NULL, '2022-12-04 17:05:33', '2022-12-04 17:05:33'),
+(9, 'b74c0ee8-81ac-4c87-bace-dbbfd17b1be3', 2, 'Operating System & Servers', 'operating-system-servers', NULL, NULL, NULL, NULL, '2022-12-04 17:05:33', '2022-12-04 17:05:33'),
+(10, 'ef6c46a4-e09c-4af6-96e2-1995eeeee9ae', 3, 'Microsoft', 'microsoft', NULL, NULL, NULL, NULL, '2022-12-04 17:05:33', '2022-12-04 17:05:33'),
+(11, 'c966ea96-e96f-44a6-9b5a-ef9ae56844d4', 3, 'Apple', 'apple', NULL, NULL, NULL, NULL, '2022-12-04 17:05:33', '2022-12-04 17:05:33'),
+(12, 'f02d2d08-4acb-4cb8-8ce7-8d1bdaa6ca7c', 3, 'Google', 'google', NULL, NULL, NULL, NULL, '2022-12-04 17:05:33', '2022-12-04 17:05:33'),
+(14, '57c46b26-520f-4286-bfc5-6372a9cd924a', 4, 'Creativity', 'creativity', NULL, NULL, NULL, NULL, '2022-12-04 17:05:33', '2022-12-04 17:05:33'),
+(15, 'bad12e18-78bb-46c1-8e2b-e428bda8eb5d', 5, 'Communication', 'communication', NULL, NULL, NULL, NULL, '2022-12-04 17:05:33', '2022-12-04 17:05:33'),
+(16, 'e593cfab-7cdd-40d9-a0f2-27f18bf02b89', 5, 'Management', 'management', NULL, NULL, NULL, NULL, '2022-12-04 17:05:33', '2022-12-04 17:05:33'),
+(17, '37f7ed7e-d3da-470b-9be6-7655342457af', 5, 'Sales', 'sales', NULL, NULL, NULL, NULL, '2022-12-04 17:05:33', '2022-12-04 17:05:33'),
+(18, '9377e664-e92f-4839-ba85-829629ad296d', 7, 'Web Design', 'web-design', NULL, NULL, NULL, NULL, '2022-12-04 17:05:33', '2022-12-04 17:05:33'),
+(19, '0e3195ef-68c2-4044-8ee3-727cd504e586', 7, 'Graphic Design', 'graphic-design', NULL, NULL, NULL, NULL, '2022-12-04 17:05:33', '2022-12-04 17:05:33'),
+(20, '41c9906d-1a92-4529-93f3-75ee342dbdb3', 7, 'Game Design', 'game-design', NULL, NULL, NULL, NULL, '2022-12-04 17:05:33', '2022-12-04 17:05:33'),
+(21, '051ab930-2a76-4e6c-a1a6-2d6681427e4b', 7, 'Fashion Design', 'fashion-design', NULL, NULL, NULL, NULL, '2022-12-04 17:05:33', '2022-12-04 17:05:33'),
+(22, '5cafa706-4015-49e6-babf-0a7f0495012f', 7, 'User Experience Design', 'user-experience-design', NULL, NULL, NULL, NULL, '2022-12-04 17:05:33', '2022-12-04 17:05:33');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `support_ticket_questions`
 --
 
@@ -1630,6 +2573,28 @@ INSERT INTO `tags` (`id`, `uuid`, `name`, `slug`, `created_at`, `updated_at`) VA
 (7, '36ec1ef2-5bca-4d06-9446-a5d8ab6abdab', 'Digital marketing', 'digital-marketing', '2022-12-04 17:05:33', '2022-12-04 17:05:33'),
 (8, 'd8dc6caa-b578-49f6-aaca-e25783afe34b', 'Science', 'science', '2022-12-04 17:05:33', '2022-12-04 17:05:33'),
 (9, '346c01be-ab53-406f-acc4-73c5fddc0b6f', 'Math', 'math', '2022-12-04 17:05:33', '2022-12-04 17:05:33');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `taxes`
+--
+
+CREATE TABLE `taxes` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `title` varchar(191) DEFAULT NULL,
+  `percentage` double(12,3) NOT NULL,
+  `is_publish` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `taxes`
+--
+
+INSERT INTO `taxes` (`id`, `title`, `percentage`, `is_publish`, `created_at`, `updated_at`) VALUES
+(38, 'VAT', 5.000, 1, '2021-09-14 05:49:52', '2023-04-25 02:39:58');
 
 -- --------------------------------------------------------
 
@@ -1762,7 +2727,13 @@ CREATE TABLE `users` (
   `password` varchar(191) NOT NULL,
   `custom_password` varchar(255) DEFAULT NULL,
   `mobile_number` varchar(191) DEFAULT NULL,
-  `country` varchar(255) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `price` varchar(255) DEFAULT NULL,
+  `categories` varchar(255) DEFAULT NULL,
+  `alter_mobile_number` varchar(255) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
+  `department` varchar(255) DEFAULT NULL,
+  `store` varchar(255) DEFAULT NULL,
   `last_seen` timestamp NULL DEFAULT NULL,
   `is_online` tinyint(4) DEFAULT 0,
   `is_active` tinyint(4) DEFAULT 1,
@@ -1789,16 +2760,19 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `account_type`, `role`, `permissions`, `name`, `email`, `email_verified_at`, `password`, `custom_password`, `mobile_number`, `country`, `last_seen`, `is_online`, `is_active`, `status`, `about`, `photo_url`, `profile_photo`, `remember_token`, `ip_address`, `balance`, `is_system`, `is_subscribed`, `privacy`, `gender`, `created_by`, `deleted_at`, `language`, `is_super_admin`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 1, NULL, 'SUPER ADMINISTRADOR', 'admin@gmail.com', '2023-03-23 07:45:02', '$2y$10$9SbqzcUtyfeaf4019gajcOGQ4/k.XfIpeMXZp/ZERKUP0Z9GA02MK', NULL, '8878326802', 'india', '2024-06-08 23:25:37', 1, 1, 1, NULL, NULL, 'acl2.png', NULL, NULL, NULL, 1, 0, 1, 1, NULL, NULL, 'es', 1, '2023-03-23 07:45:02', '2024-06-08 23:25:37'),
-(2, 'admin', NULL, NULL, 'Worker', 'worker@gmail.com', '2023-03-23 07:45:02', '$2y$10$TwlAHh5tVCO.ZGjAC74MVeFE0eltxZiYgB9.CTjimg7AOQXEiOlt.', NULL, '8878326802', 'india', '2024-01-29 17:12:05', 1, 1, 1, NULL, NULL, '68e78a4c175d72829e9bfa9592c76c35 (1).jpg', NULL, NULL, NULL, 1, 0, 1, 1, NULL, NULL, 'en', 0, '2023-03-23 07:45:02', '2024-01-29 17:12:05'),
-(3, 'creators', 2, NULL, 'arsh', 'arstech2@gmail.com', '2024-03-29 23:19:10', 'Berlin@3sss', NULL, '591591987654321', NULL, '2024-04-20 04:28:47', 1, 1, 1, NULL, NULL, '68e78a4c175d72829e9bfa9592c76c35 (1).jpg', NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, 'en', 0, '2024-03-29 23:14:46', '2024-04-20 04:28:47'),
-(4, 'creators', 2, NULL, 'alex', 'alex@gmail.com', '2024-03-29 23:19:10', 'Upwork', NULL, '591591591591987654321', NULL, '2024-04-22 00:24:09', 1, 1, 1, NULL, NULL, '1657090503-9ynVP5V0Tx.jpg', NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, 'en', 0, '2024-03-29 23:14:46', '2024-04-22 00:24:09'),
-(25, 'creators', 2, NULL, 'Hales', 'hrnatrajinfotech@gmail.com', '2024-03-29 23:19:10', '64546465465465', NULL, '59198784654894658', NULL, '2024-04-08 07:20:42', 1, 1, 1, NULL, NULL, NULL, NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-04-06 15:26:38', '2024-04-08 07:20:42'),
-(26, 'backers', 2, NULL, 'park', 'hrnatrajinfotsdfech@gmail.com', NULL, '645654984489', NULL, '59187865613548', NULL, NULL, 0, 1, 1, NULL, NULL, NULL, NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-04-06 15:32:20', '2024-04-06 15:32:20'),
-(27, 'creators', 2, NULL, 'Muskan', 'muskan@gmail.com', NULL, 'Muskan123', NULL, '591789643210', NULL, NULL, 0, 1, 1, NULL, NULL, NULL, NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-04-06 15:38:50', '2024-04-06 15:38:50'),
-(28, 'creators', 2, NULL, 'dfsetr', 'ars3sssssss@gmail.com', '2024-03-29 23:19:10', 'dsdfsfsre', NULL, '59198756489787', NULL, '2024-04-17 02:04:58', 1, 1, 1, NULL, NULL, NULL, NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-04-12 05:25:26', '2024-04-17 02:04:58'),
-(29, 'backers', 2, NULL, 'Radha', 'arstech2a@gmail.com', '2024-03-29 23:19:10', 'Berlin123', NULL, '591987654315', NULL, '2024-04-17 03:20:07', 1, 1, 1, NULL, NULL, NULL, NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-04-12 05:28:34', '2024-04-17 03:20:07');
+INSERT INTO `users` (`id`, `account_type`, `role`, `permissions`, `name`, `email`, `email_verified_at`, `password`, `custom_password`, `mobile_number`, `city`, `price`, `categories`, `alter_mobile_number`, `location`, `department`, `store`, `last_seen`, `is_online`, `is_active`, `status`, `about`, `photo_url`, `profile_photo`, `remember_token`, `ip_address`, `balance`, `is_system`, `is_subscribed`, `privacy`, `gender`, `created_by`, `deleted_at`, `language`, `is_super_admin`, `created_at`, `updated_at`) VALUES
+(1, 'admin', 1, NULL, 'SUPER ADMINISTRADOR', 'admin@gmail.com', '2023-03-23 07:45:02', '$2y$10$9SbqzcUtyfeaf4019gajcOGQ4/k.XfIpeMXZp/ZERKUP0Z9GA02MK', NULL, '8878326802', 'india', NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-22 01:46:22', 1, 1, 1, NULL, NULL, '149071.png', NULL, NULL, NULL, 1, 0, 1, 1, NULL, NULL, 'es', 1, '2023-03-23 07:45:02', '2024-06-22 01:46:22'),
+(2, 'admin', NULL, NULL, 'Worker', 'worker@gmail.com', '2023-03-23 07:45:02', '$2y$10$TwlAHh5tVCO.ZGjAC74MVeFE0eltxZiYgB9.CTjimg7AOQXEiOlt.', NULL, '8878326802', 'india', NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-29 17:12:05', 1, 1, 1, NULL, NULL, '68e78a4c175d72829e9bfa9592c76c35 (1).jpg', NULL, NULL, NULL, 1, 0, 1, 1, NULL, NULL, 'en', 0, '2023-03-23 07:45:02', '2024-01-29 17:12:05'),
+(3, 'creators', 2, NULL, 'arsh', 'arstech2@gmail.com', '2024-03-29 23:19:10', 'Berlin@3sss', NULL, '591591987654321', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-04-20 04:28:47', 1, 1, 1, NULL, NULL, '68e78a4c175d72829e9bfa9592c76c35 (1).jpg', NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, 'en', 0, '2024-03-29 23:14:46', '2024-04-20 04:28:47'),
+(4, 'creators', 2, NULL, 'alex', 'alex@gmail.com', '2024-03-29 23:19:10', 'Upwork', NULL, '591591591591987654321', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-04-22 00:24:09', 1, 1, 1, NULL, NULL, '1657090503-9ynVP5V0Tx.jpg', NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, 'en', 0, '2024-03-29 23:14:46', '2024-04-22 00:24:09'),
+(25, 'creators', 2, NULL, 'Hales', 'hrnatrajinfotech@gmail.com', '2024-03-29 23:19:10', '64546465465465', NULL, '59198784654894658', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-04-08 07:20:42', 1, 1, 1, NULL, NULL, NULL, NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-04-06 15:26:38', '2024-04-08 07:20:42'),
+(26, 'backers', 2, NULL, 'park', 'hrnatrajinfotsdfech@gmail.com', NULL, '645654984489', NULL, '59187865613548', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, 1, NULL, NULL, NULL, NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-04-06 15:32:20', '2024-04-06 15:32:20'),
+(27, 'creators', 2, NULL, 'Muskan', 'muskan@gmail.com', NULL, 'Muskan123', NULL, '591789643210', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, 1, NULL, NULL, NULL, NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-04-06 15:38:50', '2024-04-06 15:38:50'),
+(28, 'creators', 2, NULL, 'dfsetr', 'ars3sssssss@gmail.com', '2024-03-29 23:19:10', 'dsdfsfsre', NULL, '59198756489787', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-04-17 02:04:58', 1, 1, 1, NULL, NULL, NULL, NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-04-12 05:25:26', '2024-04-17 02:04:58'),
+(29, 'backers', 2, NULL, 'Radha', 'arstech2a@gmail.com', '2024-03-29 23:19:10', 'Berlin123', NULL, '591987654315', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-04-17 03:20:07', 1, 1, 1, NULL, NULL, NULL, NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-04-12 05:28:34', '2024-04-17 03:20:07'),
+(30, NULL, 2, NULL, 'sdfsdfsf', 'subadmdfsfain@gmail.com', NULL, 'vbcvbhfghd', NULL, NULL, NULL, 'price3', NULL, '987765546213132', NULL, 'it', 'arstexch', NULL, 0, 1, 1, NULL, NULL, NULL, NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:49:44', '2024-06-22 01:49:44'),
+(31, NULL, 2, NULL, 'sofia', 'hhfghfhhffhfhfhrnatrajinfotech@gmail.com', NULL, 'sdfsfsfdsfsfsfsfsfs', NULL, NULL, 'ghfdgdfg', 'price2', NULL, '465464df65g54d', 'ghjhgjgjg', 'erewr', 'asdsdfdsf', NULL, 0, 1, 1, NULL, NULL, NULL, NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:51:51', '2024-06-22 01:51:51'),
+(32, NULL, 2, NULL, 'eve', 'eve@gmail.com', NULL, 'eve@3sss', NULL, '9589642080', 'bolivia', 'price3', 'loadline', '65465464879787', 'bolivia', 'Software', 'everytech', NULL, 0, 1, 1, NULL, NULL, 'IMG_4416_vo4r1a_1712164410.jpg', NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:56:11', '2024-06-22 01:58:28');
 
 --
 -- Indexes for dumped tables
@@ -1808,6 +2782,12 @@ INSERT INTO `users` (`id`, `account_type`, `role`, `permissions`, `name`, `email
 -- Indexes for table `about_us_generals`
 --
 ALTER TABLE `about_us_generals`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `attributes`
+--
+ALTER TABLE `attributes`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1858,6 +2838,12 @@ ALTER TABLE `blog_comments`
 -- Indexes for table `blog_tags`
 --
 ALTER TABLE `blog_tags`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `brands`
+--
+ALTER TABLE `brands`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1949,6 +2935,12 @@ ALTER TABLE `mail_templates`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `media_options`
+--
+ALTER TABLE `media_options`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `metas`
 --
 ALTER TABLE `metas`
@@ -2006,6 +2998,44 @@ ALTER TABLE `permissions`
   ADD KEY `permissions_parent_id_foreign` (`parent_id`);
 
 --
+-- Indexes for table `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `products_slug_unique` (`slug`);
+
+--
+-- Indexes for table `product_images`
+--
+ALTER TABLE `product_images`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `product_reviews`
+--
+ALTER TABLE `product_reviews`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `pro_categories`
+--
+ALTER TABLE `pro_categories`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `pro_categories_slug_unique` (`slug`);
+
+--
+-- Indexes for table `pro_images`
+--
+ALTER TABLE `pro_images`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `related_products`
+--
+ALTER TABLE `related_products`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `roles`
 --
 ALTER TABLE `roles`
@@ -2031,6 +3061,13 @@ ALTER TABLE `states`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `subcategories`
+--
+ALTER TABLE `subcategories`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `subcategories_uuid_unique` (`uuid`);
+
+--
 -- Indexes for table `support_ticket_questions`
 --
 ALTER TABLE `support_ticket_questions`
@@ -2042,6 +3079,12 @@ ALTER TABLE `support_ticket_questions`
 ALTER TABLE `tags`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `tags_uuid_unique` (`uuid`);
+
+--
+-- Indexes for table `taxes`
+--
+ALTER TABLE `taxes`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `team_members`
@@ -2104,6 +3147,12 @@ ALTER TABLE `about_us_generals`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `attributes`
+--
+ALTER TABLE `attributes`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `balances`
 --
 ALTER TABLE `balances`
@@ -2150,6 +3199,12 @@ ALTER TABLE `blog_comments`
 --
 ALTER TABLE `blog_tags`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT for table `brands`
+--
+ALTER TABLE `brands`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `campaigns`
@@ -2236,6 +3291,12 @@ ALTER TABLE `mail_templates`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
+-- AUTO_INCREMENT for table `media_options`
+--
+ALTER TABLE `media_options`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=783;
+
+--
 -- AUTO_INCREMENT for table `metas`
 --
 ALTER TABLE `metas`
@@ -2290,6 +3351,42 @@ ALTER TABLE `permissions`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
+-- AUTO_INCREMENT for table `products`
+--
+ALTER TABLE `products`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=163;
+
+--
+-- AUTO_INCREMENT for table `product_images`
+--
+ALTER TABLE `product_images`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `product_reviews`
+--
+ALTER TABLE `product_reviews`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `pro_categories`
+--
+ALTER TABLE `pro_categories`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+
+--
+-- AUTO_INCREMENT for table `pro_images`
+--
+ALTER TABLE `pro_images`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=530;
+
+--
+-- AUTO_INCREMENT for table `related_products`
+--
+ALTER TABLE `related_products`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=256;
+
+--
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
@@ -2308,6 +3405,12 @@ ALTER TABLE `states`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
+-- AUTO_INCREMENT for table `subcategories`
+--
+ALTER TABLE `subcategories`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
 -- AUTO_INCREMENT for table `support_ticket_questions`
 --
 ALTER TABLE `support_ticket_questions`
@@ -2318,6 +3421,12 @@ ALTER TABLE `support_ticket_questions`
 --
 ALTER TABLE `tags`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `taxes`
+--
+ALTER TABLE `taxes`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `team_members`
@@ -2359,7 +3468,7 @@ ALTER TABLE `ticket_related_services`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- Constraints for dumped tables
@@ -2370,13 +3479,6 @@ ALTER TABLE `users`
 --
 ALTER TABLE `permissions`
   ADD CONSTRAINT `permissions_parent_id_foreign` FOREIGN KEY (`parent_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `role_has_permissions`
---
-ALTER TABLE `role_has_permissions`
-  ADD CONSTRAINT `role_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `role_has_permissions_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
