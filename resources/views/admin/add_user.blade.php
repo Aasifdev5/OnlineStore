@@ -179,19 +179,19 @@
                                     <label class="col-form-label">Assign Category</label>
                                     <div class="form-group">
                                       <div>
-                                        <input type="radio" name="category" id="category_bicycle" value="bicycle">
+                                        <input type="radio" name="categories" id="category_bicycle" value="bicycle">
                                         <label for="category_bicycle">Bicycle</label>
                                       </div>
                                       <div>
-                                        <input type="radio" name="category" id="category_motorcycle" value="motorcycle">
+                                        <input type="radio" name="categories" id="category_motorcycle" value="motorcycle">
                                         <label for="category_motorcycle">Motorcycle</label>
                                       </div>
                                       <div>
-                                        <input type="radio" name="category" id="category_shimano" value="shimano">
+                                        <input type="radio" name="categories" id="category_shimano" value="shimano">
                                         <label for="category_shimano">Shimano</label>
                                       </div>
                                       <div>
-                                        <input type="radio" name="category" id="category_loadline" value="loadline">
+                                        <input type="radio" name="categories" id="category_loadline" value="loadline">
                                         <label for="category_loadline">Load Line</label>
                                       </div>
                                       <span class="text-danger">
@@ -206,25 +206,25 @@
                                     <br>
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" id="priceBicycle" name="price"
-                                            value="price1" required>
+                                            value="price1" >
                                         <label class="form-check-label" for="priceBicycle">Price 1 </label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" id="priceMotorcycle"
-                                            name="price" value="price2" required>
+                                            name="price" value="price2" >
                                         <label class="form-check-label" for="priceMotorcycle">Price 2 </label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" id="priceShimano" name="price"
-                                            value="price3" required>
+                                            value="price3" >
                                         <label class="form-check-label" for="priceShimano">Price 3 </label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" id="priceLoadline" name="price"
-                                            value="price4" required>
+                                            value="price4" >
                                         <label class="form-check-label" for="priceLoadline">Price 4 </label>
                                     </div>
 
@@ -239,13 +239,13 @@
                                     <br>
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" id="statusYes" name="status"
-                                            value="1" required>
+                                            value="1" >
                                         <label class="form-check-label" for="statusYes">Sí </label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" id="statusNo" name="status"
-                                            value="0" required>
+                                            value="0" >
                                         <label class="form-check-label" for="statusNo">No</label>
                                     </div>
 

@@ -527,7 +527,7 @@
                                             <span>{{__('Subcategory')}}</span>
                                         </a>
                                     </li>
-                                    <li><a href="{{ url('products') }}"><i class="fa fa-circle"></i>Product</a></li>
+                                    <li><a href="{{ route('backend.products') }}"><i class="fa fa-circle"></i>Product</a></li>
 
 
                                 </ul>

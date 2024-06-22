@@ -730,7 +730,7 @@ class Admin extends Controller
     }
     public function save_user(Request $request)
     {
-        // dd($request->all());
+
         $user = new User();
         $request->validate([
             'name' => 'required',
@@ -752,7 +752,7 @@ class Admin extends Controller
             $profile = $_FILES['profile_photo']['name'];
         }
 
-
+        // dd($request->all());
 
         // Create a new user instance
         $user = User::create([
@@ -764,7 +764,7 @@ class Admin extends Controller
             'department' => $request->department,
             'location' => $request->location,
             'price' =>  $request->price,
-            'categories' => implode(',', $request->categories),
+            'categories' =>$request->categories,
             'alter_mobile_number' => $request->alter_mobile_number,
             'profile_photo' => $_FILES['profile_photo']['name'],
             'status' => $request->status,
@@ -775,7 +775,7 @@ class Admin extends Controller
         $user->notify(new VerifyEmailNotification($user));
 
         if ($user) {
-            return redirect('admin.users')->with('success', 'User Add Successfully');
+            return redirect('admin\users')->with('success', 'User Add Successfully');
         } else {
             return back()->with('fail', 'failed');
         }
