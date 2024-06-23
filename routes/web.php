@@ -368,7 +368,7 @@ Route::group(['prefix' => 'admin'], function () {
         //Products
 	Route::get('/products', [ProductsController::class, 'getProductsPageLoad'])->name('backend.products');
 	Route::get('/getProductsTableData', [ProductsController::class, 'getProductsTableData'])->name('backend.getProductsTableData');
-	Route::post('/saveProductsData', [ProductsController::class, 'saveProductsData'])->name('saveProductsData');
+	Route::post('saveProductsData', [ProductsController::class, 'saveProductsData'])->name('saveProductsData');
 	Route::post('/deleteProducts', [ProductsController::class, 'deleteProducts'])->name('backend.deleteProducts');
 	Route::post('/bulkActionProducts', [ProductsController::class, 'bulkActionProducts'])->name('backend.bulkActionProducts');
 	Route::post('/hasProductSlug', [ProductsController::class, 'hasProductSlug'])->name('backend.hasProductSlug');

@@ -131,79 +131,35 @@ class ProductsController extends Controller
     //Save data for Products
     public function saveProductsData(Request $request)
     {
-        dd($request->all());
+
         $res = array();
 
         $id = $request->input('RecordId');
-        $title = esc($request->input('title'));
-        $slug = esc(str_slug($request->input('slug')));
+        $title = $request->input('title');
+        $slug = getSlug($request->input('slug'));
+        // dd($slug);
+        $cat_id = $request->input('categories');
+        $brand_id = $request->input('brand_id');
+        $store_id = $request->input('store_id');
+        $short_desc = $request->input('short_desc');
+        $description = $request->input('description');
 
-        $cat_id = $request->input('categoryid');
-        $brand_id = $request->input('brandid');
-        $user_id = $request->input('storeid');
+        if (!empty($request->f_thumbnail)) {
 
-        $validator_array = array(
-            'product_name' => $request->input('title'),
-            'slug' => $slug,
-
-            'category' => $request->input('categoryid'),
-            'brand' => $request->input('brandid'),
-            'store' => $request->input('storeid')
-        );
-
-        $rId = $id == '' ? '' : ',' . $id;
-        $validator = Validator::make($validator_array, [
-            'product_name' => 'required',
-            'slug' => 'required|max:191|unique:products,slug' . $rId,
-            'language' => 'required',
-            'category' => 'required',
-            'brand' => 'required',
-            'store' => 'required'
-        ]);
-
-        $errors = $validator->errors();
-
-        if ($errors->has('product_name')) {
-            $res['msgType'] = 'error';
-            $res['msg'] = $errors->first('product_name');
-            return response()->json($res);
-        }
-
-        if ($errors->has('slug')) {
-            $res['msgType'] = 'error';
-            $res['msg'] = $errors->first('slug');
-            return response()->json($res);
-        }
-
-
-
-        if ($errors->has('category')) {
-            $res['msgType'] = 'error';
-            $res['msg'] = $errors->first('category');
-            return response()->json($res);
-        }
-
-        if ($errors->has('brand')) {
-            $res['msgType'] = 'error';
-            $res['msg'] = $errors->first('brand');
-            return response()->json($res);
-        }
-
-        if ($errors->has('store')) {
-            $res['msgType'] = 'error';
-            $res['msg'] = $errors->first('store');
-            return response()->json($res);
+            $image = $request->file('f_thumbnail')->getClientOriginalName();
+            $request->f_thumbnail->move(public_path('f_thumbnail'), $image);
         }
 
         $data = array(
             'title' => $title,
             'slug' => $slug,
+            'f_thumbnail' => $_FILES['f_thumbnail']['name'],
             'cat_id' => $cat_id,
-            'category_ids' => $cat_id,
+            'short_desc' => $short_desc,
+            'description' => $description,
             'brand_id' => $brand_id,
-            'user_id' => $user_id,
-
-            'is_publish' => 2
+            'store_id' => $store_id,
+            'price' => $request->price
         );
 
         if ($id == '') {
@@ -217,19 +173,8 @@ class ProductsController extends Controller
                 $res['msgType'] = 'error';
                 $res['msg'] = __('Data insert failed');
             }
-        } else {
-            $response = Product::where('id', $id)->update($data);
-            if ($response) {
-
-                $res['id'] = $id;
-                $res['msgType'] = 'success';
-                $res['msg'] = __('Data Updated Successfully');
-            } else {
-                $res['id'] = '';
-                $res['msgType'] = 'error';
-                $res['msg'] = __('Data update failed');
-            }
         }
+
 
         return response()->json($res);
     }
@@ -331,21 +276,13 @@ class ProductsController extends Controller
             $brandlist = Brand::where('is_publish', 1)->orderBy('name', 'asc')->get();
             $categorylist = Pro_category::where('is_publish', 1)->orderBy('name', 'asc')->get();
 
-            $storeList = DB::table('users')
-                ->select('users.id', 'users.store')
-                ->where('users.role', '=', 2)
-                ->where('users.status', '=', 1)
-                ->orderBy('users.store', 'asc')
-                ->get();
-
-
             $taxlist = Tax::orderBy('title', 'asc')->get();
             $unitlist = Attribute::orderBy('name', 'asc')->get();
             $media_datalist = Media_option::orderBy('id', 'desc')->paginate(28);
 
             $storeList = DB::table('users')
                 ->select('users.id', 'users.store')
-                ->where('users.role', '=', 3)
+                ->where('users.role', '=', 2)
                 ->where('users.status', '=', 1)
                 ->orderBy('users.store', 'asc')
                 ->get();
@@ -360,15 +297,15 @@ class ProductsController extends Controller
         $res = array();
 
         $id = $request->input('RecordId');
-        $title = esc($request->input('title'));
-        $slug = esc(str_slug($request->input('slug')));
+        $title = $request->input('title');
+        $slug = getSlug($request->input('slug'));
         $short_desc = $request->input('short_desc');
         $description = $request->input('description');
         $brand_id = $request->input('brand_id');
         $tax_id = $request->input('tax_id');
         $collection_id = $request->input('collection_id');
         $is_featured = $request->input('is_featured');
-        $lan = $request->input('lan');
+
         $is_publish = $request->input('is_publish');
         $f_thumbnail = $request->input('f_thumbnail');
         $category_ids = $request->input('cat_id');
@@ -382,7 +319,7 @@ class ProductsController extends Controller
             'slug' => $slug,
             'featured_image' => $request->input('f_thumbnail'),
             'category' => $request->input('cat_id'),
-            'language' => $request->input('lan'),
+
             'status' => $request->input('is_publish'),
             'store' => $request->input('storeid'),
             'variation_size' => $request->input('variation_size'),
@@ -394,7 +331,7 @@ class ProductsController extends Controller
             'product_name' => 'required',
             'slug' => 'required|max:191|unique:products,slug' . $rId,
             'featured_image' => 'required',
-            'language' => 'required',
+
             'category' => 'required',
             'status' => 'required',
             'store' => 'required',
@@ -416,11 +353,7 @@ class ProductsController extends Controller
             return response()->json($res);
         }
 
-        if ($errors->has('language')) {
-            $res['msgType'] = 'error';
-            $res['msg'] = $errors->first('language');
-            return response()->json($res);
-        }
+
 
         if ($errors->has('category')) {
             $res['msgType'] = 'error';
@@ -474,14 +407,13 @@ class ProductsController extends Controller
             'user_id' => $user_id,
             'variation_size' => $variation_size,
             'sale_price' => $sale_price,
-            'lan' => $lan
+
         );
 
         $response = Product::where('id', $id)->update($data);
         if ($response) {
 
-            //Update Parent and Child Menu
-            gMenuUpdate($id, 'product', $title, $slug);
+
 
             $res['msgType'] = 'success';
             $res['msg'] = __('Data Updated Successfully');
@@ -499,9 +431,9 @@ class ProductsController extends Controller
         if (Session::has('LoggedIn')) {
 
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
+            $RecordId = Product::orderByDesc('id')->first()->id;
 
-
-            return view('admin.backend.price', compact('user_session'));
+            return view('admin.backend.price', compact('user_session','RecordId'));
         }
     }
 
@@ -573,8 +505,8 @@ class ProductsController extends Controller
         if (Session::has('LoggedIn')) {
 
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
-
-            return view('admin.backend.inventory', compact('user_session'));
+            $RecordId = Product::orderByDesc('id')->first()->id;
+            return view('admin.backend.inventory', compact('user_session','RecordId'));
         }
     }
 

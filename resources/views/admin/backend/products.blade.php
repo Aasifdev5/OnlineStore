@@ -18,7 +18,7 @@
 							</div>
 							<div class="col-lg-12">
 								<div class="float-right">
-									<a onClick="onFormPanel()" href="javascript:void(0);" class="btn btn-primary btn-form pull-left"><i class="fa fa-plus"></i> {{ __('Add New') }}</a>
+									<a  href="{{ url('admin/product') }}" class="btn btn-primary btn-form pull-left"><i class="fa fa-plus"></i> {{ __('Add New') }}</a>
 
                                     <a onClick="onListPanel()" href="javascript:void(0);" class="btn btn-warning btn-list pull-right "><i class="fa fa-reply"></i> {{ __('Back to List') }}</a>
 								</div>

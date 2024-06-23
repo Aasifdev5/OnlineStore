@@ -57,7 +57,11 @@
                                 <div class="card-body">
 						<div class="tabs-body">
 							<!--Data Entry Form-->
-							<form action="" method="POST">
+							<form action="{{ url('admin\saveInventoryData') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="RecordId" value="@if ($RecordId)
+
+                                                    @endif{{ $RecordId }}">
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
@@ -96,7 +100,7 @@
 <br>
 								<div class="row tabs-footer mt-15">
 									<div class="col-lg-12">
-										<button type="submit" class="btn btn-primary">{{ __('Save') }}</button>
+										<button type="submit" class="btn btn-primary">{{ __('Next Step') }}</button>
 									</div>
 								</div>
 							</form>
