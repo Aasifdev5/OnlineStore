@@ -34,37 +34,37 @@
                                         <ul class="nav flex-column nav-pills" id="myTab" role="tablist">
                                             <li class="nav-item">
                                                 <a class="nav-link active" id="product-tab" data-toggle="tab"
-                                                    href="{{ route('backend.product') }}" role="tab"
+                                                    href="{{ route('backend.product', [$datalist['id']]) }}" role="tab"
                                                     aria-controls="product" aria-selected="true"><i class="fa fa-truck"></i>
                                                     {{ __('Product') }}</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" id="price-tab" data-toggle="tab"
-                                                    href="{{ route('backend.price') }}" role="tab" aria-controls="price"
+                                                    href="{{ route('backend.price', [$datalist['id']]) }}" role="tab" aria-controls="price"
                                                     aria-selected="false"><i class="fa fa-money"></i>
                                                     {{ __('Discount Manage') }}</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" id="inventory-tab" data-toggle="tab"
-                                                    href="{{ route('backend.inventory') }}" role="tab"
+                                                    href="{{ route('backend.inventory', [$datalist['id']]) }}" role="tab"
                                                     aria-controls="inventory" aria-selected="false"><i
                                                         class="fa fa-balance-scale"></i> {{ __('Inventory') }}</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" id="images-tab" data-toggle="tab"
-                                                    href="{{ route('backend.product-images') }}" role="tab"
+                                                    href="{{ route('backend.product-images', [$datalist['id']]) }}" role="tab"
                                                     aria-controls="images" aria-selected="false"><i
                                                         class="fa fa-picture-o"></i> {{ __('Multiple Images') }}</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" id="variations-tab" data-toggle="tab"
-                                                    href="{{ route('backend.variations') }}" role="tab"
+                                                    href="{{ route('backend.variations', [$datalist['id']]) }}" role="tab"
                                                     aria-controls="variations" aria-selected="false"><i
                                                         class="fa fa-hourglass-end"></i> {{ __('Variations') }}</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" id="seo-tab" data-toggle="tab"
-                                                    href="{{ route('backend.product-seo') }}" role="tab"
+                                                    href="{{ route('backend.product-seo', [$datalist['id']]) }}" role="tab"
                                                     aria-controls="seo" aria-selected="false"><i class="fa fa-rocket"></i>
                                                     {{ __('SEO') }}</a>
                                             </li>
@@ -79,6 +79,8 @@
                                                 <form action="{{ url('admin\saveProductsData') }}" method="POST"
                                                     enctype="multipart/form-data">
                                                     @csrf
+                                                    <input type="hidden" name="RecordId"
+                                                        value="@if ($datalist['id']) {{ $datalist['id'] }} @endif">
                                                     <div class="row">
                                                         <div class="col-lg-12">
                                                             <div class="form-group">
@@ -86,7 +88,7 @@
                                                                         class="red">*</span></label>
                                                                 <input type="text" name="title" id="product_name"
                                                                     class="form-control parsley-validated"
-                                                                    data-required="true">
+                                                                    data-required="true" value="{{ old('title',$datalist->title) }}">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -97,7 +99,7 @@
                                                                         class="red">*</span></label>
                                                                 <input type="text" name="slug" id="slug"
                                                                     class="form-control parsley-validated"
-                                                                    data-required="true">
+                                                                    data-required="true" value="{{ old('title',$datalist->slug) }}">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -106,7 +108,7 @@
                                                             <div class="form-group">
                                                                 <label
                                                                     for="short_desc">{{ __('Short Description') }}</label>
-                                                                <textarea name="short_desc" id="short_desc" class="form-control" rows="2"></textarea>
+                                                                <textarea name="short_desc" id="short_desc" class="form-control" rows="2">{{ old('title',$datalist->short_desc) }}</textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -115,7 +117,7 @@
                                                             <div class="form-group tpeditor">
                                                                 <label
                                                                     for="description">{{ __('Product Content') }}</label>
-                                                                <textarea name="description" id="description" class="form-control" rows="4"></textarea>
+                                                                <textarea name="description" id="description" class="form-control" rows="4">{{ old('title',$datalist->description) }}</textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -125,37 +127,43 @@
                                                             <label class="col-form-label">Assign Category</label>
                                                             <div class="form-group">
                                                                 <div>
-                                                                    <input type="radio" name="categories"
-                                                                        id="category_bicycle" value="bicycle">
+                                                                    <input type="radio" name="categories" id="category_bicycle" value="bicycle"
+                                                                        {{ $datalist->cat_id == 'bicycle' ? 'checked' : '' }}>
                                                                     <label for="category_bicycle">Bicycle</label>
                                                                 </div>
                                                                 <div>
-                                                                    <input type="radio" name="categories"
-                                                                        id="category_motorcycle" value="motorcycle">
+                                                                    <input type="radio" name="categories" id="category_motorcycle" value="motorcycle"
+                                                                        {{ $datalist->cat_id == 'motorcycle' ? 'checked' : '' }}>
                                                                     <label for="category_motorcycle">Motorcycle</label>
                                                                 </div>
                                                                 <div>
-                                                                    <input type="radio" name="categories"
-                                                                        id="category_shimano" value="shimano">
+                                                                    <input type="radio" name="categories" id="category_shimano" value="shimano"
+                                                                        {{ $datalist->cat_id == 'shimano' ? 'checked' : '' }}>
                                                                     <label for="category_shimano">Shimano</label>
                                                                 </div>
                                                                 <div>
-                                                                    <input type="radio" name="categories"
-                                                                        id="category_loadline" value="loadline">
+                                                                    <input type="radio" name="categories" id="category_loadline" value="loadline"
+                                                                        {{ $datalist->cat_id == 'loadline' ? 'checked' : '' }}>
                                                                     <label for="category_loadline">Load Line</label>
                                                                 </div>
                                                                 <span class="text-danger">
-                                                                    @error('category')
+                                                                    @error('categories')
                                                                         {{ $message }}
                                                                     @enderror
                                                                 </span>
                                                             </div>
                                                         </div>
+
                                                         <div class="col-lg-6">
                                                             <div class="input__group mb-25">
                                                                 <label>{{ __('Imagen ') }}</label>
                                                                 <div class="upload-img-box">
+                                                                    @if (!empty($datalist->f_thumbnail))
+                                                                    <img src="{{ asset('') }}f_thumbnail/{{ $datalist->f_thumbnail }}">
+                                                                    @else
                                                                     <img src="">
+                                                                    @endif
+
                                                                     <input type="file" name="f_thumbnail" id="og_image"
                                                                         accept="image/*" onchange="previewFile(this)">
                                                                     <div class="upload-img-box-icon">
@@ -185,7 +193,9 @@
                                                                     class="chosen-select form-control">
                                                                     <option value="0">No Brand</option>
                                                                     @foreach ($brandlist as $row)
-                                                                        <option value="{{ $row->id }}">
+                                                                        <option value="{{ $row->id }}" @if ($datalist->brand_id==$row->id)
+                                                                            @selected(true)
+                                                                        @endif>
                                                                             {{ $row->name }}
                                                                         </option>
                                                                     @endforeach
@@ -199,7 +209,9 @@
                                                                 <select name="store_id" id="storeid"
                                                                     class="chosen-select form-control">
                                                                     @foreach ($storeList as $row)
-                                                                        <option value="{{ $row->id }}">
+                                                                        <option value="{{ $row->id }}" @if ($datalist->store_id==$row->id)
+                                                                            @selected(true)
+                                                                        @endif>
                                                                             {{ $row->store }}
                                                                         </option>
                                                                     @endforeach
@@ -212,31 +224,27 @@
                                                         <label class="col-form-label">Assign Price</label>
                                                         <br>
                                                         <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="radio"
-                                                                id="priceBicycle" name="price" value="price1">
-                                                            <label class="form-check-label" for="priceBicycle">Price 1
-                                                            </label>
+                                                            <input class="form-check-input" type="radio" id="priceBicycle" name="price" value="price1"
+                                                                {{ $datalist->price == 'price1' ? 'checked' : '' }}>
+                                                            <label class="form-check-label" for="priceBicycle">Price 1</label>
                                                         </div>
 
                                                         <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="radio"
-                                                                id="priceMotorcycle" name="price" value="price2">
-                                                            <label class="form-check-label" for="priceMotorcycle">Price 2
-                                                            </label>
+                                                            <input class="form-check-input" type="radio" id="priceMotorcycle" name="price" value="price2"
+                                                                {{ $datalist->price == 'price2' ? 'checked' : '' }}>
+                                                            <label class="form-check-label" for="priceMotorcycle">Price 2</label>
                                                         </div>
 
                                                         <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="radio"
-                                                                id="priceShimano" name="price" value="price3">
-                                                            <label class="form-check-label" for="priceShimano">Price 3
-                                                            </label>
+                                                            <input class="form-check-input" type="radio" id="priceShimano" name="price" value="price3"
+                                                                {{ $datalist->price == 'price3' ? 'checked' : '' }}>
+                                                            <label class="form-check-label" for="priceShimano">Price 3</label>
                                                         </div>
 
                                                         <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="radio"
-                                                                id="priceLoadline" name="price" value="price4">
-                                                            <label class="form-check-label" for="priceLoadline">Price 4
-                                                            </label>
+                                                            <input class="form-check-input" type="radio" id="priceLoadline" name="price" value="price4"
+                                                                {{ $datalist->price == 'price4' ? 'checked' : '' }}>
+                                                            <label class="form-check-label" for="priceLoadline">Price 4</label>
                                                         </div>
 
                                                         <span class="text-danger">
@@ -245,6 +253,7 @@
                                                             @enderror
                                                         </span>
                                                     </div>
+
 
                                                     <div class="row">
                                                         <div class="col-lg-6">
@@ -267,7 +276,7 @@
                                                                         class="red">*</span></label>
                                                                 <input name="sale_price" id="sale_price" type="text"
                                                                     class="form-control parsley-validated"
-                                                                    data-required="true">
+                                                                    data-required="true" value="{{ old('sale_price',$datalist->sale_price) }}">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -278,20 +287,19 @@
                                                             <label class="col-form-label">Estado</label>
                                                             <br>
                                                             <div class="form-check form-check-inline">
-                                                                <input class="form-check-input" type="radio"
-                                                                    id="statusYes" name="status" value="1">
-                                                                <label class="form-check-label" for="statusYes">Sí
-                                                                </label>
+                                                                <input class="form-check-input" type="radio" id="statusYes" name="is_publish" value="1"
+                                                                    {{ $datalist->is_publish == '1' ? 'checked' : '' }}>
+                                                                <label class="form-check-label" for="statusYes">Sí</label>
                                                             </div>
 
                                                             <div class="form-check form-check-inline">
-                                                                <input class="form-check-input" type="radio"
-                                                                    id="statusNo" name="status" value="0">
+                                                                <input class="form-check-input" type="radio" id="statusNo" name="is_publish" value="0"
+                                                                    {{ $datalist->is_publish == '0' ? 'checked' : '' }}>
                                                                 <label class="form-check-label" for="statusNo">No</label>
                                                             </div>
 
                                                             <span class="text-danger">
-                                                                @error('status')
+                                                                @error('is_publish')
                                                                     {{ $message }}
                                                                 @enderror
                                                             </span>

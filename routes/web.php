@@ -373,7 +373,7 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::post('/bulkActionProducts', [ProductsController::class, 'bulkActionProducts'])->name('backend.bulkActionProducts');
 	Route::post('/hasProductSlug', [ProductsController::class, 'hasProductSlug'])->name('backend.hasProductSlug');
 	//Update
-	Route::get('/product', [ProductsController::class, 'getProductPageData'])->name('backend.product');
+	Route::get('/product/{id}', [ProductsController::class, 'getProductPageData'])->name('backend.product');
 	Route::post('/updateProductsData', [ProductsController::class, 'updateProductsData'])->name('backend.updateProductsData');
 
 	//Manage Stock
@@ -383,25 +383,25 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::post('/saveManageStockData', [InventoryController::class, 'saveManageStockData'])->name('backend.saveManageStockData');
 
 	//Price
-	Route::get('/price', [ProductsController::class, 'getPricePageData'])->name('backend.price');
+	Route::get('/price/{id}', [ProductsController::class, 'getPricePageData'])->name('backend.price');
 	Route::post('/savePriceData', [ProductsController::class, 'savePriceData'])->name('backend.savePriceData');
 
 	//Inventory
-	Route::get('/inventory', [ProductsController::class, 'getInventoryPageData'])->name('backend.inventory');
+	Route::get('/inventory/{id}', [ProductsController::class, 'getInventoryPageData'])->name('backend.inventory');
 	Route::post('/saveInventoryData', [ProductsController::class, 'saveInventoryData'])->name('backend.saveInventoryData');
 
 	//Product Images
-	Route::get('/product-images', [ProductsController::class, 'getProductImagesPageData'])->name('backend.product-images');
+	Route::get('/product-images/{id}', [ProductsController::class, 'getProductImagesPageData'])->name('backend.product-images');
 	Route::get('/getProductImagesTableData', [ProductsController::class, 'getProductImagesTableData'])->name('backend.getProductImagesTableData');
 	Route::post('/saveProductImagesData', [ProductsController::class, 'saveProductImagesData'])->name('backend.saveProductImagesData');
 	Route::post('/deleteProductImages', [ProductsController::class, 'deleteProductImages'])->name('backend.deleteProductImages');
 
 	//Variations
-	Route::get('/variations', [ProductsController::class, 'getVariationsPageData'])->name('backend.variations');
+	Route::get('/variations/{id}', [ProductsController::class, 'getVariationsPageData'])->name('backend.variations');
 	Route::post('/saveVariationsData', [ProductsController::class, 'saveVariationsData'])->name('backend.saveVariationsData');
 
 	//Product SEO
-	Route::get('/product-seo', [ProductsController::class, 'getProductSEOPageData'])->name('backend.product-seo');
+	Route::get('/product-seo/{id}', [ProductsController::class, 'getProductSEOPageData'])->name('backend.product-seo');
 	Route::post('/saveProductSEOData', [ProductsController::class, 'saveProductSEOData'])->name('backend.saveProductSEOData');
 
 

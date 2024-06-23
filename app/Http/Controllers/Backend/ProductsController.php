@@ -22,35 +22,20 @@ class ProductsController extends Controller
     //Products page load
     public function getProductsPageLoad()
     {
-
-        $AllCount = Product::count();
-        $PublishedCount = Product::where('is_publish', '=', 1)->count();
-        $DraftCount = Product::where('is_publish', '=', 2)->count();
-
-
-        $brandlist = Brand::where('is_publish', 1)->orderBy('name', 'asc')->get();
-        $categorylist = Pro_category::where('is_publish', 1)->orderBy('name', 'asc')->get();
-
-        $storeList = DB::table('users')
-            ->select('users.id', 'users.store')
-            ->where('users.role', '=', 2)
-            ->where('users.status', '=', 1)
-            ->orderBy('users.store', 'asc')
-            ->get();
-
-        $datalist = DB::table('products')
-
-            ->join('pro_categories', 'products.cat_id', '=', 'pro_categories.id')
-            ->leftJoin('brands', 'products.brand_id', '=', 'brands.id')
-            ->join('users', 'products.user_id', '=', 'users.id')
-            ->select('products.*', 'pro_categories.name as category_name', 'brands.name as brand_name', 'tp_status.status', 'languages.language_name', 'users.store')
-            ->orderBy('products.id', 'desc')
-            ->paginate(20);
-
         if (Session::has('LoggedIn')) {
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
+            $brandlist = Brand::where('is_publish', 1)->orderBy('name', 'asc')->get();
+            $storeList = DB::table('users')
+                ->select('users.id', 'users.store')
+                ->where('users.role', '=', 2)
+                ->where('users.status', '=', 1)
+                ->orderBy('users.store', 'asc')
+                ->get();
+            $datalist = Product::all();
 
-            return view('admin.backend.products', compact('AllCount', 'PublishedCount', 'DraftCount', 'user_session', 'categorylist', 'brandlist', 'storeList', 'datalist'));
+
+
+            return view('admin.backend.products', compact('user_session', 'datalist', 'brandlist', 'storeList'));
         }
     }
 
@@ -145,15 +130,24 @@ class ProductsController extends Controller
         $description = $request->input('description');
 
         if (!empty($request->f_thumbnail)) {
-
             $image = $request->file('f_thumbnail')->getClientOriginalName();
             $request->f_thumbnail->move(public_path('f_thumbnail'), $image);
-        }
+            $thumbnail = $image; // Use the uploaded image name here
+          } else {
+            // Check if a product exists with the given ID first
+            $product = Product::where('id', $id)->first();
+            if ($product) {
+              $thumbnail = $product->f_thumbnail;
+            } else {
+              // Handle the case where no product is found with the ID
+              $thumbnail = null; // Or set a default value
+            }
+          }
 
         $data = array(
             'title' => $title,
             'slug' => $slug,
-            'f_thumbnail' => $_FILES['f_thumbnail']['name'],
+            'f_thumbnail' =>$thumbnail ,
             'cat_id' => $cat_id,
             'short_desc' => $short_desc,
             'description' => $description,
@@ -168,15 +162,28 @@ class ProductsController extends Controller
                 $res['id'] = $response;
                 $res['msgType'] = 'success';
                 $res['msg'] = __('New Data Added Successfully');
+
+                return redirect()->route('backend.product', $res['id']);
             } else {
                 $res['id'] = '';
                 $res['msgType'] = 'error';
                 $res['msg'] = __('Data insert failed');
             }
+        } else {
+            $response = Product::where('id', $id)->update($data);
+            if ($response) {
+
+                $res['id'] = $id;
+                $res['msgType'] = 'success';
+                $res['msg'] = __('Data Updated Successfully');
+                return redirect()->route('backend.price', $res['id']);
+
+            } else {
+                $res['id'] = '';
+                $res['msgType'] = 'error';
+                $res['msg'] = __('Data update failed');
+            }
         }
-
-
-        return response()->json($res);
     }
 
     //Delete data for Products
@@ -269,8 +276,9 @@ class ProductsController extends Controller
     }
 
     //get Product
-    public function getProductPageData()
+    public function getProductPageData($id)
     {
+        // dd($id);
         if (Session::has('LoggedIn')) {
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
             $brandlist = Brand::where('is_publish', 1)->orderBy('name', 'asc')->get();
@@ -278,8 +286,7 @@ class ProductsController extends Controller
 
             $taxlist = Tax::orderBy('title', 'asc')->get();
             $unitlist = Attribute::orderBy('name', 'asc')->get();
-            $media_datalist = Media_option::orderBy('id', 'desc')->paginate(28);
-
+            $datalist = Product::where('id', $id)->first();
             $storeList = DB::table('users')
                 ->select('users.id', 'users.store')
                 ->where('users.role', '=', 2)
@@ -287,153 +294,21 @@ class ProductsController extends Controller
                 ->orderBy('users.store', 'asc')
                 ->get();
 
-            return view('admin.backend.product', compact('brandlist', 'categorylist', 'storeList', 'taxlist', 'media_datalist', 'storeList', 'unitlist', 'user_session'));
+            return view('admin.backend.product', compact('brandlist', 'categorylist', 'storeList', 'taxlist', 'storeList', 'unitlist', 'user_session', 'datalist'));
         }
     }
 
-    //Update data for Products
-    public function updateProductsData(Request $request)
-    {
-        $res = array();
 
-        $id = $request->input('RecordId');
-        $title = $request->input('title');
-        $slug = getSlug($request->input('slug'));
-        $short_desc = $request->input('short_desc');
-        $description = $request->input('description');
-        $brand_id = $request->input('brand_id');
-        $tax_id = $request->input('tax_id');
-        $collection_id = $request->input('collection_id');
-        $is_featured = $request->input('is_featured');
-
-        $is_publish = $request->input('is_publish');
-        $f_thumbnail = $request->input('f_thumbnail');
-        $category_ids = $request->input('cat_id');
-        $cat_id = $request->input('cat_id');
-        $user_id = $request->input('storeid');
-        $variation_size = $request->input('variation_size');
-        $sale_price = $request->input('sale_price');
-
-        $validator_array = array(
-            'product_name' => $request->input('title'),
-            'slug' => $slug,
-            'featured_image' => $request->input('f_thumbnail'),
-            'category' => $request->input('cat_id'),
-
-            'status' => $request->input('is_publish'),
-            'store' => $request->input('storeid'),
-            'variation_size' => $request->input('variation_size'),
-            'sale_price' => $request->input('sale_price')
-        );
-
-        $rId = $id == '' ? '' : ',' . $id;
-        $validator = Validator::make($validator_array, [
-            'product_name' => 'required',
-            'slug' => 'required|max:191|unique:products,slug' . $rId,
-            'featured_image' => 'required',
-
-            'category' => 'required',
-            'status' => 'required',
-            'store' => 'required',
-            'variation_size' => 'required',
-            'sale_price' => 'required'
-        ]);
-
-        $errors = $validator->errors();
-
-        if ($errors->has('product_name')) {
-            $res['msgType'] = 'error';
-            $res['msg'] = $errors->first('product_name');
-            return response()->json($res);
-        }
-
-        if ($errors->has('slug')) {
-            $res['msgType'] = 'error';
-            $res['msg'] = $errors->first('slug');
-            return response()->json($res);
-        }
-
-
-
-        if ($errors->has('category')) {
-            $res['msgType'] = 'error';
-            $res['msg'] = $errors->first('category');
-            return response()->json($res);
-        }
-
-        if ($errors->has('featured_image')) {
-            $res['msgType'] = 'error';
-            $res['msg'] = $errors->first('featured_image');
-            return response()->json($res);
-        }
-
-        if ($errors->has('status')) {
-            $res['msgType'] = 'error';
-            $res['msg'] = $errors->first('status');
-            return response()->json($res);
-        }
-
-        if ($errors->has('store')) {
-            $res['msgType'] = 'error';
-            $res['msg'] = $errors->first('store');
-            return response()->json($res);
-        }
-
-        if ($errors->has('variation_size')) {
-            $res['msgType'] = 'error';
-            $res['msg'] = $errors->first('variation_size');
-            return response()->json($res);
-        }
-
-        if ($errors->has('sale_price')) {
-            $res['msgType'] = 'error';
-            $res['msg'] = $errors->first('sale_price');
-            return response()->json($res);
-        }
-
-        $data = array(
-            'title' => $title,
-            'slug' => $slug,
-            'f_thumbnail' => $f_thumbnail,
-            'short_desc' => $short_desc,
-            'description' => $description,
-            'category_ids' => $category_ids,
-            'cat_id' => $cat_id,
-            'brand_id' => $brand_id,
-            'tax_id' => $tax_id,
-            'collection_id' => $collection_id,
-            'is_featured' => $is_featured,
-            'is_publish' => $is_publish,
-            'user_id' => $user_id,
-            'variation_size' => $variation_size,
-            'sale_price' => $sale_price,
-
-        );
-
-        $response = Product::where('id', $id)->update($data);
-        if ($response) {
-
-
-
-            $res['msgType'] = 'success';
-            $res['msg'] = __('Data Updated Successfully');
-        } else {
-            $res['msgType'] = 'error';
-            $res['msg'] = __('Data update failed');
-        }
-
-        return response()->json($res);
-    }
 
     //get Price
-    public function getPricePageData()
+    public function getPricePageData($id)
     {
         if (Session::has('LoggedIn')) {
 
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
             $RecordId = Product::orderByDesc('id')->first()->id;
-
-            return view('admin.backend.price', compact('user_session','RecordId'));
+            $datalist = Product::where('id', $id)->first();
+            return view('admin.backend.price', compact('user_session', 'RecordId','datalist'));
         }
     }
 
@@ -495,18 +370,19 @@ class ProductsController extends Controller
             $res['msg'] = __('Data update failed');
         }
 
-        return response()->json($res);
+        return redirect()->route('backend.inventory',$id);
     }
 
     //get Inventory
-    public function getInventoryPageData()
+    public function getInventoryPageData($id)
     {
 
         if (Session::has('LoggedIn')) {
 
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
             $RecordId = Product::orderByDesc('id')->first()->id;
-            return view('admin.backend.inventory', compact('user_session','RecordId'));
+            $datalist = Product::where('id', $id)->first();
+            return view('admin.backend.inventory', compact('user_session', 'RecordId','datalist'));
         }
     }
 
@@ -537,18 +413,19 @@ class ProductsController extends Controller
             $res['msg'] = __('Data update failed');
         }
 
-        return response()->json($res);
+        return redirect()->route('backend.product-images',$id);
     }
 
     //get Product Images
-    public function getProductImagesPageData()
+    public function getProductImagesPageData($id)
     {
 
         if (Session::has('LoggedIn')) {
 
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
-
-            return view('admin.backend.product-images', compact('user_session'));
+            $RecordId = Product::orderByDesc('id')->first()->id;
+            $datalist = Product::where('id', $id)->first();
+            return view('admin.backend.product-images', compact('user_session', 'RecordId','datalist'));
         }
     }
 
@@ -568,44 +445,22 @@ class ProductsController extends Controller
     //Save data for Product Images
     public function saveProductImagesData(Request $request)
     {
-        $res = array();
+        $product_id = $request->input('RecordId');
+        $images = $request->file('product_images');
 
-        $product_id = $request->input('product_id');
-        $thumbnail = $request->input('thumbnail');
-        $large_image = $request->input('large_image');
+        if ($images) {
 
-        $validator_array = array(
-            'image' => $request->input('thumbnail')
-        );
 
-        $validator = Validator::make($validator_array, [
-            'image' => 'required'
-        ]);
+            foreach ($images as $product_images) {
+                $imageName = $product_images->getClientOriginalName();
+                $product_images->move(public_path('product_images'), $imageName);
+                $imagePath = 'product_images/' . $imageName; // Adjust this based on your directory structure
 
-        $errors = $validator->errors();
-
-        if ($errors->has('image')) {
-            $res['msgType'] = 'error';
-            $res['msg'] = $errors->first('image');
-            return response()->json($res);
+                Pro_image::create(['thumbnail' => $imagePath, 'product_id' => $product_id]);
+            }
         }
 
-        $data = array(
-            'product_id' => $product_id,
-            'thumbnail' => $thumbnail,
-            'large_image' => $large_image
-        );
-
-        $response = Pro_image::create($data);
-        if ($response) {
-            $res['msgType'] = 'success';
-            $res['msg'] = __('New Data Added Successfully');
-        } else {
-            $res['msgType'] = 'error';
-            $res['msg'] = __('Data insert failed');
-        }
-
-        return response()->json($res);
+        return redirect()->route('backend.variations',$product_id);
     }
 
     //Delete data for Product Images
@@ -630,14 +485,15 @@ class ProductsController extends Controller
     }
 
     //get Variations
-    public function getVariationsPageData()
+    public function getVariationsPageData($id)
     {
         if (Session::has('LoggedIn')) {
 
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
 
-
-            return view('admin.backend.variations', compact('user_session'));
+            $RecordId = Product::orderByDesc('id')->first()->id;
+            $datalist = Product::where('id', $id)->first();
+            return view('admin.backend.variations', compact('user_session', 'RecordId','datalist'));
         }
     }
 
@@ -685,18 +541,18 @@ class ProductsController extends Controller
             $res['msg'] = __('Data update failed');
         }
 
-        return response()->json($res);
+        return redirect()->route('backend.product-seo',$id);
     }
 
     //get Product SEO
-    public function getProductSEOPageData()
+    public function getProductSEOPageData($id)
     {
         if (Session::has('LoggedIn')) {
 
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
-
-
-            return view('admin.backend.product-seo', compact('user_session'));
+            $RecordId = Product::orderByDesc('id')->first()->id;
+            $datalist = Product::where('id', $id)->first();
+            return view('admin.backend.product-seo', compact('user_session', 'RecordId','datalist'));
         }
     }
 
@@ -710,10 +566,19 @@ class ProductsController extends Controller
         $og_image = $request->input('og_image');
         $og_description = $request->input('og_description');
         $og_keywords = $request->input('og_keywords');
+        if (!empty($request->og_image)) {
 
+            $image = $request->file('og_image')->getClientOriginalName();
+            $request->og_image->move(public_path('og_image'), $image);
+            $thumbnail = $_FILES['og_image']['name'];
+        }
+        if(empty($request->og_image)){
+            $thumbnail = Product::where('id',$id)->first()->og_image;
+
+        }
         $data = array(
             'og_title' => $og_title,
-            'og_image' => $og_image,
+            'og_image' => $thumbnail,
             'og_description' => $og_description,
             'og_keywords' => $og_keywords
         );
@@ -726,8 +591,7 @@ class ProductsController extends Controller
             $res['msgType'] = 'error';
             $res['msg'] = __('Data update failed');
         }
-
-        return response()->json($res);
+        return redirect()->route('backend.products');
     }
 
     //get Related Products

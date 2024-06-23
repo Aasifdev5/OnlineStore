@@ -32,22 +32,40 @@
                                 </div>
                                 <ul class="nav flex-column nav-pills" id="myTab" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link " id="product-tab" data-toggle="tab" href="{{ route('backend.product') }}" role="tab" aria-controls="product" aria-selected="true"><i class="fa fa-truck"></i> {{ __('Product') }}</a>
+                                        <a class="nav-link " id="product-tab" data-toggle="tab"
+                                            href="{{ route('backend.product', [$datalist['id']]) }}" role="tab"
+                                            aria-controls="product" aria-selected="true"><i class="fa fa-truck"></i>
+                                            {{ __('Product') }}</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="price-tab" data-toggle="tab" href="{{ route('backend.price') }}" role="tab" aria-controls="price" aria-selected="false"><i class="fa fa-money"></i> {{ __('Discount Manage') }}</a>
+                                        <a class="nav-link" id="price-tab" data-toggle="tab"
+                                            href="{{ route('backend.price', [$datalist['id']]) }}" role="tab" aria-controls="price"
+                                            aria-selected="false"><i class="fa fa-money"></i>
+                                            {{ __('Discount Manage') }}</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="inventory-tab" data-toggle="tab" href="{{ route('backend.inventory') }}" role="tab" aria-controls="inventory" aria-selected="false"><i class="fa fa-balance-scale"></i> {{ __('Inventory') }}</a>
+                                        <a class="nav-link" id="inventory-tab" data-toggle="tab"
+                                            href="{{ route('backend.inventory', [$datalist['id']]) }}" role="tab"
+                                            aria-controls="inventory" aria-selected="false"><i
+                                                class="fa fa-balance-scale"></i> {{ __('Inventory') }}</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="images-tab" data-toggle="tab" href="{{ route('backend.product-images') }}" role="tab" aria-controls="images" aria-selected="false"><i class="fa fa-picture-o"></i> {{ __('Multiple Images') }}</a>
+                                        <a class="nav-link" id="images-tab" data-toggle="tab"
+                                            href="{{ route('backend.product-images', [$datalist['id']]) }}" role="tab"
+                                            aria-controls="images" aria-selected="false"><i
+                                                class="fa fa-picture-o"></i> {{ __('Multiple Images') }}</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link active" id="variations-tab" data-toggle="tab" href="{{ route('backend.variations') }}" role="tab" aria-controls="variations" aria-selected="false"><i class="fa fa-hourglass-end"></i> {{ __('Variations') }}</a>
+                                        <a class="nav-link active" id="variations-tab" data-toggle="tab"
+                                            href="{{ route('backend.variations', [$datalist['id']]) }}" role="tab"
+                                            aria-controls="variations" aria-selected="false"><i
+                                                class="fa fa-hourglass-end"></i> {{ __('Variations') }}</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="seo-tab" data-toggle="tab" href="{{ route('backend.product-seo') }}" role="tab" aria-controls="seo" aria-selected="false"><i class="fa fa-rocket"></i> {{ __('SEO') }}</a>
+                                        <a class="nav-link" id="seo-tab" data-toggle="tab"
+                                            href="{{ route('backend.product-seo', [$datalist['id']]) }}" role="tab"
+                                            aria-controls="seo" aria-selected="false"><i class="fa fa-rocket"></i>
+                                            {{ __('SEO') }}</a>
                                     </li>
                                 </ul>
                             </div>
@@ -58,16 +76,20 @@
                                 <div class="card-body">
 						<div class="tabs-body">
 							<!--Data Entry Form-->
-							<form action="" method="POST">
+							<form action="{{ url('admin\saveVariationsData') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="RecordId"
+                                value="@if ($datalist['id']) {{ $datalist['id'] }} @endif">
 								<div class="row">
 									<div class="col-md-12">
 										<div class="form-group">
 											<label for="variation_size">{{ __('Size') }}</label>
 											<select data-placeholder="{{ __('Select Size') }}" name="variation_size[]" id="variation_size" class="select2 form-control" multiple>
-                                                <option value="small">Small</option>
-                                                <option value="medium">Medium</option>
-                                                <option value="large">Large</option>
-                                                </select>
+                                                <option value="small" {{ in_array('small', explode(',', $datalist->variation_size)) ? 'selected' : '' }}>Small</option>
+                                                <option value="medium" {{ in_array('medium', explode(',', $datalist->variation_size)) ? 'selected' : '' }}>Medium</option>
+                                                <option value="large" {{ in_array('large', explode(',', $datalist->variation_size)) ? 'selected' : '' }}>Large</option>
+                                            </select>
+
 										</div>
 									</div>
 								</div>
@@ -77,12 +99,13 @@
 										<div class="form-group">
 											<label for="variation_color">{{ __('Color') }}</label>
 											<select data-placeholder="{{ __('Select Color') }}" name="variation_color[]" id="variation_color" class="select2 form-control" multiple>
-                                                <option value="red">Red</option>
-                                                <option value="green">Green</option>
-                                                <option value="blue">Blue</option>
-                                                <option value="black">Black</option>
-                                                <option value="white">White</option>
-                                                </select>
+                                                <option value="red" {{ in_array('red', explode(',', $datalist->variation_color)) ? 'selected' : '' }}>Red</option>
+                                                <option value="green" {{ in_array('green', explode(',', $datalist->variation_color)) ? 'selected' : '' }}>Green</option>
+                                                <option value="blue" {{ in_array('blue', explode(',', $datalist->variation_color)) ? 'selected' : '' }}>Blue</option>
+                                                <option value="black" {{ in_array('black', explode(',', $datalist->variation_color)) ? 'selected' : '' }}>Black</option>
+                                                <option value="white" {{ in_array('white', explode(',', $datalist->variation_color)) ? 'selected' : '' }}>White</option>
+                                            </select>
+
 										</div>
 									</div>
 								</div>
@@ -90,7 +113,7 @@
 								<br>
 								<div class="row tabs-footer mt-15">
 									<div class="col-lg-12">
-										<button type="submit" class="btn btn-primary">{{ __('Save') }}</button>
+										<button type="submit" class="btn btn-primary">{{ __('Next Step') }}</button>
 									</div>
 								</div>
 							</form>
