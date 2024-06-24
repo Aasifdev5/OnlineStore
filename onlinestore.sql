@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 23, 2024 at 03:30 PM
+-- Generation Time: Jun 24, 2024 at 02:42 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -1305,7 +1305,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (27, '2024_01_17_104036_create_calendars_table', 15),
 (28, '2024_01_17_140951_create_credit_reload_promotions_table', 16),
 (29, '2024_01_16_172130_create_attentions_table', 17),
-(30, '2024_06_09_091155_create_permissions_table', 18);
+(30, '2024_06_09_091155_create_permissions_table', 18),
+(31, '2024_06_24_084835_create_product_variations_table', 19);
 
 -- --------------------------------------------------------
 
@@ -1575,6 +1576,11 @@ CREATE TABLE `products` (
   `f_thumbnail` text DEFAULT NULL,
   `short_desc` text DEFAULT NULL,
   `description` text DEFAULT NULL,
+  `price1` varchar(255) DEFAULT NULL,
+  `price2` varchar(255) DEFAULT NULL,
+  `price3` varchar(255) DEFAULT NULL,
+  `price4` varchar(255) DEFAULT NULL,
+  `price5` varchar(255) DEFAULT NULL,
   `extra_desc` text DEFAULT NULL,
   `cost_price` double(12,3) DEFAULT NULL,
   `sale_price` double(12,3) DEFAULT NULL,
@@ -1608,14 +1614,15 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `title`, `slug`, `f_thumbnail`, `short_desc`, `description`, `extra_desc`, `cost_price`, `sale_price`, `old_price`, `start_date`, `end_date`, `is_discount`, `is_stock`, `sku`, `stock_status_id`, `stock_qty`, `u_stock_qty`, `cat_id`, `brand_id`, `price`, `store_id`, `variation_color`, `variation_size`, `tax_id`, `is_publish`, `user_id`, `og_title`, `og_image`, `og_description`, `og_keywords`, `created_at`, `updated_at`) VALUES
-(3, 'test', 'test', 'IMG-20240124-WA0041-removebg-preview.png', 'test', 'test', NULL, 12000.000, 11500.000, 14000.000, '2024-06-23', '2024-06-26', 1, 1, 'TS-123', 1, 10, NULL, 'bicycle', 3, NULL, '30', 'green,black,white', 'small,medium', NULL, NULL, NULL, 'test', 'IMG-20240124-WA0041.jpg', 'test', 'test', '2024-06-23 04:23:52', '2024-06-23 04:26:11'),
-(4, 'test2', 'test2', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'bicycle', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-23 05:58:34', '2024-06-23 05:58:34'),
-(6, 'test3', 'test3', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'shimano', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-23 06:04:31', '2024-06-23 06:04:31'),
-(7, 'Devil May Cry', 'Devil-May-Cry', '', 'Devil May Cry', 'Devil May Cry', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'loadline', 0, 'price3', '30', NULL, NULL, NULL, NULL, NULL, 'test', 'Screenshot 2024-03-06 15291522.png', 'test', 'test', '2024-06-23 06:06:09', '2024-06-23 07:19:03'),
-(8, 'Infernos', 'Inferno', 'IMG-20240124-WA0039.jpg', 'Dante\'s Inferno', 'Dante\'s Inferno', NULL, 13999.000, 12999.000, 150000.000, '2024-06-23', '2024-06-27', 1, 1, 'GM-56', 1, 5, NULL, 'shimano', 2, 'price3', '30', 'red,blue,black', 'small,medium,large', NULL, NULL, NULL, 'Dante\'s Inferno', 'IMG_4416_vo4r1a_1712164410.jpg', 'Dante\'s Inferno', 'Dante\'s Inferno', '2024-06-23 07:20:01', '2024-06-23 07:36:08'),
-(9, 'God of war', 'God-of-war', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'motorcycle', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-23 07:49:14', '2024-06-23 07:49:14'),
-(10, 'The last of us', 'The-last-of-us', 'img-20230525-175230-800x800.jpg', 'The last of us Tv and Game', 'The last of us Tv and Game', NULL, 1150.000, 1100.000, 1250.000, '2024-06-23', '2024-06-25', 1, 1, 'TG-78', 0, 3, NULL, 'bicycle', 4, 'price4', '30', 'red,green', 'small', NULL, NULL, NULL, 'The last of us Tv and Game', 'norwegian_forest_cat-wallpaper-1920x1080.jpg', 'The last of us Tv', 'The last of us Tv and Game', '2024-06-23 07:50:07', '2024-06-23 07:55:37');
+INSERT INTO `products` (`id`, `title`, `slug`, `f_thumbnail`, `short_desc`, `description`, `price1`, `price2`, `price3`, `price4`, `price5`, `extra_desc`, `cost_price`, `sale_price`, `old_price`, `start_date`, `end_date`, `is_discount`, `is_stock`, `sku`, `stock_status_id`, `stock_qty`, `u_stock_qty`, `cat_id`, `brand_id`, `price`, `store_id`, `variation_color`, `variation_size`, `tax_id`, `is_publish`, `user_id`, `og_title`, `og_image`, `og_description`, `og_keywords`, `created_at`, `updated_at`) VALUES
+(3, 'test', 'test', 'IMG-20240124-WA0041-removebg-preview.png', 'test', 'test', NULL, NULL, NULL, NULL, NULL, NULL, 12000.000, 11500.000, 14000.000, '2024-06-23', '2024-06-26', 1, 1, 'TS-123', 1, 10, NULL, 'bicycle', 3, NULL, '30', 'green,black,white', 'small,medium', NULL, NULL, NULL, 'test', 'IMG-20240124-WA0041.jpg', 'test', 'test', '2024-06-23 04:23:52', '2024-06-23 04:26:11'),
+(6, 'test3', 'test3', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'shimano', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-23 06:04:31', '2024-06-23 06:04:31'),
+(7, 'Devil May Cry', 'Devil-May-Cry', '', 'Devil May Cry', 'Devil May Cry', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'loadline', 0, 'price3', '30', NULL, NULL, NULL, NULL, NULL, 'test', 'Screenshot 2024-03-06 15291522.png', 'test', 'test', '2024-06-23 06:06:09', '2024-06-23 07:19:03'),
+(8, 'Infernos', 'Inferno', 'IMG-20240124-WA0039.jpg', 'Dante\'s Inferno', 'Dante\'s Inferno', NULL, NULL, NULL, NULL, NULL, NULL, 13999.000, 12999.000, 150000.000, '2024-06-23', '2024-06-27', 1, 1, 'GM-56', 1, 5, NULL, 'shimano', 2, 'price3', '30', 'red,blue,black', 'small,medium,large', NULL, NULL, NULL, 'Dante\'s Inferno', 'IMG_4416_vo4r1a_1712164410.jpg', 'Dante\'s Inferno', 'Dante\'s Inferno', '2024-06-23 07:20:01', '2024-06-23 07:36:08'),
+(9, 'God of war', 'God-of-war', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'motorcycle', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-23 07:49:14', '2024-06-23 07:49:14'),
+(10, 'The last of us', 'The-last-of-us', 'img-20230525-175230-800x800.jpg', 'The last of us Tv and Game', 'The last of us Tv and Game', '1000', '1150', '1250', '1500', '1650', NULL, 1150.000, 1100.000, 1250.000, '2024-06-23', '2024-06-25', 1, 1, 'TG-78', 0, 3, NULL, 'bicycle', 4, 'price4', '32', 'red,green,blue,black,white', 'small,medium,large', NULL, NULL, NULL, 'The last of us Tv and Game', 'norwegian_forest_cat-wallpaper-1920x1080.jpg', 'The last of us Tv', 'The last of us Tv and Game', '2024-06-23 07:50:07', '2024-06-24 03:44:53'),
+(26, 'Product Title 1', 'Product-Title-1', 'thumbnail1.jpg', 'Short Desc 1', 'Product Desc 1', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 'SKU001', 1, 100, NULL, '1', 1, NULL, '1', NULL, NULL, NULL, NULL, NULL, 'Product 1 Title', NULL, 'Product 1 Desc', 'Keyword 1', '2024-06-24 06:30:18', '2024-06-24 06:30:18'),
+(27, 'Product Title 2', 'Product-Title-2', 'thumbnail2.jpg', 'Short Desc 2', 'Product Desc 2', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 'SKU002', 1, 120, NULL, '2', 2, NULL, '2', NULL, NULL, NULL, NULL, NULL, 'Product 2 Title', NULL, 'Product 2 Desc', 'Keyword 2', '2024-06-24 06:30:18', '2024-06-24 06:30:18');
 
 -- --------------------------------------------------------
 
@@ -1632,6 +1639,30 @@ CREATE TABLE `product_reviews` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_variations`
+--
+
+CREATE TABLE `product_variations` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `product_id` bigint(20) UNSIGNED NOT NULL,
+  `size` varchar(191) NOT NULL,
+  `color` varchar(191) NOT NULL,
+  `sku` varchar(191) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `product_variations`
+--
+
+INSERT INTO `product_variations` (`id`, `product_id`, `size`, `color`, `sku`, `created_at`, `updated_at`) VALUES
+(5, 26, 'S', 'Blue', 'SKU001-S-BLUE', '2024-06-24 06:30:18', '2024-06-24 06:30:18'),
+(6, 27, 'M', 'Red', 'SKU002-M-RED', '2024-06-24 06:30:18', '2024-06-24 06:30:18');
 
 -- --------------------------------------------------------
 
@@ -1713,7 +1744,11 @@ INSERT INTO `pro_images` (`id`, `product_id`, `thumbnail`, `large_image`, `desc`
 (14, 8, 'product_images/Commons_QR_code.png', NULL, NULL, '2024-06-23 07:24:31', '2024-06-23 07:24:31'),
 (15, 10, 'product_images/supermassive_black_hole-wallpaper-5120x2880.jpg', NULL, NULL, '2024-06-23 07:52:03', '2024-06-23 07:52:03'),
 (16, 10, 'product_images/the_batman_2021_robert_pattinson-wallpaper-7680x4320.jpg', NULL, NULL, '2024-06-23 07:52:03', '2024-06-23 07:52:03'),
-(17, 10, 'product_images/tom_clancys_ghost_recon_wildlands_season_pass-wallpaper-5120x2880.jpg', NULL, NULL, '2024-06-23 07:52:03', '2024-06-23 07:52:03');
+(17, 10, 'product_images/tom_clancys_ghost_recon_wildlands_season_pass-wallpaper-5120x2880.jpg', NULL, NULL, '2024-06-23 07:52:03', '2024-06-23 07:52:03'),
+(34, 26, 'product_images/image1.jpg', NULL, NULL, '2024-06-24 06:30:18', '2024-06-24 06:30:18'),
+(35, 26, 'product_images/image2.jpg', NULL, NULL, '2024-06-24 06:30:18', '2024-06-24 06:30:18'),
+(36, 27, 'product_images/image3.jpg', NULL, NULL, '2024-06-24 06:30:18', '2024-06-24 06:30:18'),
+(37, 27, 'product_images/image4.jpg', NULL, NULL, '2024-06-24 06:30:18', '2024-06-24 06:30:18');
 
 -- --------------------------------------------------------
 
@@ -2548,6 +2583,7 @@ CREATE TABLE `ticket_related_services` (
 CREATE TABLE `users` (
   `id` int(10) UNSIGNED NOT NULL,
   `account_type` varchar(255) DEFAULT NULL,
+  `price` varchar(255) DEFAULT NULL,
   `role` int(11) DEFAULT 2,
   `permissions` varchar(255) DEFAULT NULL,
   `name` varchar(191) DEFAULT NULL,
@@ -2557,7 +2593,6 @@ CREATE TABLE `users` (
   `custom_password` varchar(255) DEFAULT NULL,
   `mobile_number` varchar(191) DEFAULT NULL,
   `city` varchar(255) DEFAULT NULL,
-  `price` varchar(255) DEFAULT NULL,
   `categories` varchar(255) DEFAULT NULL,
   `alter_mobile_number` varchar(255) DEFAULT NULL,
   `location` varchar(255) DEFAULT NULL,
@@ -2589,11 +2624,11 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `account_type`, `role`, `permissions`, `name`, `email`, `email_verified_at`, `password`, `custom_password`, `mobile_number`, `city`, `price`, `categories`, `alter_mobile_number`, `location`, `department`, `store`, `last_seen`, `is_online`, `is_active`, `status`, `about`, `photo_url`, `profile_photo`, `remember_token`, `ip_address`, `balance`, `is_system`, `is_subscribed`, `privacy`, `gender`, `created_by`, `deleted_at`, `language`, `is_super_admin`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 1, NULL, 'SUPER ADMINISTRADOR', 'admin@gmail.com', '2023-03-23 07:45:02', '$2y$10$9SbqzcUtyfeaf4019gajcOGQ4/k.XfIpeMXZp/ZERKUP0Z9GA02MK', NULL, '8878326802', 'india', NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-23 00:49:15', 1, 1, 1, NULL, NULL, '149071.png', NULL, NULL, NULL, 1, 0, 1, 1, NULL, NULL, 'es', 1, '2023-03-23 07:45:02', '2024-06-23 00:49:15'),
-(30, NULL, 2, NULL, 'sdfsdfsf', 'subadmdfsfain@gmail.com', NULL, 'vbcvbhfghd', NULL, NULL, NULL, 'price3', NULL, '987765546213132', NULL, 'it', 'arstexch', NULL, 0, 1, 1, NULL, NULL, NULL, NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:49:44', '2024-06-22 01:49:44'),
-(31, NULL, 2, NULL, 'sofia', 'hhfghfhhffhfhfhrnatrajinfotech@gmail.com', NULL, 'sdfsfsfdsfsfsfsfsfs', NULL, NULL, 'ghfdgdfg', 'price2', NULL, '465464df65g54d', 'ghjhgjgjg', 'erewr', 'asdsdfdsf', NULL, 0, 1, 1, NULL, NULL, NULL, NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:51:51', '2024-06-22 01:51:51'),
-(32, NULL, 2, NULL, 'eve', 'eve@gmail.com', NULL, 'eve@3sss', NULL, '9589642080', 'bolivia', 'price3', 'loadline', '65465464879787', 'bolivia', 'Software', 'everytech', NULL, 0, 1, 1, NULL, NULL, 'IMG_4416_vo4r1a_1712164410.jpg', NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:56:11', '2024-06-22 01:58:28');
+INSERT INTO `users` (`id`, `account_type`, `price`, `role`, `permissions`, `name`, `email`, `email_verified_at`, `password`, `custom_password`, `mobile_number`, `city`, `categories`, `alter_mobile_number`, `location`, `department`, `store`, `last_seen`, `is_online`, `is_active`, `status`, `about`, `photo_url`, `profile_photo`, `remember_token`, `ip_address`, `balance`, `is_system`, `is_subscribed`, `privacy`, `gender`, `created_by`, `deleted_at`, `language`, `is_super_admin`, `created_at`, `updated_at`) VALUES
+(1, 'admin', NULL, 1, NULL, 'SUPER ADMINISTRADOR', 'admin@gmail.com', '2023-03-23 07:45:02', '$2y$10$9SbqzcUtyfeaf4019gajcOGQ4/k.XfIpeMXZp/ZERKUP0Z9GA02MK', NULL, '8878326802', 'india', NULL, NULL, NULL, NULL, NULL, '2024-06-24 01:15:22', 1, 1, 1, NULL, NULL, '149071.png', NULL, NULL, NULL, 1, 0, 1, 1, NULL, NULL, 'es', 1, '2023-03-23 07:45:02', '2024-06-24 01:15:22'),
+(30, NULL, 'price3', 2, NULL, 'sdfsdfsf', 'subadmdfsfain@gmail.com', NULL, 'vbcvbhfghd', NULL, NULL, NULL, NULL, '987765546213132', NULL, 'it', 'arstexch', NULL, 0, 1, 1, NULL, NULL, NULL, NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:49:44', '2024-06-22 01:49:44'),
+(31, NULL, 'price2', 2, NULL, 'sofia', 'hhfghfhhffhfhfhrnatrajinfotech@gmail.com', NULL, 'sdfsfsfdsfsfsfsfsfs', NULL, NULL, 'ghfdgdfg', NULL, '465464df65g54d', 'ghjhgjgjg', 'erewr', 'asdsdfdsf', NULL, 0, 1, 1, NULL, NULL, NULL, NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:51:51', '2024-06-22 01:51:51'),
+(32, NULL, 'price3', 2, NULL, 'eve', 'eve@gmail.com', NULL, 'eve@3sss', NULL, '9589642080', 'bolivia', 'loadline', '65465464879787', 'bolivia', 'Software', 'everytech', NULL, 0, 1, 1, NULL, NULL, 'IMG_4416_vo4r1a_1712164410.jpg', NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:56:11', '2024-06-22 01:58:28');
 
 --
 -- Indexes for dumped tables
@@ -2830,6 +2865,14 @@ ALTER TABLE `products`
 --
 ALTER TABLE `product_reviews`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `product_variations`
+--
+ALTER TABLE `product_variations`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `product_variations_sku_unique` (`sku`),
+  ADD KEY `product_variations_product_id_foreign` (`product_id`);
 
 --
 -- Indexes for table `pro_categories`
@@ -3121,7 +3164,7 @@ ALTER TABLE `metas`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `notifications`
@@ -3169,13 +3212,19 @@ ALTER TABLE `permissions`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `product_reviews`
 --
 ALTER TABLE `product_reviews`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `product_variations`
+--
+ALTER TABLE `product_variations`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `pro_categories`
@@ -3187,7 +3236,7 @@ ALTER TABLE `pro_categories`
 -- AUTO_INCREMENT for table `pro_images`
 --
 ALTER TABLE `pro_images`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `related_products`
@@ -3288,6 +3337,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `permissions`
   ADD CONSTRAINT `permissions_parent_id_foreign` FOREIGN KEY (`parent_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `product_variations`
+--
+ALTER TABLE `product_variations`
+  ADD CONSTRAINT `product_variations_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
