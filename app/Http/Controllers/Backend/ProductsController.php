@@ -14,6 +14,8 @@ use App\Models\Tax;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Imports\ProductsImport; // Import the Import class
+use Maatwebsite\Excel\Facades\Excel; // Import Excel facade for Excel handling
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -39,79 +41,7 @@ class ProductsController extends Controller
         }
     }
 
-    //Get data for Products Pagination
-    public function getProductsTableData(Request $request)
-    {
 
-        $search = $request->search;
-        $status = $request->status;
-        $language_code = $request->language_code;
-        $category_id = $request->category_id;
-        $brand_id = $request->brand_id;
-        $user_id = $request->store_id;
-
-        if ($request->ajax()) {
-
-            if ($search != '') {
-                $datalist = DB::table('products')
-                    ->join('tp_status', 'products.is_publish', '=', 'tp_status.id')
-                    ->join('languages', 'products.lan', '=', 'languages.language_code')
-                    ->join('pro_categories', 'products.cat_id', '=', 'pro_categories.id')
-                    ->leftJoin('brands', 'products.brand_id', '=', 'brands.id')
-                    ->join('users', 'products.user_id', '=', 'users.id')
-                    ->select('products.*', 'pro_categories.name as category_name', 'brands.name as brand_name', 'tp_status.status', 'languages.language_name', 'users.shop_name')
-                    ->where(function ($query) use ($search) {
-                        $query->where('products.title', 'like', '%' . $search . '%')
-                            ->orWhere('pro_categories.name', 'like', '%' . $search . '%')
-                            ->orWhere('brands.name', 'like', '%' . $search . '%')
-                            ->orWhere('languages.language_name', 'like', '%' . $search . '%')
-                            ->orWhere('cost_price', 'like', '%' . $search . '%');
-                    })
-
-                    ->where(function ($query) use ($status) {
-                        $query->whereRaw("products.is_publish = '" . $status . "' OR '" . $status . "' = '0'");
-                    })
-
-                    ->where(function ($query) use ($category_id) {
-                        $query->whereRaw("products.cat_id = '" . $category_id . "' OR '" . $category_id . "' = '0'");
-                    })
-                    ->where(function ($query) use ($brand_id) {
-                        $query->whereRaw("products.brand_id = '" . $brand_id . "' OR '" . $brand_id . "' = 'all'");
-                    })
-                    ->where(function ($query) use ($user_id) {
-                        $query->whereRaw("products.user_id = '" . $user_id . "' OR '" . $user_id . "' = '0'");
-                    })
-                    ->orderBy('products.id', 'desc')
-                    ->paginate(20);
-            } else {
-
-                $datalist = DB::table('products')
-
-                    ->join('pro_categories', 'products.cat_id', '=', 'pro_categories.id')
-                    ->leftJoin('brands', 'products.brand_id', '=', 'brands.id')
-                    ->select('products.*', 'pro_categories.name as category_name', 'brands.name as brand_name', 'tp_status.status',  'users.store')
-                    ->join('users', 'products.user_id', '=', 'users.id')
-                    ->where(function ($query) use ($status) {
-                        $query->whereRaw("products.is_publish = '" . $status . "' OR '" . $status . "' = '0'");
-                    })
-
-                    ->where(function ($query) use ($category_id) {
-                        $query->whereRaw("products.cat_id = '" . $category_id . "' OR '" . $category_id . "' = '0'");
-                    })
-                    ->where(function ($query) use ($brand_id) {
-                        $query->whereRaw("products.brand_id = '" . $brand_id . "' OR '" . $brand_id . "' = 'all'");
-                    })
-                    ->where(function ($query) use ($user_id) {
-                        $query->whereRaw("products.user_id = '" . $user_id . "' OR '" . $user_id . "' = '0'");
-                    })
-
-                    ->orderBy('products.id', 'desc')
-                    ->paginate(20);
-            }
-
-            return view('backend.partials.products_table', compact('datalist'))->render();
-        }
-    }
 
     //Save data for Products
     public function saveProductsData(Request $request)
@@ -133,21 +63,21 @@ class ProductsController extends Controller
             $image = $request->file('f_thumbnail')->getClientOriginalName();
             $request->f_thumbnail->move(public_path('f_thumbnail'), $image);
             $thumbnail = $image; // Use the uploaded image name here
-          } else {
+        } else {
             // Check if a product exists with the given ID first
             $product = Product::where('id', $id)->first();
             if ($product) {
-              $thumbnail = $product->f_thumbnail;
+                $thumbnail = $product->f_thumbnail;
             } else {
-              // Handle the case where no product is found with the ID
-              $thumbnail = null; // Or set a default value
+                // Handle the case where no product is found with the ID
+                $thumbnail = null; // Or set a default value
             }
-          }
+        }
 
         $data = array(
             'title' => $title,
             'slug' => $slug,
-            'f_thumbnail' =>$thumbnail ,
+            'f_thumbnail' => $thumbnail,
             'cat_id' => $cat_id,
             'short_desc' => $short_desc,
             'description' => $description,
@@ -182,7 +112,6 @@ class ProductsController extends Controller
                 $res['msgType'] = 'success';
                 $res['msg'] = __('Data Updated Successfully');
                 return redirect()->route('backend.price', $res['id']);
-
             } else {
                 $res['id'] = '';
                 $res['msgType'] = 'error';
@@ -194,27 +123,63 @@ class ProductsController extends Controller
     //Delete data for Products
     public function deleteProducts(Request $request)
     {
-
         $res = array();
 
         $id = $request->id;
 
-        if ($id != '') {
-            Pro_image::where('product_id', $id)->delete();
-            Related_product::where('product_id', $id)->delete();
-            $response = Product::where('id', $id)->delete();
-            if ($response) {
-                $res['msgType'] = 'success';
-                $res['msg'] = __('Data Removed Successfully');
-            } else {
-                $res['msgType'] = 'error';
-                $res['msg'] = __('Data remove failed');
-            }
-        }
+        if (!empty($id)) {
+            try {
+                // Begin transaction
+                DB::beginTransaction();
 
-        return response()->json($res);
+                // Delete related images and products
+                Pro_image::where('product_id', $id)->delete();
+                Related_product::where('product_id', $id)->delete();
+
+                // Delete the product
+                $response = Product::where('id', $id)->delete();
+
+                // Commit transaction
+                DB::commit();
+
+                if ($response) {
+                    $res['msgType'] = 'success';
+                    $res['msg'] = __('Data Removed Successfully');
+                    return back();
+                } else {
+                    $res['msgType'] = 'error';
+                    $res['msg'] = __('Data remove failed');
+                }
+            } catch (\Exception $e) {
+                // Rollback transaction in case of error
+                DB::rollBack();
+                $res['msgType'] = 'error';
+                $res['msg'] = __('An error occurred: ') . $e->getMessage();
+            }
+        } else {
+            $res['msgType'] = 'error';
+            $res['msg'] = __('Invalid product ID');
+        }
     }
 
+    public function showImportForm()
+    {
+        if (Session::has('LoggedIn')) {
+            $user_session = User::where('id', Session::get('LoggedIn'))->first();
+            return view('admin.backend.product_import',compact('user_session'));
+        }
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,csv',
+        ]);
+
+        Excel::import(new ProductsImport(), $request->file('file'));
+
+        return redirect()->back()->with('success', 'Products imported successfully.');
+    }
     //Bulk Action for Products
     public function bulkActionProducts(Request $request)
     {
@@ -313,7 +278,7 @@ class ProductsController extends Controller
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
             $RecordId = Product::orderByDesc('id')->first()->id;
             $datalist = Product::where('id', $id)->first();
-            return view('admin.backend.price', compact('user_session', 'RecordId','datalist'));
+            return view('admin.backend.price', compact('user_session', 'RecordId', 'datalist'));
         }
     }
 
@@ -375,7 +340,7 @@ class ProductsController extends Controller
             $res['msg'] = __('Data update failed');
         }
 
-        return redirect()->route('backend.inventory',$id);
+        return redirect()->route('backend.inventory', $id);
     }
 
     //get Inventory
@@ -387,7 +352,7 @@ class ProductsController extends Controller
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
             $RecordId = Product::orderByDesc('id')->first()->id;
             $datalist = Product::where('id', $id)->first();
-            return view('admin.backend.inventory', compact('user_session', 'RecordId','datalist'));
+            return view('admin.backend.inventory', compact('user_session', 'RecordId', 'datalist'));
         }
     }
 
@@ -418,7 +383,7 @@ class ProductsController extends Controller
             $res['msg'] = __('Data update failed');
         }
 
-        return redirect()->route('backend.product-images',$id);
+        return redirect()->route('backend.product-images', $id);
     }
 
     //get Product Images
@@ -430,7 +395,7 @@ class ProductsController extends Controller
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
             $RecordId = Product::orderByDesc('id')->first()->id;
             $datalist = Product::where('id', $id)->first();
-            return view('admin.backend.product-images', compact('user_session', 'RecordId','datalist'));
+            return view('admin.backend.product-images', compact('user_session', 'RecordId', 'datalist'));
         }
     }
 
@@ -465,7 +430,7 @@ class ProductsController extends Controller
             }
         }
 
-        return redirect()->route('backend.variations',$product_id);
+        return redirect()->route('backend.variations', $product_id);
     }
 
     //Delete data for Product Images
@@ -498,7 +463,7 @@ class ProductsController extends Controller
 
             $RecordId = Product::orderByDesc('id')->first()->id;
             $datalist = Product::where('id', $id)->first();
-            return view('admin.backend.variations', compact('user_session', 'RecordId','datalist'));
+            return view('admin.backend.variations', compact('user_session', 'RecordId', 'datalist'));
         }
     }
 
@@ -569,7 +534,7 @@ class ProductsController extends Controller
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
             $RecordId = Product::orderByDesc('id')->first()->id;
             $datalist = Product::where('id', $id)->first();
-            return view('admin.backend.product-seo', compact('user_session', 'RecordId','datalist'));
+            return view('admin.backend.product-seo', compact('user_session', 'RecordId', 'datalist'));
         }
     }
 
@@ -589,9 +554,8 @@ class ProductsController extends Controller
             $request->og_image->move(public_path('og_image'), $image);
             $thumbnail = $_FILES['og_image']['name'];
         }
-        if(empty($request->og_image)){
-            $thumbnail = Product::where('id',$id)->first()->og_image;
-
+        if (empty($request->og_image)) {
+            $thumbnail = Product::where('id', $id)->first()->og_image;
         }
         $data = array(
             'og_title' => $og_title,

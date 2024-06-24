@@ -17,41 +17,44 @@
 
             @foreach ($datalist as $row)
                 @php
-                    if (!empty($row->brand_id)) {
-                        $brandName = \App\Models\Brand::where('id', $row->brand_id)->first()->name;
-                    }
-                    if (!empty($storeName)) {
-                        $storeName = \App\Models\User::where('id', $row->store_id)->first()->store;
-                    }
+                    $brandName = null;
+                    $storeName = null;
 
+                    if (!empty($row->brand_id)) {
+                        $brand = \App\Models\Brand::find($row->brand_id);
+                        $brandName = $brand ? $brand->name : null;
+                    }
+                    if (!empty($row->store_id)) {
+                        $store = \App\Models\User::find($row->store_id);
+                        $storeName = $store ? $store->store : null;
+                    }
                 @endphp
                 <tr>
-
                     <td class="text-center">{{ $loop->iteration }}</td>
-                    <td class="text-left"><a href="{{ route('backend.product', [$row->id]) }}"
-                            title="{{ __('Edit') }}">{{ $row->title }}</a></td>
+                    <td class="text-left">
+                        <a href="{{ route('backend.product', [$row->id]) }}"
+                            title="{{ __('Edit') }}">{{ $row->title }}</a>
+                    </td>
                     <td class="text-left">{{ $row->cat_id }}</td>
-
-
                     <td class="text-center">
                         @if (!empty($storeName))
                             {{ $storeName }}
                         @endif
                     </td>
-
                     @if ($row->f_thumbnail != '')
                         <td class="text-center">
-                            <div class="table_col_image"><img
-                                    src="{{ asset('') }}f_thumbnail/{{ $row->f_thumbnail }}" width="100"
-                                    height="60" /></div>
+                            <div class="table_col_image">
+                                <img src="{{ asset('f_thumbnail/' . $row->f_thumbnail) }}" width="100"
+                                    height="60" />
+                            </div>
                         </td>
                     @else
                         <td class="text-center">
-                            <div class="table_col_image"><img
-                                    src="{{ asset('') }}/backend/images/album_icon.png" /></div>
+                            <div class="table_col_image">
+                                <img src="{{ asset('backend/images/album_icon.png') }}" />
+                            </div>
                         </td>
                     @endif
-
                     @if ($row->is_publish == 1)
                         <td class="text-center"><span class="enable_btn">{{ $row->status }}</span></td>
                     @else
@@ -62,15 +65,28 @@
                             data-id="{{ $row->id }}" data-toggle="tooltip" title="{{ trans('remove') }}">
                             <i class="fa fa-remove"></i>
                         </a>
-
                         <form id="delete-form-{{ $row->id }}"
-                            action="{{ route('permissions.delete', $row->id) }}" method="POST" style="display: none;">
+                            action="{{ route('backend.deleteProducts', $row->id) }}" method="POST"
+                            style="display: none;">
                             @csrf
-                            @method('DELETE')
+                            @method('DELETE') <!-- Use DELETE method for RESTful deletion -->
                         </form>
                     </td>
                 </tr>
             @endforeach
+
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
+                $(document).ready(function() {
+                    $('.delete-link').on('click', function(e) {
+                        e.preventDefault();
+                        var id = $(this).data('id');
+                        if (confirm('{{ trans('Are you sure you want to delete this product?') }}')) {
+                            $('#delete-form-' + id).submit();
+                        }
+                    });
+                });
+            </script>
 
         </tbody>
     </table>

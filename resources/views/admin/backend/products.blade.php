@@ -21,8 +21,15 @@
                                         <div class="float-right">
                                             <a id="show-form-btn" class="btn btn-primary btn-form pull-right"><i
                                                     class="fa fa-plus"></i> {{ __('Add New') }}</a>
+                                                    <center>
+                                                        <a href="{{ route('export.products') }}" class="btn btn-success ">
+                                                            {{ __('Export Products') }}
+                                                        </a>
+                                                    </center>
 
 
+                                                    <a href="{{ url('admin\import') }}" class="btn btn-primary btn-form pull-left"><i
+                                                        class="fa fa-plus"></i> {{ __('Import Products') }}</a>
                                         </div>
                                     </div>
                                 </div>
