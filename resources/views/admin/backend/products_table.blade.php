@@ -1,9 +1,8 @@
 <div class="table-responsive">
-    <table id="advance-1" class="table table-striped table-theme" style="width:100%;">
+    <table id="advance-1" class="table table-bordered table-striped table-theme" style="width:100%;">
         <thead>
             <tr>
-                <th class="checkboxlist text-center" style="width:5%"><input class="tp-check-all checkAll" type="checkbox">
-                </th>
+                <th class="text-center" style="width:3%">#</th>
                 <th class="text-left" style="width:21%">{{ __('Product Name') }}</th>
                 <th class="text-left" style="width:15%">{{ __('Category') }}</th>
                 {{-- <th class="text-left" style="width:15%">{{ __('Brand') }}</th> --}}
@@ -27,9 +26,8 @@
 
                 @endphp
                 <tr>
-                    <td class="checkboxlist text-center"><input name="item_ids[]" value="{{ $row->id }}"
-                            class="tp-checkbox selected_item" type="checkbox"></td>
 
+                    <td class="text-center">{{ $loop->iteration }}</td>
                     <td class="text-left"><a href="{{ route('backend.product', [$row->id]) }}"
                             title="{{ __('Edit') }}">{{ $row->title }}</a></td>
                     <td class="text-left">{{ $row->cat_id }}</td>
@@ -60,16 +58,16 @@
                         <td class="text-center"><span class="disable_btn">{{ $row->status }}</span></td>
                     @endif
                     <td class="text-center">
-                        <div class="btn-group action-group">
-                            <a class="action-btn" href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item"
-                                    href="{{ route('backend.product', [$row->id]) }}">{{ __('Edit') }}</a>
-                                <a onclick="onDelete({{ $row->id }})" class="dropdown-item"
-                                    href="javascript:void(0);">{{ __('Delete') }}</a>
-                            </div>
-                        </div>
+                        <a href="#" class="btn btn-icon waves-effect waves-light btn-danger m-b-5 delete-link"
+                            data-id="{{ $row->id }}" data-toggle="tooltip" title="{{ trans('remove') }}">
+                            <i class="fa fa-remove"></i>
+                        </a>
+
+                        <form id="delete-form-{{ $row->id }}"
+                            action="{{ route('permissions.delete', $row->id) }}" method="POST" style="display: none;">
+                            @csrf
+                            @method('DELETE')
+                        </form>
                     </td>
                 </tr>
             @endforeach

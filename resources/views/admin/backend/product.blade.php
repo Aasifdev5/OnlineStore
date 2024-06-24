@@ -220,39 +220,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-sm-6">
-                                                        <label class="col-form-label">Assign Price</label>
-                                                        <br>
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="radio" id="priceBicycle" name="price" value="price1"
-                                                                {{ $datalist->price == 'price1' ? 'checked' : '' }}>
-                                                            <label class="form-check-label" for="priceBicycle">Price 1</label>
-                                                        </div>
 
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="radio" id="priceMotorcycle" name="price" value="price2"
-                                                                {{ $datalist->price == 'price2' ? 'checked' : '' }}>
-                                                            <label class="form-check-label" for="priceMotorcycle">Price 2</label>
-                                                        </div>
-
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="radio" id="priceShimano" name="price" value="price3"
-                                                                {{ $datalist->price == 'price3' ? 'checked' : '' }}>
-                                                            <label class="form-check-label" for="priceShimano">Price 3</label>
-                                                        </div>
-
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="radio" id="priceLoadline" name="price" value="price4"
-                                                                {{ $datalist->price == 'price4' ? 'checked' : '' }}>
-                                                            <label class="form-check-label" for="priceLoadline">Price 4</label>
-                                                        </div>
-
-                                                        <span class="text-danger">
-                                                            @error('price')
-                                                                {{ $message }}
-                                                            @enderror
-                                                        </span>
-                                                    </div>
 
 
                                                     <div class="row">
@@ -272,11 +240,47 @@
                                                         </div>
                                                         <div class="col-lg-6">
                                                             <div class="form-group">
-                                                                <label for="sale_price">{{ __('Sale Price') }}<span
+                                                                <label for="sale_price">{{ __('Sale Price 1') }}<span
                                                                         class="red">*</span></label>
-                                                                <input name="sale_price" id="sale_price" type="text"
+                                                                <input name="price1" id="sale_price" type="text"
                                                                     class="form-control parsley-validated"
-                                                                    data-required="true" value="{{ old('sale_price',$datalist->sale_price) }}">
+                                                                    data-required="true" value="{{ old('price1',$datalist->price1) }}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="form-group">
+                                                                <label for="sale_price">{{ __('Sale Price 2') }}<span
+                                                                        class="red">*</span></label>
+                                                                <input name="price2" id="sale_price" type="text"
+                                                                    class="form-control parsley-validated"
+                                                                    data-required="true" value="{{ old('price2',$datalist->price2) }}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="form-group">
+                                                                <label for="sale_price">{{ __('Sale Price 3') }}<span
+                                                                        class="red">*</span></label>
+                                                                <input name="price3" id="sale_price" type="text"
+                                                                    class="form-control parsley-validated"
+                                                                    data-required="true" value="{{ old('price3',$datalist->price3) }}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="form-group">
+                                                                <label for="sale_price">{{ __('Sale Price 4') }}<span
+                                                                        class="red">*</span></label>
+                                                                <input name="price4" id="sale_price" type="text"
+                                                                    class="form-control parsley-validated"
+                                                                    data-required="true" value="{{ old('price4',$datalist->price4) }}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="form-group">
+                                                                <label for="sale_price">{{ __('Sale Price 5') }}<span
+                                                                        class="red">*</span></label>
+                                                                <input name="price5" id="sale_price" type="text"
+                                                                    class="form-control parsley-validated"
+                                                                    data-required="true" value="{{ old('price5',$datalist->price5) }}">
                                                             </div>
                                                         </div>
                                                     </div>

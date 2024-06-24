@@ -43,6 +43,11 @@ class Product extends Model
         'og_image',
         'og_description',
         'og_keywords',
-        'price'
+        'price',
+        'price1',
+        'price2',
+        'price3',
+        'price4',
+        'price5',
     ];
 }

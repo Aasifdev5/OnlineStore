@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Attribute;
 use App\Models\Brand;
-use App\Models\Media_option;
+use App\Models\ProductVariations;
 use App\Models\Pro_category;
 use App\Models\Pro_image;
 use App\Models\Product;
@@ -153,7 +153,12 @@ class ProductsController extends Controller
             'description' => $description,
             'brand_id' => $brand_id,
             'store_id' => $store_id,
-            'price' => $request->price
+
+            'price1' => $request->price1,
+            'price2' => $request->price2,
+            'price3' => $request->price3,
+            'price4' => $request->price4,
+            'price5' => $request->price5,
         );
 
         if ($id == '') {
@@ -506,33 +511,45 @@ class ProductsController extends Controller
         $sizes = $request->input('variation_size');
         $colors = $request->input('variation_color');
 
-        $variation_size = NULL;
-        $i = 0;
-        if ($sizes != '') {
-            foreach ($sizes as $key => $size) {
-                if ($i++) {
-                    $variation_size .= ',';
+        $product = Product::find($id);
+        if (!$product) {
+            $res['msgType'] = 'error';
+            $res['msg'] = __('Product not found');
+            return redirect()->route('backend.product-seo', $id)->with($res);
+        }
+
+        $mainSku = $product->sku;
+
+        // Clear previous variations
+        ProductVariations::where('product_id', $id)->delete();
+
+        $variations = [];
+        if (!empty($sizes) && !empty($colors)) {
+            foreach ($sizes as $size) {
+                foreach ($colors as $color) {
+                    $sku = $mainSku . '-' . strtoupper($size) . '-' . strtoupper($color);
+                    $variations[] = [
+                        'product_id' => $id,
+                        'size' => $size,
+                        'color' => $color,
+                        'sku' => $sku,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ];
                 }
-                $variation_size .= $size;
             }
         }
 
-        $variation_color = NULL;
-        $f = 0;
-        if ($colors != '') {
-            foreach ($colors as $key => $color) {
-                if ($f++) {
-                    $variation_color .= ',';
-                }
-                $variation_color .= $color;
-            }
+        if (!empty($variations)) {
+            ProductVariations::insert($variations);
         }
-        $data = array(
-            'variation_size' => $variation_size,
-            'variation_color' => $variation_color
-        );
 
-        $response = Product::where('id', $id)->update($data);
+        $data = [
+            'variation_size' => implode(',', $sizes),
+            'variation_color' => implode(',', $colors),
+        ];
+
+        $response = $product->update($data);
         if ($response) {
             $res['msgType'] = 'success';
             $res['msg'] = __('Data Updated Successfully');
@@ -541,7 +558,7 @@ class ProductsController extends Controller
             $res['msg'] = __('Data update failed');
         }
 
-        return redirect()->route('backend.product-seo',$id);
+        return redirect()->route('backend.product-seo', $id)->with($res);
     }
 
     //get Product SEO
