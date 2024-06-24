@@ -469,62 +469,79 @@ class ProductsController extends Controller
 
     //Save data for Variations
     public function saveVariationsData(Request $request)
-    {
-        $res = array();
+{
+    $res = array();
 
-        $id = $request->input('RecordId');
-        $sizes = $request->input('variation_size');
-        $colors = $request->input('variation_color');
+    $id = $request->input('RecordId');
+    $sizes = $request->input('variation_size');
+    $colors = $request->input('variation_color');
 
-        $product = Product::find($id);
-        if (!$product) {
-            $res['msgType'] = 'error';
-            $res['msg'] = __('Product not found');
-            return redirect()->route('backend.product-seo', $id)->with($res);
-        }
+    $product = Product::find($id);
+    if (!$product) {
+        $res['msgType'] = 'error';
+        $res['msg'] = __('Product not found');
+        return redirect()->route('backend.product-seo', $id)->with($res);
+    }
 
-        $mainSku = $product->sku;
+    $mainSku = $product->sku;
 
-        // Clear previous variations
-        ProductVariations::where('product_id', $id)->delete();
+    // Clear previous variations
+    ProductVariations::where('product_id', $id)->delete();
 
-        $variations = [];
-        if (!empty($sizes) && !empty($colors)) {
-            foreach ($sizes as $size) {
-                foreach ($colors as $color) {
-                    $sku = $mainSku . '-' . strtoupper($size) . '-' . strtoupper($color);
-                    $variations[] = [
-                        'product_id' => $id,
-                        'size' => $size,
+    $variations = [];
+    if (!empty($sizes) && !empty($colors)) {
+        foreach ($sizes as $size) {
+            foreach ($colors as $color) {
+                $sku = $mainSku . '-' . strtoupper($size) . '-' . strtoupper($color);
+                $variations[] = [
+                    'product_id' => $id,
+                    'size' => $size,
+                    'color' => $color,
+                    'sku' => $sku,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ];
+
+                // Handle color images upload
+                if ($request->hasFile('color_images') && isset($request->file('color_images')[$color])) {
+                    $image = $request->file('color_images')[$color];
+                    $imageName = $image->getClientOriginalName();
+                    $image->move(public_path('product_images'), $imageName);
+                    $imagePath = 'product_images/' . $imageName;
+
+                    // Assuming you have a ProductImage model to save the image path
+                    Pro_image::create([
+                        'product_id' => $product->id,
                         'color' => $color,
-                        'sku' => $sku,
-                        'created_at' => now(),
-                        'updated_at' => now(),
-                    ];
+                        'thumbnail' => $imagePath,
+                    ]);
                 }
             }
         }
-
-        if (!empty($variations)) {
-            ProductVariations::insert($variations);
-        }
-
-        $data = [
-            'variation_size' => implode(',', $sizes),
-            'variation_color' => implode(',', $colors),
-        ];
-
-        $response = $product->update($data);
-        if ($response) {
-            $res['msgType'] = 'success';
-            $res['msg'] = __('Data Updated Successfully');
-        } else {
-            $res['msgType'] = 'error';
-            $res['msg'] = __('Data update failed');
-        }
-
-        return redirect()->route('backend.product-seo', $id)->with($res);
     }
+
+    if (!empty($variations)) {
+        ProductVariations::insert($variations);
+    }
+
+    $data = [
+        'variation_size' => implode(',', $sizes),
+        'variation_color' => implode(',', $colors),
+    ];
+
+    $response = $product->update($data);
+
+    if ($response) {
+        $res['msgType'] = 'success';
+        $res['msg'] = __('Data Updated Successfully');
+    } else {
+        $res['msgType'] = 'error';
+        $res['msg'] = __('Data update failed');
+    }
+
+    return redirect()->route('backend.product-seo', $id)->with($res);
+}
+
 
     //get Product SEO
     public function getProductSEOPageData($id)

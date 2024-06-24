@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 24, 2024 at 02:42 PM
+-- Generation Time: Jun 24, 2024 at 04:27 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -1621,8 +1621,8 @@ INSERT INTO `products` (`id`, `title`, `slug`, `f_thumbnail`, `short_desc`, `des
 (8, 'Infernos', 'Inferno', 'IMG-20240124-WA0039.jpg', 'Dante\'s Inferno', 'Dante\'s Inferno', NULL, NULL, NULL, NULL, NULL, NULL, 13999.000, 12999.000, 150000.000, '2024-06-23', '2024-06-27', 1, 1, 'GM-56', 1, 5, NULL, 'shimano', 2, 'price3', '30', 'red,blue,black', 'small,medium,large', NULL, NULL, NULL, 'Dante\'s Inferno', 'IMG_4416_vo4r1a_1712164410.jpg', 'Dante\'s Inferno', 'Dante\'s Inferno', '2024-06-23 07:20:01', '2024-06-23 07:36:08'),
 (9, 'God of war', 'God-of-war', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'motorcycle', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-23 07:49:14', '2024-06-23 07:49:14'),
 (10, 'The last of us', 'The-last-of-us', 'img-20230525-175230-800x800.jpg', 'The last of us Tv and Game', 'The last of us Tv and Game', '1000', '1150', '1250', '1500', '1650', NULL, 1150.000, 1100.000, 1250.000, '2024-06-23', '2024-06-25', 1, 1, 'TG-78', 0, 3, NULL, 'bicycle', 4, 'price4', '32', 'red,green,blue,black,white', 'small,medium,large', NULL, NULL, NULL, 'The last of us Tv and Game', 'norwegian_forest_cat-wallpaper-1920x1080.jpg', 'The last of us Tv', 'The last of us Tv and Game', '2024-06-23 07:50:07', '2024-06-24 03:44:53'),
-(26, 'Product Title 1', 'Product-Title-1', 'thumbnail1.jpg', 'Short Desc 1', 'Product Desc 1', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 'SKU001', 1, 100, NULL, '1', 1, NULL, '1', NULL, NULL, NULL, NULL, NULL, 'Product 1 Title', NULL, 'Product 1 Desc', 'Keyword 1', '2024-06-24 06:30:18', '2024-06-24 06:30:18'),
-(27, 'Product Title 2', 'Product-Title-2', 'thumbnail2.jpg', 'Short Desc 2', 'Product Desc 2', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 'SKU002', 1, 120, NULL, '2', 2, NULL, '2', NULL, NULL, NULL, NULL, NULL, 'Product 2 Title', NULL, 'Product 2 Desc', 'Keyword 2', '2024-06-24 06:30:18', '2024-06-24 06:30:18');
+(26, 'Product Title 1', 'Product-Title-1', 'images (1).jpg', 'Short Desc 1', 'Product Desc 1', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 'SKU001', 1, 100, NULL, NULL, 1, NULL, '30', 'green,blue,black', 'medium', NULL, NULL, NULL, 'Product 1 Title', NULL, 'Product 1 Desc', 'Keyword 1', '2024-06-24 06:30:18', '2024-06-24 08:53:52'),
+(27, 'Product Title 2', 'Product-Title-2', 'thumbnail2.jpg', 'Short Desc 2', 'Product Desc 2', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 'SKU002', 1, 120, NULL, '2', 2, NULL, '2', 'red,blue,white', 'small', NULL, NULL, NULL, 'Product 2 Title', NULL, 'Product 2 Desc', 'Keyword 2', '2024-06-24 06:30:18', '2024-06-24 08:35:44');
 
 -- --------------------------------------------------------
 
@@ -1661,8 +1661,12 @@ CREATE TABLE `product_variations` (
 --
 
 INSERT INTO `product_variations` (`id`, `product_id`, `size`, `color`, `sku`, `created_at`, `updated_at`) VALUES
-(5, 26, 'S', 'Blue', 'SKU001-S-BLUE', '2024-06-24 06:30:18', '2024-06-24 06:30:18'),
-(6, 27, 'M', 'Red', 'SKU002-M-RED', '2024-06-24 06:30:18', '2024-06-24 06:30:18');
+(16, 27, 'small', 'red', 'SKU002-SMALL-RED', '2024-06-24 08:50:08', '2024-06-24 08:50:08'),
+(17, 27, 'small', 'blue', 'SKU002-SMALL-BLUE', '2024-06-24 08:50:08', '2024-06-24 08:50:08'),
+(18, 27, 'small', 'white', 'SKU002-SMALL-WHITE', '2024-06-24 08:50:08', '2024-06-24 08:50:08'),
+(19, 26, 'medium', 'green', 'SKU001-MEDIUM-GREEN', '2024-06-24 08:53:52', '2024-06-24 08:53:52'),
+(20, 26, 'medium', 'blue', 'SKU001-MEDIUM-BLUE', '2024-06-24 08:53:52', '2024-06-24 08:53:52'),
+(21, 26, 'medium', 'black', 'SKU001-MEDIUM-BLACK', '2024-06-24 08:53:52', '2024-06-24 08:53:52');
 
 -- --------------------------------------------------------
 
@@ -1717,7 +1721,7 @@ CREATE TABLE `pro_images` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `product_id` int(11) DEFAULT NULL,
   `thumbnail` text DEFAULT NULL,
-  `large_image` text DEFAULT NULL,
+  `color` varchar(255) DEFAULT NULL,
   `desc` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -1727,7 +1731,7 @@ CREATE TABLE `pro_images` (
 -- Dumping data for table `pro_images`
 --
 
-INSERT INTO `pro_images` (`id`, `product_id`, `thumbnail`, `large_image`, `desc`, `created_at`, `updated_at`) VALUES
+INSERT INTO `pro_images` (`id`, `product_id`, `thumbnail`, `color`, `desc`, `created_at`, `updated_at`) VALUES
 (1, 165, 'product_images/IMG-20240124-WA0041.jpg', NULL, NULL, '2024-06-23 03:47:40', '2024-06-23 03:47:40'),
 (2, 165, 'product_images/1701941848819-1.JPEG', NULL, NULL, '2024-06-23 03:47:40', '2024-06-23 03:47:40'),
 (3, 165, 'product_images/New Doc 2017-03-28_4.jpg', NULL, NULL, '2024-06-23 03:47:40', '2024-06-23 03:47:40'),
@@ -1748,7 +1752,16 @@ INSERT INTO `pro_images` (`id`, `product_id`, `thumbnail`, `large_image`, `desc`
 (34, 26, 'product_images/image1.jpg', NULL, NULL, '2024-06-24 06:30:18', '2024-06-24 06:30:18'),
 (35, 26, 'product_images/image2.jpg', NULL, NULL, '2024-06-24 06:30:18', '2024-06-24 06:30:18'),
 (36, 27, 'product_images/image3.jpg', NULL, NULL, '2024-06-24 06:30:18', '2024-06-24 06:30:18'),
-(37, 27, 'product_images/image4.jpg', NULL, NULL, '2024-06-24 06:30:18', '2024-06-24 06:30:18');
+(37, 27, 'product_images/image4.jpg', NULL, NULL, '2024-06-24 06:30:18', '2024-06-24 06:30:18'),
+(38, 27, 'product_images/color_images/Sin título-2.png', 'red', NULL, '2024-06-24 08:39:31', '2024-06-24 08:39:31'),
+(39, 27, 'product_images/color_images/Commons_QR_code.png', 'blue', NULL, '2024-06-24 08:39:31', '2024-06-24 08:39:31'),
+(40, 27, 'product_images/color_images/images.jpg', 'white', NULL, '2024-06-24 08:39:31', '2024-06-24 08:39:31'),
+(41, 27, 'product_images/1657090503-9ynVP5V0Tx.jpg', 'red', NULL, '2024-06-24 08:50:08', '2024-06-24 08:50:08'),
+(42, 27, 'product_images/image_750x_65be2ba984843.jpg', 'blue', NULL, '2024-06-24 08:50:08', '2024-06-24 08:50:08'),
+(43, 27, 'product_images/Screenshot 2024-03-06 15284411.png', 'white', NULL, '2024-06-24 08:50:08', '2024-06-24 08:50:08'),
+(44, 26, 'product_images/logohorizontal.png', 'green', NULL, '2024-06-24 08:53:52', '2024-06-24 08:53:52'),
+(45, 26, 'product_images/download.png', 'blue', NULL, '2024-06-24 08:53:52', '2024-06-24 08:53:52'),
+(46, 26, 'product_images/english-flag-vector-675964.jpg', 'black', NULL, '2024-06-24 08:53:52', '2024-06-24 08:53:52');
 
 -- --------------------------------------------------------
 
@@ -3224,7 +3237,7 @@ ALTER TABLE `product_reviews`
 -- AUTO_INCREMENT for table `product_variations`
 --
 ALTER TABLE `product_variations`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `pro_categories`
@@ -3236,7 +3249,7 @@ ALTER TABLE `pro_categories`
 -- AUTO_INCREMENT for table `pro_images`
 --
 ALTER TABLE `pro_images`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `related_products`
