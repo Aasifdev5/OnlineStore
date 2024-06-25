@@ -562,130 +562,88 @@ class ProductsController extends Controller
 
             $productlist = Product::all();
 
-            $relateddatalist = DB::table('products')
 
-                ->join('related_products', 'products.id', '=', 'related_products.related_item_id')
-                ->select('related_products.id', 'products.title', 'products.f_thumbnail', 'products.is_publish')
-                ->where('related_products.product_id', $id)
-                ->where('products.is_publish', 1)
-                ->orderBy('related_products.id', 'desc')
-                ->paginate(20);
 
-            return view('admin.backend.related-products', compact('datalist', 'productlist', 'relateddatalist','user_session'));
-        }
-    }
-
-    //Get data for Products Pagination Related Products
-    public function getProductListForRelatedTableData(Request $request)
-    {
-
-        $search = $request->search;
-        $id = $request->product_id;
-
-        if ($request->ajax()) {
-
-            if ($search != '') {
-                $productlist = DB::table('products')
-
-                    ->select('products.id', 'products.title', 'products.f_thumbnail', 'products.cost_price', 'products.sale_price', 'products.is_stock', 'products.is_publish')
-                    ->where(function ($query) use ($search) {
-                        $query->where('title', 'like', '%' . $search . '%')
-                            ->orWhere('cost_price', 'like', '%' . $search . '%');
-                    })
-                    ->whereNotIn('products.id', [$id])
-                    ->where('products.is_publish', 1)
-                    ->orderBy('products.id', 'desc')
-                    ->paginate(20);
-            } else {
-                $productlist = DB::table('products')
-
-                    ->select('products.id', 'products.title', 'products.f_thumbnail', 'products.cost_price', 'products.sale_price', 'products.is_stock', 'products.is_publish')
-                    ->whereNotIn('products.id', [$id])
-                    ->where('products.is_publish', 1)
-                    ->orderBy('products.id', 'desc')
-                    ->paginate(20);
-            }
-
-            return view('admin.backend.products_list_for_related_product', compact('productlist'))->render();
+            return view('admin.backend.related-products', compact('datalist', 'productlist', 'user_session'));
         }
     }
 
     //Get data for Related Products Pagination
     public function getRelatedProductTableData(Request $request)
     {
-
         $search = $request->search;
-        $id = $request->product_id;
 
-        if ($request->ajax()) {
+    $products = Product::where('title', 'like', '%' . $search . '%')
+                       ->where('is_publish', 1)
+                       ->get(['id', 'title', 'f_thumbnail']); // Adjust as needed
 
-            if ($search != '') {
-                $relateddatalist = DB::table('products')
-
-                    ->join('related_products', 'products.id', '=', 'related_products.related_item_id')
-                    ->select('related_products.id', 'products.title', 'products.f_thumbnail', 'products.is_publish')
-                    ->where(function ($query) use ($search) {
-                        $query->where('title', 'like', '%' . $search . '%')
-                            ->orWhere('languages.language_name', 'like', '%' . $search . '%');
-                    })
-                    ->where('related_products.product_id', $id)
-                    ->where('products.is_publish', 1)
-                    ->orderBy('related_products.id', 'desc')
-                    ->paginate(20);
-            } else {
-                $relateddatalist = DB::table('products')
-
-                    ->join('related_products', 'products.id', '=', 'related_products.related_item_id')
-                    ->select('related_products.id', 'products.title', 'products.f_thumbnail', 'products.is_publish')
-                    ->where('related_products.product_id', $id)
-                    ->where('products.is_publish', 1)
-                    ->orderBy('related_products.id', 'desc')
-                    ->paginate(20);
-            }
-
-            return view('backend.partials.related_products_table', compact('relateddatalist'))->render();
+    return response()->json($products);
         }
-    }
+
 
     //Save data for Related Products
     public function saveRelatedProductsData(Request $request)
     {
-        $res = array();
+        $res = [];
 
-        $product_id = $request->input('product_id');
-        $related_item_id = $request->input('related_item_id');
+        try {
+            $product_id = $request->input('product_id');
+            $related_item_ids = $request->input('related_item_id');
 
-        $data = array(
-            'product_id' => $product_id,
-            'related_item_id' => $related_item_id
-        );
+            // Ensure related_item_id is an array
+            if (!is_array($related_item_ids)) {
+                throw new \Exception('Invalid related_item_id format.');
+            }
 
-        $response = Related_product::create($data);
-        if ($response) {
+            $inserted = [];
+
+            // Loop through each related_item_id and insert into database
+            foreach ($related_item_ids as $related_item_id) {
+                $data = [
+                    'product_id' => $product_id,
+                    'related_item_id' => $related_item_id
+                ];
+
+                $response = Related_product::create($data);
+                if ($response) {
+                    $inserted[] = $response;
+                } else {
+                    throw new \Exception('Failed to insert related product.');
+                }
+            }
+
             $res['msgType'] = 'success';
             $res['msg'] = __('New Data Added Successfully');
-        } else {
+            $res['inserted'] = $inserted;
+        } catch (\Exception $e) {
             $res['msgType'] = 'error';
-            $res['msg'] = __('Data insert failed');
+            $res['msg'] = __('Data insert failed: ') . $e->getMessage();
         }
 
         return response()->json($res);
     }
 
+
+
     //Delete data for Related Product
     public function deleteRelatedProduct(Request $request)
     {
-        $res = array();
+        $res = [];
 
-        $id = $request->id;
+        try {
+            $relatedProductId = $request->input('id');
+            $relatedProduct = Related_product::find($relatedProductId);
 
-        $response = Related_product::where('id', $id)->delete();
-        if ($response) {
-            $res['msgType'] = 'success';
-            $res['msg'] = __('Data Removed Successfully');
-        } else {
+            if ($relatedProduct) {
+                $relatedProduct->delete();
+                $res['msgType'] = 'success';
+                $res['msg'] = __('Related product deleted successfully');
+            } else {
+                throw new \Exception('Related product not found');
+            }
+        } catch (\Exception $e) {
             $res['msgType'] = 'error';
-            $res['msg'] = __('Data remove failed');
+            $res['msg'] = __('Failed to delete related product: ') . $e->getMessage();
         }
 
         return response()->json($res);

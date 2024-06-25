@@ -448,12 +448,12 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/product-seo/{id}', [ProductsController::class, 'getProductSEOPageData'])->name('backend.product-seo');
         Route::post('/saveProductSEOData', [ProductsController::class, 'saveProductSEOData'])->name('backend.saveProductSEOData');
 
-//Related Products
-Route::get('/related-products/{id}', [ProductsController::class, 'getRelatedProductsPageData'])->name('backend.related-products');
-Route::get('/getProductListForRelatedTableData', [ProductsController::class, 'getProductListForRelatedTableData'])->name('backend.getProductListForRelatedTableData');
-Route::get('/getRelatedProductTableData', [ProductsController::class, 'getRelatedProductTableData'])->name('backend.getRelatedProductTableData');
-Route::post('/saveRelatedProductsData', [ProductsController::class, 'saveRelatedProductsData'])->name('backend.saveRelatedProductsData');
-Route::post('/deleteRelatedProduct', [ProductsController::class, 'deleteRelatedProduct'])->name('backend.deleteRelatedProduct');
+        //Related Products
+        Route::get('/related-products/{id}', [ProductsController::class, 'getRelatedProductsPageData'])->name('backend.related-products');
+        Route::get('/getProductListForRelatedTableData', [ProductsController::class, 'getProductListForRelatedTableData'])->name('backend.getProductListForRelatedTableData');
+        Route::get('/getRelatedProductTableData', [ProductsController::class, 'getRelatedProductTableData'])->name('backend.getRelatedProductTableData');
+        Route::post('/saveRelatedProductsData', [ProductsController::class, 'saveRelatedProductsData'])->name('backend.saveRelatedProductsData');
+        Route::post('/deleteRelatedProduct', [ProductsController::class, 'deleteRelatedProduct'])->name('backend.deleteRelatedProduct');
 
         Route::group(['prefix' => 'blog', 'as' => 'blog.'], function () {
             Route::get('/', [BlogController::class, 'index'])->name('index')->middleware('AdminIsLoggedIn');
