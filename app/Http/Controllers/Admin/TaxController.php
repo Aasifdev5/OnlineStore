@@ -48,13 +48,21 @@ class TaxController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $category = new Tax();
-        $category->title = $request->title; // Use get() for better security
-        $category->percentage = $request->percentage; // Use get() for better security
-        $category->save();
-        return response()->json(['success' => true]);
-    }
+{
+
+    // Validate request data
+    $this->validate($request, [
+        'title' => 'required|string|max:255',
+        'percentage' => 'required|numeric|min:0|max:100', // Adjust validation rules as needed
+    ]);
+
+    $tax = new Tax();
+    $tax->title = $request->get('title'); // Use get() for better security
+    $tax->percentage = $request->get('percentage'); // Use get() for better security
+    $tax->save();
+
+    return response()->json(['success' => true]);
+}
 
     public function edit($id)
     {
