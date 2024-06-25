@@ -41,6 +41,7 @@
                                         <thead>
                                             <tr>
                                                 <th class="text-center">#</th>
+                                                <th>Brand ID</th>
                                                 <th>{{ __('Nombre') }}</th>
                                                 <th>{{ __('Acción') }}</th>
                                             </tr>
@@ -51,6 +52,7 @@
                                                     <td class="text-center">
                                                        {{ $loop->iteration }}
                                                     </td>
+                                                    <td>{{ $category->id }}</td>
                                                     <td>
                                                         {{ $category->name }}
                                                     </td>

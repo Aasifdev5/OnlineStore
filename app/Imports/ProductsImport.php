@@ -18,7 +18,8 @@ class ProductsImport implements ToModel, WithHeadingRow
             'slug' => getSlug($row['title']) ,// Generate slug from title
             'description' => $row['description'],
             'f_thumbnail' => $row['f_thumbnail'],
-            'cat_id' => $row['cat_id'],
+            'category' => $row['category'],
+            'subcategory_id' => $row['subcategory_id'],
             'short_desc' => $row['short_desc'],
             'brand_id' => $row['brand_id'],
             'store_id' => $row['store_id'],
@@ -27,6 +28,7 @@ class ProductsImport implements ToModel, WithHeadingRow
             'price3' => $row['price3'],
             'price4' => $row['price4'],
             'price5' => $row['price5'],
+            'is_publish' => $row['is_publish'],
             'cost_price' => $row['cost_price'],
             'sale_price' => $row['sale_price'],
             'old_price' => $row['old_price'],
@@ -36,7 +38,12 @@ class ProductsImport implements ToModel, WithHeadingRow
             'is_stock' => $row['is_stock'],
             'stock_status_id' => $row['stock_status_id'],
             'sku' => $row['sku'],
+
             'stock_qty' => $row['stock_qty'],
+            'variation_color'=>$row['variation_color'],
+            'variation_size'=>$row['variation_size'],
+            // 'variation_color'=>implode(',',$row['variation_color']),
+            // 'variation_size'=>implode(',',$row['variation_size']),
             'og_title' => $row['og_title'],
             'og_description' => $row['og_description'],
             'og_keywords' => $row['og_keywords'],
@@ -68,7 +75,7 @@ class ProductsImport implements ToModel, WithHeadingRow
                 $color = $row['color_' . $j];
                 $mainSku = $row['sku'];
 
-                $sku = $mainSku . '-' . strtoupper($size) . '-' . strtoupper($color);
+                $sku = $mainSku . '-' . $size . '-' . $color;
 
                 ProductVariations::create([
                     'product_id' => $product->id,

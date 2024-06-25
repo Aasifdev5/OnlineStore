@@ -35,7 +35,7 @@
                         <a href="{{ route('backend.product', [$row->id]) }}"
                             title="{{ __('Edit') }}">{{ $row->title }}</a>
                     </td>
-                    <td class="text-left">{{ $row->cat_id }}</td>
+                    <td class="text-left">{{ $row->category }}</td>
                     <td class="text-center">
                         @if (!empty($storeName))
                             {{ $storeName }}

@@ -58,6 +58,7 @@ LISTA DE USUARIOS
                                           <thead>
                                              <tr>
                                                 <th class="text-center">#</th>
+                                                <th>Store ID</th>
                                                 <th> Nombre de Usuario</th>
                                                 <th> Correo Electrónico </th>
                                                 <th>Contraseña   </th>
@@ -73,6 +74,7 @@ LISTA DE USUARIOS
                                              @if($data->account_type!="admin")
                                              <tr>
                                                 <td class="text-center">{{$i+1}}</td>
+                                                <td>{{ $data->id }}</td>
                                                 <td><img class="img-radius img-70 align-top m-r-15 rounded-circle" src="{{asset('profile_photo/')}}<?php echo '/' . $data->profile_photo; ?>" height="70px" alt="">{{ stripslashes($data->name) }}</td>
                                                 <td>{{$data->email}}</td>
                                                 <td>{{$data->password}}</td>

@@ -62,6 +62,7 @@
                                                     role="tab" aria-controls="variations" aria-selected="false"><i
                                                         class="fa fa-hourglass-end"></i> {{ __('Variations') }}</a>
                                             </li>
+                                            <li class="nav-item"><a class="nav-link" href="{{ route('backend.related-products', [$datalist['id']]) }}"><i class="fa fa-compass"></i>{{ __('Related Products') }}</a></li>
                                             <li class="nav-item">
                                                 <a class="nav-link active" id="seo-tab" data-toggle="tab"
                                                     href="{{ route('backend.product-seo', [$datalist['id']]) }}"

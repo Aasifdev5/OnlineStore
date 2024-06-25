@@ -15,6 +15,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Imports\ProductsImport; // Import the Import class
+use App\Models\Subcategory;
 use Maatwebsite\Excel\Facades\Excel; // Import Excel facade for Excel handling
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -35,9 +36,9 @@ class ProductsController extends Controller
                 ->get();
             $datalist = Product::all();
 
+            $subcategorylist = Subcategory::all();
 
-
-            return view('admin.backend.products', compact('user_session', 'datalist', 'brandlist', 'storeList'));
+            return view('admin.backend.products', compact('user_session', 'datalist', 'brandlist', 'storeList', 'subcategorylist'));
         }
     }
 
@@ -53,7 +54,8 @@ class ProductsController extends Controller
         $title = $request->input('title');
         $slug = getSlug($request->input('slug'));
         // dd($slug);
-        $cat_id = $request->input('categories');
+        $category = $request->input('categories');
+        $subcategory_id = $request->input('subcategory_id');
         $brand_id = $request->input('brand_id');
         $store_id = $request->input('store_id');
         $short_desc = $request->input('short_desc');
@@ -78,17 +80,18 @@ class ProductsController extends Controller
             'title' => $title,
             'slug' => $slug,
             'f_thumbnail' => $thumbnail,
-            'cat_id' => $cat_id,
+            'category' => $category,
+            'subcategory_id' => $subcategory_id,
             'short_desc' => $short_desc,
             'description' => $description,
             'brand_id' => $brand_id,
             'store_id' => $store_id,
-
             'price1' => $request->price1,
             'price2' => $request->price2,
             'price3' => $request->price3,
             'price4' => $request->price4,
             'price5' => $request->price5,
+            'is_publish' => $request->is_publish,
         );
 
         if ($id == '') {
@@ -166,7 +169,7 @@ class ProductsController extends Controller
     {
         if (Session::has('LoggedIn')) {
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
-            return view('admin.backend.product_import',compact('user_session'));
+            return view('admin.backend.product_import', compact('user_session'));
         }
     }
 
@@ -180,53 +183,7 @@ class ProductsController extends Controller
 
         return redirect()->back()->with('success', 'Products imported successfully.');
     }
-    //Bulk Action for Products
-    public function bulkActionProducts(Request $request)
-    {
 
-        $res = array();
-
-        $idsStr = $request->ids;
-        $idsArray = explode(',', $idsStr);
-
-        $BulkAction = $request->BulkAction;
-
-        if ($BulkAction == 'publish') {
-            $response = Product::whereIn('id', $idsArray)->update(['is_publish' => 1]);
-            if ($response) {
-                $res['msgType'] = 'success';
-                $res['msg'] = __('Data Updated Successfully');
-            } else {
-                $res['msgType'] = 'error';
-                $res['msg'] = __('Data update failed');
-            }
-        } elseif ($BulkAction == 'draft') {
-
-            $response = Product::whereIn('id', $idsArray)->update(['is_publish' => 2]);
-            if ($response) {
-                $res['msgType'] = 'success';
-                $res['msg'] = __('Data Updated Successfully');
-            } else {
-                $res['msgType'] = 'error';
-                $res['msg'] = __('Data update failed');
-            }
-        } elseif ($BulkAction == 'delete') {
-
-            Pro_image::whereIn('product_id', $idsArray)->delete();
-            Related_product::whereIn('product_id', $idsArray)->delete();
-
-            $response = Product::whereIn('id', $idsArray)->delete();
-            if ($response) {
-                $res['msgType'] = 'success';
-                $res['msg'] = __('Data Removed Successfully');
-            } else {
-                $res['msgType'] = 'error';
-                $res['msg'] = __('Data remove failed');
-            }
-        }
-
-        return response()->json($res);
-    }
 
     //has Product Slug
     public function hasProductSlug(Request $request)
@@ -253,7 +210,7 @@ class ProductsController extends Controller
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
             $brandlist = Brand::where('is_publish', 1)->orderBy('name', 'asc')->get();
             $categorylist = Pro_category::where('is_publish', 1)->orderBy('name', 'asc')->get();
-
+            $subcategorylist = Subcategory::all();
             $taxlist = Tax::orderBy('title', 'asc')->get();
             $unitlist = Attribute::orderBy('name', 'asc')->get();
             $datalist = Product::where('id', $id)->first();
@@ -264,7 +221,7 @@ class ProductsController extends Controller
                 ->orderBy('users.store', 'asc')
                 ->get();
 
-            return view('admin.backend.product', compact('brandlist', 'categorylist', 'storeList', 'taxlist', 'storeList', 'unitlist', 'user_session', 'datalist'));
+            return view('admin.backend.product', compact('brandlist', 'categorylist', 'storeList', 'taxlist', 'storeList', 'unitlist', 'user_session', 'datalist', 'subcategorylist'));
         }
     }
 
@@ -449,6 +406,9 @@ class ProductsController extends Controller
                 $res['msgType'] = 'error';
                 $res['msg'] = __('Data remove failed');
             }
+        } else {
+            $res['msgType'] = 'error';
+            $res['msg'] = __('Invalid ID');
         }
 
         return response()->json($res);
@@ -469,78 +429,78 @@ class ProductsController extends Controller
 
     //Save data for Variations
     public function saveVariationsData(Request $request)
-{
-    $res = array();
+    {
+        $res = array();
 
-    $id = $request->input('RecordId');
-    $sizes = $request->input('variation_size');
-    $colors = $request->input('variation_color');
+        $id = $request->input('RecordId');
+        $sizes = $request->input('variation_size');
+        $colors = $request->input('variation_color');
 
-    $product = Product::find($id);
-    if (!$product) {
-        $res['msgType'] = 'error';
-        $res['msg'] = __('Product not found');
-        return redirect()->route('backend.product-seo', $id)->with($res);
-    }
+        $product = Product::find($id);
+        if (!$product) {
+            $res['msgType'] = 'error';
+            $res['msg'] = __('Product not found');
+            return redirect()->route('backend.product-seo', $id)->with($res);
+        }
 
-    $mainSku = $product->sku;
+        $mainSku = $product->sku;
 
-    // Clear previous variations
-    ProductVariations::where('product_id', $id)->delete();
+        // Clear previous variations
+        ProductVariations::where('product_id', $id)->delete();
 
-    $variations = [];
-    if (!empty($sizes) && !empty($colors)) {
-        foreach ($sizes as $size) {
-            foreach ($colors as $color) {
-                $sku = $mainSku . '-' . strtoupper($size) . '-' . strtoupper($color);
-                $variations[] = [
-                    'product_id' => $id,
-                    'size' => $size,
-                    'color' => $color,
-                    'sku' => $sku,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ];
-
-                // Handle color images upload
-                if ($request->hasFile('color_images') && isset($request->file('color_images')[$color])) {
-                    $image = $request->file('color_images')[$color];
-                    $imageName = $image->getClientOriginalName();
-                    $image->move(public_path('product_images'), $imageName);
-                    $imagePath = 'product_images/' . $imageName;
-
-                    // Assuming you have a ProductImage model to save the image path
-                    Pro_image::create([
-                        'product_id' => $product->id,
+        $variations = [];
+        if (!empty($sizes) && !empty($colors)) {
+            foreach ($sizes as $size) {
+                foreach ($colors as $color) {
+                    $sku = $mainSku . '-' . strtoupper($size) . '-' . strtoupper($color);
+                    $variations[] = [
+                        'product_id' => $id,
+                        'size' => $size,
                         'color' => $color,
-                        'thumbnail' => $imagePath,
-                    ]);
+                        'sku' => $sku,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ];
+
+                    // Handle color images upload
+                    if ($request->hasFile('color_images') && isset($request->file('color_images')[$color])) {
+                        $image = $request->file('color_images')[$color];
+                        $imageName = $image->getClientOriginalName();
+                        $image->move(public_path('product_images'), $imageName);
+                        $imagePath = 'product_images/' . $imageName;
+
+                        // Assuming you have a ProductImage model to save the image path
+                        Pro_image::create([
+                            'product_id' => $product->id,
+                            'color' => $color,
+                            'thumbnail' => $imagePath,
+                        ]);
+                    }
                 }
             }
         }
+
+        if (!empty($variations)) {
+            ProductVariations::insert($variations);
+        }
+
+        $data = [
+            'variation_size' => implode(',', $sizes),
+            'variation_color' => implode(',', $colors),
+        ];
+
+        $response = $product->update($data);
+
+        if ($response) {
+            $res['msgType'] = 'success';
+            $res['msg'] = __('Data Updated Successfully');
+        } else {
+            $res['msgType'] = 'error';
+            $res['msg'] = __('Data update failed');
+        }
+
+        return redirect()->route('backend.product-seo', $id)->with($res);
     }
-
-    if (!empty($variations)) {
-        ProductVariations::insert($variations);
-    }
-
-    $data = [
-        'variation_size' => implode(',', $sizes),
-        'variation_color' => implode(',', $colors),
-    ];
-
-    $response = $product->update($data);
-
-    if ($response) {
-        $res['msgType'] = 'success';
-        $res['msg'] = __('Data Updated Successfully');
-    } else {
-        $res['msgType'] = 'error';
-        $res['msg'] = __('Data update failed');
-    }
-
-    return redirect()->route('backend.product-seo', $id)->with($res);
-}
 
 
     //get Product SEO
@@ -595,29 +555,24 @@ class ProductsController extends Controller
     //get Related Products
     public function getRelatedProductsPageData($id)
     {
+        if (Session::has('LoggedIn')) {
 
-        $datalist = Product::where('id', $id)->first();
+            $user_session = User::where('id', Session::get('LoggedIn'))->first();
+            $datalist = Product::where('id', $id)->first();
 
-        $productlist = DB::table('products')
-            ->join('tp_status', 'products.is_publish', '=', 'tp_status.id')
-            ->join('languages', 'products.lan', '=', 'languages.language_code')
-            ->select('products.id', 'products.title', 'products.f_thumbnail', 'products.cost_price', 'products.sale_price', 'products.is_stock', 'products.is_publish', 'tp_status.status', 'languages.language_name')
-            ->whereNotIn('products.id', [$id])
-            ->where('products.is_publish', 1)
-            ->orderBy('products.id', 'desc')
-            ->paginate(20);
+            $productlist = Product::all();
 
-        $relateddatalist = DB::table('products')
-            ->join('tp_status', 'products.is_publish', '=', 'tp_status.id')
-            ->join('languages', 'products.lan', '=', 'languages.language_code')
-            ->join('related_products', 'products.id', '=', 'related_products.related_item_id')
-            ->select('related_products.id', 'products.title', 'products.f_thumbnail', 'products.is_publish', 'tp_status.status', 'languages.language_name')
-            ->where('related_products.product_id', $id)
-            ->where('products.is_publish', 1)
-            ->orderBy('related_products.id', 'desc')
-            ->paginate(20);
+            $relateddatalist = DB::table('products')
 
-        return view('backend.related-products', compact('datalist', 'productlist', 'relateddatalist'));
+                ->join('related_products', 'products.id', '=', 'related_products.related_item_id')
+                ->select('related_products.id', 'products.title', 'products.f_thumbnail', 'products.is_publish')
+                ->where('related_products.product_id', $id)
+                ->where('products.is_publish', 1)
+                ->orderBy('related_products.id', 'desc')
+                ->paginate(20);
+
+            return view('admin.backend.related-products', compact('datalist', 'productlist', 'relateddatalist','user_session'));
+        }
     }
 
     //Get data for Products Pagination Related Products
@@ -631,9 +586,8 @@ class ProductsController extends Controller
 
             if ($search != '') {
                 $productlist = DB::table('products')
-                    ->join('tp_status', 'products.is_publish', '=', 'tp_status.id')
-                    ->join('languages', 'products.lan', '=', 'languages.language_code')
-                    ->select('products.id', 'products.title', 'products.f_thumbnail', 'products.cost_price', 'products.sale_price', 'products.is_stock', 'products.is_publish', 'tp_status.status', 'languages.language_name')
+
+                    ->select('products.id', 'products.title', 'products.f_thumbnail', 'products.cost_price', 'products.sale_price', 'products.is_stock', 'products.is_publish')
                     ->where(function ($query) use ($search) {
                         $query->where('title', 'like', '%' . $search . '%')
                             ->orWhere('cost_price', 'like', '%' . $search . '%');
@@ -644,16 +598,15 @@ class ProductsController extends Controller
                     ->paginate(20);
             } else {
                 $productlist = DB::table('products')
-                    ->join('tp_status', 'products.is_publish', '=', 'tp_status.id')
-                    ->join('languages', 'products.lan', '=', 'languages.language_code')
-                    ->select('products.id', 'products.title', 'products.f_thumbnail', 'products.cost_price', 'products.sale_price', 'products.is_stock', 'products.is_publish', 'tp_status.status', 'languages.language_name')
+
+                    ->select('products.id', 'products.title', 'products.f_thumbnail', 'products.cost_price', 'products.sale_price', 'products.is_stock', 'products.is_publish')
                     ->whereNotIn('products.id', [$id])
                     ->where('products.is_publish', 1)
                     ->orderBy('products.id', 'desc')
                     ->paginate(20);
             }
 
-            return view('backend.partials.products_list_for_related_product', compact('productlist'))->render();
+            return view('admin.backend.products_list_for_related_product', compact('productlist'))->render();
         }
     }
 
@@ -668,10 +621,9 @@ class ProductsController extends Controller
 
             if ($search != '') {
                 $relateddatalist = DB::table('products')
-                    ->join('tp_status', 'products.is_publish', '=', 'tp_status.id')
-                    ->join('languages', 'products.lan', '=', 'languages.language_code')
+
                     ->join('related_products', 'products.id', '=', 'related_products.related_item_id')
-                    ->select('related_products.id', 'products.title', 'products.f_thumbnail', 'products.is_publish', 'tp_status.status', 'languages.language_name')
+                    ->select('related_products.id', 'products.title', 'products.f_thumbnail', 'products.is_publish')
                     ->where(function ($query) use ($search) {
                         $query->where('title', 'like', '%' . $search . '%')
                             ->orWhere('languages.language_name', 'like', '%' . $search . '%');
@@ -682,10 +634,9 @@ class ProductsController extends Controller
                     ->paginate(20);
             } else {
                 $relateddatalist = DB::table('products')
-                    ->join('tp_status', 'products.is_publish', '=', 'tp_status.id')
-                    ->join('languages', 'products.lan', '=', 'languages.language_code')
+
                     ->join('related_products', 'products.id', '=', 'related_products.related_item_id')
-                    ->select('related_products.id', 'products.title', 'products.f_thumbnail', 'products.is_publish', 'tp_status.status', 'languages.language_name')
+                    ->select('related_products.id', 'products.title', 'products.f_thumbnail', 'products.is_publish')
                     ->where('related_products.product_id', $id)
                     ->where('products.is_publish', 1)
                     ->orderBy('related_products.id', 'desc')

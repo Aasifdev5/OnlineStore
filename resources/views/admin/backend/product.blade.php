@@ -62,6 +62,7 @@
                                                     aria-controls="variations" aria-selected="false"><i
                                                         class="fa fa-hourglass-end"></i> {{ __('Variations') }}</a>
                                             </li>
+                                            <li class="nav-item"><a class="nav-link" href="{{ route('backend.related-products', [$datalist['id']]) }}"><i class="fa fa-compass"></i>{{ __('Related Products') }}</a></li>
                                             <li class="nav-item">
                                                 <a class="nav-link" id="seo-tab" data-toggle="tab"
                                                     href="{{ route('backend.product-seo', [$datalist['id']]) }}" role="tab"
@@ -128,22 +129,22 @@
                                                             <div class="form-group">
                                                                 <div>
                                                                     <input type="radio" name="categories" id="category_bicycle" value="bicycle"
-                                                                        {{ $datalist->cat_id == 'bicycle' ? 'checked' : '' }}>
+                                                                        {{ $datalist->category == 'bicycle' ? 'checked' : '' }}>
                                                                     <label for="category_bicycle">Bicycle</label>
                                                                 </div>
                                                                 <div>
                                                                     <input type="radio" name="categories" id="category_motorcycle" value="motorcycle"
-                                                                        {{ $datalist->cat_id == 'motorcycle' ? 'checked' : '' }}>
+                                                                        {{ $datalist->category == 'motorcycle' ? 'checked' : '' }}>
                                                                     <label for="category_motorcycle">Motorcycle</label>
                                                                 </div>
                                                                 <div>
                                                                     <input type="radio" name="categories" id="category_shimano" value="shimano"
-                                                                        {{ $datalist->cat_id == 'shimano' ? 'checked' : '' }}>
+                                                                        {{ $datalist->category == 'shimano' ? 'checked' : '' }}>
                                                                     <label for="category_shimano">Shimano</label>
                                                                 </div>
                                                                 <div>
                                                                     <input type="radio" name="categories" id="category_loadline" value="loadline"
-                                                                        {{ $datalist->cat_id == 'loadline' ? 'checked' : '' }}>
+                                                                        {{ $datalist->category == 'loadline' ? 'checked' : '' }}>
                                                                     <label for="category_loadline">Load Line</label>
                                                                 </div>
                                                                 <span class="text-danger">
@@ -153,8 +154,25 @@
                                                                 </span>
                                                             </div>
                                                         </div>
-
                                                         <div class="col-lg-6">
+                                                            <div class="form-group">
+                                                                <label for="subcategory_id">{{ __('Subcategory') }}<span
+                                                                        class="red">*</span></label>
+                                                                <select name="subcategory_id" id="subcategory_id"
+                                                                    class="select2 chosen-select form-control">
+                                                                    <option value="0">No subcategory</option>
+                                                                    @foreach ($subcategorylist as $row)
+                                                                        <option value="{{ $row->id }}" @if ($datalist->subcategory_id==$row->id)
+                                                                            @selected(true)
+                                                                        @endif>
+                                                                            {{ $row->name }}
+                                                                        </option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <br>
+                                                        <div class="col-lg-12">
                                                             <div class="input__group mb-25">
                                                                 <label>{{ __('Imagen ') }}</label>
                                                                 <div class="upload-img-box">
@@ -190,7 +208,7 @@
                                                                 <label for="brand_id">{{ __('Brand') }}<span
                                                                         class="red">*</span></label>
                                                                 <select name="brand_id" id="brand_id"
-                                                                    class="chosen-select form-control">
+                                                                    class="select2 chosen-select form-control">
                                                                     <option value="0">No Brand</option>
                                                                     @foreach ($brandlist as $row)
                                                                         <option value="{{ $row->id }}" @if ($datalist->brand_id==$row->id)
@@ -207,7 +225,7 @@
                                                                 <label for="storeid">{{ __('Store') }}<span
                                                                         class="red">*</span></label>
                                                                 <select name="store_id" id="storeid"
-                                                                    class="chosen-select form-control">
+                                                                    class="select2 chosen-select form-control">
                                                                     @foreach ($storeList as $row)
                                                                         <option value="{{ $row->id }}" @if ($datalist->store_id==$row->id)
                                                                             @selected(true)

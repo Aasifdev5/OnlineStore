@@ -41,6 +41,7 @@
                                         <thead>
                                             <tr>
                                                 <th class="text-center">#</th>
+                                                <th>TAX ID</th>
                                                 <th>{{ __('Nombre') }}</th>
                                                 <th>Percentage</th>
                                                 <th>{{ __('Acción') }}</th>
@@ -52,6 +53,7 @@
                                                     <td class="text-center">
                                                         {{ $loop->iteration }}
                                                     </td>
+                                                    <td>{{ $category->id }}</td>
                                                     <td>
                                                         {{ $category->title }}
                                                     </td>

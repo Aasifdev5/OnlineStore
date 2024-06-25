@@ -62,6 +62,7 @@
                                                     aria-controls="variations" aria-selected="false"><i
                                                         class="fa fa-hourglass-end"></i> {{ __('Variations') }}</a>
                                             </li>
+                                            <li class="nav-item"><a class="nav-link" href="{{ route('backend.related-products', [$datalist['id']]) }}"><i class="fa fa-compass"></i>{{ __('Related Products') }}</a></li>
                                             <li class="nav-item">
                                                 <a class="nav-link" id="seo-tab" data-toggle="tab"
                                                     href="{{ route('backend.product-seo', [$datalist['id']]) }}" role="tab"
@@ -214,18 +215,18 @@
 
                                                         <div class="row">
                                                             @if(count($imagelist) > 0)
-                                                                @foreach($imagelist as $row)
-                                                                    <div class="col-md-4 col-sm-6 mb-4">
-                                                                        <div class="card">
-                                                                            <img src="{{ asset($row->thumbnail) }}" class="card-img-top" alt="Image">
-                                                                            <div class="card-body">
-                                                                                <a onClick="onDelete({{ $row->id }})" class="media-image-remove btn btn-danger btn-sm" href="javascript:void(0);">
-                                                                                    <i class="fa fa-remove"></i> {{ __('Delete') }}
-                                                                                </a>
-                                                                            </div>
-                                                                        </div>
+                                                            @foreach($imagelist as $row)
+                                                            <div class="col-md-4 col-sm-6 mb-4">
+                                                                <div class="card">
+                                                                    <img src="{{ asset($row->thumbnail) }}" class="card-img-top" alt="Image">
+                                                                    <div class="card-body">
+                                                                        <a onClick="onDelete({{ $row->id }})" class="media-image-remove btn btn-danger btn-sm" href="javascript:void(0);">
+                                                                            <i class="fa fa-remove"></i> {{ __('Delete') }}
+                                                                        </a>
                                                                     </div>
-                                                                @endforeach
+                                                                </div>
+                                                            </div>
+                                                            @endforeach
                                                             @else
                                                                 <div class="col-sm-12">
                                                                     <h5 class="text-center">{{ __('No data available') }}</h5>
@@ -253,6 +254,33 @@
         <!-- /main Section -->
     </div>
 
+    <script>
+        function onDelete(id) {
+            if (!confirm('Are you sure you want to delete this image?')) {
+                return;
+            }
 
+            $.ajax({
+                type: "POST",
+                url: "{{ route('backend.deleteProductImages') }}",
+                data: {
+                    id: id,
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function(response) {
+                    if (response.msgType === 'success') {
+                        toastr.success(response.msg);
+                        location.reload(); // Reload the page to reflect changes
+                    } else {
+                        toastr.error(response.msg);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                    toastr.error("Failed to delete image. Please try again later.");
+                }
+            });
+        }
+    </script>
 
 @endsection
