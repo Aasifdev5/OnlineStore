@@ -342,7 +342,7 @@
 
                             </li>
                             <li><a class="sidebar-header" href="#"><i
-                                        data-feather="settings"></i><span>{{ __('Configuraciones de Aplicación') }}
+                                        data-feather="settings"></i><span>{{ __('Configuraciones') }}
                                     </span><i class="fa fa-angle-right pull-right"></i></a>
                                 <ul class="sidebar-submenu">
 
@@ -435,7 +435,7 @@
                             </li> --}}
 
                             <li><a class="sidebar-header" href="{{ url('admin/banners') }}"><i
-                                        data-feather="monitor"></i><span>{{ __('Configuración de la Página de Inicio') }}
+                                        data-feather="monitor"></i><span>{{ __('Banner') }}
                                     </span></a></li>
 
                             <li class="">
@@ -525,6 +525,18 @@
                                         <a href="{{route('subcategory.index')}}">
                                             <i class="fa fa-circle"></i>
                                             <span>{{__('Subcategory')}}</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('brands.index') }}">
+                                            <i class="fa fa-circle"></i>
+                                            <span>{{ __('Brands') }}</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('tax.index') }}">
+                                            <i class="fa fa-circle"></i>
+                                            <span>{{ __('Tax') }}</span>
                                         </a>
                                     </li>
                                     <li><a href="{{ route('backend.products') }}"><i class="fa fa-circle"></i>Product</a></li>

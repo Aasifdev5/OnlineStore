@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Tax extends Model
 {
     use HasFactory;
-	
+	protected $table='taxes';
     protected $fillable = [
-        'title', 
-		'percentage', 
+        'title',
+		'percentage',
 		'is_publish',
-    ];	
+    ];
 }

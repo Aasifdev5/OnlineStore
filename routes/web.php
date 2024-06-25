@@ -1,5 +1,6 @@
 <?php
 
+use App\Exports\ProductsExport;
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\Admin\AboutUsController;
 use App\Http\Controllers\Admin\AdController;
@@ -7,10 +8,9 @@ use App\Http\Controllers\Admin\BankController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BlogCategoryController;
 use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ContactUsController;
-use App\Exports\ProductsExport;
-use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\Admin\HomeSettingController;
 use App\Http\Controllers\Admin\LanguageController;
@@ -25,10 +25,11 @@ use App\Http\Controllers\Admin\SupportTicketController;
 
 use App\Http\Controllers\Admin\TagController;
 
+use App\Http\Controllers\Admin\TaxController;
 use App\Http\Controllers\Backend\InventoryController;
 use App\Http\Controllers\Backend\ProductsController;
-use App\Http\Controllers\ChatController;
 
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\EmailAppController;
 use App\Http\Controllers\FacebookSocialiteController;
 use App\Http\Controllers\FundController;
@@ -45,6 +46,9 @@ use App\Http\Middleware\SetLocale;
 use App\Models\Language;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
+use Maatwebsite\Excel\Facades\Excel;
+
+
 
 
 
@@ -365,6 +369,23 @@ Route::group(['prefix' => 'admin'], function () {
             Route::get('edit/{uuid}', [SubcategoryController::class, 'edit'])->name('subcategory.edit');
             Route::post('update/{uuid}', [SubcategoryController::class, 'update'])->name('subcategory.update');
             Route::delete('delete/{uuid}', [SubcategoryController::class, 'delete'])->name('subcategory.delete');
+        });
+        Route::prefix('brands')->group(function () {
+            Route::get('/', [BrandController::class, 'index'])->name('brands.index')->middleware('AdminIsLoggedIn');
+            Route::get('create', [BrandController::class, 'create'])->name('brands.create')->middleware('AdminIsLoggedIn');
+            Route::post('store', [BrandController::class, 'store'])->name('brands.store');
+            Route::get('edit/{uuid}', [BrandController::class, 'edit'])->name('brands.edit')->middleware('AdminIsLoggedIn');
+            Route::post('update/{uuid}', [BrandController::class, 'update'])->name('brands.update');
+            Route::get('delete/{uuid}', [BrandController::class, 'delete'])->name('brands.delete');
+        });
+
+        Route::prefix('tax')->group(function () {
+            Route::get('/', [TaxController::class, 'index'])->name('tax.index')->middleware('AdminIsLoggedIn');
+            Route::get('create', [TaxController::class, 'create'])->name('tax.create')->middleware('AdminIsLoggedIn');
+            Route::post('store', [TaxController::class, 'store'])->name('tax.store');
+            Route::get('edit/{uuid}', [TaxController::class, 'edit'])->name('tax.edit')->middleware('AdminIsLoggedIn');
+            Route::post('update/{uuid}', [TaxController::class, 'update'])->name('tax.update');
+            Route::get('delete/{uuid}', [TaxController::class, 'delete'])->name('tax.delete');
         });
         //Products
         Route::get('/products', [ProductsController::class, 'getProductsPageLoad'])->name('backend.products');
