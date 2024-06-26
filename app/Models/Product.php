@@ -30,8 +30,7 @@ class Product extends Model
         'subcategory_id',
         'category',
         'brand_id',
-        'collection_id',
-        'label_id',
+
         'variation_color',
         'variation_size',
         'tax_id',

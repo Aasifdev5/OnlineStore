@@ -34,55 +34,54 @@
                     <div class="col-xl-7 xl-100">
                         <div class="row">
 
-                                <div class="col-sm-3">
-                                    <div class="card">
-                                        <div class="card-body ecommerce-icons text-center"><i
-                                                data-feather="dollar-sign"></i>
-                                            <div><span>Fondo total recaudado</span></div>
-                                            <h4 class="font-primary mb-0 counter">
-                                                @if (!empty($total_earning))
-                                                    {{ $total_earning }}
-                                                @endif
-                                            </h4>
-                                        </div>
+                            <div class="col-sm-3">
+                                <div class="card">
+                                    <div class="card-body ecommerce-icons text-center"><i data-feather="dollar-sign"></i>
+                                        <div><span>Fondo total recaudado</span></div>
+                                        <h4 class="font-primary mb-0 counter">
+                                            @if (!empty($total_earning))
+                                                {{ $total_earning }}
+                                            @endif
+                                        </h4>
                                     </div>
                                 </div>
-                                <div class="col-sm-3">
-                                    <div class="card">
-                                        <div class="card-body ecommerce-icons text-center"><i data-feather="tv"></i>
-                                            <div><span>Total Blogs </span></div>
-                                            <h4 class="font-primary mb-0 counter">
-                                                @if (!empty($top_ad))
-                                                    {{ $top_ad->count() }}
-                                                @endif
-                                            </h4>
-                                        </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="card">
+                                    <div class="card-body ecommerce-icons text-center"><i data-feather="tv"></i>
+                                        <div><span>Total Blogs </span></div>
+                                        <h4 class="font-primary mb-0 counter">
+                                            @if (!empty($top_ad))
+                                                {{ $top_ad->count() }}
+                                            @endif
+                                        </h4>
                                     </div>
                                 </div>
-                                <div class="col-sm-3">
-                                    <div class="card">
-                                        <div class="card-body ecommerce-icons text-center"><i data-feather="tv"></i>
-                                            <div><span>Proyectos totales</span></div>
-                                            <h4 class="font-primary mb-0 counter">
-                                                @if (!empty($ads))
-                                                    {{ $ads->count() }}
-                                                @endif
-                                            </h4>
-                                        </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="card">
+                                    <div class="card-body ecommerce-icons text-center"><i data-feather="tv"></i>
+                                        <div><span>Proyectos totales</span></div>
+                                        <h4 class="font-primary mb-0 counter">
+                                            @if (!empty($ads))
+                                                {{ $ads->count() }}
+                                            @endif
+                                        </h4>
                                     </div>
                                 </div>
-                                <div class="col-sm-3">
-                                    <div class="card">
-                                        <div class="card-body ecommerce-icons text-center"><i data-feather="users"></i>
-                                            <div><span>Total de Usuarios</span></div>
-                                            <h4 class="font-primary mb-0 counter">
-                                                @if (!empty($total_users))
-                                                    {{ $total_users->count() }}
-                                                @endif
-                                            </h4>
-                                        </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="card">
+                                    <div class="card-body ecommerce-icons text-center"><i data-feather="users"></i>
+                                        <div><span>Total de Usuarios</span></div>
+                                        <h4 class="font-primary mb-0 counter">
+                                            @if (!empty($total_users))
+                                                {{ $total_users->count() }}
+                                            @endif
+                                        </h4>
                                     </div>
                                 </div>
+                            </div>
 
 
 
@@ -148,15 +147,48 @@
 
 
 
-                        </div>
-                      </div>
-
-
-
                 </div>
             </div>
-        @endif
+
+
 
     </div>
+    </div>
+    @endif
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            let startTime = performance.now();
+
+            $('a').on('click', function(event) {
+                let endTime = performance.now();
+                let timeSpent = endTime - startTime; // Time spent in milliseconds
+
+                // Send the data to the server using Ajax
+                $.ajax({
+                    url: '{{ route("track.time") }}',
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        timeSpent: timeSpent,
+                        url: window.location.href
+                    }),
+                    success: function(data) {
+                        console.log('Screen time tracked successfully:', data);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error tracking screen time:', error);
+                    }
+                });
+            });
+        });
+    </script>
 
 @endsection
+
+

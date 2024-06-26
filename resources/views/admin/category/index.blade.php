@@ -137,5 +137,7 @@
                 });
             }
         });
+
     </script>
+
 @endsection

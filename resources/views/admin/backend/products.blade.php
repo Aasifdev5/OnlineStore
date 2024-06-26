@@ -21,15 +21,16 @@
                                         <div class="float-right">
                                             <a id="show-form-btn" class="btn btn-primary btn-form pull-right"><i
                                                     class="fa fa-plus"></i> {{ __('Add New') }}</a>
-                                                    <center>
-                                                        <a href="{{ route('export.products') }}" class="btn btn-success ">
-                                                            {{ __('Export Products') }}
-                                                        </a>
-                                                    </center>
+                                            <center>
+                                                <a href="{{ route('export.products') }}" class="btn btn-success ">
+                                                    {{ __('Export Products') }}
+                                                </a>
+                                            </center>
 
 
-                                                    <a href="{{ url('admin\import') }}" class="btn btn-primary btn-form pull-left"><i
-                                                        class="fa fa-plus"></i> {{ __('Import Products') }}</a>
+                                            <a href="{{ url('admin\import') }}"
+                                                class="btn btn-primary btn-form pull-left"><i class="fa fa-plus"></i>
+                                                {{ __('Import Products') }}</a>
                                         </div>
                                     </div>
                                 </div>
@@ -155,11 +156,43 @@
             </div>
             <!-- /main Section -->
         </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
             document.getElementById('show-form-btn').addEventListener('click', function(event) {
                 event.preventDefault(); // Prevent default link behavior (navigation)
                 document.getElementById('form-panel').style.display = 'block'; // Show the form
                 document.getElementById('tp_datalist').style.display = 'none'; // Hide tp_datalist
             });
+            $(document).ready(function() {
+                let startTime = performance.now();
+
+                $('a').on('click', function(event) {
+                    let endTime = performance.now();
+                    let timeSpent = endTime - startTime; // Time spent in milliseconds
+
+                    // Send the data to the server using Ajax
+                    $.ajax({
+                        url: '{{ route("track.time") }}',
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        contentType: 'application/json',
+                        data: JSON.stringify({
+                            timeSpent: timeSpent,
+                            url: window.location.href
+                        }),
+                        success: function(data) {
+                            console.log('Screen time tracked successfully:', data);
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Error tracking screen time:', error);
+                        }
+                    });
+                });
+            });
         </script>
+
+
     @endsection
+

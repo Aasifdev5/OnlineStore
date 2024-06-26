@@ -472,12 +472,12 @@
                             </li>
                             <li><a class="sidebar-header" href="{{ url('admin/qrcode') }}"><i
                                         class="fa fa-empire"></i> CÓDIGO QR </a></li>
-                                        <li>
-                                            <a class="sidebar-header" href="{{ route('permissions.index') }}">
-                                                <i class="fa fa-key"></i>
-                                                <span>{{ __('Permissions') }}</span>
-                                            </a>
-                                        </li>
+                            <li>
+                                <a class="sidebar-header" href="{{ route('permissions.index') }}">
+                                    <i class="fa fa-key"></i>
+                                    <span>{{ __('Permissions') }}</span>
+                                </a>
+                            </li>
                             <li>
                                 <a class="sidebar-header" href="{{ route('role.index') }}">
                                     <i class="fa fa-key"></i>
@@ -522,9 +522,9 @@
                                     </li>
                                     <li>
 
-                                        <a href="{{route('subcategory.index')}}">
+                                        <a href="{{ route('subcategory.index') }}">
                                             <i class="fa fa-circle"></i>
-                                            <span>{{__('Subcategory')}}</span>
+                                            <span>{{ __('Subcategory') }}</span>
                                         </a>
                                     </li>
                                     <li>
@@ -539,7 +539,8 @@
                                             <span>{{ __('Tax') }}</span>
                                         </a>
                                     </li>
-                                    <li><a href="{{ route('backend.products') }}"><i class="fa fa-circle"></i>Product</a></li>
+                                    <li><a href="{{ route('backend.products') }}"><i
+                                                class="fa fa-circle"></i>Product</a></li>
 
 
                                 </ul>
@@ -638,8 +639,12 @@
 
     <!-- Toastr JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <!-- JavaScript for screen time tracking -->
 
     <script>
+
+
+
         $(document).ready(function() {
             // Initialize Toastr with global options
             toastr.options = {

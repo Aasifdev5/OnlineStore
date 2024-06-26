@@ -39,6 +39,7 @@ use App\Http\Controllers\Pages;
 
 use App\Http\Controllers\QRCodeController;
 use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\ScreenTimeController;
 use App\Http\Controllers\SubscriptionPlanController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VerificationController;
@@ -47,6 +48,7 @@ use App\Models\Language;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
+
 
 
 
@@ -145,6 +147,7 @@ Route::get('/verify-email/{id}/{hash}', [VerificationController::class, 'verifyE
 
 Route::get('/get-states', [UserController::class, 'getStates'])->name('get-states');
 Route::get('/get-cities', [UserController::class, 'getCities'])->name('get-cities');
+
 
 Route::group(['prefix' => 'admin'], function () {
 
@@ -413,7 +416,7 @@ Route::group(['prefix' => 'admin'], function () {
             return response()->download($file, $fileName, $headers);
         })->name('download.sample.file');
 
-
+        Route::post('track-time', [ScreenTimeController::class, 'trackTime'])->name('track.time');
 
         //Export
         Route::get('/export-products', function () {
