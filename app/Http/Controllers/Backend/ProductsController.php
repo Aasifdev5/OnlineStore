@@ -114,7 +114,7 @@ class ProductsController extends Controller
                 $res['id'] = $id;
                 $res['msgType'] = 'success';
                 $res['msg'] = __('Data Updated Successfully');
-                return redirect()->route('backend.price', $res['id']);
+                return redirect()->route('backend.inventory', $res['id']);
             } else {
                 $res['id'] = '';
                 $res['msgType'] = 'error';

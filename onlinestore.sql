@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 26, 2024 at 09:51 AM
+-- Generation Time: Jun 27, 2024 at 11:39 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -313,7 +313,10 @@ INSERT INTO `brands` (`id`, `name`, `thumbnail`, `is_featured`, `is_publish`, `l
 (2, 'Mina', '09092022091526-400x400-brand-5.png', 1, 1, 'en', '2022-07-30 03:05:28', '2022-09-08 21:46:05'),
 (3, 'Arod', '09092022091535-400x400-brand-7.png', 1, 1, 'en', '2022-07-30 03:05:43', '2022-09-08 21:46:16'),
 (4, 'Pana Food', '09092022091519-400x400-brand-2.png', 1, 1, 'en', '2022-07-30 03:06:07', '2022-09-08 21:46:25'),
-(7, 'Nisha', '09092022091524-400x400-brand-4.png', 1, 1, 'en', '2022-07-30 03:08:17', '2024-06-25 00:13:43');
+(7, 'Nisha', '09092022091524-400x400-brand-4.png', 1, 1, 'en', '2022-07-30 03:08:17', '2024-06-25 00:13:43'),
+(8, 'Alex', NULL, NULL, NULL, NULL, '2024-06-26 22:41:42', '2024-06-26 22:41:42'),
+(9, 'df', NULL, NULL, NULL, NULL, '2024-06-26 22:45:06', '2024-06-26 22:45:06'),
+(10, 'xc', NULL, NULL, NULL, NULL, '2024-06-26 22:46:32', '2024-06-26 22:46:32');
 
 -- --------------------------------------------------------
 
@@ -1614,11 +1617,6 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `title`, `slug`, `category`, `subcategory_id`, `f_thumbnail`, `short_desc`, `description`, `price1`, `price2`, `price3`, `price4`, `price5`, `extra_desc`, `cost_price`, `sale_price`, `old_price`, `start_date`, `end_date`, `is_discount`, `is_stock`, `sku`, `stock_status_id`, `stock_qty`, `u_stock_qty`, `brand_id`, `price`, `store_id`, `variation_color`, `variation_size`, `tax_id`, `is_publish`, `user_id`, `og_title`, `og_image`, `og_description`, `og_keywords`, `created_at`, `updated_at`) VALUES
-(3, 'test', 'test', 'bicycle', NULL, 'IMG-20240124-WA0041-removebg-preview.png', 'test', 'test', NULL, NULL, NULL, NULL, NULL, NULL, 12000.000, 11500.000, 14000.000, '2024-06-23', '2024-06-26', 1, 1, 'TS-123', 1, 10, NULL, 3, NULL, '30', 'green,black,white', 'small,medium', NULL, 1, NULL, 'test', 'IMG-20240124-WA0041.jpg', 'test', 'test', '2024-06-23 04:23:52', '2024-06-23 04:26:11'),
-(6, 'test3', 'test3', 'shimano', NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-06-23 06:04:31', '2024-06-23 06:04:31'),
-(7, 'Devil May Cry', 'Devil-May-Cry', 'loadline', NULL, '', 'Devil May Cry', 'Devil May Cry', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'price3', '30', NULL, NULL, NULL, 1, NULL, 'test', 'Screenshot 2024-03-06 15291522.png', 'test', 'test', '2024-06-23 06:06:09', '2024-06-23 07:19:03'),
-(8, 'Infernos', 'Inferno', 'shimano', NULL, 'IMG-20240124-WA0039.jpg', 'Dante\'s Inferno', 'Dante\'s Inferno', NULL, NULL, NULL, NULL, NULL, NULL, 13999.000, 12999.000, 150000.000, '2024-06-23', '2024-06-27', 1, 1, 'GM-56', 1, 5, NULL, 2, 'price3', '30', 'red,blue,black', 'small,medium,large', NULL, 1, NULL, 'Dante\'s Inferno', 'IMG_4416_vo4r1a_1712164410.jpg', 'Dante\'s Inferno', 'Dante\'s Inferno', '2024-06-23 07:20:01', '2024-06-23 07:36:08'),
-(9, 'God of war', 'God-of-war', 'motorcycle', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-06-23 07:49:14', '2024-06-23 07:49:14'),
 (10, 'The last of us', 'The-last-of-us', 'bicycle', NULL, 'img-20230525-175230-800x800.jpg', 'The last of us Tv and Game', 'The last of us Tv and Game', '1000', '1150', '1250', '1500', '1650', NULL, 1150.000, 1100.000, 1250.000, '2024-06-23', '2024-06-25', 1, 1, 'TG-78', 0, 3, NULL, 4, 'price4', '32', 'red,green,blue,black,white', 'small,medium,large', NULL, 1, NULL, 'The last of us Tv and Game', 'norwegian_forest_cat-wallpaper-1920x1080.jpg', 'The last of us Tv', 'The last of us Tv and Game', '2024-06-23 07:50:07', '2024-06-24 03:44:53'),
 (26, 'Product Title 1', 'Product-Title-1', NULL, NULL, 'images (1).jpg', 'Short Desc 1', 'Product Desc 1', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 'SKU001', 1, 100, NULL, 1, NULL, '30', 'green,blue,black', 'medium', NULL, 1, NULL, 'Product 1 Title', NULL, 'Product 1 Desc', 'Keyword 1', '2024-06-24 06:30:18', '2024-06-24 08:53:52'),
 (27, 'Product Title 2', 'Product-Title-2', 'motorcycle', 2, 'thumbnail2.jpg', 'Short Desc 2', 'Product Desc 2', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 'SKU002', 1, 120, NULL, 2, NULL, '30', 'red,blue,white', 'small', NULL, 1, NULL, 'Product 2 Title', NULL, 'Product 2 Desc', 'Keyword 2', '2024-06-24 06:30:18', '2024-06-25 02:29:34'),
@@ -1906,7 +1904,14 @@ CREATE TABLE `screen_times` (
 
 INSERT INTO `screen_times` (`id`, `user_id`, `url`, `time_spent`, `created_at`, `updated_at`) VALUES
 (1, 1, 'http://127.0.0.1:8000/admin/dashboard', 3594, '2024-06-26 02:15:22', '2024-06-26 02:15:22'),
-(2, 1, 'http://127.0.0.1:8000/admin/products', 249340, '2024-06-26 02:20:55', '2024-06-26 02:20:55');
+(2, 1, 'http://127.0.0.1:8000/admin/products', 249340, '2024-06-26 02:20:55', '2024-06-26 02:20:55'),
+(3, 1, 'http://127.0.0.1:8000/admin/dashboard', 72079, '2024-06-26 22:20:04', '2024-06-26 22:20:04'),
+(4, 1, 'http://127.0.0.1:8000/admin/dashboard#', 76801, '2024-06-26 22:20:09', '2024-06-26 22:20:09'),
+(5, 1, 'http://127.0.0.1:8000/admin/products', 1242, '2024-06-26 22:20:12', '2024-06-26 22:20:12'),
+(6, 1, 'http://127.0.0.1:8000/admin/products', 865071, '2024-06-26 22:34:35', '2024-06-26 22:34:35'),
+(7, 1, 'http://127.0.0.1:8000/admin/products#', 886902, '2024-06-26 22:34:57', '2024-06-26 22:34:57'),
+(8, 1, 'http://127.0.0.1:8000/admin/dashboard', 1493, '2024-06-26 22:37:52', '2024-06-26 22:37:52'),
+(9, 1, 'http://127.0.0.1:8000/admin/dashboard#', 5671, '2024-06-26 22:37:56', '2024-06-26 22:37:56');
 
 -- --------------------------------------------------------
 
@@ -2450,10 +2455,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `account_type`, `price`, `role`, `permissions`, `name`, `email`, `email_verified_at`, `password`, `custom_password`, `mobile_number`, `city`, `categories`, `alter_mobile_number`, `location`, `department`, `store`, `last_seen`, `is_online`, `is_active`, `status`, `about`, `photo_url`, `profile_photo`, `remember_token`, `ip_address`, `balance`, `is_system`, `is_subscribed`, `privacy`, `gender`, `created_by`, `deleted_at`, `language`, `is_super_admin`, `created_at`, `updated_at`) VALUES
-(1, 'admin', NULL, 1, NULL, 'SUPER ADMINISTRADOR', 'admin@gmail.com', '2023-03-23 07:45:02', '$2y$10$9SbqzcUtyfeaf4019gajcOGQ4/k.XfIpeMXZp/ZERKUP0Z9GA02MK', NULL, '8878326802', 'india', NULL, NULL, NULL, NULL, NULL, '2024-06-26 01:47:27', 1, 1, 1, NULL, NULL, '149071.png', NULL, NULL, NULL, 1, 0, 1, 1, NULL, NULL, 'es', 1, '2023-03-23 07:45:02', '2024-06-26 01:47:27'),
+(1, 'admin', NULL, 1, NULL, 'SUPER ADMINISTRADOR', 'admin@gmail.com', '2023-03-23 07:45:02', '$2y$10$9SbqzcUtyfeaf4019gajcOGQ4/k.XfIpeMXZp/ZERKUP0Z9GA02MK', NULL, '8878326802', 'india', NULL, NULL, NULL, NULL, NULL, '2024-06-26 22:18:50', 1, 1, 1, NULL, NULL, '149071.png', NULL, NULL, NULL, 1, 0, 1, 1, NULL, NULL, 'es', 1, '2023-03-23 07:45:02', '2024-06-26 22:18:50'),
 (30, NULL, 'price3', 2, NULL, 'sdfsdfsf', 'subadmdfsfain@gmail.com', NULL, 'vbcvbhfghd', NULL, NULL, NULL, NULL, '987765546213132', NULL, 'it', 'arstexch', NULL, 0, 1, 1, NULL, NULL, NULL, NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:49:44', '2024-06-22 01:49:44'),
 (31, NULL, 'price2', 2, NULL, 'sofia', 'hhfghfhhffhfhfhrnatrajinfotech@gmail.com', NULL, 'sdfsfsfdsfsfsfsfsfs', NULL, NULL, 'ghfdgdfg', NULL, '465464df65g54d', 'ghjhgjgjg', 'erewr', 'asdsdfdsf', NULL, 0, 1, 1, NULL, NULL, NULL, NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:51:51', '2024-06-22 01:51:51'),
-(32, NULL, 'price3', 2, NULL, 'eve', 'eve@gmail.com', NULL, 'eve@3sss', NULL, '9589642080', 'bolivia', 'loadline', '65465464879787', 'bolivia', 'Software', 'everytech', NULL, 0, 1, 1, NULL, NULL, 'IMG_4416_vo4r1a_1712164410.jpg', NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:56:11', '2024-06-22 01:58:28');
+(32, NULL, 'price3', 2, NULL, 'eve', 'eve@gmail.com', '2023-03-23 07:45:02', 'eve@3sss', NULL, '9589642080', 'bolivia', 'loadline', '65465464879787', 'bolivia', 'Software', 'everytech', '2024-06-27 02:19:41', 1, 1, 1, NULL, NULL, 'IMG_4416_vo4r1a_1712164410.jpg', NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:56:11', '2024-06-27 02:19:41');
 
 --
 -- Indexes for dumped tables
@@ -2893,7 +2898,7 @@ ALTER TABLE `blog_tags`
 -- AUTO_INCREMENT for table `brands`
 --
 ALTER TABLE `brands`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `campaigns`
@@ -3085,7 +3090,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `screen_times`
 --
 ALTER TABLE `screen_times`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `settings`

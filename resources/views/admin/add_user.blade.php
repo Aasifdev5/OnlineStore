@@ -227,6 +227,11 @@
                                             value="price4" >
                                         <label class="form-check-label" for="priceLoadline">Price 4 </label>
                                     </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" id="priceLoadline" name="price"
+                                            value="price5" >
+                                        <label class="form-check-label" for="priceLoadline">Price 5 </label>
+                                    </div>
 
                                     <span class="text-danger">
                                         @error('price')

@@ -82,15 +82,15 @@ Route::post('/ResetPassword', [UserController::class, 'ResetPassword'])->name('R
 
 Route::group(['middleware' => 'prevent-back-history', SetLocale::class], function () {
 
-    Route::get('/index', [UserController::class, 'index'])->name('index');
+    Route::get('/index', [UserController::class, 'Userlogin'])->name('Userlogin');
     Route::get('/local/{ln}', function ($ln) {
         return redirect()->back()->with('local', $ln);
     });
 
-    Route::get('/', [UserController::class, 'index'])->name('index');
+    Route::get('/', [UserController::class, 'Userlogin'])->name('Userlogin')->middleware('isLoggedIn');
     Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard')->middleware('isLoggedIn');
     Route::post('/ProjectStore', [UserController::class, 'ProjectStore'])->name('ProjectStore');
-    Route::get('shop', [UserController::class, 'shop'])->name('shop');
+    Route::get('shop', [UserController::class, 'shop'])->name('shop')->middleware('isLoggedIn');
     Route::post('/post-insert', [UserController::class, 'Ad_insert'])->name('Ad_insert')->middleware('isLoggedIn');
     Route::get('/back/{id}', [UserController::class, 'back'])->name('back')->middleware('isLoggedIn');
     Route::get('address', [UserController::class, 'address'])->name('address')->middleware('isLoggedIn');

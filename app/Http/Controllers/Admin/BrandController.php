@@ -51,32 +51,16 @@ class BrandController extends Controller
 
     public function store(Request $request)
     {
-        if ($request->hasFile('image')) {
 
-            // Handle new image upload
-            $attribute = $request->file('image');
-            $destination = 'category';
-
-            // Generate unique filename
-            $file_name = time() . '-' . Str::random(10) . '.' . $attribute->getClientOriginalExtension();
-            // Move uploaded file to the destination directory
-            $attribute->move(public_path('uploads/' . $destination), $file_name);
-            // Update image path
-            $image = 'uploads/' . $destination . '/' . $file_name;
-        }
 
         $data = [
             'name' => $request->name,
-            'is_feature' => $request->has('is_feature') ? 'yes' : 'no',
 
-            'image' => $image,
 
         ];
 
-
-
         $this->model->create($data); // create new category
-        return response()->json(['success' => true]);
+        return redirect()->route('brands.index');
     }
 
     public function edit($id)
@@ -100,14 +84,14 @@ class BrandController extends Controller
         $category = $this->model->getRecordByid($id);
 
         if (!$category) {
-            return response()->json(['success' => false, 'message' => 'Category not found.'], 404);
+            return response()->json(['success' => false, 'message' => 'brand not found.'], 404);
         }
 
         // Update category data with sanitized input
         $category->name = $request->get('name'); // Use get() for better security
         $category->save();
 
-        return response()->json(['success' => true, 'message' => 'Category updated successfully.']);
+        return response()->json(['success' => true, 'message' => 'brand updated successfully.']);
     }
 
     public function delete($id)

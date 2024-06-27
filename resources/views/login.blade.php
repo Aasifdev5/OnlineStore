@@ -1,33 +1,68 @@
-@extends('master')
-@section('title')
-{{ __('Iniciar sesión') }}
-@endsection
-@section('content')
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    @php
+        $general_setting = getApplicationsettings();
+        $category = getCategory();
+        $adminNotifications = userNotifications();
+
+    @endphp
+    <title> {{ $general_setting->site_name }} || Login </title>
+    <!-- favicons Icons -->
+
+    <meta name="description" content="{{ $general_setting->site_description }}" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <!-- template styles -->
+    <link rel="stylesheet" href="{{ asset('admin/css/custom/image-preview.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
+
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('site_favicon/') }}<?php echo '/' . $general_setting->site_favicon; ?>">
+
+    <!-- ======= All CSS Plugins here ======== -->
+    <link rel="stylesheet" href="{{ asset('assets/css/plugins/swiper-bundle.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/plugins/glightbox.min.css') }}">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700&amp;family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500&amp;display=swap"
+        rel="stylesheet">
+
+    <!-- Plugin css -->
+    <link rel="stylesheet" href="{{ asset('assets/css/vendor/bootstrap.min.css') }}">
+
+    <!-- Custom Style CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <style>
+        .authentication-box {
+    width: 460px;
+    z-index: 2;
+    margin: 0 auto;
+}
+    </style>
+</head>
+
+<body>
+
+
+
 
 
 
 <main class="main__content_wrapper">
 
-    <!-- Start breadcrumb section -->
-    <section class="breadcrumb__section breadcrumb__bg">
-        <div class="container">
-            <div class="row row-cols-1">
-                <div class="col">
-                    <div class="breadcrumb__content text-center">
-                        <ul class="breadcrumb__content--menu d-flex justify-content-center">
-                            <li class="breadcrumb__content--menu__items"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb__content--menu__items"><span>Account</span></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End breadcrumb section -->
+
 
     <!-- Start login section  -->
     <div class="login__section section--padding">
-        <div class="container">
+        <div class="container-fluid p-0">
+            <div class="text-center">
+                <h1 style="font-weight: 100;"><a href="{{ url('/') }}"><img src="{{ asset('site_logo/') }}<?php echo '/' . $general_setting->site_logo; ?>" width="200"  alt=""></a></h1>
+            </div>
             <form action="{{ url('log') }}" method="post" >
                 @if (Session::has('success'))
                             <div class="alert alert-success" style="background-color: green;">
@@ -40,10 +75,12 @@
                             </div>
                         @endif
                         @csrf
-                <div class="login__section--inner">
-                    <div class="row row-cols-md-2 row-cols-1">
-                        <div class="col-sm-6">
-                            <div class="account__login">
+                    <div class="authentication-box">
+
+                <div class="card mt-4 login__section--inner">
+
+                        <div class="col-sm-12">
+                            <div class="card-body">
                                 <div class="account__login--header mb-25">
                                     <h2 class="account__login--header__title mb-10">Login</h2>
                                     <p class="account__login--header__desc">Login if you area a returning customer.</p>
@@ -75,23 +112,17 @@
                                         <button class="account__login--forgot"  type="submit">Forgot Your Password?</button>
                                     </div>
                                     <button class="account__login--btn primary__btn" type="submit">Login</button>
-                                    <div class="account__login--divide">
-                                        <span class="account__login--divide__text">OR</span>
-                                    </div>
-                                    <div class="account__social d-flex justify-content-center mb-15">
-                                        <a class="account__social--link facebook" target="_blank" href="https://www.facebook.com/">Facebook</a>
-                                        <a class="account__social--link google" target="_blank" href="https://www.google.com/">Google</a>
-                                        <a class="account__social--link twitter" target="_blank" href="https://twitter.com/">Twitter</a>
-                                    </div>
-                                    <p class="account__login--signup__text">Don,t Have an Account? <a href="{{ url('signup') }}">Sign up now</a></p>
+
+
                                 </div>
                             </div>
                         </div>
 
-                    </div>
+
                 </div>
             </form>
         </div>
+    </div>
     </div>
     <!-- End login section  -->
 
@@ -142,4 +173,4 @@
 
 </main>
 
-@endsection
+

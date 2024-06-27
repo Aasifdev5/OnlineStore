@@ -20,6 +20,7 @@ use App\Models\Notification;
 use App\Models\Page;
 use App\Models\PasswordReset;
 use App\Models\Payment;
+use App\Models\Product;
 use App\Models\Role;
 use App\Models\User;
 use App\Notifications\NewUserRegisteredNotification;
@@ -254,7 +255,7 @@ class UserController extends Controller
 
                 $user->update(['is_online' => 1, 'last_seen' => Carbon::now()]);
                 $request->session()->put('LoggedIn', $user->id);
-                return redirect('dashboard');
+                return redirect('shop');
             } else {
                 return back()->with('fail', 'Password does not match');
             }
@@ -630,10 +631,20 @@ class UserController extends Controller
     }
     public function shop()
     {
+        if (Session::has('LoggedIn')) {
 
-        $user_session = User::where('id', Session::get('LoggedIn'))->first();
-        $pages = Page::all();
-        return view('shop', compact('pages', 'user_session'));
+            $pages = Page::all();
+            $user_session = User::where('id', Session::get('LoggedIn'))->first();
+            $products = Product::orderBy('id', 'desc')->limit(10)->get();
+
+
+
+            $general_setting = GeneralSetting::find('1');
+            return view('shop', compact('products', 'user_session',  'general_setting', 'pages'));
+        } else {
+            return Redirect()->with('fail', 'You have to login first');
+        }
+
     }
     public function cart()
     {

@@ -21,7 +21,7 @@
                                     <div class="item-top mb-30">
                                         <h2>{{ __('Add New Brand') }}</h2>
                                     </div>
-                                    <form id="Form">
+                                    <form id="Form" action="{{ route('brands.store') }}" method="POST">
                                         @csrf
 
                                         <div class="input__group mb-25">
@@ -58,25 +58,25 @@
 
             $.ajax({
                 type: "POST",
-                url: "{{ route('category.store') }}",
+                url: "{{ route('brands.store') }}",
                 data: formData,
                 dataType: "json",
                 contentType: false, // Set contentType to false for file uploads
                 processData: false, // Set processData to false to prevent jQuery from automatically transforming the data
                 success: function(response) {
                     if (response.success) {
-                        toastr.success("Category successfully created.", "", {
+                        toastr.success("brand successfully created.", "", {
                             onHidden: function() {
-                                window.location.href = "{{ route('category.index') }}";
+                                window.location.href = "{{ route('brands.index') }}";
                             }
                         });
                     } else {
-                        toastr.error("Failed to create category.");
+                        toastr.error("Failed to create brand.");
                     }
                 },
                 error: function(xhr, status, error) {
                     console.error(xhr.responseText);
-                    toastr.error("Failed to create category. Please try again later.");
+                    toastr.error("Failed to create brand. Please try again later.");
                 }
             });
         });

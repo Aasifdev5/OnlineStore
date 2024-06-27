@@ -7,25 +7,7 @@
         @if ($user_session->is_super_admin == 1)
             <div class="container-fluid">
                 <div class="page-header">
-                    <div class="row">
-                        <div class="col">
-                            <div class="page-header-left">
-                                <h3>ACELERA</h3>
-                                <ol class="breadcrumb">
 
-                                    <li class="breadcrumb-item active">Panel</li>
-
-                                </ol>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="bookmark pull-right">
-
-                            </div>
-                        </div>
-
-                    </div>
                 </div>
             </div>
 

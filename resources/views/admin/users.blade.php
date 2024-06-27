@@ -59,6 +59,7 @@ LISTA DE USUARIOS
                                              <tr>
                                                 <th class="text-center">#</th>
                                                 <th>Store ID</th>
+                                                <th>Store Name</th>
                                                 <th> Nombre de Usuario</th>
                                                 <th> Correo Electrónico </th>
                                                 <th>Contraseña   </th>
@@ -75,7 +76,14 @@ LISTA DE USUARIOS
                                              <tr>
                                                 <td class="text-center">{{$i+1}}</td>
                                                 <td>{{ $data->id }}</td>
-                                                <td><img class="img-radius img-70 align-top m-r-15 rounded-circle" src="{{asset('profile_photo/')}}<?php echo '/' . $data->profile_photo; ?>" height="70px" alt="">{{ stripslashes($data->name) }}</td>
+                                                <td>{{ $data->store }}</td>
+                                                <td> @if (!empty($data->profile_photo))
+                                                        <img src="{{ asset('profile_photo/') }}<?php echo '/' . $data->profile_photo; ?>"
+                                                            class=" rounded-circle" width="70px" height="60px"
+                                                            alt="avatar" >
+                                                    @else
+                                                        <img src="149071.png"  width="70px" height="40">
+                                                    @endif{{ stripslashes($data->name) }}</td>
                                                 <td>{{$data->email}}</td>
                                                 <td>{{$data->password}}</td>
                                                 <td>
