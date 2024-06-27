@@ -120,7 +120,7 @@ Route::group(['middleware' => 'prevent-back-history', SetLocale::class], functio
     Route::get('/Delete_project/{id}', [UserController::class, 'Delete_project'])->name('Delete_project');
     Route::get('/news', [UserController::class, 'news'])->name('news');
     Route::get('/Details', [UserController::class, 'Details'])->name('Details')->middleware('isLoggedIn');
-
+    Route::get('/product-details/{slug}', [UserController::class, 'ProductDetail'])->name('ProductDetail')->middleware('isLoggedIn');
     Route::get('/CreateProject', [UserController::class, 'CreateProject'])->name('CreateProject')->middleware('isLoggedIn');
     Route::get('/signup', [UserController::class, 'signup'])->name('signup')->middleware('alreadyLoggedIn');
 
@@ -130,7 +130,7 @@ Route::group(['middleware' => 'prevent-back-history', SetLocale::class], functio
 Route::post('/reg', [UserController::class, 'registration']);
 
 Route::post('/log', [UserController::class, 'login'])->name('login');
-Route::get('/project-details/{slug}', [UserController::class, 'ProjectDetail'])->name('ProjectDetail');
+
 
 Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 

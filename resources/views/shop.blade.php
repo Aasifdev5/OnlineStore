@@ -651,7 +651,7 @@ Shop
                                                                 <span class="rating__review--text">(126) Review</span>
                                                             </li>
                                                         </ul>
-                                                        <h3 class="product__card--title"><a href="product-details.html">{{ $row->title }}</a></h3>
+                                                        <h3 class="product__card--title"><a href="{{ url('product-details') }}{{ '/' . $row->slug }}">{{ $row->title }}</a></h3>
                                                         <div class="product__card--price">
                                                             <span class="current__price">
 

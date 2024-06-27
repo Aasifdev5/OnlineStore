@@ -21,6 +21,7 @@ use App\Models\Page;
 use App\Models\PasswordReset;
 use App\Models\Payment;
 use App\Models\Product;
+use App\Models\Related_product;
 use App\Models\Role;
 use App\Models\User;
 use App\Notifications\NewUserRegisteredNotification;
@@ -263,38 +264,20 @@ class UserController extends Controller
             return back()->with('fail', 'Email is not registered');
         }
     }
-    public function ProjectDetail($slug)
+    public function ProductDetail($slug)
     {
+        if (Session::has('LoggedIn')) {
+            $pages = Page::all();
+            $user_session = User::where('id', Session::get('LoggedIn'))->first();
+            $product = Product::where('slug', $slug)->first();
 
-        $pages = Page::all();
-        $user_session = User::where('id', Session::get('LoggedIn'))->first();
-        $campaign = Campaign::where('slug', $slug)->first();
-        $projects = Campaign::inRandomOrder()->take(3)->get();
-        $totalRaised = Payment::whereHas('campaign', function ($query) use ($campaign) {
-            $query->where('id', $campaign->id);
-        })
-            ->where('accepted', 1)
-            ->sum('amount');
-        $totalRaisedArray = [];
-        $percentRaisedArray = [];
+            $related_products = Related_product::where('product_id', $product->id)->take(3)->get();
 
-        foreach ($projects as $row) {
-            $totalRaised = Payment::whereHas('campaign', function ($query) use ($row) {
-                $query->where('id', $row->id);
-            })
-                ->where('accepted', 1)
-                ->sum('amount');
-
-            $percentRaised = intval(($totalRaised / $row->goal) * 100);
-
-
-            $totalRaisedArray[$row->id] = $totalRaised;
-            $percentRaisedArray[$row->id] = $percentRaised;
+            $general_setting = GeneralSetting::find('1');
+            return view('product_detail', compact('product', 'user_session', 'related_products', 'general_setting', 'pages'));
+        } else {
+            return Redirect()->with('fail', 'You have to login first');
         }
-        $percentRaised = intval(($totalRaised / $campaign->goal) * 100);
-
-        $general_setting = GeneralSetting::find('1');
-        return view('appointment', compact('campaign', 'user_session', 'projects', 'percentRaised', 'general_setting', 'pages', 'totalRaisedArray', 'percentRaisedArray'));
     }
     public function MyProject()
     {
@@ -334,7 +317,7 @@ class UserController extends Controller
         $pages = Page::all();
         $user_session = User::where('id', Session::get('LoggedIn'))->first();
 
-        return view('wishlist', compact('user_session','pages'));
+        return view('wishlist', compact('user_session', 'pages'));
     }
     public function edit_project(Request $request)
     {
@@ -354,25 +337,25 @@ class UserController extends Controller
         }
     }
     public function storeLikes(Request $request)
-{
+    {
 
 
 
-    // Create a new Like record
-   $data= Like::create([
-        'project_id' => $request->projectId,
-    ]);
-    // dd($data);
-    // Get the updated like count for the project
-    $likeCount = Like::where('project_id', $request->projectId)->count();
+        // Create a new Like record
+        $data = Like::create([
+            'project_id' => $request->projectId,
+        ]);
+        // dd($data);
+        // Get the updated like count for the project
+        $likeCount = Like::where('project_id', $request->projectId)->count();
 
-    // Return response (optional)
-    return response()->json([
-        'success' => true,
-        'likeCount' => $likeCount,
-        'message' => 'Liked Successfully'
-    ]);
-}
+        // Return response (optional)
+        return response()->json([
+            'success' => true,
+            'likeCount' => $likeCount,
+            'message' => 'Liked Successfully'
+        ]);
+    }
 
     public function checkLike(Request $request)
     {
@@ -644,7 +627,6 @@ class UserController extends Controller
         } else {
             return Redirect()->with('fail', 'You have to login first');
         }
-
     }
     public function cart()
     {
@@ -844,7 +826,7 @@ class UserController extends Controller
 
         # Update the new Password
         $data = User::find($request->user_id);
-        $data->address = ($request->address.' '.$request->city);
+        $data->address = ($request->address . ' ' . $request->city);
         $data->save();
 
         return back()->with('success', 'Successfully Updated');
