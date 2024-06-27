@@ -271,7 +271,12 @@ class UserController extends Controller
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
             $product = Product::where('slug', $slug)->first();
 
-            $related_products = Related_product::where('product_id', $product->id)->take(3)->get();
+            $related_products = DB::table('products')
+                                                            ->join('related_products', 'products.id', '=', 'related_products.related_item_id')
+                                                            ->select('related_products.id as related_id', 'products.title', 'products.f_thumbnail', 'products.slug', 'products.price1', 'products.price2', 'products.price3', 'products.price4', 'products.price5')
+                                                            ->where('related_products.product_id', $product->id)
+                                                            ->orderBy('related_products.id', 'desc')
+                                                            ->paginate(15);
 
             $general_setting = GeneralSetting::find('1');
             return view('product_detail', compact('product', 'user_session', 'related_products', 'general_setting', 'pages'));
