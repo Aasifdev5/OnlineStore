@@ -10,216 +10,8 @@ Shop
             <div class="row">
                 <div class="col-xl-3 col-lg-4 shop-col-width-lg-4">
                     <div class="shop__sidebar--widget widget__area d-none d-lg-block">
-                        <div class="single__widget widget__bg">
-                            <h2 class="widget__title h3">Categories</h2>
-                            <ul class="widget__categories--menu">
-                                <li class="widget__categories--menu__list">
-                                    <label class="widget__categories--menu__label d-flex align-items-center">
-                                        <img class="widget__categories--menu__img" src="assets/img/product/small-product/product1.webp" alt="categories-img">
-                                        <span class="widget__categories--menu__text">Smart Devices</span>
-                                        <svg class="widget__categories--menu__arrowdown--icon" xmlns="http://www.w3.org/2000/svg" width="12.355" height="8.394">
-                                            <path  d="M15.138,8.59l-3.961,3.952L7.217,8.59,6,9.807l5.178,5.178,5.178-5.178Z" transform="translate(-6 -8.59)" fill="currentColor"></path>
-                                        </svg>
-                                    </label>
-                                    <ul class="widget__categories--sub__menu">
-                                        <li class="widget__categories--sub__menu--list">
-                                            <a class="widget__categories--sub__menu--link d-flex align-items-center" href="shop.html">
-                                                <img class="widget__categories--sub__menu--img" src="assets/img/product/small-product/product2.webp" alt="categories-img">
-                                                <span class="widget__categories--sub__menu--text">Discount Weekly</span>
-                                            </a>
-                                        </li>
-                                        <li class="widget__categories--sub__menu--list">
-                                            <a class="widget__categories--sub__menu--link d-flex align-items-center" href="shop.html">
-                                                <img class="widget__categories--sub__menu--img" src="assets/img/product/small-product/product3.webp" alt="categories-img">
-                                                <span class="widget__categories--sub__menu--text">Green dhaniya</span>
-                                            </a>
-                                        </li>
-                                        <li class="widget__categories--sub__menu--list">
-                                            <a class="widget__categories--sub__menu--link d-flex align-items-center" href="shop.html">
-                                                <img class="widget__categories--sub__menu--img" src="assets/img/product/small-product/product4.webp" alt="categories-img">
-                                                <span class="widget__categories--sub__menu--text">resh Nuts</span>
-                                            </a>
-                                        </li>
-                                        <li class="widget__categories--sub__menu--list">
-                                            <a class="widget__categories--sub__menu--link d-flex align-items-center" href="shop.html">
-                                                <img class="widget__categories--sub__menu--img" src="assets/img/product/small-product/product5.webp" alt="categories-img">
-                                                <span class="widget__categories--sub__menu--text">Millk Cream</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="widget__categories--menu__list">
-                                    <label class="widget__categories--menu__label d-flex align-items-center">
-                                        <img class="widget__categories--menu__img" src="assets/img/product/small-product/product2.webp" alt="categories-img">
-                                        <span class="widget__categories--menu__text">Break disc Parts</span>
-                                        <svg class="widget__categories--menu__arrowdown--icon" xmlns="http://www.w3.org/2000/svg" width="12.355" height="8.394" >
-                                            <path  d="M15.138,8.59l-3.961,3.952L7.217,8.59,6,9.807l5.178,5.178,5.178-5.178Z" transform="translate(-6 -8.59)" fill="currentColor"></path>
-                                        </svg>
-                                    </label>
-                                    <ul class="widget__categories--sub__menu">
-                                        <li class="widget__categories--sub__menu--list">
-                                            <a class="widget__categories--sub__menu--link d-flex align-items-center" href="shop.html">
-                                                <img class="widget__categories--sub__menu--img" src="assets/img/product/small-product/product2.webp" alt="categories-img">
-                                                <span class="widget__categories--sub__menu--text">Discount Weekly</span>
-                                            </a>
-                                        </li>
-                                        <li class="widget__categories--sub__menu--list">
-                                            <a class="widget__categories--sub__menu--link d-flex align-items-center" href="shop.html">
-                                                <img class="widget__categories--sub__menu--img" src="assets/img/product/small-product/product3.webp" alt="categories-img">
-                                                <span class="widget__categories--sub__menu--text">Green dhaniya</span>
-                                            </a>
-                                        </li>
-                                        <li class="widget__categories--sub__menu--list">
-                                            <a class="widget__categories--sub__menu--link d-flex align-items-center" href="shop.html">
-                                                <img class="widget__categories--sub__menu--img" src="assets/img/product/small-product/product4.webp" alt="categories-img">
-                                                <span class="widget__categories--sub__menu--text">resh Nuts</span>
-                                            </a>
-                                        </li>
-                                        <li class="widget__categories--sub__menu--list">
-                                            <a class="widget__categories--sub__menu--link d-flex align-items-center" href="shop.html">
-                                                <img class="widget__categories--sub__menu--img" src="assets/img/product/small-product/product5.webp" alt="categories-img">
-                                                <span class="widget__categories--sub__menu--text">Millk Cream</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="widget__categories--menu__list">
-                                    <label class="widget__categories--menu__label d-flex align-items-center">
-                                        <img class="widget__categories--menu__img" src="assets/img/product/small-product/product3.webp" alt="categories-img">
-                                        <span class="widget__categories--menu__text">Service Kits</span>
-                                        <svg class="widget__categories--menu__arrowdown--icon" xmlns="http://www.w3.org/2000/svg" width="12.355" height="8.394">
-                                            <path  d="M15.138,8.59l-3.961,3.952L7.217,8.59,6,9.807l5.178,5.178,5.178-5.178Z" transform="translate(-6 -8.59)" fill="currentColor"></path>
-                                        </svg>
-                                    </label>
-                                    <ul class="widget__categories--sub__menu">
-                                        <li class="widget__categories--sub__menu--list">
-                                            <a class="widget__categories--sub__menu--link d-flex align-items-center" href="shop.html">
-                                                <img class="widget__categories--sub__menu--img" src="assets/img/product/small-product/product2.webp" alt="categories-img">
-                                                <span class="widget__categories--sub__menu--text">Discount Weekly</span>
-                                            </a>
-                                        </li>
-                                        <li class="widget__categories--sub__menu--list">
-                                            <a class="widget__categories--sub__menu--link d-flex align-items-center" href="shop.html">
-                                                <img class="widget__categories--sub__menu--img" src="assets/img/product/small-product/product3.webp" alt="categories-img">
-                                                <span class="widget__categories--sub__menu--text">Green dhaniya</span>
-                                            </a>
-                                        </li>
-                                        <li class="widget__categories--sub__menu--list">
-                                            <a class="widget__categories--sub__menu--link d-flex align-items-center" href="shop.html">
-                                                <img class="widget__categories--sub__menu--img" src="assets/img/product/small-product/product4.webp" alt="categories-img">
-                                                <span class="widget__categories--sub__menu--text">resh Nuts</span>
-                                            </a>
-                                        </li>
-                                        <li class="widget__categories--sub__menu--list">
-                                            <a class="widget__categories--sub__menu--link d-flex align-items-center" href="shop.html">
-                                                <img class="widget__categories--sub__menu--img" src="assets/img/product/small-product/product5.webp" alt="categories-img">
-                                                <span class="widget__categories--sub__menu--text">Millk Cream</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="widget__categories--menu__list">
-                                    <label class="widget__categories--menu__label d-flex align-items-center">
-                                        <img class="widget__categories--menu__img" src="assets/img/product/small-product/product4.webp" alt="categories-img">
-                                        <span class="widget__categories--menu__text">Engine Parts</span>
-                                        <svg class="widget__categories--menu__arrowdown--icon" xmlns="http://www.w3.org/2000/svg" width="12.355" height="8.394">
-                                            <path  d="M15.138,8.59l-3.961,3.952L7.217,8.59,6,9.807l5.178,5.178,5.178-5.178Z" transform="translate(-6 -8.59)" fill="currentColor"></path>
-                                        </svg>
-                                    </label>
-                                    <ul class="widget__categories--sub__menu">
-                                        <li class="widget__categories--sub__menu--list">
-                                            <a class="widget__categories--sub__menu--link d-flex align-items-center" href="shop.html">
-                                                <img class="widget__categories--sub__menu--img" src="assets/img/product/small-product/product2.webp" alt="categories-img">
-                                                <span class="widget__categories--sub__menu--text">Discount Weekly</span>
-                                            </a>
-                                        </li>
-                                        <li class="widget__categories--sub__menu--list">
-                                            <a class="widget__categories--sub__menu--link d-flex align-items-center" href="shop.html">
-                                                <img class="widget__categories--sub__menu--img" src="assets/img/product/small-product/product3.webp" alt="categories-img">
-                                                <span class="widget__categories--sub__menu--text">Green dhaniya</span>
-                                            </a>
-                                        </li>
-                                        <li class="widget__categories--sub__menu--list">
-                                            <a class="widget__categories--sub__menu--link d-flex align-items-center" href="shop.html">
-                                                <img class="widget__categories--sub__menu--img" src="assets/img/product/small-product/product4.webp" alt="categories-img">
-                                                <span class="widget__categories--sub__menu--text">resh Nuts</span>
-                                            </a>
-                                        </li>
-                                        <li class="widget__categories--sub__menu--list">
-                                            <a class="widget__categories--sub__menu--link d-flex align-items-center" href="shop.html">
-                                                <img class="widget__categories--sub__menu--img" src="assets/img/product/small-product/product5.webp" alt="categories-img">
-                                                <span class="widget__categories--sub__menu--text">Millk Cream</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="widget__categories--menu__list">
-                                    <label class="widget__categories--menu__label d-flex align-items-center">
-                                        <img class="widget__categories--menu__img" src="assets/img/product/small-product/product5.webp" alt="categories-img">
-                                        <span class="widget__categories--menu__text">Oil & Lubricants</span>
-                                        <svg class="widget__categories--menu__arrowdown--icon" xmlns="http://www.w3.org/2000/svg" width="12.355" height="8.394">
-                                            <path  d="M15.138,8.59l-3.961,3.952L7.217,8.59,6,9.807l5.178,5.178,5.178-5.178Z" transform="translate(-6 -8.59)" fill="currentColor"></path>
-                                        </svg>
-                                    </label>
-                                    <ul class="widget__categories--sub__menu">
-                                        <li class="widget__categories--sub__menu--list">
-                                            <a class="widget__categories--sub__menu--link d-flex align-items-center" href="shop.html">
-                                                <img class="widget__categories--sub__menu--img" src="assets/img/product/small-product/product2.webp" alt="categories-img">
-                                                <span class="widget__categories--sub__menu--text">Discount Weekly</span>
-                                            </a>
-                                        </li>
-                                        <li class="widget__categories--sub__menu--list">
-                                            <a class="widget__categories--sub__menu--link d-flex align-items-center" href="shop.html">
-                                                <img class="widget__categories--sub__menu--img" src="assets/img/product/small-product/product3.webp" alt="categories-img">
-                                                <span class="widget__categories--sub__menu--text">Green dhaniya</span>
-                                            </a>
-                                        </li>
-                                        <li class="widget__categories--sub__menu--list">
-                                            <a class="widget__categories--sub__menu--link d-flex align-items-center" href="shop.html">
-                                                <img class="widget__categories--sub__menu--img" src="assets/img/product/small-product/product4.webp" alt="categories-img">
-                                                <span class="widget__categories--sub__menu--text">resh Nuts</span>
-                                            </a>
-                                        </li>
-                                        <li class="widget__categories--sub__menu--list">
-                                            <a class="widget__categories--sub__menu--link d-flex align-items-center" href="shop.html">
-                                                <img class="widget__categories--sub__menu--img" src="assets/img/product/small-product/product5.webp" alt="categories-img">
-                                                <span class="widget__categories--sub__menu--text">Millk Cream</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="single__widget widget__bg">
-                            <h2 class="widget__title h3">Dietary Needs</h2>
-                            <ul class="widget__form--check">
-                                <li class="widget__form--check__list">
-                                    <label class="widget__form--check__label" for="check1">Body Parts</label>
-                                    <input class="widget__form--check__input" id="check1" type="checkbox">
-                                    <span class="widget__form--checkmark"></span>
-                                </li>
-                                <li class="widget__form--check__list">
-                                    <label class="widget__form--check__label" for="check2">Oiles Fluids</label>
-                                    <input class="widget__form--check__input" id="check2" type="checkbox">
-                                    <span class="widget__form--checkmark"></span>
-                                </li>
-                                <li class="widget__form--check__list">
-                                    <label class="widget__form--check__label" for="check3">Car care kits</label>
-                                    <input class="widget__form--check__input" id="check3" type="checkbox">
-                                    <span class="widget__form--checkmark"></span>
-                                </li>
-                                <li class="widget__form--check__list">
-                                    <label class="widget__form--check__label" for="check4">Brake disks</label>
-                                    <input class="widget__form--check__input" id="check4" type="checkbox">
-                                    <span class="widget__form--checkmark"></span>
-                                </li>
-                                <li class="widget__form--check__list">
-                                    <label class="widget__form--check__label" for="check5">Repair Parts</label>
-                                    <input class="widget__form--check__input" id="check5" type="checkbox">
-                                    <span class="widget__form--checkmark"></span>
-                                </li>
-                            </ul>
-                        </div>
+
+
                         <div class="single__widget price__filter widget__bg">
                             <h2 class="widget__title h3">Filter By Price</h2>
                             <form class="price__filter--form" action="#">
@@ -397,15 +189,13 @@ Shop
                         <div class="single__widget widget__bg">
                             <h2 class="widget__title h3">Brands</h2>
                             <ul class="widget__tagcloud">
-                                <li class="widget__tagcloud--list"><a class="widget__tagcloud--link" href="shop.html"> Paintworks
+                                @php
+                                $brands = \App\Models\Brand::all();
+                                @endphp
+                                @foreach($brands as $row)
+                                <li class="widget__tagcloud--list"><a class="widget__tagcloud--link" href="shop.html"> {{$row->name}}
                                 </a></li>
-                                <li class="widget__tagcloud--list"><a class="widget__tagcloud--link" href="shop.html">Lighting</a></li>
-                                <li class="widget__tagcloud--list"><a class="widget__tagcloud--link" href="shop.html">Gaming</a></li>
-                                <li class="widget__tagcloud--list"><a class="widget__tagcloud--link" href="shop.html">Bumpers </a></li>
-                                <li class="widget__tagcloud--list"><a class="widget__tagcloud--link" href="shop.html">Hoods </a></li>
-                                <li class="widget__tagcloud--list"><a class="widget__tagcloud--link" href="shop.html">Air Boxes</a></li>
-                                <li class="widget__tagcloud--list"><a class="widget__tagcloud--link" href="shop.html">Fog Lights</a></li>
-                                <li class="widget__tagcloud--list"><a class="widget__tagcloud--link" href="shop.html">Interior </a></li>
+                               @endforeach
                             </ul>
                         </div>
                     </div>
@@ -418,94 +208,24 @@ Shop
                                 <h2 class="section__heading--maintitle">Shop By <span>Categories</span></h2>
                             </div>
                             <ul class="categories__shop--inner">
-                                <li class="categories__shop--card">
-                                    <a class="categories__shop--card__link" href="product-details.html">
+                                 @php
+                                   $categories = \App\Models\Category::all();
+                                   @endphp
+                                     @foreach ($categories as $parentCategory)
+                                               <li class="categories__shop--card">
+                                    <a class="categories__shop--card__link" href="{{url('shop')}}">
                                         <div class="categories__thumbnail mb-15">
                                             <img class="categories__thumbnail--img" src="assets/img/product/main-product/product1.webp" alt="categories-img">
                                         </div>
                                         <div class="categories__content">
-                                            <h2 class="categories__content--title">Auto Parts</h2>
-                                            <span class="categories__content--subtitle">(20 Items)</span>
+                                            <h2 class="categories__content--title">{{$parentCategory->name}}</h2>
+                                            <span class="categories__content--subtitle">( Items)</span>
                                         </div>
                                     </a>
                                 </li>
-                                <li class="categories__shop--card">
-                                    <a class="categories__shop--card__link" href="product-details.html">
-                                        <div class="categories__thumbnail mb-15">
-                                            <img class="categories__thumbnail--img" src="assets/img/product/main-product/product2.webp" alt="categories-img">
-                                        </div>
-                                        <div class="categories__content">
-                                            <h2 class="categories__content--title">TPMS Sensors</h2>
-                                            <span class="categories__content--subtitle">(18 Items)</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="categories__shop--card">
-                                    <a class="categories__shop--card__link" href="product-details.html">
-                                        <div class="categories__thumbnail mb-15">
-                                            <img class="categories__thumbnail--img" src="assets/img/product/main-product/product3.webp" alt="categories-img">
-                                        </div>
-                                        <div class="categories__content">
-                                            <h2 class="categories__content--title">Parts Box</h2>
-                                            <span class="categories__content--subtitle">(22 Items)</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="categories__shop--card">
-                                    <a class="categories__shop--card__link" href="product-details.html">
-                                        <div class="categories__thumbnail mb-15">
-                                            <img class="categories__thumbnail--img" src="assets/img/product/main-product/product4.webp" alt="categories-img">
-                                        </div>
-                                        <div class="categories__content">
-                                            <h2 class="categories__content--title">Tires Chains</h2>
-                                            <span class="categories__content--subtitle">(16 Items)</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="categories__shop--card">
-                                    <a class="categories__shop--card__link" href="product-details.html">
-                                        <div class="categories__thumbnail mb-15">
-                                            <img class="categories__thumbnail--img" src="assets/img/product/main-product/product5.webp" alt="categories-img">
-                                        </div>
-                                        <div class="categories__content">
-                                            <h2 class="categories__content--title">Caliper Covers</h2>
-                                            <span class="categories__content--subtitle">(25 Items)</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="categories__shop--card">
-                                    <a class="categories__shop--card__link" href="product-details.html">
-                                        <div class="categories__thumbnail mb-15">
-                                            <img class="categories__thumbnail--img" src="assets/img/product/main-product/product6.webp" alt="categories-img">
-                                        </div>
-                                        <div class="categories__content">
-                                            <h2 class="categories__content--title">Wheel Adapter</h2>
-                                            <span class="categories__content--subtitle">(17 Items)</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="categories__shop--card">
-                                    <a class="categories__shop--card__link" href="product-details.html">
-                                        <div class="categories__thumbnail mb-15">
-                                            <img class="categories__thumbnail--img" src="assets/img/product/main-product/product11.webp" alt="categories-img">
-                                        </div>
-                                        <div class="categories__content">
-                                            <h2 class="categories__content--title">Engine Parts</h2>
-                                            <span class="categories__content--subtitle">(22 Items)</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="categories__shop--card">
-                                    <a class="categories__shop--card__link" href="product-details.html">
-                                        <div class="categories__thumbnail mb-15">
-                                            <img class="categories__thumbnail--img" src="assets/img/product/main-product/product12.webp" alt="categories-img">
-                                        </div>
-                                        <div class="categories__content">
-                                            <h2 class="categories__content--title">Smart Devices</h2>
-                                            <span class="categories__content--subtitle">(26 Items)</span>
-                                        </div>
-                                    </a>
-                                </li>
+                                            @endforeach
+
+
                             </ul>
                         </div>
                         <!-- End categories section -->
@@ -585,11 +305,11 @@ Shop
                                             <div class="col-lg-4 col-md-4 col-sm-6 col-6 custom-col mb-30">
                                                 <article class="product__card">
                                                     <div class="product__card--thumbnail">
-                                                        <a class="product__card--thumbnail__link display-block" href="product-details.html">
+                                                        <a class="product__card--thumbnail__link display-block" href="{{ url('product-details') }}{{ '/' . $row->slug }}">
                                                             <img class="product__card--thumbnail__img product__primary--img" src="{{ asset('f_thumbnail/' . $row->f_thumbnail) }}" alt="product-img">
                                                             <img class="product__card--thumbnail__img product__secondary--img" src="{{ asset('f_thumbnail/' . $row->f_thumbnail) }}" alt="product-img">
                                                         </a>
-                                                        <span class="product__badge">-14%</span>
+
                                                         <ul class="product__card--action d-flex align-items-center justify-content-center">
                                                             <li class="product__card--action__list">
                                                                 <a class="product__card--action__btn" title="Quick View" data-bs-toggle="modal" data-bs-target="#examplemodal" href="javascript:void(0)">

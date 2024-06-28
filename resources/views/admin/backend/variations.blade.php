@@ -62,7 +62,9 @@
                                                     role="tab" aria-controls="variations" aria-selected="false"><i
                                                         class="fa fa-hourglass-end"></i> {{ __('Variations') }}</a>
                                             </li>
-                                            <li class="nav-item"><a class="nav-link" href="{{ route('backend.related-products', [$datalist['id']]) }}"><i class="fa fa-compass"></i>{{ __('Related Products') }}</a></li>
+                                            <li class="nav-item"><a class="nav-link"
+                                                    href="{{ route('backend.related-products', [$datalist['id']]) }}"><i
+                                                        class="fa fa-compass"></i>{{ __('Related Products') }}</a></li>
                                             <li class="nav-item">
                                                 <a class="nav-link" id="seo-tab" data-toggle="tab"
                                                     href="{{ route('backend.product-seo', [$datalist['id']]) }}"
@@ -109,25 +111,48 @@
                                                         <div class="col-md-12">
                                                             <div class="form-group">
                                                                 <label for="variation_color">{{ __('Color') }}</label>
-                                                                <select data-placeholder="{{ __('Select Color') }}"
-                                                                    name="variation_color[]" id="variation_color"
-                                                                    class="select2 form-control" multiple>
-                                                                    <option value="red"
-                                                                        {{ in_array('red', explode(',', $datalist->variation_color)) ? 'selected' : '' }}>
-                                                                        Red</option>
-                                                                    <option value="green"
-                                                                        {{ in_array('green', explode(',', $datalist->variation_color)) ? 'selected' : '' }}>
-                                                                        Green</option>
-                                                                    <option value="blue"
-                                                                        {{ in_array('blue', explode(',', $datalist->variation_color)) ? 'selected' : '' }}>
-                                                                        Blue</option>
-                                                                    <option value="black"
-                                                                        {{ in_array('black', explode(',', $datalist->variation_color)) ? 'selected' : '' }}>
-                                                                        Black</option>
-                                                                    <option value="white"
-                                                                        {{ in_array('white', explode(',', $datalist->variation_color)) ? 'selected' : '' }}>
-                                                                        White</option>
-                                                                </select>
+                                                                @php
+                                                                    // List of all available colors
+                                                                    $colors = [
+                                                                        'red',
+                                                                        'green',
+                                                                        'blue',
+                                                                        'black',
+                                                                        'white',
+                                                                        'yellow',
+                                                                        'purple',
+                                                                        'orange',
+                                                                        'pink',
+                                                                        'brown',
+                                                                        'gray',
+                                                                    ];
+
+                                                                    // Existing selected colors
+                                                                    $selectedColors = explode(
+                                                                        ',',
+                                                                        $datalist->variation_color,
+                                                                    );
+                                                                @endphp
+
+                                                                <div class="input__group mb-25">
+                                                                    <label
+                                                                        for="variation_color">{{ __('Select Color') }}</label>
+                                                                    <select data-placeholder="{{ __('Select Color') }}"
+                                                                        name="variation_color[]" id="variation_color"
+                                                                        class="select2 form-control" multiple>
+                                                                        @foreach ($colors as $color)
+                                                                            <option value="{{ $color }}"
+                                                                                {{ in_array($color, $selectedColors) ? 'selected' : '' }}>
+                                                                                {{ ucfirst($color) }}
+                                                                            </option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                    @if ($errors->has('variation_color'))
+                                                                        <span class="text-danger"><i
+                                                                                class="fas fa-exclamation-triangle"></i>
+                                                                            {{ $errors->first('variation_color') }}</span>
+                                                                    @endif
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>

@@ -14,6 +14,7 @@
                                 <div class="swiper-wrapper">
                                     @php
                                         $productImages = \App\Models\Pro_image::where('product_id', $product->id)
+                                            ->where('color','')
                                             ->orderBy('id', 'desc')
                                             ->get();
                                     @endphp

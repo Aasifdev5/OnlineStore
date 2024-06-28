@@ -106,12 +106,16 @@
                     <div class="header__search--widget d-none d-lg-block header__sticky--none">
                         <form class="d-flex header__search--form border-radius-5" action="#">
                             <div class="header__select--categories select">
-                                <select class="header__select--inner">
+                                <select name="category_id" class="header__select--inner">
                                     <option selected value="1"> All categories</option>
-                                    <option value="2">Accessories</option>
-                                    <option value="3">Accessories & More</option>
-                                    <option value="4">Camera & Video </option>
-                                    <option value="5">Butters & Eggs </option>
+                                   @php
+                                   $categories = \App\Models\Category::all();
+                                   @endphp
+                                     @foreach ($categories as $parentCategory)
+                                                <option value="{{ $parentCategory->id }}">
+                                                    {{ $parentCategory->name }}</option>
+                                            @endforeach
+
                                 </select>
                             </div>
                             <div class="header__search--box">
@@ -337,377 +341,51 @@
                                     transform="translate(-6 -8.59)" fill="currentColor" />
                             </svg>
                         </div>
-                        {{-- @php
-                            dd($_SERVER);
-                        @endphp --}}
+
                         <div class="dropdown__categories--menu border-radius-5 active collapse @if ($_SERVER['REQUEST_URI'] == '/') show @endif"
                             id="categoriesAccordion">
                             <ul class="d-none d-lg-block">
-                                <li class="categories__menu--items">
-                                    <a class="categories__menu--link" href="{{url('shop')}}">
-                                        <svg class="categories__menu--svgicon" xmlns="http://www.w3.org/2000/svg"
-                                            width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <rect x="2" y="3" width="20" height="14" rx="2"
-                                                ry="2"></rect>
-                                            <line x1="8" y1="21" x2="16" y2="21">
-                                            </line>
-                                            <line x1="12" y1="17" x2="12" y2="21">
-                                            </line>
-                                        </svg>
-                                        Lighting
-                                    </a>
-                                </li>
-                                <li class="categories__menu--items">
-                                    <a class="categories__menu--link" href="{{url('shop')}}">
-                                        <svg class="categories__menu--svgicon" xmlns="http://www.w3.org/2000/svg"
-                                            width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <polyline points="6 9 6 2 18 2 18 9"></polyline>
-                                            <path
-                                                d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2">
-                                            </path>
-                                            <rect x="6" y="14" width="12" height="8"></rect>
-                                        </svg> Smart Devices
+                               @php
+    $categories = \App\Models\Category::all();
+@endphp
+@foreach ($categories as $parentCategory)
+    <li class="categories__menu--items {{ $parentCategory->id }}">
+        <a class="categories__menu--link" href="{{url('shop')}}">
+            <svg class="categories__menu--svgicon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                <rect x="6" y="14" width="12" height="8"></rect>
+            </svg> {{$parentCategory->name}}
 
-                                        <svg class="categories__menu--right__arrow--icon"
-                                            xmlns="http://www.w3.org/2000/svg" width="17.007" height="16.831"
-                                            viewBox="0 0 512 512">
-                                            <path fill="none" stroke="currentColor" stroke-linecap="round"
-                                                stroke-linejoin="round" stroke-width="48"
-                                                d="M184 112l144 144-144 144" />
-                                        </svg>
-                                    </a>
-                                    <ul class="categories__submenu border-radius-10 d-flex justify-content-between">
-                                        <li class="categories__submenu--items"><a
-                                                class="categories__submenu--items__text" href="{{url('shop')}}"><strong>Body
-                                                    Parts</strong></a>
-                                            <ul class="categories__submenu--child">
-                                                <li class="categories__submenu--child__items"><a
-                                                        class="categories__submenu--child__items--link"
-                                                        href="{{url('shop')}}">Brake Calipers </a></li>
-                                                <li class="categories__submenu--child__items"><a
-                                                        class="categories__submenu--child__items--link"
-                                                        href="{{url('shop')}}">Engine Oil </a></li>
-                                                <li class="categories__submenu--child__items"><a
-                                                        class="categories__submenu--child__items--link"
-                                                        href="{{url('shop')}}">Motor Oil </a></li>
-                                                <li class="categories__submenu--child__items"><a
-                                                        class="categories__submenu--child__items--link"
-                                                        href="{{url('shop')}}">Oil Filters </a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="categories__submenu--items"><a
-                                                class="categories__submenu--items__text"
-                                                href="{{url('shop')}}"><strong>Interior Parts</strong></a>
-                                            <ul class="categories__submenu--child">
-                                                <li class="categories__submenu--child__items"><a
-                                                        class="categories__submenu--child__items--link"
-                                                        href="{{url('shop')}}">Air Boxes </a></li>
-                                                <li class="categories__submenu--child__items"><a
-                                                        class="categories__submenu--child__items--link"
-                                                        href="{{url('shop')}}">Tail Lights </a></li>
-                                                <li class="categories__submenu--child__items"><a
-                                                        class="categories__submenu--child__items--link"
-                                                        href="{{url('shop')}}">Mobile Electronics </a></li>
-                                                <li class="categories__submenu--child__items"><a
-                                                        class="categories__submenu--child__items--link"
-                                                        href="{{url('shop')}}">Car Covers </a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="categories__submenu--items"><a
-                                                class="categories__submenu--items__text"
-                                                href="{{url('shop')}}"><strong>Engine & Drivetrain</strong></a>
-                                            <ul class="categories__submenu--child">
-                                                <li class="categories__submenu--child__items"><a
-                                                        class="categories__submenu--child__items--link"
-                                                        href="{{url('shop')}}">Bumpers </a></li>
-                                                <li class="categories__submenu--child__items"><a
-                                                        class="categories__submenu--child__items--link"
-                                                        href="{{url('shop')}}">Hoods </a></li>
-                                                <li class="categories__submenu--child__items"><a
-                                                        class="categories__submenu--child__items--link"
-                                                        href="{{url('shop')}}">care kits </a></li>
-                                                <li class="categories__submenu--child__items"><a
-                                                        class="categories__submenu--child__items--link"
-                                                        href="{{url('shop')}}">Fog Lights </a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="categories__submenu--items"><a
-                                                class="categories__submenu--items__text"
-                                                href="{{url('shop')}}"><strong>Fluids & Chemicals</strong></a>
-                                            <ul class="categories__submenu--child">
-                                                <li class="categories__submenu--child__items"><a
-                                                        class="categories__submenu--child__items--link"
-                                                        href="{{url('shop')}}">Cabin Air Filters </a></li>
-                                                <li class="categories__submenu--child__items"><a
-                                                        class="categories__submenu--child__items--link"
-                                                        href="{{url('shop')}}">Pistons liners </a></li>
-                                                <li class="categories__submenu--child__items"><a
-                                                        class="categories__submenu--child__items--link"
-                                                        href="{{url('shop')}}">Oil & lubricants </a></li>
-                                                <li class="categories__submenu--child__items"><a
-                                                        class="categories__submenu--child__items--link"
-                                                        href="{{url('shop')}}"> Paintworks
-                                                    </a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="categories__submenu--items"><a
-                                                class="categories__submenu--items__text"
-                                                href="{{url('shop')}}"><strong>Cargo Accessories</strong></a>
-                                            <ul class="categories__submenu--child">
-                                                <li class="categories__submenu--child__items"><a
-                                                        class="categories__submenu--child__items--link"
-                                                        href="{{url('shop')}}">Body Parts </a></li>
-                                                <li class="categories__submenu--child__items"><a
-                                                        class="categories__submenu--child__items--link"
-                                                        href="{{url('shop')}}">Engine Parts </a></li>
-                                                <li class="categories__submenu--child__items"><a
-                                                        class="categories__submenu--child__items--link"
-                                                        href="{{url('shop')}}">Tires & Wheels </a></li>
-                                                <li class="categories__submenu--child__items"><a
-                                                        class="categories__submenu--child__items--link"
-                                                        href="{{url('shop')}}">Repair Parts </a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="categories__submenu--items">
-                                            <a class="categories__submenu--thumbnail" href="{{url('shop')}}">
-                                                <img src="assets/img/product/main-product/product1.webp"
-                                                    alt="categories-img">
-                                            </a>
-                                        </li>
-                                    </ul>
+            <svg class="categories__menu--right__arrow--icon" xmlns="http://www.w3.org/2000/svg" width="17.007" height="16.831" viewBox="0 0 512 512">
+                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M184 112l144 144-144 144" />
+            </svg>
+        </a>
 
-                                </li>
-                                <li class="categories__menu--items">
-                                    <a class="categories__menu--link" href="{{url('shop')}}">
-                                        <svg class="categories__menu--svgicon" xmlns="http://www.w3.org/2000/svg"
-                                            width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <rect x="2" y="7" width="20" height="15" rx="2"
-                                                ry="2"></rect>
-                                            <polyline points="17 2 12 7 7 2"></polyline>
-                                        </svg> Paintworks
-                                    </a>
-                                </li>
-                                <li class="categories__menu--items">
-                                    <a class="categories__menu--link" href="{{url('shop')}}">
-                                        <svg class="categories__menu--svgicon" xmlns="http://www.w3.org/2000/svg"
-                                            width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
-                                            <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
-                                            <line x1="6" y1="1" x2="6" y2="4">
-                                            </line>
-                                            <line x1="10" y1="1" x2="10" y2="4">
-                                            </line>
-                                            <line x1="14" y1="1" x2="14" y2="4">
-                                            </line>
-                                        </svg> Replacement Parts
-                                        <svg class="categories__menu--right__arrow--icon"
-                                            xmlns="http://www.w3.org/2000/svg" width="17.007" height="16.831"
-                                            viewBox="0 0 512 512">
-                                            <path fill="none" stroke="currentColor" stroke-linecap="round"
-                                                stroke-linejoin="round" stroke-width="48"
-                                                d="M184 112l144 144-144 144" />
-                                        </svg>
-                                    </a>
-                                    <ul
-                                        class="categories__submenu style2 border-radius-10 d-flex justify-content-between">
-                                        <li class="categories__submenu--items"><a
-                                                class="categories__submenu--items__text"
-                                                href="{{url('shop')}}"><strong>Fluids & Chemicals</strong></a>
-                                            <ul class="categories__submenu--child">
-                                                <li class="categories__submenu--child__items"><a
-                                                        class="categories__submenu--child__items--link"
-                                                        href="{{url('shop')}}">Cabin Air Filters </a></li>
-                                                <li class="categories__submenu--child__items"><a
-                                                        class="categories__submenu--child__items--link"
-                                                        href="{{url('shop')}}">Pistons liners </a></li>
-                                                <li class="categories__submenu--child__items"><a
-                                                        class="categories__submenu--child__items--link"
-                                                        href="{{url('shop')}}">Oil & lubricants </a></li>
-                                                <li class="categories__submenu--child__items"><a
-                                                        class="categories__submenu--child__items--link"
-                                                        href="{{url('shop')}}"> Paintworks
-                                                    </a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="categories__submenu--items"><a
-                                                class="categories__submenu--items__text"
-                                                href="{{url('shop')}}"><strong>Interior Parts</strong></a>
-                                            <ul class="categories__submenu--child">
-                                                <li class="categories__submenu--child__items"><a
-                                                        class="categories__submenu--child__items--link"
-                                                        href="{{url('shop')}}">Air Boxes </a></li>
-                                                <li class="categories__submenu--child__items"><a
-                                                        class="categories__submenu--child__items--link"
-                                                        href="{{url('shop')}}">Tail Lights </a></li>
-                                                <li class="categories__submenu--child__items"><a
-                                                        class="categories__submenu--child__items--link"
-                                                        href="{{url('shop')}}">Mobile Electronics </a></li>
-                                                <li class="categories__submenu--child__items"><a
-                                                        class="categories__submenu--child__items--link"
-                                                        href="{{url('shop')}}">Car Covers </a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="categories__submenu--items"><a
-                                                class="categories__submenu--items__text"
-                                                href="{{url('shop')}}"><strong>Engine & Drivetrain</strong></a>
-                                            <ul class="categories__submenu--child">
-                                                <li class="categories__submenu--child__items"><a
-                                                        class="categories__submenu--child__items--link"
-                                                        href="{{url('shop')}}">Bumpers </a></li>
-                                                <li class="categories__submenu--child__items"><a
-                                                        class="categories__submenu--child__items--link"
-                                                        href="{{url('shop')}}">Hoods </a></li>
-                                                <li class="categories__submenu--child__items"><a
-                                                        class="categories__submenu--child__items--link"
-                                                        href="{{url('shop')}}">Fog Lights </a></li>
-                                                <li class="categories__submenu--child__items"><a
-                                                        class="categories__submenu--child__items--link"
-                                                        href="{{url('shop')}}"> Engine Partses </a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="categories__submenu--items"><a
-                                                class="categories__submenu--items__text" href="{{url('shop')}}"><strong>Body
-                                                    Parts</strong></a>
-                                            <ul class="categories__submenu--child">
-                                                <li class="categories__submenu--child__items"><a
-                                                        class="categories__submenu--child__items--link"
-                                                        href="{{url('shop')}}">Brake Calipers </a></li>
-                                                <li class="categories__submenu--child__items"><a
-                                                        class="categories__submenu--child__items--link"
-                                                        href="{{url('shop')}}">Engine Oil </a></li>
-                                                <li class="categories__submenu--child__items"><a
-                                                        class="categories__submenu--child__items--link"
-                                                        href="{{url('shop')}}">Motor Oil </a></li>
-                                                <li class="categories__submenu--child__items"><a
-                                                        class="categories__submenu--child__items--link"
-                                                        href="{{url('shop')}}">Oil Filters </a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="categories__menu--items">
-                                    <a class="categories__menu--link" href="{{url('shop')}}">
-                                        <svg class="categories__menu--svgicon" xmlns="http://www.w3.org/2000/svg"
-                                            width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <rect x="4" y="4" width="16" height="16" rx="2"
-                                                ry="2"></rect>
-                                            <rect x="9" y="9" width="6" height="6"></rect>
-                                            <line x1="9" y1="1" x2="9" y2="4">
-                                            </line>
-                                            <line x1="15" y1="1" x2="15" y2="4">
-                                            </line>
-                                            <line x1="9" y1="20" x2="9" y2="23">
-                                            </line>
-                                            <line x1="15" y1="20" x2="15" y2="23">
-                                            </line>
-                                            <line x1="20" y1="9" x2="23" y2="9">
-                                            </line>
-                                            <line x1="20" y1="14" x2="23" y2="14">
-                                            </line>
-                                            <line x1="1" y1="9" x2="4" y2="9">
-                                            </line>
-                                            <line x1="1" y1="14" x2="4" y2="14">
-                                            </line>
-                                        </svg> Car Parts
-                                    </a>
-                                </li>
-                                <li class="categories__menu--items">
-                                    <a class="categories__menu--link" href="{{url('shop')}}">
-                                        <svg class="categories__menu--svgicon" xmlns="http://www.w3.org/2000/svg"
-                                            width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <line x1="22" y1="12" x2="2" y2="12">
-                                            </line>
-                                            <path
-                                                d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z">
-                                            </path>
-                                            <line x1="6" y1="16" x2="6.01" y2="16">
-                                            </line>
-                                            <line x1="10" y1="16" x2="10.01" y2="16">
-                                            </line>
-                                        </svg>Gaming Toiys
-                                    </a>
-                                </li>
-                                <li class="categories__menu--items">
-                                    <a class="categories__menu--link" href="{{url('shop')}}">
-                                        <svg class="categories__menu--svgicon" xmlns="http://www.w3.org/2000/svg"
-                                            width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                                            <polyline points="2 17 12 22 22 17"></polyline>
-                                            <polyline points="2 12 12 17 22 12"></polyline>
-                                        </svg> Oil Fluids
-                                    </a>
-                                </li>
-                                <li class="categories__menu--items">
-                                    <a class="categories__menu--link" href="{{url('shop')}}">
-                                        <svg class="categories__menu--svgicon" xmlns="http://www.w3.org/2000/svg"
-                                            width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <path d="M4 11a9 9 0 0 1 9 9"></path>
-                                            <path d="M4 4a16 16 0 0 1 16 16"></path>
-                                            <circle cx="5" cy="19" r="1"></circle>
-                                        </svg> Baby Car Seat
-                                    </a>
-                                </li>
-                                <li class="categories__menu--items">
-                                    <a class="categories__menu--link" href="{{url('shop')}}">
-                                        <svg class="categories__menu--svgicon" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 512 512">
-                                            <path
-                                                d="M322 416c0 35.35-20.65 64-56 64H134c-35.35 0-56-28.65-56-64M336 336c17.67 0 32 17.91 32 40h0c0 22.09-14.33 40-32 40H64c-17.67 0-32-17.91-32-40h0c0-22.09 14.33-40 32-40"
-                                                fill="none" stroke="currentColor" stroke-linecap="round"
-                                                stroke-miterlimit="10" stroke-width="32" />
-                                            <path
-                                                d="M344 336H179.31a8 8 0 00-5.65 2.34l-26.83 26.83a4 4 0 01-5.66 0l-26.83-26.83a8 8 0 00-5.65-2.34H56a24 24 0 01-24-24h0a24 24 0 0124-24h288a24 24 0 0124 24h0a24 24 0 01-24 24zM64 276v-.22c0-55 45-83.78 100-83.78h72c55 0 100 29 100 84v-.22M241 112l7.44 63.97"
-                                                fill="none" stroke="currentColor" stroke-linecap="round"
-                                                stroke-miterlimit="10" stroke-width="32" />
-                                            <path d="M256 480h139.31a32 32 0 0031.91-29.61L463 112" fill="none"
-                                                stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10"
-                                                stroke-width="32" />
-                                            <path fill="none" stroke="currentColor" stroke-linecap="round"
-                                                stroke-linejoin="round" stroke-width="32" d="M368 112l16-64 47-16" />
-                                            <path fill="none" stroke="currentColor" stroke-linecap="round"
-                                                stroke-miterlimit="10" stroke-width="32" d="M224 112h256" />
-                                        </svg> Bread & Bakery
-                                    </a>
-                                </li>
-                                <li class="categories__menu--items">
-                                    <a class="categories__menu--link" href="{{url('shop')}}">
-                                        <svg class="categories__menu--svgicon" xmlns="http://www.w3.org/2000/svg"
-                                            width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <rect x="2" y="7" width="20" height="14" rx="2"
-                                                ry="2"></rect>
-                                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-                                        </svg> Engine Parts
-                                    </a>
-                                </li>
-                                <li class="categories__menu--items">
-                                    <a class="categories__menu--link" href="{{url('shop')}}">
-                                        <svg class="categories__menu--svgicon" xmlns="http://www.w3.org/2000/svg"
-                                            width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"></path>
-                                            <path d="M13 13l6 6"></path>
-                                        </svg> Car & Motorbike Care
-                                    </a>
-                                </li>
+        <ul class="categories__submenu border-radius-10 d-flex justify-content-between">
+            @php
+                $subcategories = \App\Models\Subcategory::where('parent_category_id', $parentCategory->id)->where('category_id', '0')->get();
+            @endphp
+            @foreach ($subcategories as $subcategory)
+                <li class="categories__submenu--items">
+                    <a class="categories__submenu--items__text" href="{{url('shop')}}"><strong>{{ $subcategory->name }} </strong></a>
+                    <ul class="categories__submenu--child">
+                        @php
+                $childcategories = \App\Models\Subcategory::where('category_id', $subcategory->id)->get();
+            @endphp
+          @foreach ($childcategories as $childcategory)
+                        <li class="categories__submenu--child__items"><a class="categories__submenu--child__items--link" href="{{url('shop')}}">{{$childcategory->name}} </a></li>
+                        <!-- Add more subcategory items here if needed -->
+                        @endforeach
+                    </ul>
+                </li>
+            @endforeach
+        </ul>
+    </li>
+@endforeach
+
+
+
                             </ul>
                         </div>
                     </div>
@@ -733,21 +411,12 @@
                             id="categoriesAccordion2">
                             <nav class="category__mobile--menu">
                                 <ul class="category__mobile--menu_ul">
-                                    <li class="categories__menu--items">
-                                        <a class="categories__menu--link" href="{{url('shop')}}">
-                                            <svg class="categories__menu--svgicon" xmlns="http://www.w3.org/2000/svg"
-                                                width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <rect x="2" y="3" width="20" height="14" rx="2"
-                                                    ry="2"></rect>
-                                                <line x1="8" y1="21" x2="16" y2="21">
-                                                </line>
-                                                <line x1="12" y1="17" x2="12" y2="21">
-                                                </line>
-                                            </svg> Lighting
-                                        </a>
-                                    </li>
+
+
+ @php
+    $categories = \App\Models\Category::all();
+@endphp
+@foreach ($categories as $parentCategory)
                                     <li class="categories__menu--items">
                                         <a class="categories__menu--link" href="{{url('shop')}}">
                                             <svg class="categories__menu--svgicon" xmlns="http://www.w3.org/2000/svg"
@@ -759,273 +428,32 @@
                                                     d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2">
                                                 </path>
                                                 <rect x="6" y="14" width="12" height="8"></rect>
-                                            </svg> Smart Devices
+                                            </svg> {{$parentCategory->name}}
                                         </a>
                                         <ul class="category__sub--menu">
+                                              @php
+                $subcategories = \App\Models\Subcategory::where('parent_category_id', $parentCategory->id)->where('category_id', '0')->get();
+            @endphp
+            @foreach ($subcategories as $subcategory)
                                             <li class="categories__submenu--items"><a
-                                                    class="categories__submenu--items__text" href="{{url('shop')}}">Body
-                                                    Parts</a>
+                                                    class="categories__submenu--items__text" href="{{url('shop')}}">{{ $subcategory->name }}</a>
                                                 <ul class="category__sub--menu">
+                                                    @php
+                $childcategories = \App\Models\Subcategory::where('category_id', $subcategory->id)->get();
+            @endphp
+          @foreach ($childcategories as $childcategory)
                                                     <li class="categories__submenu--child__items"><a
                                                             class="categories__submenu--child__items--link"
-                                                            href="{{url('shop')}}">Brake Calipers </a></li>
-                                                    <li class="categories__submenu--child__items"><a
-                                                            class="categories__submenu--child__items--link"
-                                                            href="{{url('shop')}}">Oil and Vinegar </a></li>
-                                                    <li class="categories__submenu--child__items"><a
-                                                            class="categories__submenu--child__items--link"
-                                                            href="{{url('shop')}}">Engine Oil </a></li>
-                                                    <li class="categories__submenu--child__items"><a
-                                                            class="categories__submenu--child__items--link"
-                                                            href="{{url('shop')}}">Oil Filters </a></li>
+                                                            href="{{url('shop')}}">{{$childcategory->name}} </a></li>
+                                                             @endforeach
+
                                                 </ul>
                                             </li>
-                                            <li class="categories__submenu--items"><a
-                                                    class="categories__submenu--items__text" href="{{url('shop')}}">Interior
-                                                    Parts</a>
-                                                <ul class="category__sub--menu">
-                                                    <li class="categories__submenu--child__items"><a
-                                                            class="categories__submenu--child__items--link"
-                                                            href="{{url('shop')}}">Air Boxes </a></li>
-                                                    <li class="categories__submenu--child__items"><a
-                                                            class="categories__submenu--child__items--link"
-                                                            href="{{url('shop')}}">Tail Lights </a></li>
-                                                    <li class="categories__submenu--child__items"><a
-                                                            class="categories__submenu--child__items--link"
-                                                            href="{{url('shop')}}">Mobile Electronic </a></li>
-                                                    <li class="categories__submenu--child__items"><a
-                                                            class="categories__submenu--child__items--link"
-                                                            href="{{url('shop')}}">Car Covers </a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="categories__submenu--items"><a
-                                                    class="categories__submenu--items__text" href="{{url('shop')}}">Engine &
-                                                    Drivetrain</a>
-                                                <ul class="category__sub--menu">
-                                                    <li class="categories__submenu--child__items"><a
-                                                            class="categories__submenu--child__items--link"
-                                                            href="{{url('shop')}}">Cabin Air Filters </a></li>
-                                                    <li class="categories__submenu--child__items"><a
-                                                            class="categories__submenu--child__items--link"
-                                                            href="{{url('shop')}}">Pistons liners </a></li>
-                                                    <li class="categories__submenu--child__items"><a
-                                                            class="categories__submenu--child__items--link"
-                                                            href="{{url('shop')}}">Bread and Juice </a></li>
-                                                    <li class="categories__submenu--child__items"><a
-                                                            class="categories__submenu--child__items--link"
-                                                            href="{{url('shop')}}">Paintworks </a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="categories__submenu--items"><a
-                                                    class="categories__submenu--items__text" href="{{url('shop')}}">Cargo
-                                                    Accessories</a>
-                                                <ul class="category__sub--menu">
-                                                    <li class="categories__submenu--child__items"><a
-                                                            class="categories__submenu--child__items--link"
-                                                            href="{{url('shop')}}">Body Parts </a></li>
-                                                    <li class="categories__submenu--child__items"><a
-                                                            class="categories__submenu--child__items--link"
-                                                            href="{{url('shop')}}">Engine Parts</a></li>
-                                                    <li class="categories__submenu--child__items"><a
-                                                            class="categories__submenu--child__items--link"
-                                                            href="{{url('shop')}}">Tires & Wheels </a></li>
-                                                    <li class="categories__submenu--child__items"><a
-                                                            class="categories__submenu--child__items--link"
-                                                            href="{{url('shop')}}">Repair Parts </a></li>
-                                                </ul>
-                                            </li>
+                                            @endforeach
                                         </ul>
 
                                     </li>
-                                    <li class="categories__menu--items">
-                                        <a class="categories__menu--link" href="{{url('shop')}}">
-                                            <svg class="categories__menu--svgicon" xmlns="http://www.w3.org/2000/svg"
-                                                width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <rect x="2" y="7" width="20" height="15" rx="2"
-                                                    ry="2"></rect>
-                                                <polyline points="17 2 12 7 7 2"></polyline>
-                                            </svg> Paintworks
-                                        </a>
-                                    </li>
-                                    <li class="categories__menu--items">
-                                        <a class="categories__menu--link" href="{{url('shop')}}">
-                                            <svg class="categories__menu--svgicon"
-                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
-                                                <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
-                                                <line x1="6" y1="1" x2="6"
-                                                    y2="4"></line>
-                                                <line x1="10" y1="1" x2="10"
-                                                    y2="4"></line>
-                                                <line x1="14" y1="1" x2="14"
-                                                    y2="4"></line>
-                                            </svg> Replacement Parts
-                                        </a>
-                                        <ul class="category__sub--menu">
-                                            <li class="categories__submenu--items"><a
-                                                    class="categories__submenu--items__text" href="{{url('shop')}}">Body
-                                                    Parts</a>
-                                                <ul class="category__sub--menu">
-                                                    <li class="categories__submenu--child__items"><a
-                                                            class="categories__submenu--child__items--link"
-                                                            href="{{url('shop')}}">Brake Calipers </a></li>
-                                                    <li class="categories__submenu--child__items"><a
-                                                            class="categories__submenu--child__items--link"
-                                                            href="{{url('shop')}}">Oil and Vinegar </a></li>
-                                                    <li class="categories__submenu--child__items"><a
-                                                            class="categories__submenu--child__items--link"
-                                                            href="{{url('shop')}}">Engine Oil </a></li>
-                                                    <li class="categories__submenu--child__items"><a
-                                                            class="categories__submenu--child__items--link"
-                                                            href="{{url('shop')}}">Oil Filters </a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="categories__submenu--items"><a
-                                                    class="categories__submenu--items__text"
-                                                    href="{{url('shop')}}">Interior Parts</a>
-                                                <ul class="category__sub--menu">
-                                                    <li class="categories__submenu--child__items"><a
-                                                            class="categories__submenu--child__items--link"
-                                                            href="{{url('shop')}}">Air Boxes </a></li>
-                                                    <li class="categories__submenu--child__items"><a
-                                                            class="categories__submenu--child__items--link"
-                                                            href="{{url('shop')}}">Tail Lights </a></li>
-                                                    <li class="categories__submenu--child__items"><a
-                                                            class="categories__submenu--child__items--link"
-                                                            href="{{url('shop')}}">Mobile Electronic </a></li>
-                                                    <li class="categories__submenu--child__items"><a
-                                                            class="categories__submenu--child__items--link"
-                                                            href="{{url('shop')}}">Car Covers </a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="categories__submenu--items"><a
-                                                    class="categories__submenu--items__text" href="{{url('shop')}}">Engine
-                                                    & Drivetrain</a>
-                                                <ul class="category__sub--menu">
-                                                    <li class="categories__submenu--child__items"><a
-                                                            class="categories__submenu--child__items--link"
-                                                            href="{{url('shop')}}">Cabin Air Filters </a></li>
-                                                    <li class="categories__submenu--child__items"><a
-                                                            class="categories__submenu--child__items--link"
-                                                            href="{{url('shop')}}">Pistons liners </a></li>
-                                                    <li class="categories__submenu--child__items"><a
-                                                            class="categories__submenu--child__items--link"
-                                                            href="{{url('shop')}}">Bread and Juice </a></li>
-                                                    <li class="categories__submenu--child__items"><a
-                                                            class="categories__submenu--child__items--link"
-                                                            href="{{url('shop')}}">Paintworks </a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="categories__submenu--items"><a
-                                                    class="categories__submenu--items__text" href="{{url('shop')}}">Cargo
-                                                    Accessories</a>
-                                                <ul class="category__sub--menu">
-                                                    <li class="categories__submenu--child__items"><a
-                                                            class="categories__submenu--child__items--link"
-                                                            href="{{url('shop')}}">Body Parts </a></li>
-                                                    <li class="categories__submenu--child__items"><a
-                                                            class="categories__submenu--child__items--link"
-                                                            href="{{url('shop')}}">Engine Parts</a></li>
-                                                    <li class="categories__submenu--child__items"><a
-                                                            class="categories__submenu--child__items--link"
-                                                            href="{{url('shop')}}">Tires & Wheels </a></li>
-                                                    <li class="categories__submenu--child__items"><a
-                                                            class="categories__submenu--child__items--link"
-                                                            href="{{url('shop')}}">Repair Parts </a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="categories__menu--items">
-                                        <a class="categories__menu--link" href="{{url('shop')}}">
-                                            <svg class="categories__menu--svgicon"
-                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                                <circle cx="256" cy="184" r="120" fill="none"
-                                                    stroke="currentColor" stroke-linejoin="round"
-                                                    stroke-width="32" />
-                                                <circle cx="344" cy="328" r="120" fill="none"
-                                                    stroke="currentColor" stroke-linejoin="round"
-                                                    stroke-width="32" />
-                                                <circle cx="168" cy="328" r="120" fill="none"
-                                                    stroke="currentColor" stroke-linejoin="round"
-                                                    stroke-width="32" />
-                                            </svg> Beauty & Care
-                                        </a>
-                                    </li>
-                                    <li class="categories__menu--items">
-                                        <a class="categories__menu--link" href="{{url('shop')}}">
-                                            <svg class="categories__menu--svgicon"
-                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                <rect x="4" y="4" width="16" height="16" rx="2"
-                                                    ry="2"></rect>
-                                                <rect x="9" y="9" width="6" height="6"></rect>
-                                                <line x1="9" y1="1" x2="9"
-                                                    y2="4"></line>
-                                                <line x1="15" y1="1" x2="15"
-                                                    y2="4"></line>
-                                                <line x1="9" y1="20" x2="9"
-                                                    y2="23"></line>
-                                                <line x1="15" y1="20" x2="15"
-                                                    y2="23"></line>
-                                                <line x1="20" y1="9" x2="23"
-                                                    y2="9"></line>
-                                                <line x1="20" y1="14" x2="23"
-                                                    y2="14"></line>
-                                                <line x1="1" y1="9" x2="4"
-                                                    y2="9"></line>
-                                                <line x1="1" y1="14" x2="4"
-                                                    y2="14"></line>
-                                            </svg> Car Parts
-                                        </a>
-                                    </li>
-                                    <li class="categories__menu--items">
-                                        <a class="categories__menu--link" href="{{url('shop')}}">
-                                            <svg class="categories__menu--svgicon"
-                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                <line x1="22" y1="12" x2="2"
-                                                    y2="12"></line>
-                                                <path
-                                                    d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z">
-                                                </path>
-                                                <line x1="6" y1="16" x2="6.01"
-                                                    y2="16"></line>
-                                                <line x1="10" y1="16" x2="10.01"
-                                                    y2="16"></line>
-                                            </svg>Gaming Toiys
-                                        </a>
-                                    </li>
-                                    <li class="categories__menu--items">
-                                        <a class="categories__menu--link" href="{{url('shop')}}">
-                                            <svg class="categories__menu--svgicon"
-                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                                                <polyline points="2 17 12 22 22 17"></polyline>
-                                                <polyline points="2 12 12 17 22 12"></polyline>
-                                            </svg> Oil Fluids
-                                        </a>
-                                    </li>
-                                    <li class="categories__menu--items">
-                                        <a class="categories__menu--link" href="{{url('shop')}}">
-                                            <svg class="categories__menu--svgicon"
-                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                <path d="M4 11a9 9 0 0 1 9 9"></path>
-                                                <path d="M4 4a16 16 0 0 1 16 16"></path>
-                                                <circle cx="5" cy="19" r="1"></circle>
-                                            </svg> Baby Car Seat
-                                        </a>
-                                    </li>
+                                  @endforeach
                                 </ul>
                             </nav>
                         </div>
@@ -1041,12 +469,7 @@
                                         </a>
 
                                     </li>
-                                    <li class="header__menu--items mega__menu--items">
-                                        <a class="header__menu--link text-white" href="{{ url('shop') }}">Shop
 
-                                        </a>
-
-                                    </li>
 
 
 
@@ -1077,10 +500,7 @@
                             <a class="offcanvas__menu_item" href="{{url('shop')}}">Home</a>
 
                         </li>
-                        <li class="offcanvas__menu_li">
-                            <a class="offcanvas__menu_item" href="{{url('shop')}}">Shop</a>
 
-                        </li>
 
 
                         <li class="offcanvas__menu_li"><a class="offcanvas__menu_item" href="{{url('about')}}">About</a>
@@ -1142,19 +562,7 @@
                         <span class="offcanvas__stikcy--toolbar__label">Home</span>
                     </a>
                 </li>
-                <li class="offcanvas__stikcy--toolbar__list">
-                    <a class="offcanvas__stikcy--toolbar__btn" href="{{url('shop')}}">
-                        <span class="offcanvas__stikcy--toolbar__icon">
-                            <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" width="18.51"
-                                height="17.443" viewBox="0 0 448 512">
-                                <path
-                                    d="M416 32H32A32 32 0 0 0 0 64v384a32 32 0 0 0 32 32h384a32 32 0 0 0 32-32V64a32 32 0 0 0-32-32zm-16 48v152H248V80zm-200 0v152H48V80zM48 432V280h152v152zm200 0V280h152v152z">
-                                </path>
-                            </svg>
-                        </span>
-                        <span class="offcanvas__stikcy--toolbar__label">Shop</span>
-                    </a>
-                </li>
+
                 <li class="offcanvas__stikcy--toolbar__list ">
                     <a class="offcanvas__stikcy--toolbar__btn search__open--btn" href="javascript:void(0)"
                         data-offcanvas>
@@ -1346,8 +754,7 @@
 
                                 <li class="footer__widget--menu__list"><a class="footer__widget--menu__text"
                                         href="{{url('cart')}}">Shopping Cart</a></li>
-                                <li class="footer__widget--menu__list"><a class="footer__widget--menu__text"
-                                        href="{{url('cart')}}">Login</a></li>
+
 
                                 <li class="footer__widget--menu__list"><a class="footer__widget--menu__text"
                                         href="{{url('checkout')}}">Checkout</a></li>
@@ -1370,12 +777,10 @@
                                         href="{{url('contact')}}">Contact Us</a></li>
                                 <li class="footer__widget--menu__list"><a class="footer__widget--menu__text"
                                         href="{{url('about')}}">About Us</a></li>
-                                <li class="footer__widget--menu__list"><a class="footer__widget--menu__text"
-                                        href="{{url('wishlist')}}">Wishlist</a></li>
+
                                 <li class="footer__widget--menu__list"><a class="footer__widget--menu__text"
                                         href="privacy-policy.html">Privacy Policy</a></li>
-                                <li class="footer__widget--menu__list"><a class="footer__widget--menu__text"
-                                        href="faq.html">Frequently</a></li>
+
                             </ul>
                         </div>
                     </div>
@@ -1391,16 +796,14 @@
                                 </svg>
                             </h2>
                             <ul class="footer__widget--menu footer__widget--inner">
+                                @php
+                                $category = \App\Models\Category::all();
+                                @endphp
+                                @foreach($category as $row)
                                 <li class="footer__widget--menu__list"><a class="footer__widget--menu__text"
-                                        href="{{url('shop')}}">Smartphone ablet</a></li>
-                                <li class="footer__widget--menu__list"><a class="footer__widget--menu__text"
-                                        href="{{url('shop')}}">Computer Laptop</a></li>
-                                <li class="footer__widget--menu__list"><a class="footer__widget--menu__text"
-                                        href="{{url('shop')}}">TV & Audio</a></li>
-                                <li class="footer__widget--menu__list"><a class="footer__widget--menu__text"
-                                        href="{{url('shop')}}">Car Accessories</a></li>
-                                <li class="footer__widget--menu__list"><a class="footer__widget--menu__text"
-                                        href="{{url('shop')}}">Cameras Photos</a></li>
+                                        href="{{url('shop')}}">{{$row->name}}</a></li>
+                                        @endforeach
+
                             </ul>
                         </div>
                     </div>
