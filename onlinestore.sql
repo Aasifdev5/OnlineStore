@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 27, 2024 at 02:16 PM
+-- Generation Time: Jun 28, 2024 at 02:56 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -397,7 +397,7 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `uuid`, `name`, `image`, `is_feature`, `slug`, `meta_title`, `meta_description`, `meta_keywords`, `og_image`, `status`, `created_at`, `updated_at`) VALUES
-(7, '90cd37ac-b804-4095-a471-3651ec40718a', 'Bicycle', 'uploads/category/1711952243-bxpq7BT3hU.png', 'no', 'Bicycle', NULL, NULL, NULL, 'uploads/meta/1711873741-Pp45UkDnvf.png', 1, '2022-12-04 17:05:33', '2024-04-01 00:47:23'),
+(7, '90cd37ac-b804-4095-a471-3651ec40718a', 'Bicicleta', 'uploads/category/1711952243-bxpq7BT3hU.png', 'no', 'Bicicleta', 'Bicicleta', 'Bicicleta', 'Bicicleta', 'uploads/meta/1711873741-Pp45UkDnvf.png', 1, '2022-12-04 17:05:33', '2024-06-28 01:06:09'),
 (9, 'a1d1c370-5ce4-4bbc-9b27-5e8645282259', 'Motorcycle', 'uploads/category/1711873546-zEEkXFlIHs.png', 'no', 'Motorcycle', NULL, NULL, NULL, 'uploads/meta/1711873546-AhtaJbnpyt.png', 1, '2022-12-04 17:05:33', '2024-03-31 02:59:53'),
 (14, '86008391-2012-4caa-8a23-671590e5ce89', 'Shimano', 'uploads/category/1711873644-7BrNKAri9h.png', 'no', 'Shimano', NULL, NULL, NULL, 'uploads/meta/1711873644-LR7hxcxK2M.png', 1, '2024-03-31 01:43:56', '2024-03-31 02:57:24'),
 (15, 'd5a337f2-8f46-47ea-ab54-bb651bcafc2c', 'Load Line', 'uploads/category/1711870592-6dexcokD6I.png', 'no', 'Load-Line', NULL, NULL, NULL, 'uploads/meta/1711870592-VnhTOQYtmd.png', 1, '2024-03-31 02:06:32', '2024-03-31 02:06:32');
@@ -1911,7 +1911,9 @@ INSERT INTO `screen_times` (`id`, `user_id`, `url`, `time_spent`, `created_at`, 
 (6, 1, 'http://127.0.0.1:8000/admin/products', 865071, '2024-06-26 22:34:35', '2024-06-26 22:34:35'),
 (7, 1, 'http://127.0.0.1:8000/admin/products#', 886902, '2024-06-26 22:34:57', '2024-06-26 22:34:57'),
 (8, 1, 'http://127.0.0.1:8000/admin/dashboard', 1493, '2024-06-26 22:37:52', '2024-06-26 22:37:52'),
-(9, 1, 'http://127.0.0.1:8000/admin/dashboard#', 5671, '2024-06-26 22:37:56', '2024-06-26 22:37:56');
+(9, 1, 'http://127.0.0.1:8000/admin/dashboard#', 5671, '2024-06-26 22:37:56', '2024-06-26 22:37:56'),
+(10, 1, 'http://127.0.0.1:8000/admin/dashboard', 1741, '2024-06-28 00:41:45', '2024-06-28 00:41:45'),
+(11, 1, 'http://127.0.0.1:8000/admin/dashboard#', 5870, '2024-06-28 00:41:49', '2024-06-28 00:41:49');
 
 -- --------------------------------------------------------
 
@@ -2187,6 +2189,7 @@ INSERT INTO `states` (`id`, `country_id`, `name`, `created_at`, `updated_at`) VA
 CREATE TABLE `subcategories` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `uuid` char(36) NOT NULL,
+  `parent_category_id` int(11) DEFAULT NULL,
   `category_id` bigint(20) NOT NULL,
   `name` varchar(255) NOT NULL,
   `slug` varchar(255) NOT NULL,
@@ -2202,11 +2205,12 @@ CREATE TABLE `subcategories` (
 -- Dumping data for table `subcategories`
 --
 
-INSERT INTO `subcategories` (`id`, `uuid`, `category_id`, `name`, `slug`, `meta_title`, `meta_description`, `meta_keywords`, `og_image`, `created_at`, `updated_at`) VALUES
-(1, 'f9ec5844-335b-4b4e-b47e-cdfcec086803', 7, 'bi sub', 'bi-sub', 'bi sub', 'bi sub', 'bi sub', NULL, '2024-06-25 01:50:30', '2024-06-25 01:50:30'),
-(2, 'f76206e5-8d59-4cd7-bb29-1e3e022fda6a', 9, 'mot sub', 'mot-sub', 'mot sub', 'mot sub', 'mot sub', NULL, '2024-06-25 01:51:19', '2024-06-25 01:51:19'),
-(3, 'e0fb190e-2bad-4b44-8a2b-fffb564baeef', 14, 'shi sub', 'shi-sub', 'shi sub', 'shi sub', 'shi sub', NULL, '2024-06-25 01:51:39', '2024-06-25 01:51:39'),
-(4, 'ecb485c6-5c94-4a35-af58-0e0e8ce78995', 15, 'lo sub', 'lo-sub', 'lo sub', 'lo sub', 'lo sub', NULL, '2024-06-25 01:51:58', '2024-06-25 01:51:58');
+INSERT INTO `subcategories` (`id`, `uuid`, `parent_category_id`, `category_id`, `name`, `slug`, `meta_title`, `meta_description`, `meta_keywords`, `og_image`, `created_at`, `updated_at`) VALUES
+(1, 'f9ec5844-335b-4b4e-b47e-cdfcec086803', 7, 0, 'Llanta', 'Llanta', 'Llanta', 'Llanta', 'Llanta', NULL, '2024-06-25 01:50:30', '2024-06-28 01:08:32'),
+(2, 'f76206e5-8d59-4cd7-bb29-1e3e022fda6a', 7, 0, 'Accesorios', 'Accesorios', 'Accesorios', 'Accesorios', 'Accesorios', NULL, '2024-06-25 01:51:19', '2024-06-28 01:07:46'),
+(3, 'e0fb190e-2bad-4b44-8a2b-fffb564baeef', 7, 0, 'Partes', 'Partes', 'Partes', 'Partes', 'Partes', NULL, '2024-06-25 01:51:39', '2024-06-28 01:07:02'),
+(4, 'ecb485c6-5c94-4a35-af58-0e0e8ce78995', 7, 0, 'Bicicletas Enteras', 'Bicicletas-Enteras', 'Bicicletas Enteras', 'Bicicletas Enteras', 'Bicicletas Enteras', NULL, '2024-06-25 01:51:58', '2024-06-28 01:06:48'),
+(5, '8e926200-b8ab-4064-bab9-9aa7719a61bf', 7, 4, 'GT', 'GT', 'GT', 'GT', 'GT', NULL, '2024-06-28 01:33:13', '2024-06-28 01:33:13');
 
 -- --------------------------------------------------------
 
@@ -2455,10 +2459,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `account_type`, `price`, `role`, `permissions`, `name`, `email`, `email_verified_at`, `password`, `custom_password`, `mobile_number`, `city`, `categories`, `alter_mobile_number`, `location`, `department`, `store`, `last_seen`, `is_online`, `is_active`, `status`, `about`, `photo_url`, `profile_photo`, `remember_token`, `ip_address`, `balance`, `is_system`, `is_subscribed`, `privacy`, `gender`, `created_by`, `deleted_at`, `language`, `is_super_admin`, `created_at`, `updated_at`) VALUES
-(1, 'admin', NULL, 1, NULL, 'SUPER ADMINISTRADOR', 'admin@gmail.com', '2023-03-23 07:45:02', '$2y$10$9SbqzcUtyfeaf4019gajcOGQ4/k.XfIpeMXZp/ZERKUP0Z9GA02MK', NULL, '8878326802', 'india', NULL, NULL, NULL, NULL, NULL, '2024-06-26 22:18:50', 1, 1, 1, NULL, NULL, '149071.png', NULL, NULL, NULL, 1, 0, 1, 1, NULL, NULL, 'es', 1, '2023-03-23 07:45:02', '2024-06-26 22:18:50'),
+(1, 'admin', NULL, 1, NULL, 'SUPER ADMINISTRADOR', 'admin@gmail.com', '2023-03-23 07:45:02', '$2y$10$9SbqzcUtyfeaf4019gajcOGQ4/k.XfIpeMXZp/ZERKUP0Z9GA02MK', NULL, '8878326802', 'india', NULL, NULL, NULL, NULL, NULL, '2024-06-28 00:41:41', 1, 1, 1, NULL, NULL, '149071.png', NULL, NULL, NULL, 1, 0, 1, 1, NULL, NULL, 'es', 1, '2023-03-23 07:45:02', '2024-06-28 00:41:41'),
 (30, NULL, 'price3', 2, NULL, 'sdfsdfsf', 'subadmdfsfain@gmail.com', NULL, 'vbcvbhfghd', NULL, NULL, NULL, NULL, '987765546213132', NULL, 'it', 'arstexch', NULL, 0, 1, 1, NULL, NULL, NULL, NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:49:44', '2024-06-22 01:49:44'),
 (31, NULL, 'price2', 2, NULL, 'sofia', 'hhfghfhhffhfhfhrnatrajinfotech@gmail.com', NULL, 'sdfsfsfdsfsfsfsfsfs', NULL, NULL, 'ghfdgdfg', NULL, '465464df65g54d', 'ghjhgjgjg', 'erewr', 'asdsdfdsf', NULL, 0, 1, 1, NULL, NULL, NULL, NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:51:51', '2024-06-22 01:51:51'),
-(32, NULL, 'price3', 2, NULL, 'eve', 'eve@gmail.com', '2023-03-23 07:45:02', 'eve@3sss', NULL, '9589642080', 'bolivia', 'loadline', '65465464879787', 'bolivia', 'Software', 'everytech', '2024-06-27 02:19:41', 1, 1, 1, NULL, NULL, 'IMG_4416_vo4r1a_1712164410.jpg', NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:56:11', '2024-06-27 02:19:41');
+(32, NULL, 'price3', 2, NULL, 'eve', 'eve@gmail.com', '2023-03-23 07:45:02', 'eve@3sss', NULL, '9589642080', 'bolivia', 'loadline', '65465464879787', 'bolivia', 'Software', 'everytech', '2024-06-28 05:48:19', 1, 1, 1, NULL, NULL, 'IMG_4416_vo4r1a_1712164410.jpg', NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:56:11', '2024-06-28 05:48:19');
 
 --
 -- Indexes for dumped tables
@@ -3090,7 +3094,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `screen_times`
 --
 ALTER TABLE `screen_times`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `settings`
@@ -3108,7 +3112,7 @@ ALTER TABLE `states`
 -- AUTO_INCREMENT for table `subcategories`
 --
 ALTER TABLE `subcategories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `support_ticket_questions`

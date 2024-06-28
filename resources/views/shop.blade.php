@@ -19,7 +19,7 @@ Shop
                                     <div class="price__filter--group">
                                         <label class="price__filter--label" for="Filter-Price-GTE2">From</label>
                                         <div class="price__filter--input border-radius-5 d-flex align-items-center">
-                                            <span class="price__filter--currency">$</span>
+                                            <span class="price__filter--currency">BS</span>
                                             <input class="price__filter--input__field border-0" name="filter.v.price.gte" id="Filter-Price-GTE2" type="number" placeholder="0" min="0" max="250.00">
                                         </div>
                                     </div>
@@ -29,7 +29,7 @@ Shop
                                     <div class="price__filter--group">
                                         <label class="price__filter--label" for="Filter-Price-LTE2">To</label>
                                         <div class="price__filter--input border-radius-5 d-flex align-items-center">
-                                            <span class="price__filter--currency">$</span>
+                                            <span class="price__filter--currency">BS</span>
                                             <input class="price__filter--input__field border-0" name="filter.v.price.lte" id="Filter-Price-LTE2" type="number" min="0" placeholder="250.00" max="250.00">
                                         </div>
                                     </div>
