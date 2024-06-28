@@ -44,9 +44,10 @@ class SubcategoryController extends Controller
 
         if (Session::has('LoggedIn')) {
 
-            $data['user_session'] = User::where('id', Session::get('LoggedIn'))->first();
+        $data['user_session'] = User::where('id', Session::get('LoggedIn'))->first();
         $data['title'] = 'Add Subcategory';
         $data['categories'] = $this->categoryModel->all();
+        $data['subcategories'] = Subcategory::where('category_id','0')->get();
         return view('admin.subcategory.create', $data);
         }
     }
@@ -56,6 +57,7 @@ class SubcategoryController extends Controller
 
 
         $data = [
+            'parent_category_id' => $request->parent_category_id,
             'category_id' => $request->category_id,
             'name' => $request->name,
             'slug' => getSlug($request->name),
@@ -78,9 +80,10 @@ class SubcategoryController extends Controller
 
         if (Session::has('LoggedIn')) {
 
-            $data['user_session'] = User::where('id', Session::get('LoggedIn'))->first();
+        $data['user_session'] = User::where('id', Session::get('LoggedIn'))->first();
         $data['title'] = 'Edit Subcategory';
         $data['subcategory'] = $this->model->getRecordByUuid($uuid);
+        $data['subcategories'] = Subcategory::where('category_id','0')->get();
         $data['categories'] = $this->categoryModel->all();
         return view('admin.subcategory.edit', $data);
         }
@@ -91,6 +94,7 @@ class SubcategoryController extends Controller
 
 
         $data = [
+            'parent_category_id' => $request->parent_category_id,
             'category_id' => $request->category_id,
             'name' => $request->name,
             'slug' => getSlug($request->name),

@@ -87,7 +87,7 @@ Route::group(['middleware' => 'prevent-back-history', SetLocale::class], functio
         return redirect()->back()->with('local', $ln);
     });
 
-    Route::get('/', [UserController::class, 'Userlogin'])->name('Userlogin')->middleware('isLoggedIn');
+    Route::get('/', [UserController::class, 'Userlogin'])->name('Userlogin');
     Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard')->middleware('isLoggedIn');
     Route::post('/ProjectStore', [UserController::class, 'ProjectStore'])->name('ProjectStore');
     Route::get('shop', [UserController::class, 'shop'])->name('shop')->middleware('isLoggedIn');

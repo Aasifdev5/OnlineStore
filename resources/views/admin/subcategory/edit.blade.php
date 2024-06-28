@@ -38,15 +38,39 @@
                             @csrf
 
                             <div class="input__group mb-25">
-                                <label for="category_id"> {{__('Category')}} </label>
-                                <select name="category_id" id="category_id" class="form-control">
+                                <label for="parent_category_id"> {{ __('Parent Category') }} </label>
+                                <select name="parent_category_id" id="parent_category_id"
+                                    class="select2 form-control">
+                                    <option value="">{{ __('Select Parent Category') }}</option>
+                                    @foreach ($categories as $parentCategory)
+                                        <option value="{{ $parentCategory->id }}"
+                                           @if ($parentCategory->id == $subcategory->parent_category_id)
+                                               @selected(true)
+                                           @endif>
+                                            {{ $parentCategory->name }}</option>
+                                    @endforeach
+                                </select>
+                                @if ($errors->has('parent_category_id'))
+                                    <span class="text-danger"><i class="fas fa-exclamation-triangle"></i>
+                                        {{ $errors->first('parent_category_id') }}</span>
+                                @endif
+                            </div>
+
+                            <div class="input__group mb-25">
+                                <label for="category_id"> {{ __('Category') }} </label>
+                                <select name="category_id" id="category_id" class="select2 form-control">
                                     <option value="">{{ __('Select Category') }}</option>
-                                    @foreach($categories as $category)
-                                        <option value="{{$category->id}}" {{$subcategory->category_id == $category->id ? 'selected' : '' }}>{{$category->name}}</option>
+                                    @foreach ($subcategories as $category)
+                                        <option value="{{ $category->id }}"
+                                            @if ($category->id == $subcategory->category_id)
+                                               @selected(true)
+                                           @endif>
+                                            {{ $category->name }}</option>
                                     @endforeach
                                 </select>
                                 @if ($errors->has('category_id'))
-                                    <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{ $errors->first('category_id') }}</span>
+                                    <span class="text-danger"><i class="fas fa-exclamation-triangle"></i>
+                                        {{ $errors->first('category_id') }}</span>
                                 @endif
                             </div>
 

@@ -43,8 +43,9 @@
                                             <tr>
                                                 <th>#</th>
                                                 <th>Subcategory ID</th>
-                                                <th>{{ __('Name') }}</th>
+                                                <th>Subcategory</th>
                                                 <th>{{ __('Category') }}</th>
+                                                <th>{{ __('Parent Category') }}</th>
 
                                                 <th>{{ __('Action') }}</th>
                                             </tr>
@@ -54,11 +55,28 @@
                                                 <tr class="removable-item">
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $subcategory->id }}</td>
+                                                    <td>{{ $subcategory->name }}</td>
                                                     <td>
-                                                        {{ $subcategory->name }}
+                                                        @php
+                                                            $category = \App\Models\Subcategory::where('id', $subcategory->category_id)->where('category_id', '0')->first();
+                                                            if (!empty($subcategory->id) && $category) {
+                                                                $CategoryName = $category->name;
+                                                            } else {
+                                                                $CategoryName = 'No Category';
+                                                            }
+                                                        @endphp
+                                                        {{ $CategoryName }}
                                                     </td>
                                                     <td>
-                                                        {{ $subcategory->category ? $subcategory->category->name : '' }}
+                                                        @php
+                                                        if(!empty($subcategory->parent_category_id)){
+                                                            $parentCategory = \App\Models\Category::where('id',$subcategory->parent_category_id)->first()->name;
+                                                        }else{
+                                                            $parentCategory = 'No Parent Category';
+                                                        }
+
+                                                        @endphp
+                                                        {{ $parentCategory }}
                                                     </td>
 
                                                     <td>

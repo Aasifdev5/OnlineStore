@@ -750,6 +750,8 @@ class Admin extends Controller
             $image = $request->file('profile_photo')->getClientOriginalName();
             $final =  $request->profile_photo->move(public_path('profile_photo'), $image);
             $profile = $_FILES['profile_photo']['name'];
+        }else{
+            $profile = '';
         }
 
         // dd($request->all());
@@ -767,7 +769,7 @@ class Admin extends Controller
             'price' =>  $request->price,
             'categories' =>$request->categories,
             'alter_mobile_number' => $request->alter_mobile_number,
-            'profile_photo' => $_FILES['profile_photo']['name'],
+            'profile_photo' => $profile,
             'status' => $request->status,
             'ip_address' => request()->ip(),
         ]);

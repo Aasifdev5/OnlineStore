@@ -4,9 +4,6 @@
 @endsection
 @section('content')
     <main class="main__content_wrapper">
-
-
-
         <!-- Start product details section -->
         <section class="product__details--section section--padding">
             <div class="container">
