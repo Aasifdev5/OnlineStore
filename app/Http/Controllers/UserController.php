@@ -623,7 +623,9 @@ class UserController extends Controller
 
             $pages = Page::all();
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
-            $products = Product::orderBy('id', 'desc')->limit(10)->get();
+            $userCategories = !empty($user_session->categories) ? explode(',', $user_session->categories) : [];
+            $products = Product::whereIn('category', $userCategories)->orderBy('id', 'desc')->paginate(4);
+
 
 
 

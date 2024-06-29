@@ -28,6 +28,10 @@
                         $store = \App\Models\User::find($row->store_id);
                         $storeName = $store ? $store->store : null;
                     }
+                    if (!empty($row->category)) {
+                        $category = \App\Models\Category::find($row->category);
+                        $categoryName = $category ? $category->name : null;
+                    }
                 @endphp
                 <tr>
                     <td class="text-center">{{ $loop->iteration }}</td>
@@ -35,7 +39,9 @@
                         <a href="{{ route('backend.product', [$row->id]) }}"
                             title="{{ __('Edit') }}">{{ $row->title }}</a>
                     </td>
-                    <td class="text-left">{{ $row->category }}</td>
+                    <td class="text-left"> @if (!empty($category))
+                            {{ $categoryName }}
+                        @endif</td>
                     <td class="text-center">
                         @if (!empty($storeName))
                             {{ $storeName }}

@@ -160,35 +160,16 @@
 
                                 <div class="col-sm-6">
                                     <label class="col-form-label">Assign Category</label>
-                                    <div class="form-group">
-                                        <div>
-                                            <input type="radio" name="categories" id="category_bicycle"
-                                                value="bicycle" {{ $userData->categories == 'bicycle' ? 'checked' : '' }}>
-                                            <label for="category_bicycle">Bicycle</label>
-                                        </div>
-                                        <div>
-                                            <input type="radio" name="categories" id="category_motorcycle"
-                                                value="motorcycle"
-                                                {{ $userData->categories == 'motorcycle' ? 'checked' : '' }}>
-                                            <label for="category_motorcycle">Motorcycle</label>
-                                        </div>
-                                        <div>
-                                            <input type="radio" name="categories" id="category_shimano"
-                                                value="shimano" {{ $userData->categories == 'shimano' ? 'checked' : '' }}>
-                                            <label for="category_shimano">Shimano</label>
-                                        </div>
-                                        <div>
-                                            <input type="radio" name="categories" id="category_loadline"
-                                                value="loadline"
-                                                {{ $userData->categories == 'loadline' ? 'checked' : '' }}>
-                                            <label for="category_loadline">Load Line</label>
-                                        </div>
-                                        <span class="text-danger">
-                                            @error('categories')
-                                                {{ $message }}
-                                            @enderror
-                                        </span>
-                                    </div>
+                                    <select name="categories[]" multiple class="select2 form-control">
+                                        @php
+                                        $categories = \App\Models\Category::all();
+                                        $userDataCategories = isset($userData) && !empty($userData->categories) ? explode(',', $userData->categories) : [];
+                                        @endphp
+                                        @foreach($categories as $row)
+                                        <option value="{{ $row->id }}" @if (in_array($row->id, $userDataCategories)) selected @endif>{{ $row->name }}</option>
+                                        @endforeach
+                                    </select>
+
                                 </div>
                                 <div class="col-sm-6">
                                     <label class="col-form-label">Assign Price</label>

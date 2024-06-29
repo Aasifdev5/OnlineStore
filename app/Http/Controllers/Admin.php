@@ -767,7 +767,7 @@ class Admin extends Controller
             'department' => $request->department,
             'location' => $request->location,
             'price' =>  $request->price,
-            'categories' =>$request->categories,
+            'categories' =>implode(',',$request->categories),
             'alter_mobile_number' => $request->alter_mobile_number,
             'profile_photo' => $profile,
             'status' => $request->status,

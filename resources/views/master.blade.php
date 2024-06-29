@@ -103,18 +103,24 @@
                                     class="main__logo--img" src="{{ asset('site_logo/') }}<?php echo '/' . $general_setting->site_logo; ?>" style="width: 200px;height:60px" alt="logo-img"></a>
                         </h1>
                     </div>
+
                     <div class="header__search--widget d-none d-lg-block header__sticky--none">
                         <form class="d-flex header__search--form border-radius-5" action="#">
                             <div class="header__select--categories select">
                                 <select name="category_id" class="header__select--inner">
                                     <option selected value="1"> All categories</option>
                                    @php
-                                   $categories = \App\Models\Category::all();
-                                   @endphp
-                                     @foreach ($categories as $parentCategory)
-                                                <option value="{{ $parentCategory->id }}">
-                                                    {{ $parentCategory->name }}</option>
-                                            @endforeach
+    // Assuming $user_session is an object containing user data
+    $userCategories = !empty($user_session->categories) ? explode(',', $user_session->categories) : [];
+    $categories = \App\Models\Category::whereIn('id', $userCategories)->select('id', 'name')->get();
+
+    @endphp
+
+    @foreach ($categories as $parentCategory)
+        <option value="{{ $parentCategory->id }}" >
+            {{ $parentCategory->name }}
+        </option>
+    @endforeach
 
                                 </select>
                             </div>
@@ -144,12 +150,7 @@
                                     </a>
 
                                 </li>
-                                <li class="header__menu--items mega__menu--items">
-                                    <a class="header__menu--link" href="{{ url('shop') }}">Shop
 
-                                    </a>
-
-                                </li>
 
 
 
@@ -346,7 +347,8 @@
                             id="categoriesAccordion">
                             <ul class="d-none d-lg-block">
                                @php
-    $categories = \App\Models\Category::all();
+    $userCategories = !empty($user_session->categories) ? explode(',', $user_session->categories) : [];
+    $categories = \App\Models\Category::whereIn('id', $userCategories)->select('id', 'name')->get();
 @endphp
 @foreach ($categories as $parentCategory)
     <li class="categories__menu--items {{ $parentCategory->id }}">
@@ -414,7 +416,8 @@
 
 
  @php
-    $categories = \App\Models\Category::all();
+     $userCategories = !empty($user_session->categories) ? explode(',', $user_session->categories) : [];
+    $categories = \App\Models\Category::whereIn('id', $userCategories)->select('id', 'name')->get();
 @endphp
 @foreach ($categories as $parentCategory)
                                     <li class="categories__menu--items">
@@ -797,7 +800,8 @@
                             </h2>
                             <ul class="footer__widget--menu footer__widget--inner">
                                 @php
-                                $category = \App\Models\Category::all();
+                                 $userCategories = !empty($user_session->categories) ? explode(',', $user_session->categories) : [];
+    $category = \App\Models\Category::whereIn('id', $userCategories)->select('id', 'name')->get();
                                 @endphp
                                 @foreach($category as $row)
                                 <li class="footer__widget--menu__list"><a class="footer__widget--menu__text"

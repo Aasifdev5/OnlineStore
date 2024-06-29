@@ -54,11 +54,15 @@ class SubcategoryController extends Controller
 
     public function store(Request $request)
     {
-
+if(!empty($request->category_id)){
+    $category = $request->category_id;
+}else{
+    $category = 0;
+}
 
         $data = [
             'parent_category_id' => $request->parent_category_id,
-            'category_id' => $request->category_id,
+            'category_id' =>$category ,
             'name' => $request->name,
             'slug' => getSlug($request->name),
             'meta_title' => $request->meta_title,

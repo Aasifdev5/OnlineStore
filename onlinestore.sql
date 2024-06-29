@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 28, 2024 at 02:56 PM
+-- Generation Time: Jun 29, 2024 at 10:19 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -1617,15 +1617,15 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `title`, `slug`, `category`, `subcategory_id`, `f_thumbnail`, `short_desc`, `description`, `price1`, `price2`, `price3`, `price4`, `price5`, `extra_desc`, `cost_price`, `sale_price`, `old_price`, `start_date`, `end_date`, `is_discount`, `is_stock`, `sku`, `stock_status_id`, `stock_qty`, `u_stock_qty`, `brand_id`, `price`, `store_id`, `variation_color`, `variation_size`, `tax_id`, `is_publish`, `user_id`, `og_title`, `og_image`, `og_description`, `og_keywords`, `created_at`, `updated_at`) VALUES
-(10, 'The last of us', 'The-last-of-us', 'bicycle', NULL, 'img-20230525-175230-800x800.jpg', 'The last of us Tv and Game', 'The last of us Tv and Game', '1000', '1150', '1250', '1500', '1650', NULL, 1150.000, 1100.000, 1250.000, '2024-06-23', '2024-06-25', 1, 1, 'TG-78', 0, 3, NULL, 4, 'price4', '32', 'red,green,blue,black,white', 'small,medium,large', NULL, 1, NULL, 'The last of us Tv and Game', 'norwegian_forest_cat-wallpaper-1920x1080.jpg', 'The last of us Tv', 'The last of us Tv and Game', '2024-06-23 07:50:07', '2024-06-24 03:44:53'),
-(26, 'Product Title 1', 'Product-Title-1', NULL, NULL, 'images (1).jpg', 'Short Desc 1', 'Product Desc 1', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 'SKU001', 1, 100, NULL, 1, NULL, '30', 'green,blue,black', 'medium', NULL, 1, NULL, 'Product 1 Title', NULL, 'Product 1 Desc', 'Keyword 1', '2024-06-24 06:30:18', '2024-06-24 08:53:52'),
-(27, 'Product Title 2', 'Product-Title-2', 'motorcycle', 2, 'thumbnail2.jpg', 'Short Desc 2', 'Product Desc 2', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 'SKU002', 1, 120, NULL, 2, NULL, '30', 'red,blue,white', 'small', NULL, 1, NULL, 'Product 2 Title', NULL, 'Product 2 Desc', 'Keyword 2', '2024-06-24 06:30:18', '2024-06-25 02:29:34'),
-(28, 'Product Title 4', 'Product-Title-4', 'shimano', 1, 'thumbnail1.jpg', 'Short Desc 4', 'Product Desc 4', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 'SKU001', 1, 100, NULL, 1, NULL, '1', NULL, NULL, NULL, 1, NULL, 'Product 1 Title', NULL, 'Product 1 Desc', 'Keyword 1', '2024-06-25 02:34:39', '2024-06-25 02:34:39'),
-(29, 'Product Title 5', 'Product-Title-5', 'bicycle', 2, 'thumbnail2.jpg', 'Short Desc 5', 'Product Desc 5', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 'SKU002', 1, 120, NULL, 2, NULL, '2', NULL, NULL, NULL, 1, NULL, 'Product 2 Title', NULL, 'Product 2 Desc', 'Keyword 2', '2024-06-25 02:34:39', '2024-06-25 02:34:39'),
-(32, 'Product Title 6', 'Product-Title-6', 'motorcycle', 2, 'thumbnail1.jpg', 'Short Desc 6', 'Product Desc 6', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 'SKU006', 1, 100, NULL, 1, NULL, '32', NULL, NULL, NULL, 1, NULL, 'Product 1 Title', NULL, 'Product 1 Desc', 'Keyword 1', '2024-06-25 03:29:03', '2024-06-25 03:29:03'),
-(33, 'Product Title 7', 'Product-Title-7', 'bicycle', 1, 'thumbnail2.jpg', 'Short Desc 7', 'Product Desc 7', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 'SKU007', 1, 120, NULL, 2, NULL, '30', NULL, NULL, NULL, 1, NULL, 'Product 2 Title', NULL, 'Product 2 Desc', 'Keyword 2', '2024-06-25 03:29:03', '2024-06-25 03:29:03'),
-(35, 'Product Title 9', 'Product-Title-9', 'motorcycle', 2, 'thumbnail1.jpg', 'Short Desc 6', 'Product Desc 9', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 'SKU009', 1, 100, NULL, 1, NULL, '32', 'red,green,blue,black,white', 'small,medium,large', NULL, 1, NULL, 'Product 9 Title', NULL, 'Product 9 Desc', 'Keyword 11', '2024-06-25 03:42:52', '2024-06-25 03:42:52'),
-(36, 'Product Title 10', 'Product-Title-10', 'bicycle', 1, 'thumbnail2.jpg', 'Short Desc 7', 'Product Desc 10', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 'SKU0010', 1, 120, NULL, 2, NULL, '30', 'green,blue,black', 'medium', NULL, 1, NULL, 'Product 10 Title', NULL, 'Product 10 Desc', 'Keyword 12', '2024-06-25 03:42:52', '2024-06-25 03:42:52');
+(10, 'The last of us', 'The-last-of-us', '7', NULL, 'img-20230525-175230-800x800.jpg', 'The last of us Tv and Game', 'The last of us Tv and Game', '1000', '1150', '1250', '1500', '1650', NULL, 1150.000, 1100.000, 1250.000, '2024-06-23', '2024-06-25', 1, 1, 'TG-78', 0, 3, NULL, 4, 'price4', '32', 'red,green,blue,black,white', 'small,medium,large', NULL, 1, NULL, 'The last of us Tv and Game', 'norwegian_forest_cat-wallpaper-1920x1080.jpg', 'The last of us Tv', 'The last of us Tv and Game', '2024-06-23 07:50:07', '2024-06-24 03:44:53'),
+(26, 'Product Title 1', 'Product-Title-1', '7', NULL, 'images (1).jpg', 'Short Desc 1', 'Product Desc 1', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 'SKU001', 1, 100, NULL, 1, NULL, '30', 'green,blue,black', 'medium', NULL, 1, NULL, 'Product 1 Title', NULL, 'Product 1 Desc', 'Keyword 1', '2024-06-24 06:30:18', '2024-06-24 08:53:52'),
+(27, 'Product Title 2', 'Product-Title-2', '14', 2, 'thumbnail2.jpg', 'Short Desc 2', 'Product Desc 2', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 'SKU002', 1, 120, NULL, 2, NULL, '30', 'red,blue,white', 'small', NULL, 1, NULL, 'Product 2 Title', NULL, 'Product 2 Desc', 'Keyword 2', '2024-06-24 06:30:18', '2024-06-25 02:29:34'),
+(28, 'Product Title 4', 'Product-Title-4', '14', 1, 'thumbnail1.jpg', 'Short Desc 4', 'Product Desc 4', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 'SKU001', 1, 100, NULL, 1, NULL, '1', NULL, NULL, NULL, 1, NULL, 'Product 1 Title', NULL, 'Product 1 Desc', 'Keyword 1', '2024-06-25 02:34:39', '2024-06-25 02:34:39'),
+(29, 'Product Title 5', 'Product-Title-5', '7', 2, 'thumbnail2.jpg', 'Short Desc 5', 'Product Desc 5', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 'SKU002', 1, 120, NULL, 2, NULL, '2', NULL, NULL, NULL, 1, NULL, 'Product 2 Title', NULL, 'Product 2 Desc', 'Keyword 2', '2024-06-25 02:34:39', '2024-06-25 02:34:39'),
+(32, 'Product Title 6', 'Product-Title-6', '14', 2, 'thumbnail1.jpg', 'Short Desc 6', 'Product Desc 6', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 'SKU006', 1, 100, NULL, 1, NULL, '32', NULL, NULL, NULL, 1, NULL, 'Product 1 Title', NULL, 'Product 1 Desc', 'Keyword 1', '2024-06-25 03:29:03', '2024-06-25 03:29:03'),
+(33, 'Product Title 7', 'Product-Title-7', '7', 1, 'thumbnail2.jpg', 'Short Desc 7', 'Product Desc 7', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 'SKU007', 1, 120, NULL, 2, NULL, '30', NULL, NULL, NULL, 1, NULL, 'Product 2 Title', NULL, 'Product 2 Desc', 'Keyword 2', '2024-06-25 03:29:03', '2024-06-25 03:29:03'),
+(35, 'Product Title 9', 'Product-Title-9', '14', 2, 'thumbnail1.jpg', 'Short Desc 6', 'Product Desc 9', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 'SKU009', 1, 100, NULL, 1, NULL, '32', 'red,green,blue,black,white', 'small,medium,large', NULL, 1, NULL, 'Product 9 Title', NULL, 'Product 9 Desc', 'Keyword 11', '2024-06-25 03:42:52', '2024-06-25 03:42:52'),
+(36, 'Product Title 10', 'Product-Title-10', '7', 1, 'thumbnail2.jpg', 'Short Desc 7', 'Product Desc 10', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 'SKU0010', 1, 120, NULL, 2, NULL, '30', 'green,blue,black', 'medium', NULL, 1, NULL, 'Product 10 Title', NULL, 'Product 10 Desc', 'Keyword 12', '2024-06-25 03:42:52', '2024-06-25 03:42:52');
 
 -- --------------------------------------------------------
 
@@ -2190,7 +2190,7 @@ CREATE TABLE `subcategories` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `uuid` char(36) NOT NULL,
   `parent_category_id` int(11) DEFAULT NULL,
-  `category_id` bigint(20) NOT NULL,
+  `category_id` bigint(20) DEFAULT NULL,
   `name` varchar(255) NOT NULL,
   `slug` varchar(255) NOT NULL,
   `meta_title` varchar(191) DEFAULT NULL,
@@ -2210,7 +2210,48 @@ INSERT INTO `subcategories` (`id`, `uuid`, `parent_category_id`, `category_id`, 
 (2, 'f76206e5-8d59-4cd7-bb29-1e3e022fda6a', 7, 0, 'Accesorios', 'Accesorios', 'Accesorios', 'Accesorios', 'Accesorios', NULL, '2024-06-25 01:51:19', '2024-06-28 01:07:46'),
 (3, 'e0fb190e-2bad-4b44-8a2b-fffb564baeef', 7, 0, 'Partes', 'Partes', 'Partes', 'Partes', 'Partes', NULL, '2024-06-25 01:51:39', '2024-06-28 01:07:02'),
 (4, 'ecb485c6-5c94-4a35-af58-0e0e8ce78995', 7, 0, 'Bicicletas Enteras', 'Bicicletas-Enteras', 'Bicicletas Enteras', 'Bicicletas Enteras', 'Bicicletas Enteras', NULL, '2024-06-25 01:51:58', '2024-06-28 01:06:48'),
-(5, '8e926200-b8ab-4064-bab9-9aa7719a61bf', 7, 4, 'GT', 'GT', 'GT', 'GT', 'GT', NULL, '2024-06-28 01:33:13', '2024-06-28 01:33:13');
+(5, '8e926200-b8ab-4064-bab9-9aa7719a61bf', 7, 4, 'GT', 'GT', 'GT', 'GT', 'GT', NULL, '2024-06-28 01:33:13', '2024-06-28 01:33:13'),
+(6, 'cb1f26c7-e929-4f96-8650-47c123b4681a', 7, 4, 'Viking X', 'Viking-X', 'Viking X', 'Viking X', 'Viking X', NULL, '2024-06-28 11:41:13', '2024-06-28 11:41:13'),
+(7, '5dda2d9c-5c5f-4985-b2fc-8f2fcddba2e6', 7, 4, 'Gary Fisher', 'Gary-Fisher', 'Gary Fisher', 'Gary Fisher', 'Gary Fisher', NULL, '2024-06-28 11:41:42', '2024-06-28 11:41:42'),
+(8, '68becc36-18ea-4f9e-a51f-b04fee0dec11', 7, 3, 'Cuadro', 'Cuadro', 'Cuadro', 'Cuadro', 'Cuadro', NULL, '2024-06-28 11:45:08', '2024-06-28 11:45:08'),
+(9, '1827d80f-f609-40a9-8ee7-4755eb2eb357', 7, 3, 'Horquilla', 'Horquilla', 'Horquilla', 'Horquilla', 'Horquilla', NULL, '2024-06-28 11:45:37', '2024-06-28 11:45:37'),
+(10, '38aa6413-082d-4452-97b5-243ec1af1731', 7, 3, 'Mazo', 'Mazo', 'Mazo', 'Mazo', 'Mazo', NULL, '2024-06-28 11:46:09', '2024-06-28 11:46:09'),
+(11, '78066c4c-31f5-4b43-9382-aab95cf50cb1', 7, 3, 'Tija', 'Tija', 'Tija', 'Tija', 'Tija', NULL, '2024-06-28 11:47:10', '2024-06-28 11:47:10'),
+(12, 'c0fc3bee-e191-4535-b259-ad1a341f33a3', 7, 3, 'Estrella', 'Estrella', 'Estrella', 'Estrella', 'Estrella', NULL, '2024-06-28 11:47:40', '2024-06-28 11:47:40'),
+(13, '86adcd54-0c7a-4734-8258-8d16cd07b07d', 7, 3, 'Chicharra', 'Chicharra', 'Chicharra', 'Chicharra', 'Chicharra', NULL, '2024-06-28 11:48:12', '2024-06-28 11:48:12'),
+(14, '88ab1f29-f894-48d6-a37a-477deb344c1f', 7, 3, 'Freno', 'Freno', 'Freno', 'Freno', 'Freno', NULL, '2024-06-28 11:48:42', '2024-06-28 11:48:42'),
+(15, '0d80346a-8cc4-4814-9f4e-eca0d69db320', 7, 3, 'Caja Trasera', 'Caja-Trasera', 'Caja Trasera', 'Caja Trasera', 'Caja Trasera', NULL, '2024-06-28 11:49:15', '2024-06-28 11:49:15'),
+(16, '8387d893-7f7b-4bac-938e-6a92373015b5', 7, 3, 'Caja de cambio', 'Caja-de-cambio', 'Caja de cambio', 'Caja de cambio', 'Caja de cambio', NULL, '2024-06-28 11:49:52', '2024-06-28 11:49:52'),
+(17, '579d09e2-e175-434b-b789-dbcfe24732bb', 7, 3, 'Descarrilador', 'Descarrilador', 'Descarrilador', 'Descarrilador', 'Descarrilador', NULL, '2024-06-28 11:50:19', '2024-06-28 11:50:19'),
+(18, '4bfde5b6-55ef-45ec-8dd1-59d0117a33d0', 7, 3, 'Cubeta Central', 'Cubeta-Central', 'Cubeta Central', 'Cubeta Central', 'Cubeta Central', NULL, '2024-06-28 11:50:45', '2024-06-28 11:50:45'),
+(19, '09ba0d55-56f9-4210-885f-c0071933c7af', 7, 3, 'Cubeta de Horquilla', 'Cubeta-de-Horquilla', 'Cubeta de Horquilla', 'Cubeta de Horquilla', 'Cubeta de Horquilla', NULL, '2024-06-28 11:51:37', '2024-06-28 11:51:37'),
+(20, 'a59da9c1-e412-4292-b6d0-469852f017ce', 7, 3, 'Manubrio', 'Manubrio', 'Manubrio', 'Manubrio', 'Manubrio', NULL, '2024-06-28 11:51:58', '2024-06-28 11:51:58'),
+(21, 'e6ee250a-38cb-4412-acbf-babe0026d7b4', 7, 3, 'Plato', 'Plato', 'Plato', 'Plato', 'Plato', NULL, '2024-06-28 11:52:41', '2024-06-28 11:52:41'),
+(22, '8c491a53-1049-46a8-a43f-ebd3d95e1807', 7, 3, 'Disco de freno', 'Disco-de-freno', 'Disco de freno', 'Disco de freno', 'Disco de freno', NULL, '2024-06-28 11:53:06', '2024-06-28 11:53:06'),
+(23, 'a06b3d2f-166b-4706-9e69-d2fd3a72165d', 7, 3, 'Pastilla', 'Pastilla', 'Pastilla', 'Pastilla', 'Pastilla', NULL, '2024-06-28 11:53:57', '2024-06-28 11:53:57'),
+(24, '22a48fd5-9dae-4a43-8da2-b13091c461c8', 7, 3, 'Cadena', 'Cadena', 'Cadena', 'Cadena', 'Cadena', NULL, '2024-06-28 11:54:25', '2024-06-28 11:54:25'),
+(25, '025e6b75-bc80-4680-980c-c4a0c1333a22', 7, 3, 'Sillin', 'Sillin', 'Sillin', 'Sillin', 'Sillin', NULL, '2024-06-28 11:54:50', '2024-06-28 11:54:50'),
+(26, '680bf08b-9d94-4488-b94f-716f6d84e2ce', 7, 3, 'Radio', 'Radio', 'Radio', 'Radio', 'Radio', NULL, '2024-06-28 11:55:13', '2024-06-28 11:55:13'),
+(27, '1c809053-44e8-4a7d-b062-11c8e1945f9d', 7, 3, 'Steam', 'Steam', 'Steam', 'Steam', 'Steam', NULL, '2024-06-28 11:55:52', '2024-06-28 11:55:52'),
+(28, 'ced8a4c9-227e-4130-8586-cb0691350221', 7, 3, 'Amortiguador', 'Amortiguador', 'Amortiguador', 'Amortiguador', 'Amortiguador', NULL, '2024-06-28 11:56:15', '2024-06-28 11:56:15'),
+(29, 'b21a0d23-e4b8-4c26-9aaa-79b79a72de05', 7, 3, 'Palanca', 'Palanca', 'Palanca', 'Palanca', 'Palanca', NULL, '2024-06-28 11:56:38', '2024-06-28 11:56:38'),
+(30, '9e38871b-3612-42c9-9239-2e6870676612', 7, 3, 'Pedal', 'Pedal', 'Pedal', 'Pedal', 'Pedal', NULL, '2024-06-28 11:57:11', '2024-06-28 11:57:11'),
+(31, '73dd2e04-303b-40af-813f-a5f359691795', 7, 2, 'Lentes', 'Lentes', 'Lentes', 'Lentes', 'Lentes', NULL, '2024-06-28 11:57:40', '2024-06-28 11:57:40'),
+(32, 'c3df8cb1-6c37-4cb7-b515-f2f024993841', 7, 2, 'Luz', 'Luz', 'Luz', 'Luz', 'Luz', NULL, '2024-06-28 11:58:12', '2024-06-28 11:58:12'),
+(33, 'd009b69f-719c-4ebb-8523-176161aabc8f', 7, 2, 'Bocina', 'Bocina', 'Bocina', 'Bocina', 'Bocina', NULL, '2024-06-28 11:58:45', '2024-06-28 11:58:45'),
+(34, 'c4690a59-2b42-436a-a9f4-8724780ed104', 7, 2, 'Inflador', 'Inflador', 'Inflador', 'Inflador', 'Inflador', NULL, '2024-06-28 11:59:27', '2024-06-28 11:59:27'),
+(35, '6665560b-8a99-42b9-8107-628eb7e323bb', 7, 2, 'Bolsas', 'Bolsas', 'Bolsas', 'Bolsas', 'Bolsas', NULL, '2024-06-28 11:59:59', '2024-06-28 11:59:59'),
+(36, '679e2925-a507-4be3-ab3c-a43988601750', 7, 2, 'Portabotellon', 'Portabotellon', 'Portabotellon', 'Portabotellon', 'Portabotellon', NULL, '2024-06-28 12:00:31', '2024-06-28 12:00:31'),
+(37, '63431cc8-0827-488e-9461-e1c995b7de98', 7, 2, 'Botellon', 'Botellon', 'Botellon', 'Botellon', 'Botellon', NULL, '2024-06-28 12:01:00', '2024-06-28 12:01:00'),
+(38, '94bee6d8-2d15-462b-9a52-1f19f7661cd2', 7, 2, 'Ciclocomputador', 'Ciclocomputador', 'Ciclocomputador', 'Ciclocomputador', 'Ciclocomputador', NULL, '2024-06-28 12:01:33', '2024-06-28 12:01:33'),
+(39, '3016d480-7a29-43a2-af64-6b7ed5bf3228', 7, 2, 'Grip', 'Grip', 'Grip', 'Grip', 'Grip', NULL, '2024-06-28 12:02:01', '2024-06-28 12:02:01'),
+(40, '5c3650c2-e548-42b4-bb5d-6a32438573f9', 7, 2, 'Cinta protectora', 'Cinta-protectora', 'Cinta protectora', 'Cinta protectora', 'Cinta protectora', NULL, '2024-06-28 12:02:33', '2024-06-28 12:02:33'),
+(41, '511612c2-23c0-4fd0-9457-7c6a42ac644c', 7, 1, 'Llanta', 'Llanta', 'Llanta', 'Llanta', 'Llanta', NULL, '2024-06-28 12:03:21', '2024-06-28 12:03:21'),
+(42, '92e50482-28a5-4375-bbcc-4ce0b2d0abbe', 7, 1, 'Camara', 'Camara', 'Camara', 'Camara', 'Camara', NULL, '2024-06-28 12:03:50', '2024-06-28 12:03:50'),
+(43, 'a9aa8d82-193a-4d77-8fa5-5ce1e2988845', 14, 3, 'Deore', 'Deore', 'Deore1', 'Deore2', 'Shimano Deore', 'uploads/meta/1719595475-SmOd8ptFuK.jpg', '2024-06-28 17:24:35', '2024-06-28 17:24:35'),
+(44, 'ecf4cc39-3639-49c4-99bd-9994668c41f9', 9, 3, 'freno mt200', 'freno-mt200', 'freno mt200', 'mt200', 'mt200', 'uploads/meta/1719596399-6qvFp0pEZU.jpg', '2024-06-28 17:39:59', '2024-06-28 17:50:38'),
+(45, '9ef52d5b-d258-4303-8793-83d2ad0fa642', 14, 3, 'Frenos', 'Frenos', 'Frenos', 'Frenos', 'Frenos', 'uploads/meta/1719620619-7KqYRZyIro.jpg', '2024-06-29 00:23:39', '2024-06-29 00:23:39'),
+(46, '0ef37769-49fd-4d79-8eed-c1d7dce6ef4d', 14, 0, 'xzx', 'xzx', 'xzx', 'xzx', 'xzx', 'uploads/meta/1719635852-F9ZkeCNFlK.png', '2024-06-29 04:37:32', '2024-06-29 04:37:32');
 
 -- --------------------------------------------------------
 
@@ -2462,7 +2503,7 @@ INSERT INTO `users` (`id`, `account_type`, `price`, `role`, `permissions`, `name
 (1, 'admin', NULL, 1, NULL, 'SUPER ADMINISTRADOR', 'admin@gmail.com', '2023-03-23 07:45:02', '$2y$10$9SbqzcUtyfeaf4019gajcOGQ4/k.XfIpeMXZp/ZERKUP0Z9GA02MK', NULL, '8878326802', 'india', NULL, NULL, NULL, NULL, NULL, '2024-06-28 00:41:41', 1, 1, 1, NULL, NULL, '149071.png', NULL, NULL, NULL, 1, 0, 1, 1, NULL, NULL, 'es', 1, '2023-03-23 07:45:02', '2024-06-28 00:41:41'),
 (30, NULL, 'price3', 2, NULL, 'sdfsdfsf', 'subadmdfsfain@gmail.com', NULL, 'vbcvbhfghd', NULL, NULL, NULL, NULL, '987765546213132', NULL, 'it', 'arstexch', NULL, 0, 1, 1, NULL, NULL, NULL, NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:49:44', '2024-06-22 01:49:44'),
 (31, NULL, 'price2', 2, NULL, 'sofia', 'hhfghfhhffhfhfhrnatrajinfotech@gmail.com', NULL, 'sdfsfsfdsfsfsfsfsfs', NULL, NULL, 'ghfdgdfg', NULL, '465464df65g54d', 'ghjhgjgjg', 'erewr', 'asdsdfdsf', NULL, 0, 1, 1, NULL, NULL, NULL, NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:51:51', '2024-06-22 01:51:51'),
-(32, NULL, 'price3', 2, NULL, 'eve', 'eve@gmail.com', '2023-03-23 07:45:02', 'eve@3sss', NULL, '9589642080', 'bolivia', 'loadline', '65465464879787', 'bolivia', 'Software', 'everytech', '2024-06-28 05:48:19', 1, 1, 1, NULL, NULL, 'IMG_4416_vo4r1a_1712164410.jpg', NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:56:11', '2024-06-28 05:48:19');
+(32, NULL, 'price3', 2, NULL, 'eve', 'eve@gmail.com', '2023-03-23 07:45:02', 'eve@3sss', NULL, '9589642080', 'bolivia', '7,14', '65465464879787', 'bolivia', 'Software', 'everytech', '2024-06-29 01:50:29', 1, 1, 1, NULL, NULL, 'IMG_4416_vo4r1a_1712164410.jpg', NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:56:11', '2024-06-29 01:50:29');
 
 --
 -- Indexes for dumped tables
@@ -3112,7 +3153,7 @@ ALTER TABLE `states`
 -- AUTO_INCREMENT for table `subcategories`
 --
 ALTER TABLE `subcategories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `support_ticket_questions`
