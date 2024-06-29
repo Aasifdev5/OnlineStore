@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 29, 2024 at 10:19 AM
+-- Generation Time: Jun 29, 2024 at 02:17 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -369,6 +369,29 @@ INSERT INTO `campaigns` (`id`, `user_id`, `category_id`, `title`, `slug`, `short
 (31, 28, 15, 'Dolor asperiores suscipit magni numquam.', 'dolor-asperiores-suscipit-magni-numquam-1', 'Officia repellat eum est quod eum nobis. Deserunt perferendis ut maiores cupiditate officia exercitationem. Labore est nesciunt eos quos aperiam ratione.', '<p>Accusantium iusto quis modi aut ut. Sed id unde praesentium. Beatae molestias dicta pariatur eum. Nihil voluptatum nisi id et aut quo. Est iusto velit praesentium pariatur maiores dolor.</p>', NULL, 8549.32, NULL, NULL, 43.69, 4719.36, 2949203, '2406', 'goal_achieve', 14809561, 'uploads/Projects/1712066183-qzmE2mOJVn.jpg', 'uploads/meta/1712066183-H316sGeour.jpg', NULL, 'https://via.placeholder.com/640x480.png/0077cc?text=reprehenderit', 1, NULL, '204 Christiansen CrescentLake Allison, MT 70434-8739', 0, 0, '1975-02-05', '2024-05-05', '2009-06-23 04:05:43', '2024-04-02 07:18:55', '2024-04-13 21:48:21'),
 (32, 1, 3, 'Iste qui deleniti quidem velit dolor sint.', 'iste-qui-deleniti-quidem-velit-dolor-sint-1', 'Veritatis perspiciatis qui voluptatem et aut voluptatem. Voluptatum nesciunt et modi. Quaerat deleniti sit reprehenderit qui nemo.', '<p>Omnis sit iure magnam laborum. Occaecati pariatur illo recusandae dolore corrupti. Qui veniam error eos a minima. Ut illum labore dolor quae velit. Quis dolor quis minima voluptates nihil.</p>', NULL, 1964.13, NULL, NULL, 77.86, 451.39, 3067026, '81598111', NULL, 7772, 'uploads/Projects/1712066128-skgCH5GYWr.jpg', 'uploads/meta/1712066128-PatM3tYXIm.jpg', NULL, 'https://via.placeholder.com/640x480.png/00eedd?text=quia', 0, 1, '359 Georgette ViaductWest Lacyport, AR 55365-3615', 0, 1, '2002-05-18', NULL, '2016-06-06 07:41:38', '2024-04-02 07:18:55', '2024-04-13 21:49:28'),
 (42, 3, 14, 'Unogesic MR 250mg/50mg/325mg Tablet wow', 'unogesic-mr-250mg50mg325mg-tablet-wow-1', 'MARKETER\r\nCurewell Drugs and Pharmaceuticals Pvt Ltd\r\nSALT COMPOSITION\r\nChlorzoxazone (250mg) + Diclofenac (50mg) + Paracetamol (325mg)\r\nSTORAGE\r\nStore below 30°C', '<p>Unogesic MR 250mg/50mg/325mg Tablet is a combination medicine used in the treatment of pain due to muscle spasms. It improves the movement of muscles and provides relief from pain and discomfort associated with muscle spasms. Unogesic MR 250mg/50mg/325mg Tablet should be taken with food. This will prevent you from getting an upset stomach. You should take it regularly as advised by your doctor. Do not take more or use it for a longer duration than recommended by your doctor. Using this medicine can cause some common side effects such as nausea, vomiting, heartburn, stomach pain, diarrhea, loss of appetite, and dryness in the mouth. If any of these side effects bother you or do not go away with time, you should let your doctor know. Your doctor may help with ways to reduce or prevent these side effects. The medicine may not be suitable for everybody. Before taking it, let your doctor know if you have any problems with your heart, kidneys, or liver. To make sure it is safe for you, let your doctor also know all the other medicines you are taking. Pregnant and breastfeeding mothers should first consult their doctors before using the medicine. USES OF UNOGESIC MR TABLET Treatment of Pain due to muscle spasm BENEFITS OF UNOGESIC MR TABLET In Treatment of Pain due to muscle spasm Unogesic MR 250mg/50mg/325mg Tablet is a combination medicine that is used to relieve pain, inflammation, and swelling in conditions that affect muscles. Also, it effectively relieves muscle stiffness or spasm, thereby improving muscle movement. It works by blocking chemical messengers in the brain that tell us we have pain. Take it as it is prescribed to get the most benefit. Do not take more or longer than needed as that can be dangerous. In general, you should take the lowest dose that works, for the shortest possible time. This will help you to go about your daily activities more easily and have a better, more active, quality of life.</p>', NULL, 5000.00, NULL, NULL, 375.00, NULL, NULL, '1000', 'goal_achieve', NULL, 'uploads/Projects/1712465958-VfWv9yeUEp.jpg', 'uploads/meta/1712465958-QQawXoZ4ri.jpg', NULL, '', 0, 4, 'Indore, Madhaya Pradesh, India', 0, NULL, '2024-04-10', '2024-04-17', NULL, '2024-04-06 23:29:18', '2024-04-13 21:49:50');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `carts`
+--
+
+CREATE TABLE `carts` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `product_id` bigint(20) UNSIGNED NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `quantity` int(10) UNSIGNED NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `carts`
+--
+
+INSERT INTO `carts` (`id`, `user_id`, `product_id`, `price`, `quantity`, `created_at`, `updated_at`) VALUES
+(2, 32, 35, 80.00, 1, '2024-06-29 06:13:38', '2024-06-29 06:13:38');
 
 -- --------------------------------------------------------
 
@@ -2500,10 +2523,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `account_type`, `price`, `role`, `permissions`, `name`, `email`, `email_verified_at`, `password`, `custom_password`, `mobile_number`, `city`, `categories`, `alter_mobile_number`, `location`, `department`, `store`, `last_seen`, `is_online`, `is_active`, `status`, `about`, `photo_url`, `profile_photo`, `remember_token`, `ip_address`, `balance`, `is_system`, `is_subscribed`, `privacy`, `gender`, `created_by`, `deleted_at`, `language`, `is_super_admin`, `created_at`, `updated_at`) VALUES
-(1, 'admin', NULL, 1, NULL, 'SUPER ADMINISTRADOR', 'admin@gmail.com', '2023-03-23 07:45:02', '$2y$10$9SbqzcUtyfeaf4019gajcOGQ4/k.XfIpeMXZp/ZERKUP0Z9GA02MK', NULL, '8878326802', 'india', NULL, NULL, NULL, NULL, NULL, '2024-06-28 00:41:41', 1, 1, 1, NULL, NULL, '149071.png', NULL, NULL, NULL, 1, 0, 1, 1, NULL, NULL, 'es', 1, '2023-03-23 07:45:02', '2024-06-28 00:41:41'),
-(30, NULL, 'price3', 2, NULL, 'sdfsdfsf', 'subadmdfsfain@gmail.com', NULL, 'vbcvbhfghd', NULL, NULL, NULL, NULL, '987765546213132', NULL, 'it', 'arstexch', NULL, 0, 1, 1, NULL, NULL, NULL, NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:49:44', '2024-06-22 01:49:44'),
+(1, 'admin', NULL, 1, NULL, 'SUPER ADMINISTRADOR', 'admin@gmail.com', '2023-03-23 07:45:02', '$2y$10$9SbqzcUtyfeaf4019gajcOGQ4/k.XfIpeMXZp/ZERKUP0Z9GA02MK', NULL, '8878326802', 'india', NULL, NULL, NULL, NULL, NULL, '2024-06-29 03:56:05', 0, 1, 1, NULL, NULL, '149071.png', NULL, NULL, NULL, 1, 0, 1, 1, NULL, NULL, 'es', 1, '2023-03-23 07:45:02', '2024-06-29 03:56:05'),
+(30, NULL, 'price3', 2, NULL, 'sdfsdfsf', 'subadmdfsfain@gmail.com', '2023-03-23 07:45:02', 'vbcvbhfghd', NULL, NULL, NULL, NULL, '987765546213132', NULL, 'it', 'arstexch', '2024-06-29 03:50:42', 1, 1, 1, NULL, NULL, NULL, NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:49:44', '2024-06-29 03:50:42'),
 (31, NULL, 'price2', 2, NULL, 'sofia', 'hhfghfhhffhfhfhrnatrajinfotech@gmail.com', NULL, 'sdfsfsfdsfsfsfsfsfs', NULL, NULL, 'ghfdgdfg', NULL, '465464df65g54d', 'ghjhgjgjg', 'erewr', 'asdsdfdsf', NULL, 0, 1, 1, NULL, NULL, NULL, NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:51:51', '2024-06-22 01:51:51'),
-(32, NULL, 'price3', 2, NULL, 'eve', 'eve@gmail.com', '2023-03-23 07:45:02', 'eve@3sss', NULL, '9589642080', 'bolivia', '7,14', '65465464879787', 'bolivia', 'Software', 'everytech', '2024-06-29 01:50:29', 1, 1, 1, NULL, NULL, 'IMG_4416_vo4r1a_1712164410.jpg', NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:56:11', '2024-06-29 01:50:29');
+(32, NULL, 'price3', 2, NULL, 'eve', 'eve@gmail.com', '2023-03-23 07:45:02', 'eve@3sss', NULL, '9589642080', 'bolivia', '7,14', '65465464879787', 'bolivia', 'Software', 'everytech', '2024-06-29 03:56:18', 1, 1, 1, NULL, NULL, 'IMG_4416_vo4r1a_1712164410.jpg', NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:56:11', '2024-06-29 03:56:18');
 
 --
 -- Indexes for dumped tables
@@ -2581,6 +2604,12 @@ ALTER TABLE `brands`
 -- Indexes for table `campaigns`
 --
 ALTER TABLE `campaigns`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `carts`
+--
+ALTER TABLE `carts`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -2950,6 +2979,12 @@ ALTER TABLE `brands`
 --
 ALTER TABLE `campaigns`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=326;
+
+--
+-- AUTO_INCREMENT for table `carts`
+--
+ALTER TABLE `carts`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `categories`

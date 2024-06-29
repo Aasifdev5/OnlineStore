@@ -88,6 +88,7 @@ Route::group(['middleware' => 'prevent-back-history', SetLocale::class], functio
     });
 
     Route::get('/', [UserController::class, 'Userlogin'])->name('Userlogin');
+    Route::get('getProducts', [UserController::class, 'getProducts'])->name('getProducts');
     Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard')->middleware('isLoggedIn');
     Route::post('/ProjectStore', [UserController::class, 'ProjectStore'])->name('ProjectStore');
     Route::get('shop', [UserController::class, 'shop'])->name('shop')->middleware('isLoggedIn');
@@ -100,6 +101,8 @@ Route::group(['middleware' => 'prevent-back-history', SetLocale::class], functio
     Route::post('/update_password', [UserController::class, 'update_password'])->name('update_password');
     Route::get('/edit_profile', [UserController::class, 'edit_profile'])->middleware('isLoggedIn');
     Route::post('update_profile', [UserController::class, 'update_profile']);
+    Route::get('addToCart/{price}/{id}', [UserController::class, 'addToCart'])->name('addToCart');
+    Route::get('RemoveCart/{id}', [UserController::class, 'removeCart'])->name('remove.cart');
     Route::get('cart', [UserController::class, 'cart'])->name('cart');
     Route::get('/finish', [UserController::class, 'finish'])->name('finish')->middleware('isLoggedIn');
     Route::get('/userNotifications', [UserController::class, 'userNotifications'])->name('userNotifications');

@@ -11,6 +11,7 @@ use App\Models\Blog;
 use App\Models\BlogCategory;
 use App\Models\BlogComment;
 use App\Models\Campaign;
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Country;
@@ -635,12 +636,76 @@ class UserController extends Controller
             return Redirect()->with('fail', 'You have to login first');
         }
     }
-    public function cart()
+    public function getProducts(Request $request)
+    {
+        $searchTerm = $request->input('search');
+        $categoryId = $request->input('category_id');
+
+        // Fetch user session and categories
+        $user_session = User::find(Session::get('LoggedIn'));
+
+        $userCategories = $user_session->categories ? explode(',', $user_session->categories) : [];
+
+        // Query products based on user's allowed categories
+        $query = Product::whereIn('category', $userCategories);
+        // dd($userCategories);
+        if (!empty($searchTerm)) {
+            $query->where('title', 'like', '%' . $searchTerm . '%');
+        }
+
+        if (!empty($categoryId) && $categoryId != 1) {
+            $query->where('category', $categoryId);
+        }
+
+        // Get products matching the query
+        $products = $query->get();
+
+        // Return JSON response with a 200 status code (assuming success)
+        return response()->json($products, 200);
+    }
+    public function addToCart($price, $id)
     {
 
-        $user_session = User::where('id', Session::get('LoggedIn'))->first();
-        $pages = Page::all();
-        return view('cart', compact('pages', 'user_session'));
+        $saveIntoCart = Cart::create([
+            'user_id' => Session::get('LoggedIn'),
+            'product_id' => $id,
+            'price' => $price,
+            'quantity' => 1,
+        ]);
+        return back();
+    }
+    public function removeCart($id)
+    {
+        if (Session::has('LoggedIn')) {
+            $cartItem = Cart::find($id);
+            if ($cartItem) {
+                $cartItem->delete();
+                return redirect()->route('cart')->with('success', 'Item removed from cart');
+            } else {
+                return redirect()->route('cart')->with('fail', 'Item not found in cart');
+            }
+        } else {
+            return redirect()->route('login')->with('fail', 'You have to login first');
+        }
+    }
+
+    public function cart()
+    {
+        if (Session::has('LoggedIn')) {
+
+            $pages = Page::all();
+            $user_session = User::where('id', Session::get('LoggedIn'))->first();
+            $userCategories = !empty($user_session->categories) ? explode(',', $user_session->categories) : [];
+            $products = Product::whereIn('category', $userCategories)->orderBy('id', 'desc')->paginate(4);
+
+            $latest_products = Product::whereIn('category', $userCategories)->orderBy('id', 'desc')->get();
+
+            $carts = Cart::where('user_id', Session::get('LoggedIn'))->get();
+            $general_setting = GeneralSetting::find('1');
+            return view('cart', compact('products', 'user_session',  'general_setting', 'pages', 'latest_products', 'carts'));
+        } else {
+            return Redirect()->with('fail', 'You have to login first');
+        }
     }
     public function ProjectStore(Request $request)
     {
