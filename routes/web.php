@@ -114,6 +114,8 @@ Route::group(['middleware' => 'prevent-back-history', SetLocale::class], functio
     Route::get('checkout', [UserController::class, 'checkout'])->name('checkout');
     Route::get('/news-category/{id}', [UserController::class, 'news_category'])->name('news_category');
     Route::get('/wishlist', [UserController::class, 'wishlist'])->name('wishlist');
+    Route::get('addToWishlist/{price}/{id}', [UserController::class, 'addToWishlist'])->name('addToWishlist');
+    Route::get('RemoveWish/{id}', [UserController::class, 'RemoveWish'])->name('remove.wish');
     Route::get('/MyActiveProject', [UserController::class, 'MyActiveProject'])->name('MyActiveProject')->middleware('isLoggedIn');
     Route::post('pay_credit/{id}', [UserController::class, 'pay_credit'])->name('pay_credit')->middleware('isLoggedIn');
     Route::get('page/{slug}', [Pages::class, 'get_page']);

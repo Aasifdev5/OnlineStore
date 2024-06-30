@@ -25,6 +25,7 @@ use App\Models\Product;
 use App\Models\Related_product;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Wishlist;
 use App\Notifications\NewUserRegisteredNotification;
 use App\Notifications\ResetPasswordNotification;
 use App\Notifications\UserRegisteredNotification;
@@ -274,7 +275,7 @@ class UserController extends Controller
 
             $related_products = DB::table('products')
                 ->join('related_products', 'products.id', '=', 'related_products.related_item_id')
-                ->select('related_products.id as related_id', 'products.title','products.id', 'products.f_thumbnail', 'products.slug', 'products.price1', 'products.price2', 'products.price3', 'products.price4', 'products.price5')
+                ->select('related_products.id as related_id', 'products.title', 'products.id', 'products.f_thumbnail', 'products.slug', 'products.price1', 'products.price2', 'products.price3', 'products.price4', 'products.price5')
                 ->where('related_products.product_id', $product->id)
                 ->orderBy('related_products.id', 'desc')
                 ->paginate(15);
@@ -319,11 +320,21 @@ class UserController extends Controller
     }
     public function wishlist()
     {
+        if (Session::has('LoggedIn')) {
 
-        $pages = Page::all();
-        $user_session = User::where('id', Session::get('LoggedIn'))->first();
+            $pages = Page::all();
+            $user_session = User::where('id', Session::get('LoggedIn'))->first();
+            $userCategories = !empty($user_session->categories) ? explode(',', $user_session->categories) : [];
+            $products = Product::whereIn('category', $userCategories)->orderBy('id', 'desc')->paginate(4);
 
-        return view('wishlist', compact('user_session', 'pages'));
+            $latest_products = Product::whereIn('category', $userCategories)->orderBy('id', 'desc')->get();
+
+            $wishlist = Wishlist::where('user_id', Session::get('LoggedIn'))->get();
+            $general_setting = GeneralSetting::find('1');
+            return view('wishlist', compact('products', 'user_session',  'general_setting', 'pages', 'latest_products', 'wishlist'));
+        } else {
+            return Redirect()->with('fail', 'You have to login first');
+        }
     }
     public function edit_project(Request $request)
     {
@@ -673,6 +684,37 @@ class UserController extends Controller
             'quantity' => 1,
         ]);
         return back();
+    }
+    public function addToWishlist($price, $id)
+    {
+        $stock = Product::find($id);
+        if (!empty($stock->is_stock)) {
+            $stockcheck = $stock->is_stock;
+        }
+        if ($stock->is_stock == null || empty($stock->is_stock)) {
+            $stockcheck =0;
+        }
+        $saveIntoWishlist = Wishlist::create([
+            'user_id' => Session::get('LoggedIn'),
+            'product_id' => $id,
+            'price' => $price,
+            'is_stock' => $stockcheck,
+        ]);
+        return back();
+    }
+    public function RemoveWish($id)
+    {
+        if (Session::has('LoggedIn')) {
+            $wishItem = Wishlist::find($id);
+            if ($wishItem) {
+                $wishItem->delete();
+                return redirect()->route('wishlist')->with('success', 'Item removed from wishlist');
+            } else {
+                return redirect()->route('wishlist')->with('fail', 'Item not found in wishlist');
+            }
+        } else {
+            return redirect()->route('login')->with('fail', 'You have to login first');
+        }
     }
     public function removeCart($id)
     {

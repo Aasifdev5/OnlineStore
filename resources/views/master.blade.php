@@ -271,7 +271,14 @@
                                             d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
                                         </path>
                                     </svg>
-                                    <span class="items__count">0</span>
+                                    <span class="items__count">@php
+                                        $count = \App\Models\Wishlist::where('user_id', Session::get('LoggedIn'))->count();
+                                       @endphp
+                                       @if ($count)
+                                           {{ $count }}
+                                       @else
+                                           0
+                                       @endif</span>
                                 </a>
                             </li>
                             @else
@@ -392,6 +399,7 @@
                                     </a>
                                 @endif
                             </li>
+                            @if (!empty($user_session))
                             <li class="header__account--items d-none d-lg-block">
                                 <a class="header__account--btn" href="{{ url('wishlist') }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -401,9 +409,33 @@
                                             d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
                                         </path>
                                     </svg>
-                                    <span class="items__count">3</span>
+                                    <span class="items__count">@php
+                                        $count = \App\Models\Wishlist::where('user_id', Session::get('LoggedIn'))->count();
+                                       @endphp
+                                       @if ($count)
+                                           {{ $count }}
+                                       @else
+                                           0
+                                       @endif</span>
                                 </a>
                             </li>
+                            @else
+                            <li class="header__account--items d-none d-lg-block">
+                                <a class="header__account--btn" href="{{ url('Userlogin') }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" class=" -heart">
+                                        <path
+                                            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                        </path>
+                                    </svg>
+                                    <span class="items__count">
+                                           0
+                                       </span>
+                                </a>
+                            </li>
+                            @endif
+                            @if (!empty($user_session))
                             <li class="header__account--items header__minicart--items">
                                 <a class="header__account--btn minicart__open--btn" href="javascript:void(0)"
                                     data-offcanvas>
@@ -423,9 +455,40 @@
                                             </g>
                                         </g>
                                     </svg>
-                                    <span class="items__count">2</span>
+                                    <span class="items__count"> @php
+                                        $count = \App\Models\Cart::where('user_id', Session::get('LoggedIn'))->count();
+                                       @endphp
+                                       @if ($count)
+                                           {{ $count }}
+                                       @else
+                                           0
+                                       @endif</span>
                                 </a>
                             </li>
+                            @else
+                            <li class="header__account--items header__minicart--items">
+                                <a class="header__account--btn minicart__open--btn" href="{{ url('Userlogin') }}"
+                                    data-offcanvas>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="22.706" height="22.534"
+                                        viewBox="0 0 14.706 13.534">
+                                        <g transform="translate(0 0)">
+                                            <g>
+                                                <path data-name="Path 16787"
+                                                    d="M4.738,472.271h7.814a.434.434,0,0,0,.414-.328l1.723-6.316a.466.466,0,0,0-.071-.4.424.424,0,0,0-.344-.179H3.745L3.437,463.6a.435.435,0,0,0-.421-.353H.431a.451.451,0,0,0,0,.9h2.24c.054.257,1.474,6.946,1.555,7.33a1.36,1.36,0,0,0-.779,1.242,1.326,1.326,0,0,0,1.293,1.354h7.812a.452.452,0,0,0,0-.9H4.74a.451.451,0,0,1,0-.9Zm8.966-6.317-1.477,5.414H5.085l-1.149-5.414Z"
+                                                    transform="translate(0 -463.248)" fill="currentColor" />
+                                                <path data-name="Path 16788"
+                                                    d="M5.5,478.8a1.294,1.294,0,1,0,1.293-1.353A1.325,1.325,0,0,0,5.5,478.8Zm1.293-.451a.452.452,0,1,1-.431.451A.442.442,0,0,1,6.793,478.352Z"
+                                                    transform="translate(-1.191 -466.622)" fill="currentColor" />
+                                                <path data-name="Path 16789"
+                                                    d="M13.273,478.8a1.294,1.294,0,1,0,1.293-1.353A1.325,1.325,0,0,0,13.273,478.8Zm1.293-.451a.452.452,0,1,1-.431.451A.442.442,0,0,1,14.566,478.352Z"
+                                                    transform="translate(-2.875 -466.622)" fill="currentColor" />
+                                            </g>
+                                        </g>
+                                    </svg>
+                                    <span class="items__count">0</span>
+                                </a>
+                            </li>
+                            @endif
                         </ul>
                     </div>
                 </div>

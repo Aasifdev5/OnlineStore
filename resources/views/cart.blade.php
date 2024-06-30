@@ -147,11 +147,37 @@
                     <div class="swiper-wrapper">
                         @if (!empty($latest_products))
                             @foreach ($latest_products as $row)
+                            @if ($user_session->price == "price1")
+                            @php
+                                $price = $row->price1;
+                            @endphp
+
+                            @endif
+                            @if ($user_session->price == "price2")
+                            @php
+                            $price = $row->price2;
+                        @endphp
+                                @endif
+                            @if ($user_session->price == "price3")
+                            @php
+                            $price = $row->price3;
+                        @endphp
+                                @endif
+                            @if ($user_session->price == "price4")
+                            @php
+                            $price = $row->price4;
+                        @endphp
+                                @endif
+                            @if ($user_session->price == "price5")
+                            @php
+                            $price = $row->price5;
+                        @endphp
+                                @endif
                                 <div class="swiper-slide">
                                     <article class="product__card">
                                         <div class="product__card--thumbnail">
                                             <a class="product__card--thumbnail__link display-block"
-                                                href="product-details.html">
+                                                href="{{ url('product-details') }}{{ '/' . $row->slug }}">
                                                 <img class="product__card--thumbnail__img product__primary--img"
                                                     src="{{ asset('f_thumbnail/' . $row->f_thumbnail) }}"
                                                     alt="product-img">
@@ -159,7 +185,7 @@
                                                     src="{{ asset('f_thumbnail/' . $row->f_thumbnail) }}"
                                                     alt="product-img">
                                             </a>
-                                            <span class="product__badge">-14%</span>
+
                                             <ul
                                                 class="product__card--action d-flex align-items-center justify-content-center">
                                                 <li class="product__card--action__list">
@@ -179,7 +205,7 @@
 
                                                 <li class="product__card--action__list">
                                                     <a class="product__card--action__btn" title="Wishlist"
-                                                        href="wishlist.html">
+                                                        href="{{ url('addToWishlist') }}/{{ $price }}/{{ $row->id }}">
                                                         <svg class="product__card--action__btn--svg" width="18"
                                                             height="18" viewBox="0 0 16 13" fill="none"
                                                             xmlns="http://www.w3.org/2000/svg">
@@ -253,32 +279,7 @@
                                                 </a></h3>
                                             <div class="product__card--price">
                                                 <span class="current__price">
-                                                    @if ($user_session->price == "price1")
-                                                                @php
-                                                                    $price = $row->price1;
-                                                                @endphp
 
-                                                                @endif
-                                                                @if ($user_session->price == "price2")
-                                                                @php
-                                                                $price = $row->price2;
-                                                            @endphp
-                                                                    @endif
-                                                                @if ($user_session->price == "price3")
-                                                                @php
-                                                                $price = $row->price3;
-                                                            @endphp
-                                                                    @endif
-                                                                @if ($user_session->price == "price4")
-                                                                @php
-                                                                $price = $row->price4;
-                                                            @endphp
-                                                                    @endif
-                                                                @if ($user_session->price == "price5")
-                                                                @php
-                                                                $price = $row->price5;
-                                                            @endphp
-                                                                    @endif
                                                                     {{ 'BS '.$price }}
                                                 </span>
                                                 {{-- <span class="old__price"> $362.00</span> --}}

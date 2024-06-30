@@ -179,7 +179,7 @@
                                             Cart</a>
                                     </div>
                                     <div class="product__variant--list mb-15">
-                                        <a class="variant__wishlist--icon mb-15" href="{{ url('wishlist') }}"
+                                        <a class="variant__wishlist--icon mb-15" href="{{ url('addToWishlist') }}/{{ $price }}/{{ $product->id }}"
                                             title="Add to wishlist">
                                             <svg class="quickview__variant--wishlist__svg"
                                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -682,6 +682,32 @@
                     <div class="swiper-wrapper">
                         @if (!empty($related_products))
                             @foreach ($related_products as $row)
+                            @if ($user_session->price == "price1")
+                            @php
+                                $price = $row->price1;
+                            @endphp
+
+                            @endif
+                            @if ($user_session->price == "price2")
+                            @php
+                            $price = $row->price2;
+                        @endphp
+                                @endif
+                            @if ($user_session->price == "price3")
+                            @php
+                            $price = $row->price3;
+                        @endphp
+                                @endif
+                            @if ($user_session->price == "price4")
+                            @php
+                            $price = $row->price4;
+                        @endphp
+                                @endif
+                            @if ($user_session->price == "price5")
+                            @php
+                            $price = $row->price5;
+                        @endphp
+                                @endif
                                 <div class="swiper-slide">
                                     <article class="product__card">
                                         <div class="product__card--thumbnail">
@@ -714,7 +740,7 @@
 
                                                 <li class="product__card--action__list">
                                                     <a class="product__card--action__btn" title="Wishlist"
-                                                        href="{{ url('wishlist') }}">
+                                                        href="{{ url('addToWishlist') }}/{{ $price }}/{{ $row->id }}">
                                                         <svg class="product__card--action__btn--svg" width="18"
                                                             height="18" viewBox="0 0 16 13" fill="none"
                                                             xmlns="http://www.w3.org/2000/svg">
@@ -788,32 +814,7 @@
                                                 </a></h3>
                                             <div class="product__card--price">
                                                 <span class="current__price">
-                                                    @if ($user_session->price == "price1")
-                                                    @php
-                                                        $price = $row->price1;
-                                                    @endphp
 
-                                                    @endif
-                                                    @if ($user_session->price == "price2")
-                                                    @php
-                                                    $price = $row->price2;
-                                                @endphp
-                                                        @endif
-                                                    @if ($user_session->price == "price3")
-                                                    @php
-                                                    $price = $row->price3;
-                                                @endphp
-                                                        @endif
-                                                    @if ($user_session->price == "price4")
-                                                    @php
-                                                    $price = $row->price4;
-                                                @endphp
-                                                        @endif
-                                                    @if ($user_session->price == "price5")
-                                                    @php
-                                                    $price = $row->price5;
-                                                @endphp
-                                                        @endif
                                                         {{ 'BS '.$price }}
                                                 </span>
                                                 {{-- <span class="old__price"> $362.00</span> --}}

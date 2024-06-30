@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 29, 2024 at 02:17 PM
+-- Generation Time: Jun 30, 2024 at 09:44 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -391,7 +391,8 @@ CREATE TABLE `carts` (
 --
 
 INSERT INTO `carts` (`id`, `user_id`, `product_id`, `price`, `quantity`, `created_at`, `updated_at`) VALUES
-(2, 32, 35, 80.00, 1, '2024-06-29 06:13:38', '2024-06-29 06:13:38');
+(2, 32, 35, 80.00, 1, '2024-06-29 06:13:38', '2024-06-29 06:13:38'),
+(3, 32, 36, 100.00, 1, '2024-06-29 23:25:11', '2024-06-29 23:25:11');
 
 -- --------------------------------------------------------
 
@@ -1330,7 +1331,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (28, '2024_01_17_140951_create_credit_reload_promotions_table', 16),
 (29, '2024_01_16_172130_create_attentions_table', 17),
 (30, '2024_06_09_091155_create_permissions_table', 18),
-(31, '2024_06_24_084835_create_product_variations_table', 19);
+(31, '2024_06_24_084835_create_product_variations_table', 19),
+(32, '2024_06_30_063352_create_wishlists_table', 20);
 
 -- --------------------------------------------------------
 
@@ -2526,7 +2528,30 @@ INSERT INTO `users` (`id`, `account_type`, `price`, `role`, `permissions`, `name
 (1, 'admin', NULL, 1, NULL, 'SUPER ADMINISTRADOR', 'admin@gmail.com', '2023-03-23 07:45:02', '$2y$10$9SbqzcUtyfeaf4019gajcOGQ4/k.XfIpeMXZp/ZERKUP0Z9GA02MK', NULL, '8878326802', 'india', NULL, NULL, NULL, NULL, NULL, '2024-06-29 03:56:05', 0, 1, 1, NULL, NULL, '149071.png', NULL, NULL, NULL, 1, 0, 1, 1, NULL, NULL, 'es', 1, '2023-03-23 07:45:02', '2024-06-29 03:56:05'),
 (30, NULL, 'price3', 2, NULL, 'sdfsdfsf', 'subadmdfsfain@gmail.com', '2023-03-23 07:45:02', 'vbcvbhfghd', NULL, NULL, NULL, NULL, '987765546213132', NULL, 'it', 'arstexch', '2024-06-29 03:50:42', 1, 1, 1, NULL, NULL, NULL, NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:49:44', '2024-06-29 03:50:42'),
 (31, NULL, 'price2', 2, NULL, 'sofia', 'hhfghfhhffhfhfhrnatrajinfotech@gmail.com', NULL, 'sdfsfsfdsfsfsfsfsfs', NULL, NULL, 'ghfdgdfg', NULL, '465464df65g54d', 'ghjhgjgjg', 'erewr', 'asdsdfdsf', NULL, 0, 1, 1, NULL, NULL, NULL, NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:51:51', '2024-06-22 01:51:51'),
-(32, NULL, 'price3', 2, NULL, 'eve', 'eve@gmail.com', '2023-03-23 07:45:02', 'eve@3sss', NULL, '9589642080', 'bolivia', '7,14', '65465464879787', 'bolivia', 'Software', 'everytech', '2024-06-29 03:56:18', 1, 1, 1, NULL, NULL, 'IMG_4416_vo4r1a_1712164410.jpg', NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:56:11', '2024-06-29 03:56:18');
+(32, NULL, 'price3', 2, NULL, 'eve', 'eve@gmail.com', '2023-03-23 07:45:02', 'eve@3sss', NULL, '9589642080', 'bolivia', '7,14', '65465464879787', 'bolivia', 'Software', 'everytech', '2024-06-29 23:23:51', 1, 1, 1, NULL, NULL, 'IMG_4416_vo4r1a_1712164410.jpg', NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:56:11', '2024-06-29 23:23:51');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `wishlists`
+--
+
+CREATE TABLE `wishlists` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `product_id` bigint(20) UNSIGNED NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `is_stock` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `wishlists`
+--
+
+INSERT INTO `wishlists` (`id`, `user_id`, `product_id`, `price`, `is_stock`, `created_at`, `updated_at`) VALUES
+(3, 32, 33, 100.00, 1, '2024-06-30 02:01:56', '2024-06-30 02:01:56');
 
 --
 -- Indexes for dumped tables
@@ -2905,6 +2930,12 @@ ALTER TABLE `users`
   ADD KEY `users_phone_index` (`mobile_number`);
 
 --
+-- Indexes for table `wishlists`
+--
+ALTER TABLE `wishlists`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -2984,7 +3015,7 @@ ALTER TABLE `campaigns`
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -3080,7 +3111,7 @@ ALTER TABLE `metas`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `notifications`
@@ -3249,6 +3280,12 @@ ALTER TABLE `ticket_related_services`
 --
 ALTER TABLE `users`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+
+--
+-- AUTO_INCREMENT for table `wishlists`
+--
+ALTER TABLE `wishlists`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
