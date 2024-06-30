@@ -35,8 +35,9 @@ use App\Http\Controllers\FacebookSocialiteController;
 use App\Http\Controllers\FundController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\MailTemplateController;
-use App\Http\Controllers\Pages;
+use App\Http\Controllers\OrderController;
 
+use App\Http\Controllers\Pages;
 use App\Http\Controllers\QRCodeController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ScreenTimeController;
@@ -48,6 +49,7 @@ use App\Models\Language;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
+
 
 
 
@@ -113,6 +115,10 @@ Route::group(['middleware' => 'prevent-back-history', SetLocale::class], functio
     Route::post('checkLike', [UserController::class, 'checkLike'])->name('checkLike');
     Route::get('checkout', [UserController::class, 'checkout'])->name('checkout');
     Route::post('/billing', [UserController::class, 'Billingstore'])->name('billing.store');
+    Route::post('/order', [OrderController::class, 'store'])->name('order.store');
+    Route::get('/order/success', function () {
+        return view('success');
+    })->name('order.success');
     Route::get('/news-category/{id}', [UserController::class, 'news_category'])->name('news_category');
     Route::get('/wishlist', [UserController::class, 'wishlist'])->name('wishlist');
     Route::get('/home', [UserController::class, 'home'])->name('home');

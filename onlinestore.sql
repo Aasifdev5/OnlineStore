@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 30, 2024 at 11:56 AM
+-- Generation Time: Jun 30, 2024 at 01:52 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -403,14 +403,6 @@ CREATE TABLE `carts` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `carts`
---
-
-INSERT INTO `carts` (`id`, `user_id`, `product_id`, `price`, `quantity`, `created_at`, `updated_at`) VALUES
-(2, 32, 35, 80.00, 1, '2024-06-29 06:13:38', '2024-06-29 06:13:38'),
-(3, 32, 36, 100.00, 1, '2024-06-29 23:25:11', '2024-06-29 23:25:11');
 
 -- --------------------------------------------------------
 
@@ -1351,7 +1343,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (30, '2024_06_09_091155_create_permissions_table', 18),
 (31, '2024_06_24_084835_create_product_variations_table', 19),
 (32, '2024_06_30_063352_create_wishlists_table', 20),
-(33, '2024_06_30_095240_create_billing_details_table', 21);
+(33, '2024_06_30_095240_create_billing_details_table', 21),
+(34, '2024_06_30_103519_create_orders_table', 22),
+(35, '2024_06_30_103639_create_order_items_table', 23);
 
 -- --------------------------------------------------------
 
@@ -1445,6 +1439,55 @@ INSERT INTO `notifications` (`id`, `uuid`, `sender_id`, `user_id`, `text`, `targ
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `full_name` varchar(191) NOT NULL,
+  `address` varchar(191) NOT NULL,
+  `city` varchar(191) NOT NULL,
+  `country` varchar(191) NOT NULL,
+  `postal_code` varchar(191) NOT NULL,
+  `total_amount` decimal(10,2) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `user_id`, `full_name`, `address`, `city`, `country`, `postal_code`, `total_amount`, `created_at`, `updated_at`) VALUES
+(1, 32, 'Aasif Ahmed', '722 azad nagar indore', 'Indore', 'India', '452001', 80.00, '2024-06-30 06:20:06', '2024-06-30 06:20:06');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_items`
+--
+
+CREATE TABLE `order_items` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `order_id` bigint(20) UNSIGNED NOT NULL,
+  `product_id` bigint(20) UNSIGNED NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `order_items`
+--
+
+INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `price`, `created_at`, `updated_at`) VALUES
+(1, 1, 35, 1, 80.00, '2024-06-30 06:20:06', '2024-06-30 06:20:06');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `our_histories`
 --
 
@@ -1528,7 +1571,7 @@ CREATE TABLE `payments` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
-  `campaign_id` int(11) DEFAULT NULL,
+  `product_details` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`product_details`)),
   `user_id` int(11) DEFAULT NULL,
   `reward_id` int(11) DEFAULT NULL,
   `amount` decimal(8,2) DEFAULT NULL,
@@ -1544,12 +1587,8 @@ CREATE TABLE `payments` (
 -- Dumping data for table `payments`
 --
 
-INSERT INTO `payments` (`id`, `name`, `email`, `campaign_id`, `user_id`, `reward_id`, `amount`, `payment_receipt`, `accepted`, `status`, `payer_email`, `created_at`, `updated_at`) VALUES
-(1, 'alex', NULL, 18, 4, NULL, 580.00, 'payment_receipt/download.png', 1, 'initial', 'alex@gmail.com', '2024-04-14 00:17:43', '2024-04-14 00:44:19'),
-(2, 'Radha', NULL, 30, 29, NULL, 198.00, 'payment_receipt/english-flag-vector-675964.jpg', 0, 'initial', 'arstech2a@gmail.com', '2024-04-17 00:51:58', '2024-04-17 00:51:58'),
-(3, 'Radha', NULL, 31, 29, NULL, 198.00, 'payment_receipt/IMG_4416_vo4r1a_1712164410.jpg', 0, 'initial', 'arstech2a@gmail.com', '2024-04-17 00:57:10', '2024-04-17 00:57:10'),
-(4, 'Radha', NULL, 31, 29, NULL, 163.00, 'payment_receipt/IMG_4416_vo4r1a_1712164410.jpg', 0, 'initial', 'arstech2a@gmail.com', '2024-04-17 01:08:33', '2024-04-17 01:08:33'),
-(5, 'Radha', NULL, 31, 29, NULL, 168.00, 'payment_receipt/IMG_4416_vo4r1a_1712164410.jpg', 0, 'initial', 'arstech2a@gmail.com', '2024-04-17 01:15:38', '2024-04-17 01:15:38');
+INSERT INTO `payments` (`id`, `name`, `email`, `product_details`, `user_id`, `reward_id`, `amount`, `payment_receipt`, `accepted`, `status`, `payer_email`, `created_at`, `updated_at`) VALUES
+(1, NULL, NULL, '[{\"product_id\":\"35\",\"quantity\":\"1\",\"price\":\"80.00\"}]', 32, NULL, 80.00, 'payment_receipt/New Doc 2017-03-28_4.jpg', 0, 'initial', NULL, '2024-06-30 06:20:06', '2024-06-30 06:20:06');
 
 -- --------------------------------------------------------
 
@@ -2771,6 +2810,18 @@ ALTER TABLE `notifications`
   ADD UNIQUE KEY `notifications_uuid_unique` (`uuid`);
 
 --
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `order_items`
+--
+ALTER TABLE `order_items`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `our_histories`
 --
 ALTER TABLE `our_histories`
@@ -3046,7 +3097,7 @@ ALTER TABLE `campaigns`
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -3142,13 +3193,25 @@ ALTER TABLE `metas`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `order_items`
+--
+ALTER TABLE `order_items`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `our_histories`
@@ -3172,7 +3235,7 @@ ALTER TABLE `password_resets`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `payment_gateway`

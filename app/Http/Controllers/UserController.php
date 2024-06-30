@@ -287,10 +287,10 @@ class UserController extends Controller
             $pages = Page::all();
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
 
-
+            $qrcode =  BankDetails::orderby('id', 'desc')->first();
             $carts = Cart::where('user_id', Session::get('LoggedIn'))->get();
             $general_setting = GeneralSetting::find('1');
-            return view('checkout', compact('user_session',  'general_setting', 'pages', 'carts'));
+            return view('checkout', compact('user_session',  'general_setting', 'pages', 'carts','qrcode'));
         } else {
             return Redirect()->with('fail', 'You have to login first');
         }
