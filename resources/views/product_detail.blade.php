@@ -14,7 +14,6 @@
                                 <div class="swiper-wrapper">
                                     @php
                                         $productImages = \App\Models\Pro_image::where('product_id', $product->id)
-                                            ->where('color','')
                                             ->orderBy('id', 'desc')
                                             ->get();
                                     @endphp
@@ -61,6 +60,7 @@
                             </div>
                         </div>
 
+
                     </div>
                     <div class="col">
                         <div class="product__details--info">
@@ -68,21 +68,33 @@
                                 <h2 class="product__details--info__title mb-15">{{ $product->title }}</h2>
                                 <div class="product__details--info__price mb-12">
                                     <span class="current__price">
-                                        @if ($user_session->price == 'price1')
-                                            {{ 'BS' . $product->price1 }}
+                                        @if ($user_session->price == "price1")
+                                        @php
+                                            $price = $product->price1;
+                                        @endphp
+
                                         @endif
-                                        @if ($user_session->price == 'price2')
-                                            {{ 'BS' . $product->price2 }}
-                                        @endif
-                                        @if ($user_session->price == 'price3')
-                                            {{ 'BS' . $product->price3 }}
-                                        @endif
-                                        @if ($user_session->price == 'price4')
-                                            {{ 'BS' . $product->price4 }}
-                                        @endif
-                                        @if ($user_session->price == 'price5')
-                                            {{ 'BS' . $product->price5 }}
-                                        @endif
+                                        @if ($user_session->price == "price2")
+                                        @php
+                                        $price = $product->price2;
+                                    @endphp
+                                            @endif
+                                        @if ($user_session->price == "price3")
+                                        @php
+                                        $price = $product->price3;
+                                    @endphp
+                                            @endif
+                                        @if ($user_session->price == "price4")
+                                        @php
+                                        $price = $product->price4;
+                                    @endphp
+                                            @endif
+                                        @if ($user_session->price == "price5")
+                                        @php
+                                        $price = $product->price5;
+                                    @endphp
+                                            @endif
+                                            {{ 'BS '.$price }}
                                     </span>
                                     {{-- <span class="old__price">$68.00</span> --}}
                                 </div>
@@ -147,39 +159,7 @@
                                     suscipit cum harum.</p>
                                 <div class="product__variant">
                                     <div class="product__variant--list mb-10">
-                                        <fieldset class="variant__input--fieldset">
-                                            <legend class="product__variant--title mb-8">Color :</legend>
-                                            <div class="variant__color d-flex">
-                                                <div class="variant__color--list">
-                                                    <input id="color-red5" name="color" type="radio" checked>
-                                                    <label class="variant__color--value red" for="color-red5"
-                                                        title="Red"><img class="variant__color--value__img"
-                                                            src="assets/img/product/small-product/product1.webp"
-                                                            alt="variant-color-img"></label>
-                                                </div>
-                                                <div class="variant__color--list">
-                                                    <input id="color-red6" name="color" type="radio">
-                                                    <label class="variant__color--value red" for="color-red6"
-                                                        title="Black"><img class="variant__color--value__img"
-                                                            src="assets/img/product/small-product/product2.webp"
-                                                            alt="variant-color-img"></label>
-                                                </div>
-                                                <div class="variant__color--list">
-                                                    <input id="color-red7" name="color" type="radio">
-                                                    <label class="variant__color--value red" for="color-red7"
-                                                        title="Pink"><img class="variant__color--value__img"
-                                                            src="assets/img/product/small-product/product3.webp"
-                                                            alt="variant-color-img"></label>
-                                                </div>
-                                                <div class="variant__color--list">
-                                                    <input id="color-red8" name="color" type="radio">
-                                                    <label class="variant__color--value red" for="color-red8"
-                                                        title="Orange"><img class="variant__color--value__img"
-                                                            src="assets/img/product/small-product/product4.webp"
-                                                            alt="variant-color-img"></label>
-                                                </div>
-                                            </div>
-                                        </fieldset>
+
                                     </div>
 
                                     <div class="product__variant--list quantity d-flex align-items-center mb-20">
@@ -195,11 +175,11 @@
                                                 class="quantity__value quickview__value--quantity increase"
                                                 aria-label="quantity value" value="Increase Value">+</button>
                                         </div>
-                                        <button class="primary__btn quickview__cart--btn" type="submit">Add To
-                                            Cart</button>
+                                        <a class="primary__btn quickview__cart--btn" href="{{ url('addToCart') }}/{{ $price }}/{{ $product->id }}">Add To
+                                            Cart</a>
                                     </div>
                                     <div class="product__variant--list mb-15">
-                                        <a class="variant__wishlist--icon mb-15" href="wishlist.html"
+                                        <a class="variant__wishlist--icon mb-15" href="{{ url('wishlist') }}"
                                             title="Add to wishlist">
                                             <svg class="quickview__variant--wishlist__svg"
                                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -215,15 +195,8 @@
                                     </div>
                                     <div class="product__variant--list mb-15">
                                         <div class="product__details--info__meta">
-                                            <p class="product__details--info__meta--list"><strong>Barcode:</strong> <span>
-                                                    565461</span> </p>
-                                            <p class="product__details--info__meta--list"><strong>Sky:</strong>
-                                                <span>4420</span>
-                                            </p>
-                                            {{-- <p class="product__details--info__meta--list"><strong>Vendor:</strong>
-                                                <span>Belo</span> </p> --}}
-                                            <p class="product__details--info__meta--list"><strong>Type:</strong> <span>Auto
-                                                    Parts</span> </p>
+
+
                                         </div>
                                     </div>
                                 </div>
@@ -688,33 +661,7 @@
                                     </div>
                                 </div>
                                 <div id="information" class="tab_pane">
-                                    <div class="product__tab--conten">
-                                        <div class="product__tab--content__step">
-                                            <ul class="additional__info_list">
-                                                <li class="additional__info_list--item">
-                                                    <span class="info__list--item-head"><strong>Color</strong></span>
-                                                    <span class="info__list--item-content">Black, white, blue, red,
-                                                        gray</span>
-                                                </li>
-                                                <li class="additional__info_list--item">
-                                                    <span class="info__list--item-head"><strong>Weight</strong></span>
-                                                    <span class="info__list--item-content">2kg</span>
-                                                </li>
-                                                <li class="additional__info_list--item">
-                                                    <span class="info__list--item-head"><strong>Brand</strong></span>
-                                                    <span class="info__list--item-content">Gadget</span>
-                                                </li>
-                                                <li class="additional__info_list--item">
-                                                    <span class="info__list--item-head"><strong>Guarantee</strong></span>
-                                                    <span class="info__list--item-content">5 years</span>
-                                                </li>
-                                                <li class="additional__info_list--item">
-                                                    <span class="info__list--item-head"><strong>Battery</strong></span>
-                                                    <span class="info__list--item-content">10000 mA</span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
+
                                 </div>
 
                             </div>
@@ -739,7 +686,7 @@
                                     <article class="product__card">
                                         <div class="product__card--thumbnail">
                                             <a class="product__card--thumbnail__link display-block"
-                                                href="product-details.html">
+                                                href="{{ url('product-details') }}{{ '/' . $row->slug }}">
                                                 <img class="product__card--thumbnail__img product__primary--img"
                                                     src="{{ asset('f_thumbnail/' . $row->f_thumbnail) }}"
                                                     alt="product-img">
@@ -747,7 +694,7 @@
                                                     src="{{ asset('f_thumbnail/' . $row->f_thumbnail) }}"
                                                     alt="product-img">
                                             </a>
-                                            <span class="product__badge">-14%</span>
+
                                             <ul
                                                 class="product__card--action d-flex align-items-center justify-content-center">
                                                 <li class="product__card--action__list">
@@ -767,7 +714,7 @@
 
                                                 <li class="product__card--action__list">
                                                     <a class="product__card--action__btn" title="Wishlist"
-                                                        href="wishlist.html">
+                                                        href="{{ url('wishlist') }}">
                                                         <svg class="product__card--action__btn--svg" width="18"
                                                             height="18" viewBox="0 0 16 13" fill="none"
                                                             xmlns="http://www.w3.org/2000/svg">
@@ -841,26 +788,38 @@
                                                 </a></h3>
                                             <div class="product__card--price">
                                                 <span class="current__price">
-                                                    @if ($user_session->price == 'price1')
-                                                        {{ 'BS' . $row->price1 }}
+                                                    @if ($user_session->price == "price1")
+                                                    @php
+                                                        $price = $row->price1;
+                                                    @endphp
+
                                                     @endif
-                                                    @if ($user_session->price == 'price2')
-                                                        {{ 'BS' . $row->price2 }}
-                                                    @endif
-                                                    @if ($user_session->price == 'price3')
-                                                        {{ 'BS' . $row->price3 }}
-                                                    @endif
-                                                    @if ($user_session->price == 'price4')
-                                                        {{ 'BS' . $row->price4 }}
-                                                    @endif
-                                                    @if ($user_session->price == 'price5')
-                                                        {{ 'BS' . $row->price5 }}
-                                                    @endif
+                                                    @if ($user_session->price == "price2")
+                                                    @php
+                                                    $price = $row->price2;
+                                                @endphp
+                                                        @endif
+                                                    @if ($user_session->price == "price3")
+                                                    @php
+                                                    $price = $row->price3;
+                                                @endphp
+                                                        @endif
+                                                    @if ($user_session->price == "price4")
+                                                    @php
+                                                    $price = $row->price4;
+                                                @endphp
+                                                        @endif
+                                                    @if ($user_session->price == "price5")
+                                                    @php
+                                                    $price = $row->price5;
+                                                @endphp
+                                                        @endif
+                                                        {{ 'BS '.$price }}
                                                 </span>
                                                 {{-- <span class="old__price"> $362.00</span> --}}
                                             </div>
                                             <div class="product__card--footer">
-                                                <a class="product__card--btn primary__btn" href="cart.html">
+                                                <a class="product__card--btn primary__btn" href="{{ url('addToCart') }}/{{ $price }}/{{ $row->id }}">
                                                     <svg width="14" height="11" viewBox="0 0 14 11"
                                                         fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path

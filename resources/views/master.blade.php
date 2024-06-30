@@ -37,6 +37,66 @@
 
     <!-- Custom Style CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <style>
+        /* Modal Styling */
+        .modal-header {
+            background-color: #fadc00;
+            color: white;
+        }
+
+        .modal-title {
+            font-weight: bold;
+        }
+
+        .product-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .product-card {
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease-in-out;
+            width: calc(33.333% - 15px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+        }
+
+        .product-link {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 10px;
+            text-align: center;
+        }
+
+        .product-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .no-results {
+            color: #ff0000;
+            font-weight: bold;
+            text-align: center;
+        }
+        </style>
+
 </head>
 
 <body>
@@ -137,7 +197,7 @@
                             </div>
                         </form>
 
-                        <div id="search_results"></div>
+
                     </div>
                     <div class="header__menu d-none d-lg-block header__sticky--block">
                         <nav class="header__menu--navigation">
@@ -750,6 +810,22 @@
 
     </header>
     <!-- End header area -->
+  <!-- Enhanced Modal Structure -->
+<div class="modal fade" id="searchResultsModal" tabindex="-1" role="dialog" aria-labelledby="searchResultsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="searchResultsModalLabel">Search Results</h5>
+
+            </div>
+            <div class="modal-body">
+                <div id="search_results"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
     @yield('content')
 
@@ -1482,7 +1558,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
-      $(document).ready(function() {
+$(document).ready(function() {
     $('#product_search_form').submit(function(event) {
         event.preventDefault(); // Prevent form submission
         performSearch();
@@ -1512,20 +1588,18 @@
             success: function(response) {
                 $('#search_results').empty(); // Clear previous results
                 if (response.length > 0) {
-                    const resultList = $('<ul class="product-list"></ul>');
+                    const resultList = $('<div class="product-grid"></div>');
 
                     $.each(response, function(index, product) {
                         const listItem = `
-                            <li class="product-item">
-                                <div class="product-content">
-                                    <a href="{{ url('product-details') }}/${product.slug}" class="product-title"><img src="{{ asset('f_thumbnail') }}/${product.f_thumbnail}" alt="${product.title}" class="product-image" style="width: 50px; height: 50px;"></a>
-
-                                    <div class="product-details">
-                                        <a href="{{ url('product-details') }}/${product.slug}" class="product-title">${product.title}</a>
-
+                            <div class="product-card">
+                                <a href="{{ url('product-details') }}/${product.slug}" class="product-link">
+                                    <img src="{{ asset('f_thumbnail') }}/${product.f_thumbnail}" alt="${product.title}" class="product-image">
+                                    <div class="product-info">
+                                        <h5 class="product-title">${product.title}</h5>
                                     </div>
-                                </div>
-                            </li>`;
+                                </a>
+                            </div>`;
                         resultList.append(listItem);
                     });
 
@@ -1533,6 +1607,8 @@
                 } else {
                     $('#search_results').append('<p class="no-results">No products found.</p>');
                 }
+
+                $('#searchResultsModal').modal('show'); // Show the modal
             },
             error: function(xhr, status, error) {
                 console.error(error);
