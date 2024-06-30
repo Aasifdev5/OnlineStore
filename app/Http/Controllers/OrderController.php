@@ -33,10 +33,6 @@ class OrderController extends Controller
         $total_amount = 0;
         $payer = User::find($user_id);
 
-
-
-
-
         foreach ($request->cart_products as $cart_product) {
             $total_amount += $cart_product['price'] * $cart_product['quantity'];
         }
