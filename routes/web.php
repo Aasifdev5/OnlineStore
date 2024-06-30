@@ -112,8 +112,10 @@ Route::group(['middleware' => 'prevent-back-history', SetLocale::class], functio
     Route::post('/like', [UserController::class, 'storeLikes'])->name('like');
     Route::post('checkLike', [UserController::class, 'checkLike'])->name('checkLike');
     Route::get('checkout', [UserController::class, 'checkout'])->name('checkout');
+    Route::post('/billing', [UserController::class, 'Billingstore'])->name('billing.store');
     Route::get('/news-category/{id}', [UserController::class, 'news_category'])->name('news_category');
     Route::get('/wishlist', [UserController::class, 'wishlist'])->name('wishlist');
+    Route::get('/home', [UserController::class, 'home'])->name('home');
     Route::get('addToWishlist/{price}/{id}', [UserController::class, 'addToWishlist'])->name('addToWishlist');
     Route::get('RemoveWish/{id}', [UserController::class, 'RemoveWish'])->name('remove.wish');
     Route::get('/MyActiveProject', [UserController::class, 'MyActiveProject'])->name('MyActiveProject')->middleware('isLoggedIn');

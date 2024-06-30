@@ -203,12 +203,19 @@
                         <nav class="header__menu--navigation">
                             <ul class="header__menu--wrapper d-flex">
                                 <li class="header__menu--items">
-                                    <a class="header__menu--link active" href="{{ url('shop') }}">Home
+                                    <a class="header__menu--link text-white active"
+                                        href="{{ url('home') }}">Home
 
                                     </a>
 
                                 </li>
+                                <li class="header__menu--items">
+                                    <a class="header__menu--link text-white active"
+                                        href="{{ url('shop') }}">Shop
 
+                                    </a>
+
+                                </li>
 
 
 
@@ -326,7 +333,16 @@
                                         @endif
                                     </span>
                                     <span class="minicart__btn--text">My Cart <br> <span
-                                            class="minicart__btn--text__price">$0.00</span></span>
+                                            class="minicart__btn--text__price">@php
+                                            $total = \App\Models\Cart::where('user_id', Session::get('LoggedIn'))
+                                                                    ->selectRaw('SUM(price * quantity) as total')
+                                                                    ->pluck('total')
+                                                                    ->first();
+                                            $formattedTotal = $total ? 'BS' . number_format($total, 2) : 'BS0.00';
+                                        @endphp
+                                        {{ $formattedTotal }}
+
+                                        </span></span>
                                 </a>
                             </li>
                             @else
@@ -351,7 +367,7 @@
                                     </svg>
                                     <span class="items__count">0</span>
                                     <span class="minicart__btn--text"> Cart <br> <span
-                                            class="minicart__btn--text__price">$0.00</span></span>
+                                            class="minicart__btn--text__price">BS0.00</span></span>
                                 </a>
                             </li>
                             @endif
@@ -681,12 +697,18 @@
                                 <ul class="header__menu--wrapper d-flex">
                                     <li class="header__menu--items">
                                         <a class="header__menu--link text-white active"
-                                            href="{{ url('shop') }}">Home
+                                            href="{{ url('home') }}">Home
 
                                         </a>
 
                                     </li>
+                                    <li class="header__menu--items">
+                                        <a class="header__menu--link text-white active"
+                                            href="{{ url('shop') }}">Shop
 
+                                        </a>
+
+                                    </li>
 
 
 
@@ -715,15 +737,19 @@
                 </div>
                 <nav class="offcanvas__menu">
                     <ul class="offcanvas__menu_ul">
-                        <li class="offcanvas__menu_li">
-                            <a class="offcanvas__menu_item" href="{{ url('shop') }}">Home</a>
+                        <li class="header__menu--items">
+                            <a class="header__menu--link text-white active"
+                                href="{{ url('home') }}">Home
+
+                            </a>
 
                         </li>
+                        <li class="header__menu--items">
+                            <a class="header__menu--link text-white active"
+                                href="{{ url('shop') }}">Shop
 
+                            </a>
 
-
-                        <li class="offcanvas__menu_li"><a class="offcanvas__menu_item"
-                                href="{{ url('about') }}">About</a>
                         </li>
                         <li class="offcanvas__menu_li"><a class="offcanvas__menu_item"
                                 href="{{ url('contact') }}">Contact</a></li>
@@ -798,8 +824,9 @@
                         <span class="offcanvas__stikcy--toolbar__label">Search</span>
                     </a>
                 </li>
+                @if (!empty($user_session))
                 <li class="offcanvas__stikcy--toolbar__list">
-                    <a class="offcanvas__stikcy--toolbar__btn minicart__open--btn" href="javascript:void(0)"
+                    <a class="offcanvas__stikcy--toolbar__btn minicart__open--btn" href="{{ url('cart') }}"
                         data-offcanvas>
                         <span class="offcanvas__stikcy--toolbar__icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="22.706" height="22.534"
@@ -820,9 +847,46 @@
                             </svg>
                         </span>
                         <span class="offcanvas__stikcy--toolbar__label">Cart</span>
-                        <span class="items__count">3</span>
+                        <span class="items__count">@php
+                            $count = \App\Models\Cart::where('user_id', Session::get('LoggedIn'))->count();
+                           @endphp
+                           @if ($count)
+                               {{ $count }}
+                           @else
+                               0
+                           @endif</span>
                     </a>
                 </li>
+                @else
+                <li class="offcanvas__stikcy--toolbar__list">
+                    <a class="offcanvas__stikcy--toolbar__btn minicart__open--btn" href="{{ url('Userlogin') }}"
+                        data-offcanvas>
+                        <span class="offcanvas__stikcy--toolbar__icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22.706" height="22.534"
+                                viewBox="0 0 14.706 13.534">
+                                <g transform="translate(0 0)">
+                                    <g>
+                                        <path data-name="Path 16787"
+                                            d="M4.738,472.271h7.814a.434.434,0,0,0,.414-.328l1.723-6.316a.466.466,0,0,0-.071-.4.424.424,0,0,0-.344-.179H3.745L3.437,463.6a.435.435,0,0,0-.421-.353H.431a.451.451,0,0,0,0,.9h2.24c.054.257,1.474,6.946,1.555,7.33a1.36,1.36,0,0,0-.779,1.242,1.326,1.326,0,0,0,1.293,1.354h7.812a.452.452,0,0,0,0-.9H4.74a.451.451,0,0,1,0-.9Zm8.966-6.317-1.477,5.414H5.085l-1.149-5.414Z"
+                                            transform="translate(0 -463.248)" fill="currentColor" />
+                                        <path data-name="Path 16788"
+                                            d="M5.5,478.8a1.294,1.294,0,1,0,1.293-1.353A1.325,1.325,0,0,0,5.5,478.8Zm1.293-.451a.452.452,0,1,1-.431.451A.442.442,0,0,1,6.793,478.352Z"
+                                            transform="translate(-1.191 -466.622)" fill="currentColor" />
+                                        <path data-name="Path 16789"
+                                            d="M13.273,478.8a1.294,1.294,0,1,0,1.293-1.353A1.325,1.325,0,0,0,13.273,478.8Zm1.293-.451a.452.452,0,1,1-.431.451A.442.442,0,0,1,14.566,478.352Z"
+                                            transform="translate(-2.875 -466.622)" fill="currentColor" />
+                                    </g>
+                                </g>
+                            </svg>
+                        </span>
+                        <span class="offcanvas__stikcy--toolbar__label">Cart</span>
+                        <span class="items__count">
+                               0
+                           </span>
+                    </a>
+                </li>
+                @endif
+                @if (!empty($user_session))
                 <li class="offcanvas__stikcy--toolbar__list">
                     <a class="offcanvas__stikcy--toolbar__btn" href="{{ url('wishlist') }}">
                         <span class="offcanvas__stikcy--toolbar__icon">
@@ -835,9 +899,35 @@
                             </svg>
                         </span>
                         <span class="offcanvas__stikcy--toolbar__label">Wishlist</span>
-                        <span class="items__count">3</span>
+                        <span class="items__count">@php
+                            $count = \App\Models\Wishlist::where('user_id', Session::get('LoggedIn'))->count();
+                           @endphp
+                           @if ($count)
+                               {{ $count }}
+                           @else
+                               0
+                           @endif</span>
                     </a>
                 </li>
+                @else
+                <li class="offcanvas__stikcy--toolbar__list">
+                    <a class="offcanvas__stikcy--toolbar__btn" href="{{ url('Userlogin') }}">
+                        <span class="offcanvas__stikcy--toolbar__icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" class=" -heart">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                </path>
+                            </svg>
+                        </span>
+                        <span class="offcanvas__stikcy--toolbar__label">Wishlist</span>
+                        <span class="items__count">
+                               0
+                           </span>
+                    </a>
+                </li>
+                @endif
             </ul>
         </div>
         <!-- End Offcanvas stikcy toolbar -->

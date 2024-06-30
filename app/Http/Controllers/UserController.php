@@ -7,6 +7,7 @@ use App\Mail\ComposeMail;
 
 use App\Mail\SendMailreset;
 use App\Models\BankDetails;
+use App\Models\BillingDetail;
 use App\Models\Blog;
 use App\Models\BlogCategory;
 use App\Models\BlogComment;
@@ -87,49 +88,17 @@ class UserController extends Controller
     }
 
 
-    public function index()
+    public function home()
     {
-        $user_session = User::where('id', Session::get('LoggedIn'))->first();
-        $categories = Category::all();
-        $pages = Page::all();
-        $project = Campaign::where('status', 1)->get();
-        $freshProjects = Campaign::orderBy('id', 'desc')->take(10)->get();
-        $blogs = Blog::all();
-        $notificationCount = Notification::where('user_type', 2)
-            ->where('is_seen', 'no')
-            ->count();
-
-        $totalRaisedArray = [];
-        $percentRaisedArray = [];
-
-        foreach ($project as $row) {
-            $totalRaised = Payment::whereHas('campaign', function ($query) use ($row) {
-                $query->where('id', $row->id);
-            })
-                ->where('accepted', 1)
-                ->sum('amount');
-
-            $percentRaised = intval(($totalRaised / $row->goal) * 100);
-
-
-            $totalRaisedArray[$row->id] = $totalRaised;
-            $percentRaisedArray[$row->id] = $percentRaised;
+        if (Session::has('LoggedIn')) {
+            $user_session = User::where('id', Session::get('LoggedIn'))->first();
+            $categories = Category::all();
+            $pages = Page::all();
+            $general_setting = GeneralSetting::find('1');
+            return view('index', compact('categories', 'user_session',  'general_setting', 'pages'));
+        } else {
+            return Redirect()->with('fail', 'You have to login first');
         }
-
-        $general_setting = GeneralSetting::find('1');
-
-        return view('index', compact(
-            'categories',
-            'user_session',
-            'freshProjects',
-            'pages',
-            'general_setting',
-            'project',
-            'blogs',
-            'notificationCount',
-            'totalRaisedArray',
-            'percentRaisedArray'
-        ));
     }
 
     public function projects()
@@ -313,10 +282,40 @@ class UserController extends Controller
     }
     public function checkout()
     {
+        if (Session::has('LoggedIn')) {
 
-        $pages = Page::all();
-        $user_session = User::where('id', Session::get('LoggedIn'))->first();
-        return view('checkout', compact('user_session', 'pages'));
+            $pages = Page::all();
+            $user_session = User::where('id', Session::get('LoggedIn'))->first();
+
+
+            $carts = Cart::where('user_id', Session::get('LoggedIn'))->get();
+            $general_setting = GeneralSetting::find('1');
+            return view('checkout', compact('user_session',  'general_setting', 'pages', 'carts'));
+        } else {
+            return Redirect()->with('fail', 'You have to login first');
+        }
+    }
+    public function Billingstore(Request $request)
+    {
+        $request->validate([
+            'full_name' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+            'city' => 'required|string|max:255',
+            'country' => 'required|string|max:255',
+            'postal_code' => 'required|string|max:10',
+        ]);
+
+        $billingDetail = BillingDetail::create([
+            'user_id' => auth()->id(),
+            'full_name' => $request->full_name,
+            'address' => $request->address,
+            'city' => $request->city,
+            'country' => $request->country,
+            'postal_code' => $request->postal_code,
+        ]);
+
+        // Redirect to the next step or show success message
+        return redirect()->route('next.step')->with('success', 'Billing details saved successfully!');
     }
     public function wishlist()
     {
@@ -692,7 +691,7 @@ class UserController extends Controller
             $stockcheck = $stock->is_stock;
         }
         if ($stock->is_stock == null || empty($stock->is_stock)) {
-            $stockcheck =0;
+            $stockcheck = 0;
         }
         $saveIntoWishlist = Wishlist::create([
             'user_id' => Session::get('LoggedIn'),

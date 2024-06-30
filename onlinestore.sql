@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 30, 2024 at 09:44 AM
+-- Generation Time: Jun 30, 2024 at 11:56 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -165,6 +165,24 @@ INSERT INTO `banners` (`id`, `title`, `image`, `created_at`, `updated_at`) VALUE
 (4, '1', '1711624950.jpg', '2024-03-06 20:56:22', '2024-03-28 05:52:30'),
 (5, '2', '1711624967.jpg', '2024-03-28 05:52:47', '2024-03-28 05:52:47'),
 (6, '3', '1711624985.jpg', '2024-03-28 05:53:05', '2024-03-28 05:53:05');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `billing_details`
+--
+
+CREATE TABLE `billing_details` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `full_name` varchar(191) NOT NULL,
+  `address` varchar(191) NOT NULL,
+  `city` varchar(191) NOT NULL,
+  `country` varchar(191) NOT NULL,
+  `postal_code` varchar(191) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -1332,7 +1350,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (29, '2024_01_16_172130_create_attentions_table', 17),
 (30, '2024_06_09_091155_create_permissions_table', 18),
 (31, '2024_06_24_084835_create_product_variations_table', 19),
-(32, '2024_06_30_063352_create_wishlists_table', 20);
+(32, '2024_06_30_063352_create_wishlists_table', 20),
+(33, '2024_06_30_095240_create_billing_details_table', 21);
 
 -- --------------------------------------------------------
 
@@ -2594,6 +2613,12 @@ ALTER TABLE `banners`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `billing_details`
+--
+ALTER TABLE `billing_details`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `blogs`
 --
 ALTER TABLE `blogs`
@@ -2976,6 +3001,12 @@ ALTER TABLE `banners`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT for table `billing_details`
+--
+ALTER TABLE `billing_details`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `blogs`
 --
 ALTER TABLE `blogs`
@@ -3111,7 +3142,7 @@ ALTER TABLE `metas`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `notifications`
