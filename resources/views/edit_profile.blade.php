@@ -34,8 +34,8 @@
                         <li class="account__menu--list"><a href="{{ url('address') }}">Addresses</a></li>
                         <li class="account__menu--list active"><a href="{{ url('edit_profile') }}">Edit Profile</a></li>
                         <li class="account__menu--list"><a href="{{ url('change_password') }}">Change Password</a></li>
-                        <li class="account__menu--list"><a href="{{ url('orders') }}">Orders</a></li>
-                        <li class="account__menu--list"><a href="wishlist.html">Wishlist</a></li>
+                        <li class="account__menu--list"><a href="{{ url('MyOrders') }}">Orders</a></li>
+                        <li class="account__menu--list"><a href="{{ url('wishlist') }}">Wishlist</a></li>
                         <li class="account__menu--list"><a href="{{ url('logout') }}">Log Out</a></li>
                     </ul>
                 </div>

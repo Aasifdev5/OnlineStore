@@ -19,6 +19,8 @@ use App\Models\Country;
 use App\Models\GeneralSetting;
 use App\Models\Like;
 use App\Models\Notification;
+use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Page;
 use App\Models\PasswordReset;
 use App\Models\Payment;
@@ -255,19 +257,22 @@ class UserController extends Controller
             return Redirect()->with('fail', 'You have to login first');
         }
     }
-    public function MyProject()
+    public function MyOrders()
     {
         if (Session::has('LoggedIn')) {
 
             $pages = Page::all();
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
-            $campaign = Campaign::where('user_id', Session::get('LoggedIn'))
-                ->whereIn('status', [0, -1])
+            // Fetch orders with related order items, products, and payment status
+            $orders = Order::where('orders.user_id', Session::get('LoggedIn'))
+                ->leftJoin('payments', 'orders.id', '=', 'payments.order_id')
+                ->with(['orderItems.product'])
+                ->select('orders.*', 'payments.accepted')
                 ->get();
 
 
             $general_setting = GeneralSetting::find('1');
-            return view('myprojects', compact('campaign', 'user_session',  'general_setting', 'pages'));
+            return view('my_orders', compact('user_session',  'general_setting', 'pages', 'orders'));
         } else {
             return Redirect()->with('fail', 'You have to login first');
         }
@@ -290,7 +295,7 @@ class UserController extends Controller
             $qrcode =  BankDetails::orderby('id', 'desc')->first();
             $carts = Cart::where('user_id', Session::get('LoggedIn'))->get();
             $general_setting = GeneralSetting::find('1');
-            return view('checkout', compact('user_session',  'general_setting', 'pages', 'carts','qrcode'));
+            return view('checkout', compact('user_session',  'general_setting', 'pages', 'carts', 'qrcode'));
         } else {
             return Redirect()->with('fail', 'You have to login first');
         }
@@ -508,10 +513,15 @@ class UserController extends Controller
     {
         if (Session::has('LoggedIn')) {
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
-
+            // Fetch orders with related order items, products, and payment status
+            $orders = Order::where('orders.user_id', Session::get('LoggedIn'))
+                ->leftJoin('payments', 'orders.id', '=', 'payments.order_id')
+                ->with(['orderItems.product'])
+                ->select('orders.*', 'payments.accepted')
+                ->get();
             $pages = Page::all();
 
-            return view('dashboard', compact('user_session', 'pages'));
+            return view('dashboard', compact('user_session', 'pages', 'orders'));
         }
     }
     public function news()

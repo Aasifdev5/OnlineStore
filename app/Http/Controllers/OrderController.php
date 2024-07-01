@@ -6,6 +6,7 @@ use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Payment;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -31,7 +32,8 @@ class OrderController extends Controller
 
         $user_id = Session::get('LoggedIn');
         $total_amount = 0;
-        $payer = User::find($user_id);
+
+
 
         foreach ($request->cart_products as $cart_product) {
             $total_amount += $cart_product['price'] * $cart_product['quantity'];
@@ -63,11 +65,23 @@ class OrderController extends Controller
                 'quantity' => $cart_product['quantity'],
                 'price' => $cart_product['price'],
             ];
+
+            // Find the product by its ID
+            $stock = Product::find($cart_product['product_id']);
+            if ($stock) {
+                // Update the stock quantity
+                $stock->stock_qty = $stock->stock_qty - $cart_product['quantity'];
+                $stock->save();
+            } else {
+                // Handle the case where the product is not found
+                return response()->json(['error' => 'Product not found'], 404);
+            }
         }
         $serializedProductDetails = json_encode($productDetails);
-
+        $payer = User::find($order->user_id);
         // Create a new payment
         $payment = Payment::create([
+            'order_id' => $order->id,
             'name' => $payer->payer_name,
             'payer_email' => $payer->payer_email,
             'user_id' => $user_id,

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 30, 2024 at 01:52 PM
+-- Generation Time: Jul 01, 2024 at 03:46 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -1460,7 +1460,7 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `full_name`, `address`, `city`, `country`, `postal_code`, `total_amount`, `created_at`, `updated_at`) VALUES
-(1, 32, 'Aasif Ahmed', '722 azad nagar indore', 'Indore', 'India', '452001', 80.00, '2024-06-30 06:20:06', '2024-06-30 06:20:06');
+(1, 32, 'Aasif Ahmed', '722 azad nagar indore', 'Indore', 'India', '452001', 100.00, '2024-07-01 03:55:11', '2024-07-01 03:55:11');
 
 -- --------------------------------------------------------
 
@@ -1483,7 +1483,7 @@ CREATE TABLE `order_items` (
 --
 
 INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `price`, `created_at`, `updated_at`) VALUES
-(1, 1, 35, 1, 80.00, '2024-06-30 06:20:06', '2024-06-30 06:20:06');
+(1, 1, 36, 1, 100.00, '2024-07-01 03:55:11', '2024-07-01 03:55:11');
 
 -- --------------------------------------------------------
 
@@ -1569,6 +1569,7 @@ INSERT INTO `password_resets` (`id`, `email`, `token`, `created_at`) VALUES
 
 CREATE TABLE `payments` (
   `id` int(10) UNSIGNED NOT NULL,
+  `order_id` int(11) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `product_details` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`product_details`)),
@@ -1587,8 +1588,8 @@ CREATE TABLE `payments` (
 -- Dumping data for table `payments`
 --
 
-INSERT INTO `payments` (`id`, `name`, `email`, `product_details`, `user_id`, `reward_id`, `amount`, `payment_receipt`, `accepted`, `status`, `payer_email`, `created_at`, `updated_at`) VALUES
-(1, NULL, NULL, '[{\"product_id\":\"35\",\"quantity\":\"1\",\"price\":\"80.00\"}]', 32, NULL, 80.00, 'payment_receipt/New Doc 2017-03-28_4.jpg', 0, 'initial', NULL, '2024-06-30 06:20:06', '2024-06-30 06:20:06');
+INSERT INTO `payments` (`id`, `order_id`, `name`, `email`, `product_details`, `user_id`, `reward_id`, `amount`, `payment_receipt`, `accepted`, `status`, `payer_email`, `created_at`, `updated_at`) VALUES
+(2, 1, NULL, NULL, '[{\"product_id\":\"36\",\"quantity\":\"1\",\"price\":\"100.00\"}]', 32, NULL, 130.00, 'payment_receipt/Screenshot (57).png', 0, 'initial', NULL, '2024-07-01 03:55:11', '2024-07-01 03:55:11');
 
 -- --------------------------------------------------------
 
@@ -1708,7 +1709,7 @@ INSERT INTO `products` (`id`, `title`, `slug`, `category`, `subcategory_id`, `f_
 (32, 'Product Title 6', 'Product-Title-6', '14', 2, 'thumbnail1.jpg', 'Short Desc 6', 'Product Desc 6', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 'SKU006', 1, 100, NULL, 1, NULL, '32', NULL, NULL, NULL, 1, NULL, 'Product 1 Title', NULL, 'Product 1 Desc', 'Keyword 1', '2024-06-25 03:29:03', '2024-06-25 03:29:03'),
 (33, 'Product Title 7', 'Product-Title-7', '7', 1, 'thumbnail2.jpg', 'Short Desc 7', 'Product Desc 7', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 'SKU007', 1, 120, NULL, 2, NULL, '30', NULL, NULL, NULL, 1, NULL, 'Product 2 Title', NULL, 'Product 2 Desc', 'Keyword 2', '2024-06-25 03:29:03', '2024-06-25 03:29:03'),
 (35, 'Product Title 9', 'Product-Title-9', '14', 2, 'thumbnail1.jpg', 'Short Desc 6', 'Product Desc 9', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 'SKU009', 1, 100, NULL, 1, NULL, '32', 'red,green,blue,black,white', 'small,medium,large', NULL, 1, NULL, 'Product 9 Title', NULL, 'Product 9 Desc', 'Keyword 11', '2024-06-25 03:42:52', '2024-06-25 03:42:52'),
-(36, 'Product Title 10', 'Product-Title-10', '7', 1, 'thumbnail2.jpg', 'Short Desc 7', 'Product Desc 10', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 'SKU0010', 1, 120, NULL, 2, NULL, '30', 'green,blue,black', 'medium', NULL, 1, NULL, 'Product 10 Title', NULL, 'Product 10 Desc', 'Keyword 12', '2024-06-25 03:42:52', '2024-06-25 03:42:52');
+(36, 'Product Title 10', 'Product-Title-10', '7', 1, 'thumbnail2.jpg', 'Short Desc 7', 'Product Desc 10', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 'SKU0010', 1, 119, NULL, 2, NULL, '30', 'green,blue,black', 'medium', NULL, 1, NULL, 'Product 10 Title', NULL, 'Product 10 Desc', 'Keyword 12', '2024-06-25 03:42:52', '2024-07-01 03:55:11');
 
 -- --------------------------------------------------------
 
@@ -1996,7 +1997,8 @@ INSERT INTO `screen_times` (`id`, `user_id`, `url`, `time_spent`, `created_at`, 
 (8, 1, 'http://127.0.0.1:8000/admin/dashboard', 1493, '2024-06-26 22:37:52', '2024-06-26 22:37:52'),
 (9, 1, 'http://127.0.0.1:8000/admin/dashboard#', 5671, '2024-06-26 22:37:56', '2024-06-26 22:37:56'),
 (10, 1, 'http://127.0.0.1:8000/admin/dashboard', 1741, '2024-06-28 00:41:45', '2024-06-28 00:41:45'),
-(11, 1, 'http://127.0.0.1:8000/admin/dashboard#', 5870, '2024-06-28 00:41:49', '2024-06-28 00:41:49');
+(11, 1, 'http://127.0.0.1:8000/admin/dashboard#', 5870, '2024-06-28 00:41:49', '2024-06-28 00:41:49'),
+(12, 1, 'http://127.0.0.1:8000/admin/dashboard', 5412, '2024-07-01 05:50:20', '2024-07-01 05:50:20');
 
 -- --------------------------------------------------------
 
@@ -2583,10 +2585,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `account_type`, `price`, `role`, `permissions`, `name`, `email`, `email_verified_at`, `password`, `custom_password`, `mobile_number`, `city`, `categories`, `alter_mobile_number`, `location`, `department`, `store`, `last_seen`, `is_online`, `is_active`, `status`, `about`, `photo_url`, `profile_photo`, `remember_token`, `ip_address`, `balance`, `is_system`, `is_subscribed`, `privacy`, `gender`, `created_by`, `deleted_at`, `language`, `is_super_admin`, `created_at`, `updated_at`) VALUES
-(1, 'admin', NULL, 1, NULL, 'SUPER ADMINISTRADOR', 'admin@gmail.com', '2023-03-23 07:45:02', '$2y$10$9SbqzcUtyfeaf4019gajcOGQ4/k.XfIpeMXZp/ZERKUP0Z9GA02MK', NULL, '8878326802', 'india', NULL, NULL, NULL, NULL, NULL, '2024-06-29 03:56:05', 0, 1, 1, NULL, NULL, '149071.png', NULL, NULL, NULL, 1, 0, 1, 1, NULL, NULL, 'es', 1, '2023-03-23 07:45:02', '2024-06-29 03:56:05'),
+(1, 'admin', NULL, 1, NULL, 'SUPER ADMINISTRADOR', 'admin@gmail.com', '2023-03-23 07:45:02', '$2y$10$9SbqzcUtyfeaf4019gajcOGQ4/k.XfIpeMXZp/ZERKUP0Z9GA02MK', NULL, '8878326802', 'india', NULL, NULL, NULL, NULL, NULL, '2024-07-01 05:50:12', 1, 1, 1, NULL, NULL, '149071.png', NULL, NULL, NULL, 1, 0, 1, 1, NULL, NULL, 'es', 1, '2023-03-23 07:45:02', '2024-07-01 05:50:12'),
 (30, NULL, 'price3', 2, NULL, 'sdfsdfsf', 'subadmdfsfain@gmail.com', '2023-03-23 07:45:02', 'vbcvbhfghd', NULL, NULL, NULL, NULL, '987765546213132', NULL, 'it', 'arstexch', '2024-06-29 03:50:42', 1, 1, 1, NULL, NULL, NULL, NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:49:44', '2024-06-29 03:50:42'),
 (31, NULL, 'price2', 2, NULL, 'sofia', 'hhfghfhhffhfhfhrnatrajinfotech@gmail.com', NULL, 'sdfsfsfdsfsfsfsfsfs', NULL, NULL, 'ghfdgdfg', NULL, '465464df65g54d', 'ghjhgjgjg', 'erewr', 'asdsdfdsf', NULL, 0, 1, 1, NULL, NULL, NULL, NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:51:51', '2024-06-22 01:51:51'),
-(32, NULL, 'price3', 2, NULL, 'eve', 'eve@gmail.com', '2023-03-23 07:45:02', 'eve@3sss', NULL, '9589642080', 'bolivia', '7,14', '65465464879787', 'bolivia', 'Software', 'everytech', '2024-06-29 23:23:51', 1, 1, 1, NULL, NULL, 'IMG_4416_vo4r1a_1712164410.jpg', NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:56:11', '2024-06-29 23:23:51');
+(32, NULL, 'price3', 2, NULL, 'eve', 'eve@gmail.com', '2023-03-23 07:45:02', 'eve@3sss', NULL, '9589642080', 'bolivia', '7,14', '65465464879787', 'bolivia', 'Software', 'everytech', '2024-07-01 03:24:11', 1, 1, 1, NULL, NULL, 'IMG_4416_vo4r1a_1712164410.jpg', NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:56:11', '2024-07-01 03:24:11');
 
 -- --------------------------------------------------------
 
@@ -3097,7 +3099,7 @@ ALTER TABLE `campaigns`
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -3235,7 +3237,7 @@ ALTER TABLE `password_resets`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `payment_gateway`
@@ -3295,7 +3297,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `screen_times`
 --
 ALTER TABLE `screen_times`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `settings`
