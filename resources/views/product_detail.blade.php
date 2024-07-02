@@ -169,75 +169,121 @@
                                         </fieldset>
                                     </div>
 
-                                    <!-- Ensure jQuery is included -->
+
+<!-- Ensure jQuery is included -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<!-- Initialize Swiper instances -->
-<script>
-    $(document).ready(function() {
-        var productSlider = new Swiper('#productMediaSlider', {
-            slidesPerView: 1,
-            spaceBetween: 10,
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-        });
+                                    <script>
+                                        $(document).ready(function() {
+                                            // Initialize Swiper for product media slider
+                                            var productSlider = new Swiper('#productMediaSlider', {
+                                                slidesPerView: 1,
+                                                spaceBetween: 10,
+                                                navigation: {
+                                                    nextEl: '.swiper-button-next',
+                                                    prevEl: '.swiper-button-prev',
+                                                },
+                                            });
 
-        var productNav = new Swiper('#productMediaNav', {
-            slidesPerView: 3,
-            spaceBetween: 10,
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-        });
+                                            // Initialize Swiper for product media navigation
+                                            var productNav = new Swiper('#productMediaNav', {
+                                                slidesPerView: 3,
+                                                spaceBetween: 10,
+                                                navigation: {
+                                                    nextEl: '.swiper-button-next',
+                                                    prevEl: '.swiper-button-prev',
+                                                },
+                                            });
 
-        // Handle variant color selection
-        $(document).on('change', '.variant__color--list input[type="radio"]', function() {
-            var selectedColor = $(this).data('color');
-            var filteredImages = {!! $filteredProductImagesJson !!};
+                                            // Initialize GLightbox instance
+                                            var lightbox = GLightbox({
+                                                selector: 'glightbox-slider-item',
+                                                touchNavigation: true,
+                                                loop: true,
+                                            });
 
-            // Find the first image with the selected color
-            var selectedImage = filteredImages.find(function(image) {
-                return image.color === selectedColor;
-            });
+                                            // Handle variant color selection
+                                            $(document).on('change', '.variant__color--list input[type="radio"]', function() {
+                                                var selectedColor = $(this).data('color');
+                                                var filteredProductImages = {!! $filteredProductImagesJson !!}; // Ensure this JSON data is correctly passed from PHP
 
-            // Update preview image src with the selected image
-            if (selectedImage) {
-                var previewImg = $('.product__media--preview__items--img');
-                previewImg.attr('src', 'http://127.0.0.1:8000/' + selectedImage.thumbnail);
-                previewImg.attr('alt', 'product-media-img');
-                previewImg.parent().attr('href', 'http://127.0.0.1:8000/' + selectedImage.thumbnail); // Update link href if needed
-            }
+                                                // Filter images for the selected color
+                                                var selectedImages = filteredProductImages.filter(function(image) {
+                                                    return image.color === selectedColor;
+                                                });
 
-            // Generate HTML for new slides based on selected color (for Swiper, if needed)
-            var slidesHtml = '';
-            $.each(filteredImages, function(index, image) {
-                if (image.color === selectedColor) {
-                    slidesHtml +=
-                        '<div class="swiper-slide"><div class="product__media--preview__items"><a class="product__media--preview__items--link glightbox" data-gallery="product-media-preview" href="' +
-                        'http://127.0.0.1:8000/' + image.thumbnail +
-                        '"><img class="product__media--preview__items--img" src="http://127.0.0.1:8000/' + image.thumbnail +
-                        '" alt="product-media-img"></a><div class="product__media--view__icon"><a class="product__media--view__icon--link glightbox" href="' +
-                        'http://127.0.0.1:8000/' + image.thumbnail +
-                        '" data-gallery="product-media-zoom"><svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" width="22.51" height="22.443" viewBox="0 0 512 512"><path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"></path><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448"></path></svg><span class="visually-hidden">product view</span></a></div></div></div>';
-                }
-            });
+                                                // Update product navigation Swiper with new thumbnails based on selected color
+                                                var navHtml = '';
+                                                $.each(selectedImages, function(index, image) {
+                                                    navHtml +=
+                                                        '<div class="swiper-slide"><div class="product__media--nav__items"><img class="product__media--nav__items--img" src="http://127.0.0.1:8000/' + image.thumbnail + '" alt="product-nav-img"></div></div>';
+                                                });
+                                                productNav.removeAllSlides();
+                                                productNav.appendSlide(navHtml);
 
-            // Update Swiper instances with new slides based on selected color
-            productSlider.removeAllSlides();
-            productSlider.appendSlide(slidesHtml);
+                                                // Reset Swiper to initial slide
+                                                productNav.slideTo(0);
 
-            productNav.removeAllSlides();
-            productNav.appendSlide(slidesHtml);
+                                                // Update main product image and lightbox link with the first image of selected color
+                                                if (selectedImages.length > 0) {
+                                                    var selectedImage = selectedImages[0];
+                                                    var previewImg = $('.product__media--preview__items--img');
+                                                    previewImg.attr('src', 'http://127.0.0.1:8000/' + selectedImage.thumbnail);
+                                                    previewImg.attr('alt', 'product-media-img');
 
-            // Reset Swiper to initial slide
-            productSlider.slideTo(0);
-            productNav.slideTo(0);
-        });
-    });
-</script>
+                                                    var previewLink = $('.product__media--preview__items--link.glightbox');
+                                                    previewLink.attr('href', 'http://127.0.0.1:8000/' + selectedImage.thumbnail);
+
+                                                    // Update product view icon link with the selected image
+                                                    var viewIconLink = $('.product__media--view__icon--link.glightbox');
+                                                    viewIconLink.attr('href', 'http://127.0.0.1:8000/' + selectedImage.thumbnail);
+
+                                                    // Optional: Update SVG or other elements in the product view icon if needed
+                                                    var viewIconSvg = viewIconLink.find('.product__items--action__btn--svg');
+                                                    // Update SVG attributes or classes as necessary
+                                                }
+
+                                                // Update GLightbox slider with new slides based on selected color
+                                                var glightboxSlidesHtml = '';
+                                                $.each(selectedImages, function(index, image) {
+                                                    glightboxSlidesHtml +=
+                                                        '<a class="glightbox-slider-item" href="http://127.0.0.1:8000/' + image.thumbnail + '" data-gallery="product-media-zoom"><img src="http://127.0.0.1:8000/' + image.thumbnail + '" alt="product-slide-img"></a>';
+                                                });
+                                                $('.glightbox-slider').html(glightboxSlidesHtml);
+
+                                                // Reinitialize GLightbox slider after updating content
+                                                lightbox.destroy(); // Destroy the existing GLightbox instance
+                                                lightbox = GLightbox({
+                                                    selector: 'glightbox-slider-item',
+                                                    touchNavigation: true,
+                                                    loop: true,
+                                                });
+
+                                                // Update Swiper instances with new slides based on selected color (for Swiper, if needed)
+                                                var slidesHtml = '';
+                                                $.each(filteredProductImages, function(index, image) {
+                                                    if (image.color === selectedColor) {
+                                                        slidesHtml +=
+                                                            '<div class="swiper-slide"><div class="product__media--preview__items"><a class="product__media--preview__items--link glightbox" data-gallery="product-media-preview" href="' +
+                                                            'http://127.0.0.1:8000/' + image.thumbnail +
+                                                            '"><img class="product__media--preview__items--img" src="http://127.0.0.1:8000/' + image.thumbnail +
+                                                            '" alt="product-media-img"></a><div class="product__media--view__icon"><a class="product__media--view__icon--link glightbox" href="' +
+                                                            'http://127.0.0.1:8000/' + image.thumbnail +
+                                                            '" data-gallery="product-media-zoom"><svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" width="22.51" height="22.443" viewBox="0 0 512 512"><path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"></path><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448"></path></svg><span class="visually-hidden">product view</span></a></div></div></div>';
+                                                    }
+                                                });
+
+                                                // Update Swiper instances with new slides based on selected color
+                                                productSlider.removeAllSlides();
+                                                productSlider.appendSlide(slidesHtml);
+
+                                                // Reset Swiper to initial slide
+                                                productSlider.slideTo(0);
+                                            });
+                                        });
+                                    </script>
+
+
 
 
 
