@@ -63,7 +63,7 @@ class ProductsController extends Controller
 
         if (!empty($request->f_thumbnail)) {
             $image = $request->file('f_thumbnail')->getClientOriginalName();
-            $request->f_thumbnail->move(public_path('f_thumbnail'), $image);
+            $request->f_thumbnail->move(public_path('product_images'), $image);
             $thumbnail = $image; // Use the uploaded image name here
         } else {
             // Check if a product exists with the given ID first
@@ -383,7 +383,7 @@ class ProductsController extends Controller
                 $product_images->move(public_path('product_images'), $imageName);
                 $imagePath = 'product_images/' . $imageName; // Adjust this based on your directory structure
 
-                Pro_image::create(['thumbnail' => $imagePath, 'product_id' => $product_id,'color' => 'm']);
+                Pro_image::create(['thumbnail' => $imagePath, 'product_id' => $product_id, 'color' => 'm']);
             }
         }
 
@@ -466,10 +466,47 @@ class ProductsController extends Controller
                     if ($request->hasFile('color_images') && isset($request->file('color_images')[$color])) {
                         $image = $request->file('color_images')[$color];
                         $imageName = $image->getClientOriginalName();
-                        $image->move(public_path('product_images'), $imageName);
                         $imagePath = 'product_images/' . $imageName;
 
-                        // Assuming you have a ProductImage model to save the image path
+                        // Move and store the image
+                        $image->move(public_path('product_images'), $imageName);
+
+                        // Create or update the product with color-specific details
+                        $product->updateOrCreate(
+                            [
+                                'title' => $product->title . '-' . strtoupper($color),
+                                'slug' => getSlug($product->slug . '-' . strtoupper($color)),
+                            ],
+                            [
+                                'description' => $product->description,
+                                'f_thumbnail' => $imageName,
+                                'sku' => $sku,
+                                'category' => $product->category,
+                                'subcategory_id' => $product->subcategory_id,
+                                'short_desc' => $product->short_desc,
+                                'brand_id' => $product->brand_id,
+                                'store_id' => $product->store_id,
+                                'price1' => $product->price1,
+                                'price2' => $product->price2,
+                                'price3' => $product->price3,
+                                'price4' => $product->price4,
+                                'price5' => $product->price5,
+                                'is_publish' => $product->is_publish,
+                                'cost_price' => $product->cost_price,
+                                'sale_price' => $product->sale_price,
+                                'old_price' => $product->old_price,
+                                'start_date' => $product->start_date,
+                                'end_date' => $product->end_date,
+                                'is_discount' => $product->is_discount,
+                                'is_stock' => $product->is_stock,
+                                'stock_status_id' => $product->stock_status_id,
+                                'stock_qty' => $product->stock_qty,
+                                'variation_size' => implode(',', $sizes),
+                                'variation_color' => implode(',', $colors),
+                            ]
+                        );
+
+                        // Save the product image path
                         Pro_image::create([
                             'product_id' => $product->id,
                             'color' => $color,
@@ -480,16 +517,19 @@ class ProductsController extends Controller
             }
         }
 
+        // Insert all variations into ProductVariations table
         if (!empty($variations)) {
             ProductVariations::insert($variations);
         }
 
+        // Update the product with variations data
         $data = [
             'variation_size' => implode(',', $sizes),
             'variation_color' => implode(',', $colors),
         ];
 
         $response = $product->update($data);
+
 
         if ($response) {
             $res['msgType'] = 'success';
@@ -573,12 +613,12 @@ class ProductsController extends Controller
     {
         $search = $request->search;
 
-    $products = Product::where('title', 'like', '%' . $search . '%')
-                       ->where('is_publish', 1)
-                       ->get(['id', 'title', 'f_thumbnail']); // Adjust as needed
+        $products = Product::where('title', 'like', '%' . $search . '%')
+            ->where('is_publish', 1)
+            ->get(['id', 'title', 'f_thumbnail']); // Adjust as needed
 
-    return response()->json($products);
-        }
+        return response()->json($products);
+    }
 
 
     //Save data for Related Products

@@ -50,7 +50,7 @@
                     @if ($row->f_thumbnail != '')
                         <td class="text-center">
                             <div class="table_col_image">
-                                <img src="{{ asset('f_thumbnail/' . $row->f_thumbnail) }}" width="100"
+                                <img src="{{ asset('product_images/' . $row->f_thumbnail) }}" width="100"
                                     height="60" />
                             </div>
                         </td>
@@ -61,6 +61,7 @@
                             </div>
                         </td>
                     @endif
+
                     @if ($row->is_publish == 1)
                         <td class="text-center"><span class="enable_btn">{{ $row->status }}</span></td>
                     @else

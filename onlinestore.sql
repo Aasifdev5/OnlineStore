@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 01, 2024 at 03:46 PM
+-- Generation Time: Jul 02, 2024 at 08:05 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -1661,6 +1661,7 @@ CREATE TABLE `products` (
   `category` varchar(255) DEFAULT NULL,
   `subcategory_id` int(11) DEFAULT NULL,
   `f_thumbnail` text DEFAULT NULL,
+  `sku` varchar(191) DEFAULT NULL,
   `short_desc` text DEFAULT NULL,
   `description` text DEFAULT NULL,
   `price1` varchar(255) DEFAULT NULL,
@@ -1676,7 +1677,6 @@ CREATE TABLE `products` (
   `end_date` date DEFAULT NULL,
   `is_discount` int(11) DEFAULT NULL,
   `is_stock` int(11) DEFAULT NULL,
-  `sku` varchar(191) DEFAULT NULL,
   `stock_status_id` int(11) DEFAULT NULL,
   `stock_qty` int(11) DEFAULT NULL,
   `u_stock_qty` int(11) DEFAULT NULL,
@@ -1700,16 +1700,25 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `title`, `slug`, `category`, `subcategory_id`, `f_thumbnail`, `short_desc`, `description`, `price1`, `price2`, `price3`, `price4`, `price5`, `extra_desc`, `cost_price`, `sale_price`, `old_price`, `start_date`, `end_date`, `is_discount`, `is_stock`, `sku`, `stock_status_id`, `stock_qty`, `u_stock_qty`, `brand_id`, `price`, `store_id`, `variation_color`, `variation_size`, `tax_id`, `is_publish`, `user_id`, `og_title`, `og_image`, `og_description`, `og_keywords`, `created_at`, `updated_at`) VALUES
-(10, 'The last of us', 'The-last-of-us', '7', NULL, 'img-20230525-175230-800x800.jpg', 'The last of us Tv and Game', 'The last of us Tv and Game', '1000', '1150', '1250', '1500', '1650', NULL, 1150.000, 1100.000, 1250.000, '2024-06-23', '2024-06-25', 1, 1, 'TG-78', 0, 3, NULL, 4, 'price4', '32', 'red,green,blue,black,white', 'small,medium,large', NULL, 1, NULL, 'The last of us Tv and Game', 'norwegian_forest_cat-wallpaper-1920x1080.jpg', 'The last of us Tv', 'The last of us Tv and Game', '2024-06-23 07:50:07', '2024-06-24 03:44:53'),
-(26, 'Product Title 1', 'Product-Title-1', '7', NULL, 'images (1).jpg', 'Short Desc 1', 'Product Desc 1', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 'SKU001', 1, 100, NULL, 1, NULL, '30', 'green,blue,black', 'medium', NULL, 1, NULL, 'Product 1 Title', NULL, 'Product 1 Desc', 'Keyword 1', '2024-06-24 06:30:18', '2024-06-24 08:53:52'),
-(27, 'Product Title 2', 'Product-Title-2', '14', 2, 'thumbnail2.jpg', 'Short Desc 2', 'Product Desc 2', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 'SKU002', 1, 120, NULL, 2, NULL, '30', 'red,blue,white', 'small', NULL, 1, NULL, 'Product 2 Title', NULL, 'Product 2 Desc', 'Keyword 2', '2024-06-24 06:30:18', '2024-06-25 02:29:34'),
-(28, 'Product Title 4', 'Product-Title-4', '14', 1, 'thumbnail1.jpg', 'Short Desc 4', 'Product Desc 4', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 'SKU001', 1, 100, NULL, 1, NULL, '1', NULL, NULL, NULL, 1, NULL, 'Product 1 Title', NULL, 'Product 1 Desc', 'Keyword 1', '2024-06-25 02:34:39', '2024-06-25 02:34:39'),
-(29, 'Product Title 5', 'Product-Title-5', '7', 2, 'thumbnail2.jpg', 'Short Desc 5', 'Product Desc 5', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 'SKU002', 1, 120, NULL, 2, NULL, '2', NULL, NULL, NULL, 1, NULL, 'Product 2 Title', NULL, 'Product 2 Desc', 'Keyword 2', '2024-06-25 02:34:39', '2024-06-25 02:34:39'),
-(32, 'Product Title 6', 'Product-Title-6', '14', 2, 'thumbnail1.jpg', 'Short Desc 6', 'Product Desc 6', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 'SKU006', 1, 100, NULL, 1, NULL, '32', NULL, NULL, NULL, 1, NULL, 'Product 1 Title', NULL, 'Product 1 Desc', 'Keyword 1', '2024-06-25 03:29:03', '2024-06-25 03:29:03'),
-(33, 'Product Title 7', 'Product-Title-7', '7', 1, 'thumbnail2.jpg', 'Short Desc 7', 'Product Desc 7', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 'SKU007', 1, 120, NULL, 2, NULL, '30', NULL, NULL, NULL, 1, NULL, 'Product 2 Title', NULL, 'Product 2 Desc', 'Keyword 2', '2024-06-25 03:29:03', '2024-06-25 03:29:03'),
-(35, 'Product Title 9', 'Product-Title-9', '14', 2, 'thumbnail1.jpg', 'Short Desc 6', 'Product Desc 9', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 'SKU009', 1, 100, NULL, 1, NULL, '32', 'red,green,blue,black,white', 'small,medium,large', NULL, 1, NULL, 'Product 9 Title', NULL, 'Product 9 Desc', 'Keyword 11', '2024-06-25 03:42:52', '2024-06-25 03:42:52'),
-(36, 'Product Title 10', 'Product-Title-10', '7', 1, 'thumbnail2.jpg', 'Short Desc 7', 'Product Desc 10', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 'SKU0010', 1, 119, NULL, 2, NULL, '30', 'green,blue,black', 'medium', NULL, 1, NULL, 'Product 10 Title', NULL, 'Product 10 Desc', 'Keyword 12', '2024-06-25 03:42:52', '2024-07-01 03:55:11');
+INSERT INTO `products` (`id`, `title`, `slug`, `category`, `subcategory_id`, `f_thumbnail`, `sku`, `short_desc`, `description`, `price1`, `price2`, `price3`, `price4`, `price5`, `extra_desc`, `cost_price`, `sale_price`, `old_price`, `start_date`, `end_date`, `is_discount`, `is_stock`, `stock_status_id`, `stock_qty`, `u_stock_qty`, `brand_id`, `price`, `store_id`, `variation_color`, `variation_size`, `tax_id`, `is_publish`, `user_id`, `og_title`, `og_image`, `og_description`, `og_keywords`, `created_at`, `updated_at`) VALUES
+(10, 'The last of us', 'The-last-of-us', '7', NULL, 'img-20230525-175230-800x800.jpg', 'TG-78', 'The last of us Tv and Game', 'The last of us Tv and Game', '1000', '1150', '1250', '1500', '1650', NULL, 1150.000, 1100.000, 1250.000, '2024-06-23', '2024-06-25', 1, 1, 0, 3, NULL, 4, 'price4', '32', 'red,green,blue,black,white', 'small,medium,large', NULL, 1, NULL, 'The last of us Tv and Game', 'norwegian_forest_cat-wallpaper-1920x1080.jpg', 'The last of us Tv', 'The last of us Tv and Game', '2024-06-23 07:50:07', '2024-06-24 03:44:53'),
+(26, 'Product Title 1', 'Product-Title-1', '7', NULL, 'images (1).jpg', 'SKU001', 'Short Desc 1', 'Product Desc 1', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 1, 100, NULL, 1, NULL, '30', 'red,white,yellow', 'medium', NULL, 1, NULL, 'Product 1 Title', NULL, 'Product 1 Desc', 'Keyword 1', '2024-06-24 06:30:18', '2024-07-02 11:53:30'),
+(27, 'Product Title 2', 'Product-Title-2', '14', 2, '14110006003.png', 'SKU002', 'Short Desc 2', 'Product Desc 2', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 1, 120, NULL, 2, NULL, '30', 'red,blue', 'small', NULL, 1, NULL, 'Product 2 Title', NULL, 'Product 2 Desc', 'Keyword 2', '2024-06-24 06:30:18', '2024-07-02 11:35:48'),
+(28, 'Product Title 4', 'Product-Title-4', '14', 1, 'thumbnail1.jpg', 'SKU001', 'Short Desc 4', 'Product Desc 4', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 1, 100, NULL, 1, NULL, '1', NULL, NULL, NULL, 1, NULL, 'Product 1 Title', NULL, 'Product 1 Desc', 'Keyword 1', '2024-06-25 02:34:39', '2024-06-25 02:34:39'),
+(29, 'Product Title 5', 'Product-Title-5', '7', 2, 'sp216bl.png', 'SKU002', 'Short Desc 5', 'Product Desc 5', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 1, 120, NULL, 2, NULL, '30', 'red,green', 'large', NULL, 1, NULL, 'Product 2 Title', NULL, 'Product 2 Desc', 'Keyword 2', '2024-06-25 02:34:39', '2024-07-02 12:33:49'),
+(32, 'Product Title 6', 'Product-Title-6', '14', 2, 'thumbnail1.jpg', 'SKU006', 'Short Desc 6', 'Product Desc 6', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 1, 100, NULL, 1, NULL, '32', NULL, NULL, NULL, 1, NULL, 'Product 1 Title', NULL, 'Product 1 Desc', 'Keyword 1', '2024-06-25 03:29:03', '2024-06-25 03:29:03'),
+(33, 'Product Title 7', 'Product-Title-7', '7', 1, '10163.png', 'SKU007', 'Short Desc 7', 'Product Desc 7', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 1, 120, NULL, 2, NULL, '30', 'green,white', 'medium', NULL, 1, NULL, 'Product 2 Title', NULL, 'Product 2 Desc', 'Keyword 2', '2024-06-25 03:29:03', '2024-07-02 11:50:07'),
+(35, 'Product Title 9', 'Product-Title-9', '14', 2, 'thumbnail1.jpg', 'SKU009', 'Short Desc 6', 'Product Desc 9', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 1, 100, NULL, 1, NULL, '32', 'red,green,blue,black,white', 'small,medium,large', NULL, 1, NULL, 'Product 9 Title', NULL, 'Product 9 Desc', 'Keyword 11', '2024-06-25 03:42:52', '2024-06-25 03:42:52'),
+(36, 'Product Title 10', 'Product-Title-10', '7', 1, '10161.png', 'SKU0010', 'Short Desc 7', 'Product Desc 10', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 1, 119, NULL, 2, NULL, '30', 'black,yellow', 'medium', NULL, 1, NULL, 'Product 10 Title', NULL, 'Product 10 Desc', 'Keyword 12', '2024-06-25 03:42:52', '2024-07-02 01:38:12'),
+(37, 'Product Title 2-RED', 'Product-Title-2-RED', '14', 2, '14110006003.png', NULL, 'Short Desc 2', 'Product Desc 2', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 1, 120, NULL, 2, NULL, '30', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-02 11:35:48', '2024-07-02 11:35:48'),
+(38, 'Product Title 2-BLUE', 'Product-Title-2-BLUE', '14', 2, '14110006003.png', NULL, 'Short Desc 2', 'Product Desc 2', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 1, 120, NULL, 2, NULL, '30', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-02 11:35:48', '2024-07-02 11:35:48'),
+(39, 'Product Title 7-GREEN', 'Product-Title-7-GREEN', '7', 1, 'product_images/Lente sp216bk.png', NULL, 'Short Desc 7', 'Product Desc 7', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 1, 120, NULL, 2, NULL, '30', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-02 11:50:07', '2024-07-02 11:50:07'),
+(40, 'Product Title 7-WHITE', 'Product-Title-7-WHITE', '7', 1, 'product_images/14110006002.png', NULL, 'Short Desc 7', 'Product Desc 7', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 1, 120, NULL, 2, NULL, '30', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-02 11:50:07', '2024-07-02 11:50:07'),
+(41, 'Product Title 1-RED', 'Product-Title-1-RED', '7', NULL, '10162.png', NULL, 'Short Desc 1', 'Product Desc 1', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 1, 100, NULL, 1, NULL, '30', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-02 11:53:30', '2024-07-02 11:53:30'),
+(42, 'Product Title 1-WHITE', 'Product-Title-1-WHITE', '7', NULL, '14110006002.png', NULL, 'Short Desc 1', 'Product Desc 1', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 1, 100, NULL, 1, NULL, '30', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-02 11:53:30', '2024-07-02 11:53:30'),
+(43, 'Product Title 1-YELLOW', 'Product-Title-1-YELLOW', '7', NULL, '10164.png', NULL, 'Short Desc 1', 'Product Desc 1', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 1, 100, NULL, 1, NULL, '30', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-02 11:53:30', '2024-07-02 11:53:30'),
+(44, 'Product Title 5-RED', 'Product-Title-5-RED', '7', 2, '10161.png', 'SKU002-LARGE-RED', 'Short Desc 5', 'Product Desc 5', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 1, 120, NULL, 2, NULL, '30', 'red,green', 'large', NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-02 12:33:49', '2024-07-02 12:33:49'),
+(45, 'Product Title 5-GREEN', 'Product-Title-5-GREEN', '7', 2, 'Lente sp216bk.png', 'SKU002-LARGE-GREEN', 'Short Desc 5', 'Product Desc 5', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 1, 120, NULL, 2, NULL, '30', 'red,green', 'large', NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-02 12:33:49', '2024-07-02 12:33:49');
 
 -- --------------------------------------------------------
 
@@ -1748,18 +1757,20 @@ CREATE TABLE `product_variations` (
 --
 
 INSERT INTO `product_variations` (`id`, `product_id`, `size`, `color`, `sku`, `created_at`, `updated_at`) VALUES
-(16, 27, 'small', 'red', 'SKU002-SMALL-RED', '2024-06-24 08:50:08', '2024-06-24 08:50:08'),
-(17, 27, 'small', 'blue', 'SKU002-SMALL-BLUE', '2024-06-24 08:50:08', '2024-06-24 08:50:08'),
-(18, 27, 'small', 'white', 'SKU002-SMALL-WHITE', '2024-06-24 08:50:08', '2024-06-24 08:50:08'),
-(19, 26, 'medium', 'green', 'SKU001-MEDIUM-GREEN', '2024-06-24 08:53:52', '2024-06-24 08:53:52'),
-(20, 26, 'medium', 'blue', 'SKU001-MEDIUM-BLUE', '2024-06-24 08:53:52', '2024-06-24 08:53:52'),
-(21, 26, 'medium', 'black', 'SKU001-MEDIUM-BLACK', '2024-06-24 08:53:52', '2024-06-24 08:53:52'),
 (22, 28, 'S', 'Blue', 'SKU001-S-BLUE', '2024-06-25 02:34:39', '2024-06-25 02:34:39'),
-(23, 29, 'M', 'Red', 'SKU002-M-RED', '2024-06-25 02:34:39', '2024-06-25 02:34:39'),
 (26, 32, 'L', 'Black', 'SKU006-L-Black', '2024-06-25 03:29:03', '2024-06-25 03:29:03'),
-(27, 33, 'M', 'Red', 'SKU007-M-Red', '2024-06-25 03:29:03', '2024-06-25 03:29:03'),
 (29, 35, 'L', 'Black', 'SKU009-L-Black', '2024-06-25 03:42:52', '2024-06-25 03:42:52'),
-(30, 36, 'M', 'Red', 'SKU0010-M-Red', '2024-06-25 03:42:52', '2024-06-25 03:42:52');
+(33, 27, 'small', 'red', 'SKU002-SMALL-RED', '2024-07-02 11:35:48', '2024-07-02 11:35:48'),
+(34, 27, 'small', 'blue', 'SKU002-SMALL-BLUE', '2024-07-02 11:35:48', '2024-07-02 11:35:48'),
+(35, 36, 'medium', 'black', 'SKU0010-MEDIUM-BLACK', '2024-07-02 11:48:24', '2024-07-02 11:48:24'),
+(36, 36, 'medium', 'yellow', 'SKU0010-MEDIUM-YELLOW', '2024-07-02 11:48:24', '2024-07-02 11:48:24'),
+(37, 33, 'medium', 'green', 'SKU007-MEDIUM-GREEN', '2024-07-02 11:50:07', '2024-07-02 11:50:07'),
+(38, 33, 'medium', 'white', 'SKU007-MEDIUM-WHITE', '2024-07-02 11:50:07', '2024-07-02 11:50:07'),
+(42, 26, 'medium', 'red', 'SKU001-MEDIUM-RED', '2024-07-02 11:53:30', '2024-07-02 11:53:30'),
+(43, 26, 'medium', 'white', 'SKU001-MEDIUM-WHITE', '2024-07-02 11:53:30', '2024-07-02 11:53:30'),
+(44, 26, 'medium', 'yellow', 'SKU001-MEDIUM-YELLOW', '2024-07-02 11:53:30', '2024-07-02 11:53:30'),
+(45, 29, 'large', 'red', 'SKU002-LARGE-RED', '2024-07-02 12:33:49', '2024-07-02 12:33:49'),
+(46, 29, 'large', 'green', 'SKU002-LARGE-GREEN', '2024-07-02 12:33:49', '2024-07-02 12:33:49');
 
 -- --------------------------------------------------------
 
@@ -1844,14 +1855,6 @@ INSERT INTO `pro_images` (`id`, `product_id`, `thumbnail`, `color`, `desc`, `cre
 (17, 10, 'product_images/tom_clancys_ghost_recon_wildlands_season_pass-wallpaper-5120x2880.jpg', NULL, NULL, '2024-06-23 07:52:03', '2024-06-23 07:52:03'),
 (34, 26, 'product_images/image1.jpg', NULL, NULL, '2024-06-24 06:30:18', '2024-06-24 06:30:18'),
 (35, 26, 'product_images/image2.jpg', NULL, NULL, '2024-06-24 06:30:18', '2024-06-24 06:30:18'),
-(36, 27, 'product_images/image3.jpg', NULL, NULL, '2024-06-24 06:30:18', '2024-06-24 06:30:18'),
-(37, 27, 'product_images/image4.jpg', NULL, NULL, '2024-06-24 06:30:18', '2024-06-24 06:30:18'),
-(38, 27, 'product_images/color_images/Sin título-2.png', 'red', NULL, '2024-06-24 08:39:31', '2024-06-24 08:39:31'),
-(39, 27, 'product_images/color_images/Commons_QR_code.png', 'blue', NULL, '2024-06-24 08:39:31', '2024-06-24 08:39:31'),
-(40, 27, 'product_images/color_images/images.jpg', 'white', NULL, '2024-06-24 08:39:31', '2024-06-24 08:39:31'),
-(41, 27, 'product_images/1657090503-9ynVP5V0Tx.jpg', 'red', NULL, '2024-06-24 08:50:08', '2024-06-24 08:50:08'),
-(42, 27, 'product_images/image_750x_65be2ba984843.jpg', 'blue', NULL, '2024-06-24 08:50:08', '2024-06-24 08:50:08'),
-(43, 27, 'product_images/Screenshot 2024-03-06 15284411.png', 'white', NULL, '2024-06-24 08:50:08', '2024-06-24 08:50:08'),
 (44, 26, 'product_images/logohorizontal.png', 'green', NULL, '2024-06-24 08:53:52', '2024-06-24 08:53:52'),
 (45, 26, 'product_images/download.png', 'blue', NULL, '2024-06-24 08:53:52', '2024-06-24 08:53:52'),
 (46, 26, 'product_images/english-flag-vector-675964.jpg', 'black', NULL, '2024-06-24 08:53:52', '2024-06-24 08:53:52'),
@@ -1859,12 +1862,23 @@ INSERT INTO `pro_images` (`id`, `product_id`, `thumbnail`, `color`, `desc`, `cre
 (48, 28, 'product_images/image2.jpg', NULL, NULL, '2024-06-25 02:34:39', '2024-06-25 02:34:39'),
 (56, 32, 'product_images/image1.jpg', NULL, NULL, '2024-06-25 03:29:03', '2024-06-25 03:29:03'),
 (57, 32, 'product_images/image2.jpg', NULL, NULL, '2024-06-25 03:29:03', '2024-06-25 03:29:03'),
-(58, 33, 'product_images/image3.jpg', NULL, NULL, '2024-06-25 03:29:03', '2024-06-25 03:29:03'),
-(59, 33, 'product_images/image4.jpg', NULL, NULL, '2024-06-25 03:29:03', '2024-06-25 03:29:03'),
 (62, 35, 'product_images/image1.jpg', NULL, NULL, '2024-06-25 03:42:52', '2024-06-25 03:42:52'),
 (63, 35, 'product_images/image2.jpg', NULL, NULL, '2024-06-25 03:42:52', '2024-06-25 03:42:52'),
-(64, 36, 'product_images/image3.jpg', NULL, NULL, '2024-06-25 03:42:52', '2024-06-25 03:42:52'),
-(65, 36, 'product_images/image4.jpg', NULL, NULL, '2024-06-25 03:42:52', '2024-06-25 03:42:52');
+(66, 36, 'product_images/10161.png', 'm', NULL, '2024-07-02 01:37:33', '2024-07-02 01:37:33'),
+(67, 36, 'product_images/sp216bl.png', 'black', NULL, '2024-07-02 01:37:59', '2024-07-02 01:37:59'),
+(68, 36, 'product_images/10164.png', 'yellow', NULL, '2024-07-02 01:37:59', '2024-07-02 01:37:59'),
+(69, 27, 'product_images/14110006003.png', 'm', NULL, '2024-07-02 10:50:13', '2024-07-02 10:50:13'),
+(70, 27, 'product_images/14110006005.png', 'red', NULL, '2024-07-02 11:35:48', '2024-07-02 11:35:48'),
+(71, 27, 'product_images/14110006002.png', 'blue', NULL, '2024-07-02 11:35:48', '2024-07-02 11:35:48'),
+(72, 33, 'product_images/10163.png', 'm', NULL, '2024-07-02 11:49:37', '2024-07-02 11:49:37'),
+(73, 33, 'product_images/Lente sp216bk.png', 'green', NULL, '2024-07-02 11:50:07', '2024-07-02 11:50:07'),
+(74, 33, 'product_images/14110006002.png', 'white', NULL, '2024-07-02 11:50:07', '2024-07-02 11:50:07'),
+(75, 26, 'product_images/10162.png', 'red', NULL, '2024-07-02 11:53:30', '2024-07-02 11:53:30'),
+(76, 26, 'product_images/14110006002.png', 'white', NULL, '2024-07-02 11:53:30', '2024-07-02 11:53:30'),
+(77, 26, 'product_images/10164.png', 'yellow', NULL, '2024-07-02 11:53:30', '2024-07-02 11:53:30'),
+(78, 29, 'product_images/sp216bl.png', 'm', NULL, '2024-07-02 12:33:09', '2024-07-02 12:33:09'),
+(79, 29, 'product_images/10161.png', 'red', NULL, '2024-07-02 12:33:49', '2024-07-02 12:33:49'),
+(80, 29, 'product_images/Lente sp216bk.png', 'green', NULL, '2024-07-02 12:33:49', '2024-07-02 12:33:49');
 
 -- --------------------------------------------------------
 
@@ -1998,7 +2012,11 @@ INSERT INTO `screen_times` (`id`, `user_id`, `url`, `time_spent`, `created_at`, 
 (9, 1, 'http://127.0.0.1:8000/admin/dashboard#', 5671, '2024-06-26 22:37:56', '2024-06-26 22:37:56'),
 (10, 1, 'http://127.0.0.1:8000/admin/dashboard', 1741, '2024-06-28 00:41:45', '2024-06-28 00:41:45'),
 (11, 1, 'http://127.0.0.1:8000/admin/dashboard#', 5870, '2024-06-28 00:41:49', '2024-06-28 00:41:49'),
-(12, 1, 'http://127.0.0.1:8000/admin/dashboard', 5412, '2024-07-01 05:50:20', '2024-07-01 05:50:20');
+(12, 1, 'http://127.0.0.1:8000/admin/dashboard', 5412, '2024-07-01 05:50:20', '2024-07-01 05:50:20'),
+(13, 1, 'http://127.0.0.1:8000/admin/dashboard', 2579, '2024-07-02 01:36:48', '2024-07-02 01:36:48'),
+(14, 1, 'http://127.0.0.1:8000/admin/dashboard#', 8586, '2024-07-02 01:36:54', '2024-07-02 01:36:54'),
+(15, 1, 'http://127.0.0.1:8000/admin/dashboard', 2424, '2024-07-02 10:47:55', '2024-07-02 10:47:55'),
+(16, 1, 'http://127.0.0.1:8000/admin/dashboard#', 6114, '2024-07-02 10:47:58', '2024-07-02 10:47:58');
 
 -- --------------------------------------------------------
 
@@ -2585,10 +2603,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `account_type`, `price`, `role`, `permissions`, `name`, `email`, `email_verified_at`, `password`, `custom_password`, `mobile_number`, `city`, `categories`, `alter_mobile_number`, `location`, `department`, `store`, `last_seen`, `is_online`, `is_active`, `status`, `about`, `photo_url`, `profile_photo`, `remember_token`, `ip_address`, `balance`, `is_system`, `is_subscribed`, `privacy`, `gender`, `created_by`, `deleted_at`, `language`, `is_super_admin`, `created_at`, `updated_at`) VALUES
-(1, 'admin', NULL, 1, NULL, 'SUPER ADMINISTRADOR', 'admin@gmail.com', '2023-03-23 07:45:02', '$2y$10$9SbqzcUtyfeaf4019gajcOGQ4/k.XfIpeMXZp/ZERKUP0Z9GA02MK', NULL, '8878326802', 'india', NULL, NULL, NULL, NULL, NULL, '2024-07-01 05:50:12', 1, 1, 1, NULL, NULL, '149071.png', NULL, NULL, NULL, 1, 0, 1, 1, NULL, NULL, 'es', 1, '2023-03-23 07:45:02', '2024-07-01 05:50:12'),
+(1, 'admin', NULL, 1, NULL, 'SUPER ADMINISTRADOR', 'admin@gmail.com', '2023-03-23 07:45:02', '$2y$10$9SbqzcUtyfeaf4019gajcOGQ4/k.XfIpeMXZp/ZERKUP0Z9GA02MK', NULL, '8878326802', 'india', NULL, NULL, NULL, NULL, NULL, '2024-07-02 10:47:51', 1, 1, 1, NULL, NULL, '149071.png', NULL, NULL, NULL, 1, 0, 1, 1, NULL, NULL, 'es', 1, '2023-03-23 07:45:02', '2024-07-02 10:47:51'),
 (30, NULL, 'price3', 2, NULL, 'sdfsdfsf', 'subadmdfsfain@gmail.com', '2023-03-23 07:45:02', 'vbcvbhfghd', NULL, NULL, NULL, NULL, '987765546213132', NULL, 'it', 'arstexch', '2024-06-29 03:50:42', 1, 1, 1, NULL, NULL, NULL, NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:49:44', '2024-06-29 03:50:42'),
 (31, NULL, 'price2', 2, NULL, 'sofia', 'hhfghfhhffhfhfhrnatrajinfotech@gmail.com', NULL, 'sdfsfsfdsfsfsfsfsfs', NULL, NULL, 'ghfdgdfg', NULL, '465464df65g54d', 'ghjhgjgjg', 'erewr', 'asdsdfdsf', NULL, 0, 1, 1, NULL, NULL, NULL, NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:51:51', '2024-06-22 01:51:51'),
-(32, NULL, 'price3', 2, NULL, 'eve', 'eve@gmail.com', '2023-03-23 07:45:02', 'eve@3sss', NULL, '9589642080', 'bolivia', '7,14', '65465464879787', 'bolivia', 'Software', 'everytech', '2024-07-01 03:24:11', 1, 1, 1, NULL, NULL, 'IMG_4416_vo4r1a_1712164410.jpg', NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:56:11', '2024-07-01 03:24:11');
+(32, NULL, 'price3', 2, NULL, 'eve', 'eve@gmail.com', '2023-03-23 07:45:02', 'eve@3sss', NULL, '9589642080', 'bolivia', '7,14', '65465464879787', 'bolivia', 'Software', 'everytech', '2024-07-02 04:11:33', 1, 1, 1, NULL, NULL, 'IMG_4416_vo4r1a_1712164410.jpg', NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:56:11', '2024-07-02 04:11:33');
 
 -- --------------------------------------------------------
 
@@ -3255,7 +3273,7 @@ ALTER TABLE `permissions`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `product_reviews`
@@ -3267,7 +3285,7 @@ ALTER TABLE `product_reviews`
 -- AUTO_INCREMENT for table `product_variations`
 --
 ALTER TABLE `product_variations`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `pro_categories`
@@ -3279,7 +3297,7 @@ ALTER TABLE `pro_categories`
 -- AUTO_INCREMENT for table `pro_images`
 --
 ALTER TABLE `pro_images`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT for table `related_products`
@@ -3297,7 +3315,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `screen_times`
 --
 ALTER TABLE `screen_times`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `settings`
