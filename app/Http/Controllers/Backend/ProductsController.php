@@ -383,7 +383,7 @@ class ProductsController extends Controller
                 $product_images->move(public_path('product_images'), $imageName);
                 $imagePath = 'product_images/' . $imageName; // Adjust this based on your directory structure
 
-                Pro_image::create(['thumbnail' => $imagePath, 'product_id' => $product_id]);
+                Pro_image::create(['thumbnail' => $imagePath, 'product_id' => $product_id,'color' => 'm']);
             }
         }
 

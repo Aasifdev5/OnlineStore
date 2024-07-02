@@ -11,23 +11,37 @@
                     <div class="col">
                         <div class="product__details--media">
                             <div class="single__product--preview swiper mb-25">
-                                <div class="swiper-wrapper">
-                                    @php
-                                        $productImages = \App\Models\Pro_image::where('product_id', $product->id)
-                                            ->orderBy('id', 'desc')
-                                            ->get();
-                                    @endphp
+                                @php
+                                    // Fetch product images for the default color 'm'
+                                    $productImages = \App\Models\Pro_image::where('product_id', $product->id)
+                                        ->where('color', 'm')
+                                        ->orderBy('id', 'desc')
+                                        ->get();
+                                @endphp
+                                <div class="swiper-wrapper" id="productMediaSlider">
                                     @foreach ($productImages as $row)
                                         <div class="swiper-slide">
                                             <div class="product__media--preview__items">
-                                                <a class="product__media--preview__items--link glightbox" data-gallery="product-media-preview" href="{{ asset($row->thumbnail) }}">
-                                                    <img class="product__media--preview__items--img" src="{{ asset($row->thumbnail) }}" alt="product-media-img">
+                                                <a class="product__media--preview__items--link glightbox"
+                                                    data-gallery="product-media-preview"
+                                                    href="{{ asset($row->thumbnail) }}">
+                                                    <img class="product__media--preview__items--img"
+                                                        src="{{ asset($row->thumbnail) }}" alt="product-media-img">
                                                 </a>
                                                 <div class="product__media--view__icon">
-                                                    <a class="product__media--view__icon--link glightbox" href="{{ asset($row->thumbnail) }}" data-gallery="product-media-zoom">
-                                                        <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" width="22.51" height="22.443" viewBox="0 0 512 512">
-                                                            <path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"></path>
-                                                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448"></path>
+                                                    <a class="product__media--view__icon--link glightbox"
+                                                        href="{{ asset($row->thumbnail) }}"
+                                                        data-gallery="product-media-zoom">
+                                                        <svg class="product__items--action__btn--svg"
+                                                            xmlns="http://www.w3.org/2000/svg" width="22.51"
+                                                            height="22.443" viewBox="0 0 512 512">
+                                                            <path
+                                                                d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z"
+                                                                fill="none" stroke="currentColor" stroke-miterlimit="10"
+                                                                stroke-width="32"></path>
+                                                            <path fill="none" stroke="currentColor"
+                                                                stroke-linecap="round" stroke-miterlimit="10"
+                                                                stroke-width="32" d="M338.29 338.29L448 448"></path>
                                                         </svg>
                                                         <span class="visually-hidden">product view</span>
                                                     </a>
@@ -37,29 +51,33 @@
                                     @endforeach
                                 </div>
                             </div>
-                            <div class="single__product--nav swiper">
+                            <div class="single__product--nav swiper" id="productMediaNav">
                                 <div class="swiper-wrapper">
                                     @foreach ($productImages as $row)
                                         <div class="swiper-slide">
                                             <div class="product__media--nav__items">
-                                                <img class="product__media--nav__items--img" src="{{ asset($row->thumbnail) }}" alt="product-nav-img">
+                                                <img class="product__media--nav__items--img"
+                                                    src="{{ asset($row->thumbnail) }}" alt="product-nav-img">
                                             </div>
                                         </div>
                                     @endforeach
                                 </div>
                                 <div class="swiper__nav--btn swiper-button-next">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="-chevron-right">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" class="-chevron-right">
                                         <polyline points="9 18 15 12 9 6"></polyline>
                                     </svg>
                                 </div>
                                 <div class="swiper__nav--btn swiper-button-prev">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="-chevron-left">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" class="-chevron-left">
                                         <polyline points="15 18 9 12 15 6"></polyline>
                                     </svg>
                                 </div>
                             </div>
                         </div>
-
 
                     </div>
                     <div class="col">
@@ -68,99 +86,162 @@
                                 <h2 class="product__details--info__title mb-15">{{ $product->title }}</h2>
                                 <div class="product__details--info__price mb-12">
                                     <span class="current__price">
-                                        @if ($user_session->price == "price1")
-                                        @php
-                                            $price = $product->price1;
-                                        @endphp
-
+                                        @if ($user_session->price == 'price1')
+                                            @php
+                                                $price = $product->price1;
+                                            @endphp
                                         @endif
-                                        @if ($user_session->price == "price2")
-                                        @php
-                                        $price = $product->price2;
-                                    @endphp
-                                            @endif
-                                        @if ($user_session->price == "price3")
-                                        @php
-                                        $price = $product->price3;
-                                    @endphp
-                                            @endif
-                                        @if ($user_session->price == "price4")
-                                        @php
-                                        $price = $product->price4;
-                                    @endphp
-                                            @endif
-                                        @if ($user_session->price == "price5")
-                                        @php
-                                        $price = $product->price5;
-                                    @endphp
-                                            @endif
-                                            {{ 'BS '.$price }}
+                                        @if ($user_session->price == 'price2')
+                                            @php
+                                                $price = $product->price2;
+                                            @endphp
+                                        @endif
+                                        @if ($user_session->price == 'price3')
+                                            @php
+                                                $price = $product->price3;
+                                            @endphp
+                                        @endif
+                                        @if ($user_session->price == 'price4')
+                                            @php
+                                                $price = $product->price4;
+                                            @endphp
+                                        @endif
+                                        @if ($user_session->price == 'price5')
+                                            @php
+                                                $price = $product->price5;
+                                            @endphp
+                                        @endif
+                                        {{ 'BS ' . $price }}
                                     </span>
                                     {{-- <span class="old__price">$68.00</span> --}}
                                 </div>
-                                <ul class="rating product__card--rating mb-15 d-flex">
-                                    <li class="rating__list">
-                                        <span class="rating__icon">
-                                            <svg width="14" height="13" viewBox="0 0 14 13" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M6.08398 0.921875L4.56055 4.03906L1.11523 4.53125C0.505859 4.625 0.271484 5.375 0.716797 5.82031L3.17773 8.23438L2.5918 11.6328C2.49805 12.2422 3.1543 12.7109 3.69336 12.4297L6.76367 10.8125L9.81055 12.4297C10.3496 12.7109 11.0059 12.2422 10.9121 11.6328L10.3262 8.23438L12.7871 5.82031C13.2324 5.375 12.998 4.625 12.3887 4.53125L8.9668 4.03906L7.41992 0.921875C7.16211 0.382812 6.36523 0.359375 6.08398 0.921875Z"
-                                                    fill="currentColor" />
-                                            </svg>
-                                        </span>
-                                    </li>
-                                    <li class="rating__list">
-                                        <span class="rating__icon">
-                                            <svg width="14" height="13" viewBox="0 0 14 13" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M6.08398 0.921875L4.56055 4.03906L1.11523 4.53125C0.505859 4.625 0.271484 5.375 0.716797 5.82031L3.17773 8.23438L2.5918 11.6328C2.49805 12.2422 3.1543 12.7109 3.69336 12.4297L6.76367 10.8125L9.81055 12.4297C10.3496 12.7109 11.0059 12.2422 10.9121 11.6328L10.3262 8.23438L12.7871 5.82031C13.2324 5.375 12.998 4.625 12.3887 4.53125L8.9668 4.03906L7.41992 0.921875C7.16211 0.382812 6.36523 0.359375 6.08398 0.921875Z"
-                                                    fill="currentColor" />
-                                            </svg>
-                                        </span>
-                                    </li>
-                                    <li class="rating__list">
-                                        <span class="rating__icon">
-                                            <svg width="14" height="13" viewBox="0 0 14 13" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M6.08398 0.921875L4.56055 4.03906L1.11523 4.53125C0.505859 4.625 0.271484 5.375 0.716797 5.82031L3.17773 8.23438L2.5918 11.6328C2.49805 12.2422 3.1543 12.7109 3.69336 12.4297L6.76367 10.8125L9.81055 12.4297C10.3496 12.7109 11.0059 12.2422 10.9121 11.6328L10.3262 8.23438L12.7871 5.82031C13.2324 5.375 12.998 4.625 12.3887 4.53125L8.9668 4.03906L7.41992 0.921875C7.16211 0.382812 6.36523 0.359375 6.08398 0.921875Z"
-                                                    fill="currentColor" />
-                                            </svg>
-                                        </span>
-                                    </li>
-                                    <li class="rating__list">
-                                        <span class="rating__icon">
-                                            <svg width="14" height="13" viewBox="0 0 14 13" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M12.4141 4.53125L8.99219 4.03906L7.44531 0.921875C7.1875 0.382812 6.39062 0.359375 6.10938 0.921875L4.58594 4.03906L1.14062 4.53125C0.53125 4.625 0.296875 5.375 0.742188 5.82031L3.20312 8.23438L2.61719 11.6328C2.52344 12.2422 3.17969 12.7109 3.71875 12.4297L6.78906 10.8125L9.83594 12.4297C10.375 12.7109 11.0312 12.2422 10.9375 11.6328L10.3516 8.23438L12.8125 5.82031C13.2578 5.375 13.0234 4.625 12.4141 4.53125ZM9.53125 7.95312L10.1875 11.75L6.78906 9.96875L3.36719 11.75L4.02344 7.95312L1.25781 5.28125L5.07812 4.71875L6.78906 1.25L8.47656 4.71875L12.2969 5.28125L9.53125 7.95312Z"
-                                                    fill="currentColor" />
-                                            </svg>
-                                        </span>
-                                    </li>
-                                    <li class="rating__list">
-                                        <span class="rating__icon">
-                                            <svg width="14" height="13" viewBox="0 0 14 13" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M12.4141 4.53125L8.99219 4.03906L7.44531 0.921875C7.1875 0.382812 6.39062 0.359375 6.10938 0.921875L4.58594 4.03906L1.14062 4.53125C0.53125 4.625 0.296875 5.375 0.742188 5.82031L3.20312 8.23438L2.61719 11.6328C2.52344 12.2422 3.17969 12.7109 3.71875 12.4297L6.78906 10.8125L9.83594 12.4297C10.375 12.7109 11.0312 12.2422 10.9375 11.6328L10.3516 8.23438L12.8125 5.82031C13.2578 5.375 13.0234 4.625 12.4141 4.53125ZM9.53125 7.95312L10.1875 11.75L6.78906 9.96875L3.36719 11.75L4.02344 7.95312L1.25781 5.28125L5.07812 4.71875L6.78906 1.25L8.47656 4.71875L12.2969 5.28125L9.53125 7.95312Z"
-                                                    fill="currentColor" />
-                                            </svg>
-                                        </span>
-                                    </li>
-                                    <li>
-                                        <span class="rating__review--text">(126) Review</span>
-                                    </li>
-                                </ul>
-                                <p class="product__details--info__desc mb-15">Lorem ipsum dolor sit amet consectetur
-                                    adipisicing elit. Aut numquam ullam is recusandae laborum explicabo id sequi quisquam,
-                                    ab sunt deleniti quidem ea animi facilis quod nostrum odit! Repellendus voluptas
-                                    suscipit cum harum.</p>
+
                                 <div class="product__variant">
                                     <div class="product__variant--list mb-10">
+                                        <fieldset class="variant__input--fieldset">
+                                            <legend class="product__variant--title mb-8">Color :</legend>
+                                            <div class="variant__color d-flex">
+                                                @php
+                                                    // Fetch all product variations
+                                                    $variations = \App\Models\ProductVariations::where(
+                                                        'product_id',
+                                                        $product->id,
+                                                    )->get();
 
+                                                    // Initialize an empty collection for filtered images
+                                                    $filteredProductImages = collect();
+
+                                                    foreach ($variations as $variation) {
+                                                        // Fetch product images where color matches the variation color
+                                                        $productImages = \App\Models\Pro_image::where(
+                                                            'product_id',
+                                                            $product->id,
+                                                        )
+                                                            ->where('color', $variation->color)
+                                                            ->orderBy('id', 'desc')
+                                                            ->get();
+
+                                                        // Merge images into the collection
+                                                        $filteredProductImages = $filteredProductImages->merge(
+                                                            $productImages,
+                                                        );
+                                                    }
+
+                                                    // Convert filtered product images collection to JSON for JavaScript
+                                                    $filteredProductImagesJson = $filteredProductImages->toJson();
+                                                @endphp
+
+                                                @foreach ($filteredProductImages as $row)
+                                                    <div class="variant__color--list">
+                                                        <input id="color-{{ $row->color }}" name="color" type="radio"
+                                                            data-color="{{ $row->color }}">
+                                                        <label class="variant__color--value {{ $row->color }}"
+                                                            for="color-{{ $row->color }}" title="{{ $row->color }}">
+                                                            <img class="variant__color--value__img"
+                                                                src="{{ asset($row->thumbnail) }}" alt="variant-color-img">
+                                                        </label>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+
+
+
+                                        </fieldset>
                                     </div>
+
+                                    <!-- Ensure jQuery is included -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Initialize Swiper instances -->
+<script>
+    $(document).ready(function() {
+        var productSlider = new Swiper('#productMediaSlider', {
+            slidesPerView: 1,
+            spaceBetween: 10,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+
+        var productNav = new Swiper('#productMediaNav', {
+            slidesPerView: 3,
+            spaceBetween: 10,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+
+        // Handle variant color selection
+        $(document).on('change', '.variant__color--list input[type="radio"]', function() {
+            var selectedColor = $(this).data('color');
+            var filteredImages = {!! $filteredProductImagesJson !!};
+
+            // Find the first image with the selected color
+            var selectedImage = filteredImages.find(function(image) {
+                return image.color === selectedColor;
+            });
+
+            // Update preview image src with the selected image
+            if (selectedImage) {
+                var previewImg = $('.product__media--preview__items--img');
+                previewImg.attr('src', 'http://127.0.0.1:8000/' + selectedImage.thumbnail);
+                previewImg.attr('alt', 'product-media-img');
+                previewImg.parent().attr('href', 'http://127.0.0.1:8000/' + selectedImage.thumbnail); // Update link href if needed
+            }
+
+            // Generate HTML for new slides based on selected color (for Swiper, if needed)
+            var slidesHtml = '';
+            $.each(filteredImages, function(index, image) {
+                if (image.color === selectedColor) {
+                    slidesHtml +=
+                        '<div class="swiper-slide"><div class="product__media--preview__items"><a class="product__media--preview__items--link glightbox" data-gallery="product-media-preview" href="' +
+                        'http://127.0.0.1:8000/' + image.thumbnail +
+                        '"><img class="product__media--preview__items--img" src="http://127.0.0.1:8000/' + image.thumbnail +
+                        '" alt="product-media-img"></a><div class="product__media--view__icon"><a class="product__media--view__icon--link glightbox" href="' +
+                        'http://127.0.0.1:8000/' + image.thumbnail +
+                        '" data-gallery="product-media-zoom"><svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" width="22.51" height="22.443" viewBox="0 0 512 512"><path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"></path><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448"></path></svg><span class="visually-hidden">product view</span></a></div></div></div>';
+                }
+            });
+
+            // Update Swiper instances with new slides based on selected color
+            productSlider.removeAllSlides();
+            productSlider.appendSlide(slidesHtml);
+
+            productNav.removeAllSlides();
+            productNav.appendSlide(slidesHtml);
+
+            // Reset Swiper to initial slide
+            productSlider.slideTo(0);
+            productNav.slideTo(0);
+        });
+    });
+</script>
+
+
+
+
 
                                     <div class="product__variant--list quantity d-flex align-items-center mb-20">
                                         <div class="quantity__box">
@@ -175,11 +256,13 @@
                                                 class="quantity__value quickview__value--quantity increase"
                                                 aria-label="quantity value" value="Increase Value">+</button>
                                         </div>
-                                        <a class="primary__btn quickview__cart--btn" href="{{ url('addToCart') }}/{{ $price }}/{{ $product->id }}">Add To
+                                        <a class="primary__btn quickview__cart--btn"
+                                            href="{{ url('addToCart') }}/{{ $price }}/{{ $product->id }}">Add To
                                             Cart</a>
                                     </div>
                                     <div class="product__variant--list mb-15">
-                                        <a class="variant__wishlist--icon mb-15" href="{{ url('addToWishlist') }}/{{ $price }}/{{ $product->id }}"
+                                        <a class="variant__wishlist--icon mb-15"
+                                            href="{{ url('addToWishlist') }}/{{ $price }}/{{ $product->id }}"
                                             title="Add to wishlist">
                                             <svg class="quickview__variant--wishlist__svg"
                                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -190,8 +273,9 @@
                                             </svg>
                                             Add to Wishlist
                                         </a>
-                                        <button class="variant__buy--now__btn primary__btn" type="submit">Buy it
-                                            now</button>
+                                        <a class="text-center variant__buy--now__btn primary__btn"
+                                            href="{{ url('addToCart') }}/{{ $price }}/{{ $product->id }}">Buy it
+                                            now</a>
                                     </div>
                                     <div class="product__variant--list mb-15">
                                         <div class="product__details--info__meta">
@@ -265,6 +349,9 @@
             </div>
         </section>
         <!-- End product details section -->
+
+
+
 
         <!-- Start product details tab section -->
         <section class="product__details--tab__section section--padding">
@@ -682,31 +769,30 @@
                     <div class="swiper-wrapper">
                         @if (!empty($related_products))
                             @foreach ($related_products as $row)
-                            @if ($user_session->price == "price1")
-                            @php
-                                $price = $row->price1;
-                            @endphp
-
-                            @endif
-                            @if ($user_session->price == "price2")
-                            @php
-                            $price = $row->price2;
-                        @endphp
+                                @if ($user_session->price == 'price1')
+                                    @php
+                                        $price = $row->price1;
+                                    @endphp
                                 @endif
-                            @if ($user_session->price == "price3")
-                            @php
-                            $price = $row->price3;
-                        @endphp
+                                @if ($user_session->price == 'price2')
+                                    @php
+                                        $price = $row->price2;
+                                    @endphp
                                 @endif
-                            @if ($user_session->price == "price4")
-                            @php
-                            $price = $row->price4;
-                        @endphp
+                                @if ($user_session->price == 'price3')
+                                    @php
+                                        $price = $row->price3;
+                                    @endphp
                                 @endif
-                            @if ($user_session->price == "price5")
-                            @php
-                            $price = $row->price5;
-                        @endphp
+                                @if ($user_session->price == 'price4')
+                                    @php
+                                        $price = $row->price4;
+                                    @endphp
+                                @endif
+                                @if ($user_session->price == 'price5')
+                                    @php
+                                        $price = $row->price5;
+                                    @endphp
                                 @endif
                                 <div class="swiper-slide">
                                     <article class="product__card">
@@ -815,12 +901,13 @@
                                             <div class="product__card--price">
                                                 <span class="current__price">
 
-                                                        {{ 'BS '.$price }}
+                                                    {{ 'BS ' . $price }}
                                                 </span>
                                                 {{-- <span class="old__price"> $362.00</span> --}}
                                             </div>
                                             <div class="product__card--footer">
-                                                <a class="product__card--btn primary__btn" href="{{ url('addToCart') }}/{{ $price }}/{{ $row->id }}">
+                                                <a class="product__card--btn primary__btn"
+                                                    href="{{ url('addToCart') }}/{{ $price }}/{{ $row->id }}">
                                                     <svg width="14" height="11" viewBox="0 0 14 11"
                                                         fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path
