@@ -15,6 +15,68 @@
     </div>
     @endif
 
+<style>
+   .account__table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    .account__table--header {
+        background-color: #f2f2f2;
+    }
+    .account__table--header__row {
+        background-color: #f2f2f2;
+    }
+    .account__table--header__cell, .account__table--body__cell {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+        vertical-align: middle;
+    }
+    .account__table--body__row:hover {
+        background-color: #f9f9f9;
+    }
+    .badge {
+        font-size: 14px;
+        font-weight: bold;
+        padding: 6px 12px;
+        border-radius: 4px;
+        text-transform: uppercase;
+    }
+    .badge-success {
+        background-color: #28a745;
+        color: #fff;
+    }
+    .badge-warning {
+        background-color: #ffc107;
+        color: #212529;
+    }
+    .badge-danger {
+        background-color: #dc3545;
+        color: #fff;
+    }
+    .badge-secondary {
+        background-color: #6c757d;
+        color: #fff;
+    }
+    .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+    .account__table--body__row {
+        border: 1px solid #ddd; /* Border for each row */
+    }
+</style>
 
     <!-- my account section start -->
     <section class="my__account--section section--padding">
@@ -37,44 +99,55 @@
                     <div class="account__content">
                         <h2 class="account__content--title h3 mb-20">Orders</h2>
                         <div class="account__table--area">
-                            <table class="account__table">
-                                <thead class="account__table--header">
-                                    <tr class="account__table--header__child">
-                                        <th class="account__table--header__child--items">Order</th>
-                                        <th class="account__table--header__child--items">Date</th>
-                                        <th class="account__table--header__child--items">Payment Status</th>
-                                        <th class="account__table--header__child--items">Product</th>
-                                        <th class="account__table--header__child--items">Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="account__table--body mobile__none">
-                                    @foreach ($orders as $order)
-                                        @foreach ($order->orderItems as $orderItem)
-                                            <tr class="account__table--body__child">
-                                                <td class="account__table--body__child--items">{{ $order->id }}</td>
-                                                <td class="account__table--body__child--items">{{ $order->created_at->format('F j, Y') }}</td>
-                                                <td class="account__table--body__child--items">
-                                                    @if($order->accept == 1)
-                                                        Paid
-                                                    @elseif($order->accept == 0)
-                                                        Pending
-                                                    @elseif($order->accept == -1)
-                                                        Failed
-                                                    @else
-                                                        Unknown
-                                                    @endif
-                                                </td>
-                                                <td class="account__table--body__child--items">{{ $orderItem->product->title }}</td>
-                                                <td class="account__table--body__child--items">
-                                                    BS{{ number_format($orderItem->price * $orderItem->quantity, 2) }}
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    @endforeach
-                                </tbody>
+                         <table class="account__table">
+    <thead class="account__table--header">
+        <tr class="account__table--header__row">
+            <th class="account__table--header__cell">Order</th>
+            <th class="account__table--header__cell">Date</th>
+            <th class="account__table--header__cell">Payment Status</th>
+            <th class="account__table--header__cell">Product</th>
+            <th class="account__table--header__cell">Total</th>
+            <th class="account__table--header__cell">Invoice</th>
+        </tr>
+    </thead>
+    <tbody class="account__table--body">
+        @foreach ($orders as $order)
+            @php
+                $first = true;
+            @endphp
+            @foreach ($order->orderItems as $orderItem)
+                <tr class="account__table--body__row">
+                    @if ($first)
+                        <td class="account__table--body__cell" rowspan="{{ count($order->orderItems) }}">{{ $order->id }}</td>
+                        <td class="account__table--body__cell" rowspan="{{ count($order->orderItems) }}">{{ $order->created_at->format('F j, Y') }}</td>
+                        <td class="account__table--body__cell" rowspan="{{ count($order->orderItems) }}">
+                            @if ($order->accepted == 1)
+                                <span class="badge badge-success">Paid</span>
+                            @elseif ($order->accepted == 0)
+                                <span class="badge badge-warning">Pending</span>
+                            @elseif ($order->accepted == -1)
+                                <span class="badge badge-danger">Failed</span>
+                            @else
+                                <span class="badge badge-secondary">Unknown</span>
+                            @endif
+                        </td>
+                    @endif
+                    <td class="account__table--body__cell">{{ $orderItem->product->title }}</td>
+                    <td class="account__table--body__cell">BS{{ number_format($orderItem->price * $orderItem->quantity, 2) }}</td>
+                    @if ($first)
+                        <td class="account__table--body__cell" rowspan="{{ count($order->orderItems) }}">
+                            <a href="{{ route('invoice.generate', ['id' => $order->id]) }}" class="btn btn-primary">Download Invoice</a>
+                        </td>
+                        @php
+                            $first = false;
+                        @endphp
+                    @endif
+                </tr>
+            @endforeach
+        @endforeach
+    </tbody>
+</table>
 
-
-                            </table>
                         </div>
                     </div>
                 </div>

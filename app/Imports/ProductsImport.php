@@ -15,7 +15,7 @@ class ProductsImport implements ToModel, WithHeadingRow
         // Create a new Product instance
         $product = new Product([
             'title' => $row['title'],
-            'slug' => getSlug($row['title']) ,// Generate slug from title
+            'slug' => getSlug($row['title']), // Generate slug from title
             'description' => $row['description'],
             'f_thumbnail' => $row['f_thumbnail'],
             'category' => $row['category'],
@@ -40,10 +40,9 @@ class ProductsImport implements ToModel, WithHeadingRow
             'sku' => $row['sku'],
 
             'stock_qty' => $row['stock_qty'],
-            'variation_color'=>$row['variation_color'],
-            'variation_size'=>$row['variation_size'],
-            // 'variation_color'=>implode(',',$row['variation_color']),
-            // 'variation_size'=>implode(',',$row['variation_size']),
+            'variation_color' => $row['variation_color'],
+            'variation_size' => $row['variation_size'],
+
             'og_title' => $row['og_title'],
             'og_description' => $row['og_description'],
             'og_keywords' => $row['og_keywords'],
@@ -52,8 +51,14 @@ class ProductsImport implements ToModel, WithHeadingRow
         // Save the product
         $product->save();
 
-        // Process product images (assuming 'image_1', 'image_2', ... up to 'image_15')
-        for ($i = 1; $i <= 15; $i++) {
+
+
+        // Clear previous variations for the product
+        ProductVariations::where('product_id', $product->id)->delete();
+
+        // Assuming you have a Pro_image and ProductVariations model
+        for ($i = 1; $i <= 5; $i++) {
+            // Process product images
             if (isset($row['image_' . $i])) {
                 $imageName = $row['image_' . $i];
                 $imagePath = 'product_images/' . $imageName; // Adjust this based on your directory structure
@@ -63,29 +68,59 @@ class ProductsImport implements ToModel, WithHeadingRow
                     'product_id' => $product->id,
                 ]);
             }
-        }
 
-        // Clear previous variations for the product
-        ProductVariations::where('product_id', $product->id)->delete();
+            // Process product variations (assuming there are max 5 variations)
+            if ($i <= 5) {
+                if (isset($row['size_' . $i]) && isset($row['color_' . $i])) {
+                    $size = $row['size_' . $i];
+                    $color = $row['color_' . $i];
+                    $mainSku = $row['sku'];
 
-        // Process product variations (assuming 'size_1', 'color_1', 'size_2', 'color_2', ...)
-        for ($j = 1; $j <= 5; $j++) { // Adjust the limit based on the maximum number of variations
-            if (isset($row['size_' . $j]) && isset($row['color_' . $j])) {
-                $size = $row['size_' . $j];
-                $color = $row['color_' . $j];
-                $mainSku = $row['sku'];
-
-                $sku = $mainSku . '-' . $size . '-' . $color;
-
-                ProductVariations::create([
-                    'product_id' => $product->id,
-                    'size' => $size,
-                    'color' => $color,
-                    'sku' => $sku,
-                    // Add other variation fields here if necessary
-                ]);
+                    $sku = $mainSku . '-' . $size . '-' . $color;
+                    $product->updateOrCreate(
+                        [
+                            'title' => $product->title . ' ' . strtoupper($color),
+                            'slug' => getSlug($product->slug . '-' . strtoupper($color)),
+                        ],
+                        [
+                            'description' => $product->description,
+                            'f_thumbnail' => $imageName,
+                            'sku' => $sku,
+                            'category' => $product->category,
+                            'subcategory_id' => $product->subcategory_id,
+                            'short_desc' => $product->short_desc,
+                            'brand_id' => $product->brand_id,
+                            'store_id' => $product->store_id,
+                            'price1' => $product->price1,
+                            'price2' => $product->price2,
+                            'price3' => $product->price3,
+                            'price4' => $product->price4,
+                            'price5' => $product->price5,
+                            'is_publish' => $product->is_publish,
+                            'cost_price' => $product->cost_price,
+                            'sale_price' => $product->sale_price,
+                            'old_price' => $product->old_price,
+                            'start_date' => $product->start_date,
+                            'end_date' => $product->end_date,
+                            'is_discount' => $product->is_discount,
+                            'is_stock' => $product->is_stock,
+                            'stock_status_id' => $product->stock_status_id,
+                            'stock_qty' => $product->stock_qty,
+                            'variation_color' => $row['variation_color'],
+                            'variation_size' => $row['variation_size'],
+                        ]
+                    );
+                    ProductVariations::create([
+                        'product_id' => $product->id,
+                        'size' => $size,
+                        'color' => $color,
+                        'sku' => $sku,
+                        // Add other variation fields here if necessary
+                    ]);
+                }
             }
         }
+
 
         return $product;
     }

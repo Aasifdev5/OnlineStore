@@ -474,7 +474,7 @@ class ProductsController extends Controller
                         // Create or update the product with color-specific details
                         $product->updateOrCreate(
                             [
-                                'title' => $product->title . '-' . strtoupper($color),
+                                'title' => $product->title . ' ' . strtoupper($color),
                                 'slug' => getSlug($product->slug . '-' . strtoupper($color)),
                             ],
                             [

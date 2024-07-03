@@ -26,7 +26,7 @@ use App\Http\Controllers\Admin\SupportTicketController;
 use App\Http\Controllers\Admin\TagController;
 
 use App\Http\Controllers\Admin\TaxController;
-use App\Http\Controllers\Backend\InventoryController;
+
 use App\Http\Controllers\Backend\ProductsController;
 
 use App\Http\Controllers\ChatController;
@@ -34,9 +34,10 @@ use App\Http\Controllers\EmailAppController;
 use App\Http\Controllers\FacebookSocialiteController;
 use App\Http\Controllers\FundController;
 use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\MailTemplateController;
-use App\Http\Controllers\OrderController;
 
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Pages;
 use App\Http\Controllers\QRCodeController;
 use App\Http\Controllers\ResetPasswordController;
@@ -49,6 +50,7 @@ use App\Models\Language;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
+
 
 
 
@@ -119,6 +121,8 @@ Route::group(['middleware' => 'prevent-back-history', SetLocale::class], functio
     Route::get('/order/success', function () {
         return view('success');
     })->name('order.success');
+    Route::get('/invoice/{id}', [InvoiceController::class,'generateInvoice'])->name('invoice.generate');
+
     Route::get('/news-category/{id}', [UserController::class, 'news_category'])->name('news_category');
     Route::get('/wishlist', [UserController::class, 'wishlist'])->name('wishlist');
     Route::get('/home', [UserController::class, 'home'])->name('home');
@@ -436,11 +440,7 @@ Route::group(['prefix' => 'admin'], function () {
             return Excel::download(new ProductsExport, 'products.xlsx');
         })->name('export.products');
 
-        //Manage Stock
-        Route::get('/manage-stock', [InventoryController::class, 'getManageStockPageLoad'])->name('backend.manage-stock');
-        Route::get('/getManageStockTableData', [InventoryController::class, 'getManageStockTableData'])->name('backend.getManageStockTableData');
-        Route::post('/getProductById', [InventoryController::class, 'getProductById'])->name('backend.getProductById');
-        Route::post('/saveManageStockData', [InventoryController::class, 'saveManageStockData'])->name('backend.saveManageStockData');
+
 
         //Price
         Route::get('/price/{id}', [ProductsController::class, 'getPricePageData'])->name('backend.price');
@@ -542,11 +542,7 @@ Route::group(['prefix' => 'admin'], function () {
 
         Route::get('user/delete_user/{id}', [Admin::class, 'delete_user'])->middleware('AdminIsLoggedIn');
 
-        Route::get('subscription_plan', [SubscriptionPlanController::class, 'subscription_plan_list'])->middleware('AdminIsLoggedIn');
-        Route::get('subscription_plan/add_plan', [SubscriptionPlanController::class, 'addSubscriptionPlan'])->middleware('AdminIsLoggedIn');
-        Route::get('subscription_plan/edit_plan/{id}', [SubscriptionPlanController::class, 'editSubscriptionPlan'])->middleware('AdminIsLoggedIn');
-        Route::post('subscription_plan/add_edit_plan', [SubscriptionPlanController::class, 'addnew']);
-        Route::get('subscription_plan/delete/{id}', [SubscriptionPlanController::class, 'delete'])->middleware('AdminIsLoggedIn');
+
         Route::name('mail-templates.')->prefix('mail-templates')->group(function () {
             Route::get('/', [MailTemplateController::class, 'index'])->name('index')->middleware('AdminIsLoggedIn');
             Route::get('add', [MailTemplateController::class, 'add'])->name('add')->middleware('AdminIsLoggedIn');

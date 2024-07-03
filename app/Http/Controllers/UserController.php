@@ -265,10 +265,13 @@ class UserController extends Controller
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
             // Fetch orders with related order items, products, and payment status
             $orders = Order::where('orders.user_id', Session::get('LoggedIn'))
-                ->leftJoin('payments', 'orders.id', '=', 'payments.order_id')
-                ->with(['orderItems.product'])
-                ->select('orders.*', 'payments.accepted')
-                ->get();
+            ->leftJoin('payments', 'orders.id', '=', 'payments.order_id')
+            ->with(['orderItems' => function ($query) {
+                $query->with('product');
+            }])
+            ->select('orders.id', 'orders.created_at', 'orders.total_amount', 'payments.accepted')
+            ->get();
+
 
 
             $general_setting = GeneralSetting::find('1');
@@ -645,10 +648,7 @@ class UserController extends Controller
             $pages = Page::all();
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
             $userCategories = !empty($user_session->categories) ? explode(',', $user_session->categories) : [];
-            $products = Product::whereIn('category', $userCategories)->orderBy('id', 'desc')->paginate(4);
-
-
-
+            $products = Product::whereIn('category', $userCategories)->orderBy('id', 'desc')->paginate(9);
 
             $general_setting = GeneralSetting::find('1');
             return view('shop', compact('products', 'user_session',  'general_setting', 'pages'));

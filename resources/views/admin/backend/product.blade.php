@@ -161,7 +161,7 @@
                                                                 <label>{{ __('Imagen ') }}</label>
                                                                 <div class="upload-img-box">
                                                                     @if (!empty($datalist->f_thumbnail))
-                                                                    <img src="{{ asset('') }}f_thumbnail/{{ $datalist->f_thumbnail }}">
+                                                                    <img src="{{ asset('') }}product_images/{{ $datalist->f_thumbnail }}">
                                                                     @else
                                                                     <img src="">
                                                                     @endif

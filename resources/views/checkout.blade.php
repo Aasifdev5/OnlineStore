@@ -122,7 +122,7 @@
                                                                 <a class="display-block"
                                                                     href="{{ url('product-details/' . $product_details->slug) }}"><img
                                                                         class="display-block border-radius-5"
-                                                                        src="{{ asset('f_thumbnail/' . $product_details->f_thumbnail) }}"
+                                                                        src="{{ asset('product_images/' . $product_details->f_thumbnail) }}"
                                                                         alt="{{ $product_details->title }}"></a>
                                                                 <span
                                                                     class="product__thumbnail--quantity">{{ $row->quantity }}</span>
