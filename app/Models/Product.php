@@ -49,4 +49,9 @@ class Product extends Model
         'price4',
         'price5',
     ];
+    public function screenTimes()
+{
+    return $this->hasMany(ScreenTime::class, 'product_id');
+}
+
 }

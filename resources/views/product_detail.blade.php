@@ -7,16 +7,16 @@
         <!-- Start product details section -->
         <section class="product__details--section section--padding">
             <div class="container">
-                  @if(Session::has('success'))
-                        <div class="alert alert-success">
-                            <p>{{session::get('success')}}</p>
-                        </div>
-                        @endif
-                        @if(Session::has('fail'))
-                        <div class="alert alert-danger">
-                            <p>{{session::get('fail')}}</p>
-                        </div>
-                        @endif
+                @if (Session::has('success'))
+                    <div class="alert alert-success">
+                        <p>{{ session::get('success') }}</p>
+                    </div>
+                @endif
+                @if (Session::has('fail'))
+                    <div class="alert alert-danger">
+                        <p>{{ session::get('fail') }}</p>
+                    </div>
+                @endif
                 <div class="row row-cols-lg-2 row-cols-md-2">
                     <div class="col">
                         <div class="product__details--media">
@@ -30,44 +30,69 @@
 
                                 @endphp
                                 <div class="swiper-wrapper" id="productMediaSlider">
-    @if(!empty($productImages) && count($productImages) > 0)
-        @foreach ($productImages as $row)
-            <div class="swiper-slide">
-                <div class="product__media--preview__items">
-                    <a class="product__media--preview__items--link glightbox" data-gallery="product-media-preview" href="{{ asset($row->thumbnail) }}">
-                        <img class="product__media--preview__items--img" src="{{ asset($row->thumbnail) }}" alt="product-media-img">
-                    </a>
-                    <div class="product__media--view__icon">
-                        <a class="product__media--view__icon--link glightbox" href="{{ asset($row->thumbnail) }}" data-gallery="product-media-zoom">
-                            <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" width="22.51" height="22.443" viewBox="0 0 512 512">
-                                <path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"></path>
-                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448"></path>
-                            </svg>
-                            <span class="visually-hidden">product view</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        @endforeach
-    @else
-        <div class="swiper-slide">
-            <div class="product__media--preview__items">
-                <a class="product__media--preview__items--link glightbox" data-gallery="product-media-preview" href="{{ asset('product_images/'. $product->f_thumbnail) }}">
-                    <img class="product__media--preview__items--img" src="{{ asset('product_images/'. $product->f_thumbnail) }}" alt="product-media-img">
-                </a>
-                <div class="product__media--view__icon">
-                    <a class="product__media--view__icon--link glightbox" href="{{ asset('product_images/'. $product->f_thumbnail) }}" data-gallery="product-media-zoom">
-                        <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" width="22.51" height="22.443" viewBox="0 0 512 512">
-                            <path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"></path>
-                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448"></path>
-                        </svg>
-                        <span class="visually-hidden">product view</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    @endif
-</div>
+                                    @if (!empty($productImages) && count($productImages) > 0)
+                                        @foreach ($productImages as $row)
+                                            <div class="swiper-slide">
+                                                <div class="product__media--preview__items">
+                                                    <a class="product__media--preview__items--link glightbox"
+                                                        data-gallery="product-media-preview"
+                                                        href="{{ asset($row->thumbnail) }}">
+                                                        <img class="product__media--preview__items--img"
+                                                            src="{{ asset($row->thumbnail) }}" alt="product-media-img">
+                                                    </a>
+                                                    <div class="product__media--view__icon">
+                                                        <a class="product__media--view__icon--link glightbox"
+                                                            href="{{ asset($row->thumbnail) }}"
+                                                            data-gallery="product-media-zoom">
+                                                            <svg class="product__items--action__btn--svg"
+                                                                xmlns="http://www.w3.org/2000/svg" width="22.51"
+                                                                height="22.443" viewBox="0 0 512 512">
+                                                                <path
+                                                                    d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z"
+                                                                    fill="none" stroke="currentColor"
+                                                                    stroke-miterlimit="10" stroke-width="32"></path>
+                                                                <path fill="none" stroke="currentColor"
+                                                                    stroke-linecap="round" stroke-miterlimit="10"
+                                                                    stroke-width="32" d="M338.29 338.29L448 448"></path>
+                                                            </svg>
+                                                            <span class="visually-hidden">product view</span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    @else
+                                        <div class="swiper-slide">
+                                            <div class="product__media--preview__items">
+                                                <a class="product__media--preview__items--link glightbox"
+                                                    data-gallery="product-media-preview"
+                                                    href="{{ asset('product_images/' . $product->f_thumbnail) }}">
+                                                    <img class="product__media--preview__items--img"
+                                                        src="{{ asset('product_images/' . $product->f_thumbnail) }}"
+                                                        alt="product-media-img">
+                                                </a>
+                                                <div class="product__media--view__icon">
+                                                    <a class="product__media--view__icon--link glightbox"
+                                                        href="{{ asset('product_images/' . $product->f_thumbnail) }}"
+                                                        data-gallery="product-media-zoom">
+                                                        <svg class="product__items--action__btn--svg"
+                                                            xmlns="http://www.w3.org/2000/svg" width="22.51"
+                                                            height="22.443" viewBox="0 0 512 512">
+                                                            <path
+                                                                d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z"
+                                                                fill="none" stroke="currentColor" stroke-miterlimit="10"
+                                                                stroke-width="32"></path>
+                                                            <path fill="none" stroke="currentColor"
+                                                                stroke-linecap="round" stroke-miterlimit="10"
+                                                                stroke-width="32" d="M338.29 338.29L448 448"></path>
+                                                        </svg>
+                                                        <span class="visually-hidden">product view</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+                                </div>
 
                             </div>
                             <div class="single__product--nav swiper" id="productMediaNav">
@@ -169,30 +194,31 @@
                                                     // Convert filtered product images collection to JSON for JavaScript
                                                     $filteredProductImagesJson = $filteredProductImages->toJson();
                                                 @endphp
- <style>
-    .variant__color--value:hover {
-        border-color: #000;
-    }
+                                                <style>
+                                                    .variant__color--value:hover {
+                                                        border-color: #000;
+                                                    }
 
-    .variant__color--value__img:hover {
-        transform: scale(1.1);
-    }
-</style>
+                                                    .variant__color--value__img:hover {
+                                                        transform: scale(1.1);
+                                                    }
+                                                </style>
                                                 @foreach ($filteredProductImages as $row)
-
-
-<div class="variant__color--list" style="display: inline-block; margin: 10px;">
-    <input id="color-{{ $row->color }}" name="color" type="radio" data-color="{{ $row->color }}">
-    <label class="variant__color--value {{ $row->color }}" for="color-{{ $row->color }}" title="{{ $row->color }}"
-           style="display: block; width: 60px; height: 60px; cursor: pointer; border: 2px solid #ccc; border-radius: 50%; overflow: hidden; transition: all 0.3s ease;">
-        <a href="{{ url('product-details') }}/{{ $row->slug }}">
-            <img class="variant__color--value__img" src="{{ asset('product_images/' . $row->f_thumbnail) }}" alt="variant-color-img"
-                 style="width: 100%; height: 100%; object-fit: cover; transition: all 0.3s ease; border-radius: 50%;">
-        </a>
-    </label>
-</div>
-
-
+                                                    <div class="variant__color--list"
+                                                        style="display: inline-block; margin: 10px;">
+                                                        <input id="color-{{ $row->color }}" name="color"
+                                                            type="radio" data-color="{{ $row->color }}">
+                                                        <label class="variant__color--value {{ $row->color }}"
+                                                            for="color-{{ $row->color }}" title="{{ $row->color }}"
+                                                            style="display: block; width: 60px; height: 60px; cursor: pointer; border: 2px solid #ccc; border-radius: 50%; overflow: hidden; transition: all 0.3s ease;">
+                                                            <a href="{{ url('product-details') }}/{{ $row->slug }}">
+                                                                <img class="variant__color--value__img"
+                                                                    src="{{ asset('product_images/' . $row->f_thumbnail) }}"
+                                                                    alt="variant-color-img"
+                                                                    style="width: 100%; height: 100%; object-fit: cover; transition: all 0.3s ease; border-radius: 50%;">
+                                                            </a>
+                                                        </label>
+                                                    </div>
                                                 @endforeach
                                             </div>
 
@@ -506,36 +532,35 @@
     </main>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-      $(document).ready(function() {
-    let startTime = performance.now(); // Record the start time when the page is loaded
+        $(document).ready(function() {
+            let startTime = performance.now(); // Record the start time when the page is loaded
 
-    // Capture time spent when the user leaves the page (clicks on a link)
-    $('a').on('click', function(event) {
-        let endTime = performance.now(); // Record the end time when the user clicks on a link
-        let timeSpent = endTime - startTime; // Calculate time spent on the page in milliseconds
+            // Capture time spent when the user leaves the page (clicks on a link)
+            $('a').on('click', function(event) {
+                let endTime = performance.now(); // Record the end time when the user clicks on a link
+                let timeSpent = endTime - startTime; // Calculate time spent on the page in milliseconds
 
-        // Send the data to the server using Ajax
-        $.ajax({
-            url: '{{ route("track.time") }}', // Replace with your route to track time
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            contentType: 'application/json',
-            data: JSON.stringify({
-                timeSpent: timeSpent,
-                url: window.location.href,
-                productId: '{{ $product->id }}' // Assuming $product->id is available in your Blade template
-            }),
-            success: function(data) {
-                console.log('Screen time tracked successfully:', data);
-            },
-            error: function(xhr, status, error) {
-                console.error('Error tracking screen time:', error);
-            }
+                // Send the data to the server using Ajax
+                $.ajax({
+                    url: '{{ route('track.time') }}', // Replace with your route to track time
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        timeSpent: timeSpent,
+                        url: window.location.href,
+                        productId: '{{ $product->id }}' // Assuming $product->id is available in your Blade template
+                    }),
+                    success: function(data) {
+                        console.log('Screen time tracked successfully:', data);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error tracking screen time:', error);
+                    }
+                });
+            });
         });
-    });
-});
-
     </script>
 @endsection

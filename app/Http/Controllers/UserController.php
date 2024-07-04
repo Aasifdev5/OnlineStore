@@ -94,10 +94,12 @@ class UserController extends Controller
     {
         if (Session::has('LoggedIn')) {
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
+            $userCategories = !empty($user_session->categories) ? explode(',', $user_session->categories) : [];
+            $products = Product::whereIn('category', $userCategories)->orderBy('id', 'desc')->paginate(6);
             $categories = Category::all();
             $pages = Page::all();
             $general_setting = GeneralSetting::find('1');
-            return view('index', compact('categories', 'user_session',  'general_setting', 'pages'));
+            return view('index', compact('categories', 'user_session',  'general_setting', 'pages','products'));
         } else {
             return Redirect()->with('fail', 'You have to login first');
         }
@@ -723,6 +725,20 @@ class UserController extends Controller
             }
         } else {
             return redirect()->route('login')->with('fail', 'You have to login first');
+        }
+    }
+    public function productbyCategory($id)
+    {
+        if (Session::has('LoggedIn')) {
+            $pages = Page::all();
+            $user_session = User::where('id', Session::get('LoggedIn'))->first();
+            $userCategories = !empty($user_session->categories) ? explode(',', $user_session->categories) : [];
+            $products = Product::where('category', $id)->orderBy('id', 'desc')->paginate(9);
+
+            $general_setting = GeneralSetting::find('1');
+            return view('productbyCategory', compact('products', 'user_session',  'general_setting', 'pages'));
+        } else {
+            return Redirect()->with('fail', 'You have to login first');
         }
     }
     public function removeCart($id)

@@ -138,6 +138,7 @@ Route::group(['middleware' => 'prevent-back-history', SetLocale::class], functio
     Route::get('/news', [UserController::class, 'news'])->name('news');
     Route::get('/Details', [UserController::class, 'Details'])->name('Details')->middleware('isLoggedIn');
     Route::get('/product-details/{slug}', [UserController::class, 'ProductDetail'])->name('ProductDetail')->middleware('isLoggedIn');
+    Route::get('/productbyCategory/{id}', [UserController::class, 'productbyCategory'])->name('productbyCategory')->middleware('isLoggedIn');
     Route::get('/CreateProject', [UserController::class, 'CreateProject'])->name('CreateProject')->middleware('isLoggedIn');
     Route::get('/signup', [UserController::class, 'signup'])->name('signup')->middleware('alreadyLoggedIn');
 
@@ -191,6 +192,7 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('permissions/{id}/edit', [Admin::class, 'Pedit'])->name('permissions.edit');
         Route::put('permissions/{id}', [Admin::class, 'Pupdate'])->name('permissions.update');
         Route::delete('/permission/{id}', [Admin::class, 'pdestroy'])->name('permissions.delete');
+        Route::get('/tracked-times', [ScreenTimeController::class, 'index'])->name('tracked.times');
 
 
         Route::get('/qrcode', [QRCodeController::class, 'index'])->name('qrcode.index');

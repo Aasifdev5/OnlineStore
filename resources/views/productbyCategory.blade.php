@@ -1,6 +1,6 @@
 @extends('master')
 @section('title')
-Shop
+Products As Per Category
 @endsection
 @section('content')
 <main class="main__content_wrapper">
@@ -64,38 +64,7 @@ Shop
                 </div>
                 <div class="col-xl-9 col-lg-8 shop-col-width-lg-8">
                     <div class="shop__right--sidebar">
-                        <!-- Start categories section -->
-                        <div class="categories__shop mb-50">
-                            <div class="section__heading border-bottom mb-30">
-                                <h2 class="section__heading--maintitle">Shop By <span>Categories</span></h2>
-                            </div>
-                            <ul class="categories__shop--inner">
-                                 @php
-                                    $userCategories = !empty($user_session->categories) ? explode(',', $user_session->categories) : [];
-    $categories = \App\Models\Category::whereIn('id', $userCategories)->select('id', 'name')->get();
-                                   @endphp
-                                     @foreach ($categories as $parentCategory)
-                                               <li class="categories__shop--card">
-                                    <a class="categories__shop--card__link" href="{{ url('productbyCategory') }}/{{ $parentCategory->id }}">
-                                        <div class="categories__thumbnail mb-15">
-                                            <img class="categories__thumbnail--img" src="assets/img/product/main-product/product1.webp" alt="categories-img">
-                                        </div>
-                                        <div class="categories__content">
-                                            <h2 class="categories__content--title">{{$parentCategory->name}}</h2>
-                                            <span class="categories__content--subtitle">
-                                                @php
-                                                $countItem = \App\Models\Product::where('category', $parentCategory->id)->count();
-                                            @endphp
-                                            ({{ $countItem }} Items)
-                                            </span>
-                                        </div>
-                                    </a>
-                                </li>
-                                            @endforeach
 
-
-                            </ul>
-                        </div>
                         <!-- End categories section -->
                         <div class="shop__product--wrapper">
                             <div class="shop__header d-flex align-items-center justify-content-between mb-30">
@@ -300,6 +269,7 @@ Shop
         </div>
     </div>
     <!-- End shop section -->
+
 
     <!-- Start shipping section -->
     <section class="shipping__section">

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 03, 2024 at 01:12 PM
+-- Generation Time: Jul 04, 2024 at 01:18 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -403,6 +403,18 @@ CREATE TABLE `carts` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `carts`
+--
+
+INSERT INTO `carts` (`id`, `user_id`, `product_id`, `price`, `quantity`, `created_at`, `updated_at`) VALUES
+(6, 32, 46, 100.00, 1, '2024-07-03 23:09:02', '2024-07-03 23:09:02'),
+(7, 32, 36, 100.00, 1, '2024-07-03 23:10:28', '2024-07-03 23:10:28'),
+(8, 32, 36, 100.00, 1, '2024-07-03 23:38:54', '2024-07-03 23:38:54'),
+(9, 32, 33, 100.00, 1, '2024-07-03 23:43:35', '2024-07-03 23:43:35'),
+(10, 32, 47, 100.00, 1, '2024-07-04 00:52:41', '2024-07-04 00:52:41'),
+(11, 32, 47, 100.00, 1, '2024-07-04 01:28:21', '2024-07-04 01:28:21');
 
 -- --------------------------------------------------------
 
@@ -1449,7 +1461,7 @@ CREATE TABLE `orders` (
   `address` varchar(191) NOT NULL,
   `city` varchar(191) NOT NULL,
   `country` varchar(191) NOT NULL,
-  `postal_code` varchar(191) NOT NULL,
+  `postal_code` varchar(191) DEFAULT NULL,
   `total_amount` decimal(10,2) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -1971,6 +1983,7 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 CREATE TABLE `screen_times` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
+  `product_id` int(11) DEFAULT NULL,
   `url` varchar(191) NOT NULL,
   `time_spent` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -1981,25 +1994,12 @@ CREATE TABLE `screen_times` (
 -- Dumping data for table `screen_times`
 --
 
-INSERT INTO `screen_times` (`id`, `user_id`, `url`, `time_spent`, `created_at`, `updated_at`) VALUES
-(1, 1, 'http://127.0.0.1:8000/admin/dashboard', 3594, '2024-06-26 02:15:22', '2024-06-26 02:15:22'),
-(2, 1, 'http://127.0.0.1:8000/admin/products', 249340, '2024-06-26 02:20:55', '2024-06-26 02:20:55'),
-(3, 1, 'http://127.0.0.1:8000/admin/dashboard', 72079, '2024-06-26 22:20:04', '2024-06-26 22:20:04'),
-(4, 1, 'http://127.0.0.1:8000/admin/dashboard#', 76801, '2024-06-26 22:20:09', '2024-06-26 22:20:09'),
-(5, 1, 'http://127.0.0.1:8000/admin/products', 1242, '2024-06-26 22:20:12', '2024-06-26 22:20:12'),
-(6, 1, 'http://127.0.0.1:8000/admin/products', 865071, '2024-06-26 22:34:35', '2024-06-26 22:34:35'),
-(7, 1, 'http://127.0.0.1:8000/admin/products#', 886902, '2024-06-26 22:34:57', '2024-06-26 22:34:57'),
-(8, 1, 'http://127.0.0.1:8000/admin/dashboard', 1493, '2024-06-26 22:37:52', '2024-06-26 22:37:52'),
-(9, 1, 'http://127.0.0.1:8000/admin/dashboard#', 5671, '2024-06-26 22:37:56', '2024-06-26 22:37:56'),
-(10, 1, 'http://127.0.0.1:8000/admin/dashboard', 1741, '2024-06-28 00:41:45', '2024-06-28 00:41:45'),
-(11, 1, 'http://127.0.0.1:8000/admin/dashboard#', 5870, '2024-06-28 00:41:49', '2024-06-28 00:41:49'),
-(12, 1, 'http://127.0.0.1:8000/admin/dashboard', 5412, '2024-07-01 05:50:20', '2024-07-01 05:50:20'),
-(13, 1, 'http://127.0.0.1:8000/admin/dashboard', 2579, '2024-07-02 01:36:48', '2024-07-02 01:36:48'),
-(14, 1, 'http://127.0.0.1:8000/admin/dashboard#', 8586, '2024-07-02 01:36:54', '2024-07-02 01:36:54'),
-(15, 1, 'http://127.0.0.1:8000/admin/dashboard', 2424, '2024-07-02 10:47:55', '2024-07-02 10:47:55'),
-(16, 1, 'http://127.0.0.1:8000/admin/dashboard#', 6114, '2024-07-02 10:47:58', '2024-07-02 10:47:58'),
-(17, 1, 'http://127.0.0.1:8000/admin/dashboard', 2394, '2024-07-02 21:42:26', '2024-07-02 21:42:26'),
-(18, 1, 'http://127.0.0.1:8000/admin/dashboard#', 6871, '2024-07-02 21:42:31', '2024-07-02 21:42:31');
+INSERT INTO `screen_times` (`id`, `user_id`, `product_id`, `url`, `time_spent`, `created_at`, `updated_at`) VALUES
+(3, 32, 47, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 12715, '2024-07-04 00:52:33', '2024-07-04 00:52:33'),
+(4, 32, 47, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 20527, '2024-07-04 00:52:41', '2024-07-04 00:52:41'),
+(5, 32, 47, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 345604, '2024-07-04 00:58:27', '2024-07-04 00:58:27'),
+(6, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 13503, '2024-07-04 00:58:49', '2024-07-04 00:58:49'),
+(7, 32, 47, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 7817, '2024-07-04 01:28:47', '2024-07-04 01:28:47');
 
 -- --------------------------------------------------------
 
@@ -2586,10 +2586,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `account_type`, `price`, `role`, `permissions`, `name`, `email`, `email_verified_at`, `password`, `custom_password`, `mobile_number`, `city`, `categories`, `alter_mobile_number`, `location`, `department`, `store`, `last_seen`, `is_online`, `is_active`, `status`, `about`, `photo_url`, `profile_photo`, `remember_token`, `ip_address`, `balance`, `is_system`, `is_subscribed`, `privacy`, `gender`, `created_by`, `deleted_at`, `language`, `is_super_admin`, `created_at`, `updated_at`) VALUES
-(1, 'admin', NULL, 1, NULL, 'SUPER ADMINISTRADOR', 'admin@gmail.com', '2023-03-23 07:45:02', '$2y$10$9SbqzcUtyfeaf4019gajcOGQ4/k.XfIpeMXZp/ZERKUP0Z9GA02MK', NULL, '8878326802', 'india', NULL, NULL, NULL, NULL, NULL, '2024-07-02 21:42:22', 1, 1, 1, NULL, NULL, '149071.png', NULL, NULL, NULL, 1, 0, 1, 1, NULL, NULL, 'es', 1, '2023-03-23 07:45:02', '2024-07-02 21:42:22'),
+(1, 'admin', NULL, 1, NULL, 'SUPER ADMINISTRADOR', 'admin@gmail.com', '2023-03-23 07:45:02', '$2y$10$9SbqzcUtyfeaf4019gajcOGQ4/k.XfIpeMXZp/ZERKUP0Z9GA02MK', NULL, '8878326802', 'india', NULL, NULL, NULL, NULL, NULL, '2024-07-04 02:30:29', 1, 1, 1, NULL, NULL, '149071.png', NULL, NULL, NULL, 1, 0, 1, 1, NULL, NULL, 'es', 1, '2023-03-23 07:45:02', '2024-07-04 02:30:29'),
 (30, NULL, 'price3', 2, NULL, 'sdfsdfsf', 'subadmdfsfain@gmail.com', '2023-03-23 07:45:02', 'vbcvbhfghd', NULL, NULL, NULL, NULL, '987765546213132', NULL, 'it', 'arstexch', '2024-06-29 03:50:42', 1, 1, 1, NULL, NULL, NULL, NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:49:44', '2024-06-29 03:50:42'),
 (31, NULL, 'price2', 2, NULL, 'sofia', 'hhfghfhhffhfhfhrnatrajinfotech@gmail.com', NULL, 'sdfsfsfdsfsfsfsfsfs', NULL, NULL, 'ghfdgdfg', NULL, '465464df65g54d', 'ghjhgjgjg', 'erewr', 'asdsdfdsf', NULL, 0, 1, 1, NULL, NULL, NULL, NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:51:51', '2024-06-22 01:51:51'),
-(32, NULL, 'price3', 2, NULL, 'eve', 'eve@gmail.com', '2023-03-23 07:45:02', 'eve@3sss', NULL, '9589642080', 'bolivia', '7,14', '65465464879787', 'bolivia', 'Software', 'everytech', '2024-07-03 00:05:08', 1, 1, 1, NULL, NULL, 'IMG_4416_vo4r1a_1712164410.jpg', NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:56:11', '2024-07-03 00:05:08');
+(32, NULL, 'price3', 2, NULL, 'eve', 'eve@gmail.com', '2023-03-23 07:45:02', 'eve@3sss', NULL, '9589642080', 'bolivia', '7,14', '65465464879787', 'bolivia', 'Software', 'everytech', '2024-07-04 03:25:14', 1, 1, 1, NULL, NULL, 'IMG_4416_vo4r1a_1712164410.jpg', NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:56:11', '2024-07-04 03:25:14');
 
 -- --------------------------------------------------------
 
@@ -2612,7 +2612,10 @@ CREATE TABLE `wishlists` (
 --
 
 INSERT INTO `wishlists` (`id`, `user_id`, `product_id`, `price`, `is_stock`, `created_at`, `updated_at`) VALUES
-(3, 32, 33, 100.00, 1, '2024-06-30 02:01:56', '2024-06-30 02:01:56');
+(3, 32, 33, 100.00, 1, '2024-06-30 02:01:56', '2024-06-30 02:01:56'),
+(4, 32, 33, 100.00, 1, '2024-07-03 23:13:23', '2024-07-03 23:13:23'),
+(5, 32, 10, 1250.00, 1, '2024-07-03 23:41:07', '2024-07-03 23:41:07'),
+(6, 32, 47, 100.00, 1, '2024-07-04 01:27:43', '2024-07-04 01:27:43');
 
 --
 -- Indexes for dumped tables
@@ -3100,7 +3103,7 @@ ALTER TABLE `campaigns`
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -3298,7 +3301,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `screen_times`
 --
 ALTER TABLE `screen_times`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `settings`
@@ -3382,7 +3385,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `wishlists`
 --
 ALTER TABLE `wishlists`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
