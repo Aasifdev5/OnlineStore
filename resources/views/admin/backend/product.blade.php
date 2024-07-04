@@ -234,7 +234,7 @@
                                                                     class="chosen-select form-control">
                                                                     @foreach ($taxlist as $row)
                                                                         <option value="{{ $row->id }}">
-                                                                            {{ $row->title }}
+                                                                            {{ $row->title.' - '.$row->percentage.'%' }}
                                                                         </option>
                                                                     @endforeach
                                                                 </select>

@@ -25,7 +25,7 @@
                                                         <span class="checkout__input--label__star">*</span></label>
                                                     <input class="checkout__input--field border-radius-5"
                                                         placeholder="Full name" id="full_name" name="full_name"
-                                                        type="text" required>
+                                                        type="text" value="{{$user_session->name}}" required>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12">
@@ -43,7 +43,7 @@
                                                             class="checkout__input--label__star">*</span></label>
                                                     <input class="checkout__input--field border-radius-5"
                                                         placeholder="Apartment, suite, etc. (optional)" id="address"
-                                                        name="address" type="text" required>
+                                                        name="address" type="text" value="{{$user_session->location}}" required>
                                                 </div>
                                             </div>
 
@@ -52,36 +52,23 @@
                                                     <label class="checkout__input--label mb-5" for="city">Town/City
                                                         <span class="checkout__input--label__star">*</span></label>
                                                     <input class="checkout__input--field border-radius-5" placeholder="City"
-                                                        id="city" name="city" type="text" required>
+                                                        id="city" name="city" value="{{$user_session->city}}" type="text" required>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6 mb-20">
+                                            <div class="col-lg-12 mb-20">
                                                 <div class="checkout__input--list">
                                                     <label class="checkout__input--label mb-5" for="country">Country/region
                                                         <span class="checkout__input--label__star">*</span></label>
                                                     <div class="checkout__input--select select">
                                                         <select class="checkout__input--select__field border-radius-5"
                                                             id="country" name="country" required>
-                                                            <option value="India">India</option>
-                                                            <option value="United States">United States</option>
-                                                            <option value="Netherlands">Netherlands</option>
-                                                            <option value="Afghanistan">Afghanistan</option>
-                                                            <option value="Islands">Islands</option>
-                                                            <option value="Albania">Albania</option>
-                                                            <option value="Antigua Barbuda">Antigua Barbuda</option>
+                                                            <option value="Bolivia">Bolivia</option>
+
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6 mb-20">
-                                                <div class="checkout__input--list">
-                                                    <label class="checkout__input--label mb-5" for="postal_code">Postal Code
-                                                        <span class="checkout__input--label__star">*</span></label>
-                                                    <input class="checkout__input--field border-radius-5"
-                                                        placeholder="Postal code" id="postal_code" name="postal_code"
-                                                        type="text" required>
-                                                </div>
-                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -164,11 +151,11 @@
                                             @endphp
                                                 {{ $formattedTotal }}</td>
                                         </tr>
-                                        <tr class="checkout__total--items">
-                                            <td class="checkout__total--title text-left">Shipping</td>
-                                            <td class="checkout__total--calculated__text text-right">Calculated at next
-                                                step</td>
-                                        </tr>
+                                        <!--<tr class="checkout__total--items">-->
+                                        <!--    <td class="checkout__total--title text-left">Shipping</td>-->
+                                        <!--    <td class="checkout__total--calculated__text text-right">Calculated at next-->
+                                        <!--        step</td>-->
+                                        <!--</tr>-->
                                     </tbody>
                                     <tfoot class="checkout__total--footer">
                                         <tr class="checkout__total--footer__items">

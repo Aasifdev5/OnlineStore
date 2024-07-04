@@ -40,7 +40,7 @@
                                     <table id="advance-1" class="row-border data-table-filter table-style">
                                         <thead>
                                             <tr>
-                                                <th>{{ __('Imagen') }}</th>
+                                                <th>{{ __('Category ID') }}</th>
                                                 <th>{{ __('Nombre') }}</th>
                                                 <th>{{ __('Función') }}</th>
 
@@ -51,12 +51,7 @@
                                             @foreach ($categories as $category)
                                                 <tr class="removable-item">
                                                     <td>
-                                                        <div class="user-info">
-                                                            <div class="user-info__img">
-                                                                <img src="{{ getImageFile($category->image_path) }}"
-                                                                    alt="category">
-                                                            </div>
-                                                        </div>
+                                                        {{$category->id}}
                                                     </td>
                                                     <td>
                                                         {{ $category->name }}
@@ -137,7 +132,5 @@
                 });
             }
         });
-
     </script>
-
 @endsection

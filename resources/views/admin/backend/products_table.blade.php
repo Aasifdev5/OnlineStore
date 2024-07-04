@@ -9,7 +9,7 @@
                 <th class="text-center" style="width:10%">{{ __('Store') }}</th>
 
                 <th class="text-center" style="width:8%">{{ __('Image') }} </th>
-                <th class="text-center" style="width:8%">{{ __('Status') }}</th>
+                <th class="text-center" style="width:8%">{{ __('SKU') }}</th>
                 <th class="text-center" style="width:8%">{{ __('Action') }}</th>
             </tr>
         </thead>
@@ -62,10 +62,10 @@
                         </td>
                     @endif
 
-                    @if ($row->is_publish == 1)
-                        <td class="text-center"><span class="enable_btn">{{ $row->status }}</span></td>
+                    @if (!empty($row->sku))
+                        <td class="text-center">{{ $row->sku }}</td>
                     @else
-                        <td class="text-center"><span class="disable_btn">{{ $row->status }}</span></td>
+                        <td>no available now but you can add it</td>
                     @endif
                     <td class="text-center">
                         <a href="#" class="btn btn-icon waves-effect waves-light btn-danger m-b-5 delete-link"

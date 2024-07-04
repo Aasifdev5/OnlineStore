@@ -17,6 +17,7 @@ class ScreenTimeController extends Controller
         ScreenTime::create([
             'user_id' => Session::get('LoggedIn'), // Assuming you have authentication
             'url' => $data['url'],
+            'product_id' => $data['productId'], // Corrected to match the sent data
             'time_spent' => $data['timeSpent']
         ]);
 

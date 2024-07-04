@@ -229,7 +229,7 @@ class UserController extends Controller
 
                 $user->update(['is_online' => 1, 'last_seen' => Carbon::now()]);
                 $request->session()->put('LoggedIn', $user->id);
-                return redirect('shop');
+                return redirect('home');
             } else {
                 return back()->with('fail', 'Password does not match');
             }
@@ -263,14 +263,14 @@ class UserController extends Controller
 
             $pages = Page::all();
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
-            // Fetch orders with related order items, products, and payment status
             $orders = Order::where('orders.user_id', Session::get('LoggedIn'))
-            ->leftJoin('payments', 'orders.id', '=', 'payments.order_id')
-            ->with(['orderItems' => function ($query) {
-                $query->with('product');
-            }])
-            ->select('orders.id', 'orders.created_at', 'orders.total_amount', 'payments.accepted')
-            ->get();
+                ->leftJoin('payments', 'orders.id', '=', 'payments.order_id')
+                ->where('payments.accepted', 1) // Filter by accepted payments (paid)
+                ->with(['orderItems' => function ($query) {
+                    $query->with('product');
+                }])
+                ->select('orders.id', 'orders.created_at', 'orders.total_amount', 'payments.accepted')
+                ->get();
 
 
 
@@ -692,7 +692,7 @@ class UserController extends Controller
             'price' => $price,
             'quantity' => 1,
         ]);
-        return back();
+        return back()->with('success','Product is added to cart');
     }
     public function addToWishlist($price, $id)
     {
@@ -709,7 +709,7 @@ class UserController extends Controller
             'price' => $price,
             'is_stock' => $stockcheck,
         ]);
-        return back();
+        return back()->with('success','Product is added to wishlist');
     }
     public function RemoveWish($id)
     {

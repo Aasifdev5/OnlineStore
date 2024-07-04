@@ -23,7 +23,7 @@ class OrderController extends Controller
             'address' => 'required|string|max:255',
             'city' => 'required|string|max:255',
             'country' => 'required|string|max:255',
-            'postal_code' => 'required|string|max:10',
+
             'cart_products' => 'required|array',
             'cart_products.*.product_id' => 'required|integer|exists:products,id',
             'cart_products.*.quantity' => 'required|integer|min:1',

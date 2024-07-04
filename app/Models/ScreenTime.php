@@ -11,6 +11,7 @@ class ScreenTime extends Model
 
     protected $fillable = [
         'user_id',
+        'product_id',
         'url',
         'time_spent'
     ];

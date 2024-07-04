@@ -7,7 +7,16 @@
         <!-- cart section start -->
         <section class="cart__section section--padding">
             <div class="container-fluid">
-
+                @if(Session::has('success'))
+                <div class="alert alert-success">
+                    <p>{{session::get('success')}}</p>
+                </div>
+                @endif
+                @if(Session::has('fail'))
+                <div class="alert alert-danger">
+                    <p>{{session::get('fail')}}</p>
+                </div>
+                @endif
                 <div class="cart__section--inner">
                     <form action="#">
                         <h2 class="cart__title mb-30">Wishlist</h2>

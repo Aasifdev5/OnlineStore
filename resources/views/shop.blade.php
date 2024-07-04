@@ -7,6 +7,16 @@ Shop
     <!-- Start shop section -->
     <div class="shop__section section--padding">
         <div class="container">
+            @if(Session::has('success'))
+            <div class="alert alert-success">
+                <p>{{session::get('success')}}</p>
+            </div>
+            @endif
+            @if(Session::has('fail'))
+            <div class="alert alert-danger">
+                <p>{{session::get('fail')}}</p>
+            </div>
+            @endif
             <div class="row">
                 <div class="col-xl-3 col-lg-4 shop-col-width-lg-4">
                     <div class="shop__sidebar--widget widget__area d-none d-lg-block">
@@ -72,7 +82,12 @@ Shop
                                         </div>
                                         <div class="categories__content">
                                             <h2 class="categories__content--title">{{$parentCategory->name}}</h2>
-                                            <span class="categories__content--subtitle">( Items)</span>
+                                            <span class="categories__content--subtitle">
+                                                @php
+                                                $countItem = \App\Models\Product::where('category', $parentCategory->id)->count();
+                                            @endphp
+                                            ({{ $countItem }} Items)
+                                            </span>
                                         </div>
                                     </a>
                                 </li>
@@ -141,46 +156,40 @@ Shop
                                         <div class="row mb--n30">
                                             @foreach ($products as $row)
                                             @if ($user_session->price == "price1")
-                                            @php
-                                                $price = $row->price1;
-                                            @endphp
-
+                                                @php
+                                                    $price = $row->price1;
+                                                @endphp
+                                            @elseif ($user_session->price == "price2")
+                                                @php
+                                                    $price = $row->price2;
+                                                @endphp
+                                            @elseif ($user_session->price == "price3")
+                                                @php
+                                                    $price = $row->price3;
+                                                @endphp
+                                            @elseif ($user_session->price == "price4")
+                                                @php
+                                                    $price = $row->price4;
+                                                @endphp
+                                            @elseif ($user_session->price == "price5")
+                                                @php
+                                                    $price = $row->price5;
+                                                @endphp
                                             @endif
-                                            @if ($user_session->price == "price2")
-                                            @php
-                                            $price = $row->price2;
-                                        @endphp
-                                                @endif
-                                            @if ($user_session->price == "price3")
-                                            @php
-                                            $price = $row->price3;
-                                        @endphp
-                                                @endif
-                                            @if ($user_session->price == "price4")
-                                            @php
-                                            $price = $row->price4;
-                                        @endphp
-                                                @endif
-                                            @if ($user_session->price == "price5")
-                                            @php
-                                            $price = $row->price5;
-                                        @endphp
-                                                @endif
+
                                             <div class="col-lg-4 col-md-4 col-sm-6 col-6 custom-col mb-30">
                                                 <article class="product__card">
                                                     <div class="product__card--thumbnail">
-                                                        <a class="product__card--thumbnail__link display-block" href="{{ url('product-details') }}{{ '/' . $row->slug }}">
+                                                        <a class="product__card--thumbnail__link display-block" href="{{ url('product-details') }}/{{ $row->slug }}" data-product-id="{{ $row->id }}">
                                                             <img class="product__card--thumbnail__img product__primary--img" src="{{ asset('product_images/' . $row->f_thumbnail) }}" alt="product-img">
                                                             <img class="product__card--thumbnail__img product__secondary--img" src="{{ asset('product_images/' . $row->f_thumbnail) }}" alt="product-img">
                                                         </a>
 
                                                         <ul class="product__card--action d-flex align-items-center justify-content-center">
-
-
                                                             <li class="product__card--action__list">
                                                                 <a class="product__card--action__btn" title="Wishlist" href="{{ url('addToWishlist') }}/{{ $price }}/{{ $row->id }}">
                                                                     <svg class="product__card--action__btn--svg" width="18" height="18" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M13.5379 1.52734C11.9519 0.1875 9.51832 0.378906 8.01442 1.9375C6.48317 0.378906 4.04957 0.1875 2.46364 1.52734C0.412855 3.25 0.713636 6.06641 2.1902 7.57031L6.97536 12.4648C7.24879 12.7383 7.60426 12.9023 8.01442 12.9023C8.39723 12.9023 8.7527 12.7383 9.02614 12.4648L13.8386 7.57031C15.2879 6.06641 15.5886 3.25 13.5379 1.52734ZM12.8816 6.64062L8.09645 11.5352C8.04176 11.5898 7.98707 11.5898 7.90504 11.5352L3.11989 6.64062C2.10817 5.62891 1.91676 3.71484 3.31129 2.53906C4.3777 1.63672 6.01832 1.77344 7.05739 2.8125L8.01442 3.79688L8.97145 2.8125C9.98317 1.77344 11.6238 1.63672 12.6902 2.51172C14.0847 3.71484 13.8933 5.62891 12.8816 6.64062Z" fill="currentColor"/>
+                                                                        <path d="M13.5379 1.52734C11.9519 0.1875 9.51832 0.378906 8.01442 1.9375C6.48317 0.378906 4.04957 0.1875 2.46364 1.52734C0.412855 3.25 0.713636 6.06641 2.1902 7.57031L6.97536 12.4648C7.24879 12.7383 7.60426 12.9023 8.01442 12.9023C8.39723 12.9023 8.7527 12.7383 9.02614 12.4648L13.8386 7.57031C15.2879 6.06641 15.5886 3.25 13.5379 1.52734ZM12.8816 6.64062L8.09645 11.5352C8.04176 11.5898 7.98707 11.5898 7.90504 11.5352L3.11989 6.64062C2.10817 5.62891 1.91676 3.71484 3.31129 2.53906C4.3777 1.63672 6.01832 1.77344 7.05739 2.8125L8.01442 3.79688L8.97145 2.8125C9.98317 1.77344 11.6238 1.63672 12.6902 2.51172C14.0847 3.71484 13.8933 5.62891 12.8816 6.64062Z" fill="currentColor"/>
                                                                     </svg>
                                                                     <span class="visually-hidden">Wishlist</span>
                                                                 </a>
@@ -188,15 +197,9 @@ Shop
                                                         </ul>
                                                     </div>
                                                     <div class="product__card--content">
-
-                                                        <h3 class="product__card--title"><a href="{{ url('product-details') }}{{ '/' . $row->slug }}">{{ $row->title }}</a></h3>
+                                                        <h3 class="product__card--title"><a href="{{ url('product-details') }}/{{ $row->slug }}" data-product-id="{{ $row->id }}">{{ $row->title }}</a></h3>
                                                         <div class="product__card--price">
-                                                            <span class="current__price">
-
-
-                                                                    {{ 'BS '.$price }}
-
-                                                                </span>
+                                                            <span class="current__price">{{ 'BS '.$price }}</span>
                                                             {{-- <span class="old__price"> $362.00</span> --}}
                                                         </div>
                                                         <div class="product__card--footer">
@@ -210,7 +213,8 @@ Shop
                                                     </div>
                                                 </article>
                                             </div>
-                                            @endforeach
+                                        @endforeach
+
 
                                         </div>
                                     </div>
@@ -248,7 +252,7 @@ Shop
                                             <div class="col mb-30">
                                                 <div class="product__card product__list d-flex align-items-center">
                                                     <div class="product__card--thumbnail product__list--thumbnail">
-                                                        <a class="product__card--thumbnail__link display-block" href="{{ url('product-details') }}{{ '/' . $row->slug }}">
+                                                        <a class="product__card--thumbnail__link display-block" href="{{ url('product-details') }}{{ '/' . $row->slug }}" data-product-id="{{ $row->id }}">
                                                             <img class="product__card--thumbnail__img product__primary--img" src="{{ asset('product_images/' . $row->f_thumbnail) }}" alt="product-img">
                                                             <img class="product__card--thumbnail__img product__secondary--img" src="{{ asset('product_images/' . $row->f_thumbnail) }}" alt="product-img">
                                                         </a>
@@ -267,7 +271,7 @@ Shop
                                                         </ul>
                                                     </div>
                                                     <div class="product__card--content product__list--content">
-                                                        <h3 class="product__card--title"><a href="{{ url('product-details') }}{{ '/' . $row->slug }}">{{$row->title}} </a></h3>
+                                                        <h3 class="product__card--title"><a href="{{ url('product-details') }}{{ '/' . $row->slug }}" data-product-id="{{ $row->id }}">{{$row->title}} </a></h3>
 
                                                         <div class="product__list--price">
                                                             <span class="current__price">{{ 'BS '.$price }} </span>
