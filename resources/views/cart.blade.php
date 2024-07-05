@@ -7,15 +7,15 @@
         <!-- cart section start -->
         <section class="cart__section section--padding">
             <div class="container-fluid">
-                @if(Session::has('success'))
-                <div class="alert alert-success">
-                    <p>{{session::get('success')}}</p>
-                </div>
+                @if (Session::has('success'))
+                    <div class="alert alert-success">
+                        <p>{{ session::get('success') }}</p>
+                    </div>
                 @endif
-                @if(Session::has('fail'))
-                <div class="alert alert-danger">
-                    <p>{{session::get('fail')}}</p>
-                </div>
+                @if (Session::has('fail'))
+                    <div class="alert alert-danger">
+                        <p>{{ session::get('fail') }}</p>
+                    </div>
                 @endif
                 <div class="cart__section--inner">
                     <form action="#">
@@ -33,64 +33,127 @@
                                             </tr>
                                         </thead>
                                         <tbody class="cart__table--body">
-
                                             @foreach ($carts as $item)
-    @php
-        $total = $item->price * $item->quantity;
-        $product_details = \App\Models\Product::find($item->product_id);
-    @endphp
-    @if ($product_details)
-        <tr class="cart__table--body__items">
-            <td class="cart__table--body__list">
-                <div class="cart__product d-flex align-items-center">
-                    <a href="{{ route('remove.cart', $item->id) }}" class="cart__remove--btn" aria-label="remove button" type="button">
-                        <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16px" height="16px">
-                            <path d="M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z" />
-                        </svg>
-                    </a>
-                    <div class="cart__thumbnail">
-                        <a href="{{ url('product-details/' . $product_details->slug) }}">
-                            <img class="border-radius-5" src="{{ asset('product_images/' . $product_details->f_thumbnail) }}" alt="cart-product">
-                        </a>
-                    </div>
-                    <div class="cart__content">
-                        <h3 class="cart__content--title h4">
-                            <a href="{{ url('product-details/' . $product_details->slug) }}">{{ $product_details->title }}</a>
-                        </h3>
-                    </div>
-                </div>
-            </td>
-            <td class="cart__table--body__list">
-                <span class="cart__price">{{ 'BS ' . $item->price }}</span>
-            </td>
-            <td class="cart__table--body__list">
-                <div class="quantity__box">
-                    <button type="button" class="quantity__value quickview__value--quantity decrease" aria-label="quantity value" value="Decrease Value">-</button>
-                    <label>
-                        <input type="number" class="quantity__number quickview__value--number" value="{{ $item->quantity }}" data-counter />
-                    </label>
-                    <button type="button" class="quantity__value quickview__value--quantity increase" aria-label="quantity value" value="Increase Value">+</button>
-                </div>
-            </td>
-            <td class="cart__table--body__list">
-                <span class="cart__price end">{{ 'BS ' . $total }}</span>
-            </td>
-        </tr>
-    @else
-        <tr class="cart__table--body__items">
-            <td colspan="4" class="cart__table--body__list">
-                <div class="alert alert-danger" role="alert">
-                    Product not found for cart item with ID: {{ $item->id }}
-                </div>
-            </td>
-        </tr>
-    @endif
-@endforeach
+                                            @php
+                                                $total = $item->price * $item->quantity;
+                                                $product_details = \App\Models\Product::find($item->product_id);
+                                            @endphp
+                                            @if ($product_details)
+                                                <tr class="cart__table--body__items">
+                                                    <td class="cart__table--body__list">
+                                                        <div class="cart__product d-flex align-items-center">
+                                                            <a href="{{ route('remove.cart', $item->id) }}" class="cart__remove--btn" aria-label="remove button" type="button">
+                                                                <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16px" height="16px">
+                                                                    <path d="M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z" />
+                                                                </svg>
+                                                            </a>
+                                                            <div class="cart__thumbnail">
+                                                                <a href="{{ url('product-details/' . $product_details->slug) }}">
+                                                                    <img class="border-radius-5" src="{{ asset('product_images/' . $product_details->f_thumbnail) }}" alt="cart-product">
+                                                                </a>
+                                                            </div>
+                                                            <div class="cart__content">
+                                                                <h3 class="cart__content--title h4">
+                                                                    <a href="{{ url('product-details/' . $product_details->slug) }}">{{ $product_details->title }}</a>
+                                                                </h3>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="cart__table--body__list">
+                                                        <span class="cart__price">{{ 'BS ' . $item->price }}</span>
+                                                    </td>
+                                                    <td class="cart__table--body__list">
+                                                        <div class="quantity__box">
+                                                            <button type="button" class="quantity__value quickview__value--quantity decrease" aria-label="quantity value" value="Decrease Value">-</button>
+                                                            <label>
+                                                                <input type="number" class="quantity__number quickview__value--number" value="{{ $item->quantity }}" data-product-id="{{ $item->product_id }}" />
+                                                            </label>
+                                                            <button type="button" class="quantity__value quickview__value--quantity increase" aria-label="quantity value" value="Increase Value">+</button>
+                                                        </div>
+                                                    </td>
+                                                    <td class="cart__table--body__list">
+                                                        <span class="cart__price end">{{ 'BS ' . $total }}</span>
+                                                    </td>
+                                                </tr>
+                                            @else
+                                                <tr class="cart__table--body__items">
+                                                    <td colspan="4" class="cart__table--body__list">
+                                                        <div class="alert alert-danger" role="alert">
+                                                            Product not found for cart item with ID: {{ $item->id }}
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                        @endforeach
+
+                                        <script>
+                                            document.addEventListener('DOMContentLoaded', function() {
+                                                const decreaseButtons = document.querySelectorAll('.decrease');
+                                                const increaseButtons = document.querySelectorAll('.increase');
+                                                const quantityInputs = document.querySelectorAll('.quantity__number');
+
+                                                const updateQuantityOnServer = (productId, quantity) => {
+                                                    const xhr = new XMLHttpRequest();
+                                                    const url = '/update-quantity'; // Replace with your actual URL
+                                                    const data = JSON.stringify({ productId, quantity });
+
+                                                    xhr.open('POST', url, true);
+                                                    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+                                                    xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+
+                                                    xhr.onreadystatechange = function() {
+                                                        if (xhr.readyState === 4) {
+                                                            if (xhr.status === 200) {
+                                                                console.log('Quantity updated successfully');
+                                                                window.location.reload(); // Reload to reflect changes
+                                                            } else {
+                                                                console.error('Failed to update quantity');
+                                                                alert('Failed to update quantity. Please try again.');
+                                                            }
+                                                        }
+                                                    };
+
+                                                    xhr.send(data);
+                                                };
+
+                                                decreaseButtons.forEach(button => {
+                                                    button.addEventListener('click', () => {
+                                                        const quantityInput = button.parentElement.querySelector('.quantity__number');
+                                                        let currentValue = parseInt(quantityInput.value);
+                                                        if (currentValue > 1) {
+                                                            quantityInput.value = currentValue - 1;
+                                                            updateQuantityOnServer(quantityInput.dataset.productId, currentValue - 1);
+                                                        }
+                                                    });
+                                                });
+
+                                                increaseButtons.forEach(button => {
+                                                    button.addEventListener('click', () => {
+                                                        const quantityInput = button.parentElement.querySelector('.quantity__number');
+                                                        let currentValue = parseInt(quantityInput.value);
+                                                        quantityInput.value = currentValue + 1;
+                                                        updateQuantityOnServer(quantityInput.dataset.productId, currentValue + 1);
+                                                    });
+                                                });
+
+                                                quantityInputs.forEach(input => {
+                                                    input.addEventListener('change', () => {
+                                                        let currentValue = parseInt(input.value);
+                                                        if (currentValue < 1) {
+                                                            input.value = 1;
+                                                            currentValue = 1;
+                                                        }
+                                                        updateQuantityOnServer(input.dataset.productId, currentValue);
+                                                    });
+                                                });
+                                            });
+                                        </script>
 
                                         </tbody>
                                     </table>
                                     <div class="continue__shopping d-flex justify-content-between">
-                                        <a class="continue__shopping--link" href="{{url('shop')}}">Continue shopping</a>
+                                        <a class="continue__shopping--link" href="{{ url('shop') }}">Continue
+                                            shopping</a>
                                         <button class="continue__shopping--clear" type="submit">Clear Cart</button>
                                     </div>
                                 </div>
@@ -141,31 +204,30 @@
                     <div class="swiper-wrapper">
                         @if (!empty($latest_products))
                             @foreach ($latest_products as $row)
-                            @if ($user_session->price == "price1")
-                            @php
-                                $price = $row->price1;
-                            @endphp
-
-                            @endif
-                            @if ($user_session->price == "price2")
-                            @php
-                            $price = $row->price2;
-                        @endphp
+                                @if ($user_session->price == 'price1')
+                                    @php
+                                        $price = $row->price1;
+                                    @endphp
                                 @endif
-                            @if ($user_session->price == "price3")
-                            @php
-                            $price = $row->price3;
-                        @endphp
+                                @if ($user_session->price == 'price2')
+                                    @php
+                                        $price = $row->price2;
+                                    @endphp
                                 @endif
-                            @if ($user_session->price == "price4")
-                            @php
-                            $price = $row->price4;
-                        @endphp
+                                @if ($user_session->price == 'price3')
+                                    @php
+                                        $price = $row->price3;
+                                    @endphp
                                 @endif
-                            @if ($user_session->price == "price5")
-                            @php
-                            $price = $row->price5;
-                        @endphp
+                                @if ($user_session->price == 'price4')
+                                    @php
+                                        $price = $row->price4;
+                                    @endphp
+                                @endif
+                                @if ($user_session->price == 'price5')
+                                    @php
+                                        $price = $row->price5;
+                                    @endphp
                                 @endif
                                 <div class="swiper-slide">
                                     <article class="product__card">
@@ -207,17 +269,21 @@
                                             <div class="product__card--price">
                                                 <span class="current__price">
 
-                                                                    {{ 'BS '.$price }}
+                                                    {{ 'BS ' . $price }}
                                                 </span>
                                                 {{-- <span class="old__price"> $362.00</span> --}}
                                             </div>
                                             <div class="product__card--footer">
-                                                <a class="product__card--btn primary__btn" href="{{ url('addToCart') }}/{{ $price }}/{{ $row->id }}">
-                                                                <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M13.2371 4H11.5261L8.5027 0.460938C8.29176 0.226562 7.9402 0.203125 7.70582 0.390625C7.47145 0.601562 7.44801 0.953125 7.63551 1.1875L10.0496 4H3.46364L5.8777 1.1875C6.0652 0.953125 6.04176 0.601562 5.80739 0.390625C5.57301 0.203125 5.22145 0.226562 5.01051 0.460938L1.98707 4H0.299574C0.135511 4 0.0183239 4.14062 0.0183239 4.28125V4.84375C0.0183239 5.00781 0.135511 5.125 0.299574 5.125H0.721449L1.3777 9.78906C1.44801 10.3516 1.91676 10.75 2.47926 10.75H11.0339C11.5964 10.75 12.0652 10.3516 12.1355 9.78906L12.7918 5.125H13.2371C13.3777 5.125 13.5183 5.00781 13.5183 4.84375V4.28125C13.5183 4.14062 13.3777 4 13.2371 4ZM11.0339 9.625H2.47926L1.86989 5.125H11.6433L11.0339 9.625ZM7.33082 6.4375C7.33082 6.13281 7.07301 5.875 6.76832 5.875C6.4402 5.875 6.20582 6.13281 6.20582 6.4375V8.3125C6.20582 8.64062 6.4402 8.875 6.76832 8.875C7.07301 8.875 7.33082 8.64062 7.33082 8.3125V6.4375ZM9.95582 6.4375C9.95582 6.13281 9.69801 5.875 9.39332 5.875C9.0652 5.875 8.83082 6.13281 8.83082 6.4375V8.3125C8.83082 8.64062 9.0652 8.875 9.39332 8.875C9.69801 8.875 9.95582 8.64062 9.95582 8.3125V6.4375ZM4.70582 6.4375C4.70582 6.13281 4.44801 5.875 4.14332 5.875C3.8152 5.875 3.58082 6.13281 3.58082 6.4375V8.3125C3.58082 8.64062 3.8152 8.875 4.14332 8.875C4.44801 8.875 4.70582 8.64062 4.70582 8.3125V6.4375Z" fill="currentColor"/>
-                                                                </svg>
-                                                                Add to cart
-                                                            </a>
+                                                <a class="product__card--btn primary__btn"
+                                                    href="{{ url('addToCart') }}/{{ $price }}/{{ $row->id.'/1' }}">
+                                                    <svg width="14" height="11" viewBox="0 0 14 11" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                            d="M13.2371 4H11.5261L8.5027 0.460938C8.29176 0.226562 7.9402 0.203125 7.70582 0.390625C7.47145 0.601562 7.44801 0.953125 7.63551 1.1875L10.0496 4H3.46364L5.8777 1.1875C6.0652 0.953125 6.04176 0.601562 5.80739 0.390625C5.57301 0.203125 5.22145 0.226562 5.01051 0.460938L1.98707 4H0.299574C0.135511 4 0.0183239 4.14062 0.0183239 4.28125V4.84375C0.0183239 5.00781 0.135511 5.125 0.299574 5.125H0.721449L1.3777 9.78906C1.44801 10.3516 1.91676 10.75 2.47926 10.75H11.0339C11.5964 10.75 12.0652 10.3516 12.1355 9.78906L12.7918 5.125H13.2371C13.3777 5.125 13.5183 5.00781 13.5183 4.84375V4.28125C13.5183 4.14062 13.3777 4 13.2371 4ZM11.0339 9.625H2.47926L1.86989 5.125H11.6433L11.0339 9.625ZM7.33082 6.4375C7.33082 6.13281 7.07301 5.875 6.76832 5.875C6.4402 5.875 6.20582 6.13281 6.20582 6.4375V8.3125C6.20582 8.64062 6.4402 8.875 6.76832 8.875C7.07301 8.875 7.33082 8.64062 7.33082 8.3125V6.4375ZM9.95582 6.4375C9.95582 6.13281 9.69801 5.875 9.39332 5.875C9.0652 5.875 8.83082 6.13281 8.83082 6.4375V8.3125C8.83082 8.64062 9.0652 8.875 9.39332 8.875C9.69801 8.875 9.95582 8.64062 9.95582 8.3125V6.4375ZM4.70582 6.4375C4.70582 6.13281 4.44801 5.875 4.14332 5.875C3.8152 5.875 3.58082 6.13281 3.58082 6.4375V8.3125C3.58082 8.64062 3.8152 8.875 4.14332 8.875C4.44801 8.875 4.70582 8.64062 4.70582 8.3125V6.4375Z"
+                                                            fill="currentColor" />
+                                                    </svg>
+                                                    Add to cart
+                                                </a>
                                             </div>
                                         </div>
                                     </article>

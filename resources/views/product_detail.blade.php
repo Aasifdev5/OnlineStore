@@ -230,20 +230,54 @@
 
                                     <div class="product__variant--list quantity d-flex align-items-center mb-20">
                                         <div class="quantity__box">
-                                            <button type="button"
-                                                class="quantity__value quickview__value--quantity decrease"
-                                                aria-label="quantity value" value="Decrease Value">-</button>
+                                            <button type="button" class="quantity__value quickview__value--quantity decrease" aria-label="quantity value" value="Decrease Value">-</button>
                                             <label>
-                                                <input type="number" class="quantity__number quickview__value--number"
-                                                    value="1" data-counter />
+                                                <input type="number" class="quantity__number quickview__value--number" value="1" data-counter />
                                             </label>
-                                            <button type="button"
-                                                class="quantity__value quickview__value--quantity increase"
-                                                aria-label="quantity value" value="Increase Value">+</button>
+                                            <button type="button" class="quantity__value quickview__value--quantity increase" aria-label="quantity value" value="Increase Value">+</button>
                                         </div>
-                                        <a class="primary__btn quickview__cart--btn"
-                                            href="{{ url('addToCart') }}/{{ $price }}/{{ $product->id }}">Add To
-                                            Cart</a>
+
+                                        <a class="primary__btn quickview__cart--btn" id="addToCartBtn" href="{{ url('addToCart') }}/{{ $price }}/{{ $product->id }}">Add To Cart</a>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const decreaseButton = document.querySelector('.decrease');
+    const increaseButton = document.querySelector('.increase');
+    const quantityInput = document.querySelector('.quantity__number');
+    const addToCartBtn = document.getElementById('addToCartBtn');
+    const baseUrl = '{{ url("addToCart") }}/{{ $price }}/{{ $product->id }}';
+
+    const updateQuantity = () => {
+        let quantity = parseInt(quantityInput.value);
+        if (quantity < 1) {
+            quantity = 1;
+            quantityInput.value = 1;
+        }
+        addToCartBtn.setAttribute('href', `${baseUrl}/${quantity}`);
+    };
+
+    decreaseButton.addEventListener('click', () => {
+        let currentValue = parseInt(quantityInput.value);
+        if (currentValue > 1) {
+            quantityInput.value = currentValue - 1;
+            updateQuantity();
+        }
+    });
+
+    increaseButton.addEventListener('click', () => {
+        let currentValue = parseInt(quantityInput.value);
+        quantityInput.value = currentValue ;
+        updateQuantity();
+    });
+
+    quantityInput.addEventListener('change', () => {
+        updateQuantity();
+    });
+
+    // Initialize the href with the default quantity
+    updateQuantity();
+});
+
+</script>
                                     </div>
                                     <div class="product__variant--list mb-15">
                                         <a class="variant__wishlist--icon mb-15"
@@ -259,7 +293,7 @@
                                             Add to Wishlist
                                         </a>
                                         <a class="text-center variant__buy--now__btn primary__btn"
-                                            href="{{ url('addToCart') }}/{{ $price }}/{{ $product->id }}">Buy it
+                                            href="{{ url('addToCart') }}/{{ $price }}/{{ $product->id.'/1' }}">Buy it
                                             now</a>
                                     </div>
                                     <div class="product__variant--list mb-15">
@@ -446,7 +480,7 @@
                                             </div>
                                             <div class="product__card--footer">
                                                 <a class="product__card--btn primary__btn"
-                                                    href="{{ url('addToCart') }}/{{ $price }}/{{ $row->id }}">
+                                                    href="{{ url('addToCart') }}/{{ $price }}/{{ $row->id.'/1' }}">
                                                     <svg width="14" height="11" viewBox="0 0 14 11"
                                                         fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path

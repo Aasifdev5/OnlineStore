@@ -685,16 +685,37 @@ class UserController extends Controller
         // Return JSON response with a 200 status code (assuming success)
         return response()->json($products, 200);
     }
-    public function addToCart($price, $id)
+    public function addToCart($price, $id,$quantity)
     {
-
+        // dd($quantity);
         $saveIntoCart = Cart::create([
             'user_id' => Session::get('LoggedIn'),
             'product_id' => $id,
             'price' => $price,
-            'quantity' => 1,
+            'quantity' => $quantity,
         ]);
         return back()->with('success','Product is added to cart');
+    }
+    public function updateQuantity(Request $request)
+    {
+        $productId = $request->input('productId');
+        $quantity = $request->input('quantity');
+
+        // Validate the input
+        $request->validate([
+            'productId' => 'required|integer|exists:products,id',
+            'quantity' => 'required|integer|min:1',
+        ]);
+
+        // Update the quantity in the database
+        $cartItem = Cart::where('product_id', $productId)->where('user_id', Session::get('LoggedIn'))->first();
+        if ($cartItem) {
+            $cartItem->quantity = $quantity;
+            $cartItem->save();
+            return response()->json(['success' => true, 'quantity' => $cartItem->quantity, 'total' => $cartItem->total]); // Adjust 'total' based on your calculation
+        }
+
+        return response()->json(['success' => false, 'message' => 'Cart item not found'], 404);
     }
     public function addToWishlist($price, $id)
     {

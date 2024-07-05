@@ -105,7 +105,8 @@ Route::group(['middleware' => 'prevent-back-history', SetLocale::class], functio
     Route::post('/update_password', [UserController::class, 'update_password'])->name('update_password');
     Route::get('/edit_profile', [UserController::class, 'edit_profile'])->middleware('isLoggedIn');
     Route::post('update_profile', [UserController::class, 'update_profile']);
-    Route::get('addToCart/{price}/{id}', [UserController::class, 'addToCart'])->name('addToCart');
+    Route::get('addToCart/{price}/{id}/{quantity}', [UserController::class, 'addToCart'])->name('addToCart');
+    Route::post('/update-quantity', [UserController::class, 'updateQuantity']);
     Route::get('RemoveCart/{id}', [UserController::class, 'removeCart'])->name('remove.cart');
     Route::get('cart', [UserController::class, 'cart'])->name('cart');
     Route::get('/finish', [UserController::class, 'finish'])->name('finish')->middleware('isLoggedIn');

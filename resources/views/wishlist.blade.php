@@ -73,7 +73,7 @@
                                                 <span class="in__stock text__secondary">in stock</span>
                                             </td>
                                             <td class="cart__table--body__list text-right">
-                                                <a class="wishlist__cart--btn primary__btn" href="{{ url('addToCart') }}/{{ $item->price }}/{{ $product_details->id }}">Add To Cart</a>
+                                                <a class="wishlist__cart--btn primary__btn" href="{{ url('addToCart') }}/{{ $item->price }}/{{ $product_details->id.'/1' }}">Add To Cart</a>
                                             </td>
                                         </tr>
                                     @else
@@ -184,7 +184,7 @@
                                             </div>
                                             <div class="product__card--footer">
                                                 <a class="product__card--btn primary__btn"
-                                                    href="{{ url('addToCart') }}/{{ $price }}/{{ $row->id }}">
+                                                    href="{{ url('addToCart') }}/{{ $price }}/{{ $row->id.'/1' }}">
                                                     <svg width="14" height="11" viewBox="0 0 14 11"
                                                         fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path
