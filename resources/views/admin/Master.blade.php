@@ -535,6 +535,8 @@
                             </li>
                             <li><a class="sidebar-header" href="{{ route('tracked.times') }}"><i data-feather="clock"></i><span>{{ __('Track Time') }} </span></a>
                             </li>
+                            <li><a class="sidebar-header" href="{{ url('admin/showAllUsersTimeSpent') }}"><i data-feather="clock"></i><span>{{ __('User Spend Time') }} </span></a>
+                            </li>
                         </ul>
                     @endif
                     @if ($user_session->is_super_admin == 0 and $user_session->account_type == 'admin')
