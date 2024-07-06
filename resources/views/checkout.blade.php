@@ -29,8 +29,15 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-12">
+                                                @php
+                                            $total = \App\Models\Cart::where('user_id', Session::get('LoggedIn'))
+                                                                    ->selectRaw('SUM(price * quantity) as total')
+                                                                    ->pluck('total')
+                                                                    ->first();
+                                            $formattedTotal = $total ? '' . number_format($total, 2) : '0.00';
+                                        @endphp
                                                 <label for="amount" class="form-label">Monto</label>
-                                                <input type="text" class="form-control" id="amount" name="amount">
+                                                <input type="text" class="form-control" id="amount" name="amount" value="{{ $formattedTotal }}">
                                             </div>
                                             <div class="col-sm-12">
                                                 <label for="payment_receipt" class="form-label">Recibo de Pago</label>

@@ -1,4 +1,4 @@
-@extends('dashboard')
+@extends('master')
 @section('title')
     {{ __('Cambiar Contraseña') }}
 @endsection

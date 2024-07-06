@@ -172,13 +172,20 @@
 
                                                 <tr class="cart__summary--total__list">
                                                     <td class="cart__summary--total__title text-left">GRAND TOTAL</td>
-                                                    <td class="cart__summary--amount text-right"></td>
+                                                    <td class="cart__summary--amount text-right">@php
+                                                        $total = \App\Models\Cart::where('user_id', Session::get('LoggedIn'))
+                                                                                ->selectRaw('SUM(price * quantity) as total')
+                                                                                ->pluck('total')
+                                                                                ->first();
+                                                        $formattedTotal = $total ? 'BS' . number_format($total, 2) : 'BS0.00';
+                                                    @endphp
+                                                    {{ $formattedTotal }}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
                                     <div class="cart__summary--footer">
-                                        <p class="cart__summary--footer__desc">Shipping & taxes calculated at checkout</p>
+
                                         <ul class="d-flex justify-content-between">
 
                                             <li><a class="cart__summary--footer__btn primary__btn checkout"

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 04, 2024 at 01:18 PM
+-- Generation Time: Jul 06, 2024 at 12:36 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -403,18 +403,6 @@ CREATE TABLE `carts` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `carts`
---
-
-INSERT INTO `carts` (`id`, `user_id`, `product_id`, `price`, `quantity`, `created_at`, `updated_at`) VALUES
-(6, 32, 46, 100.00, 1, '2024-07-03 23:09:02', '2024-07-03 23:09:02'),
-(7, 32, 36, 100.00, 1, '2024-07-03 23:10:28', '2024-07-03 23:10:28'),
-(8, 32, 36, 100.00, 1, '2024-07-03 23:38:54', '2024-07-03 23:38:54'),
-(9, 32, 33, 100.00, 1, '2024-07-03 23:43:35', '2024-07-03 23:43:35'),
-(10, 32, 47, 100.00, 1, '2024-07-04 00:52:41', '2024-07-04 00:52:41'),
-(11, 32, 47, 100.00, 1, '2024-07-04 01:28:21', '2024-07-04 01:28:21');
 
 -- --------------------------------------------------------
 
@@ -1472,7 +1460,16 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `full_name`, `address`, `city`, `country`, `postal_code`, `total_amount`, `created_at`, `updated_at`) VALUES
-(1, 32, 'Aasif Ahmed', '722 azad nagar indore', 'Indore', 'India', '452001', 100.00, '2024-07-01 03:55:11', '2024-07-01 03:55:11');
+(1, 32, 'Aasif Ahmed', '722 azad nagar indore', 'Indore', 'India', '452001', 100.00, '2024-07-01 03:55:11', '2024-07-01 03:55:11'),
+(2, 32, 'eve', 'bolivia', 'bolivia', 'Bolivia', NULL, 200.00, '2024-07-06 02:24:12', '2024-07-06 02:24:12'),
+(3, 32, 'eve', 'bolivia', 'bolivia', 'Bolivia', NULL, 200.00, '2024-07-06 02:25:28', '2024-07-06 02:25:28'),
+(4, 32, 'eve', 'bolivia', 'bolivia', 'Bolivia', NULL, 200.00, '2024-07-06 02:25:51', '2024-07-06 02:25:51'),
+(5, 32, 'eve', 'bolivia', 'bolivia', 'Bolivia', NULL, 200.00, '2024-07-06 02:31:36', '2024-07-06 02:31:36'),
+(6, 32, 'eve', 'bolivia', 'bolivia', 'Bolivia', NULL, 200.00, '2024-07-06 02:33:40', '2024-07-06 02:33:40'),
+(7, 32, 'eve', 'bolivia', 'bolivia', 'Bolivia', NULL, 200.00, '2024-07-06 02:34:23', '2024-07-06 02:34:23'),
+(8, 32, 'eve', 'bolivia', 'bolivia', 'Bolivia', NULL, 100.00, '2024-07-06 02:38:07', '2024-07-06 02:38:07'),
+(9, 32, 'eve', 'bolivia', 'bolivia', 'Bolivia', NULL, 100.00, '2024-07-06 03:08:18', '2024-07-06 03:08:18'),
+(10, 32, 'eve', 'bolivia', 'bolivia', 'Bolivia', NULL, 100.00, '2024-07-06 03:14:55', '2024-07-06 03:14:55');
 
 -- --------------------------------------------------------
 
@@ -1495,7 +1492,17 @@ CREATE TABLE `order_items` (
 --
 
 INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `price`, `created_at`, `updated_at`) VALUES
-(1, 1, 36, 1, 100.00, '2024-07-01 03:55:11', '2024-07-01 03:55:11');
+(1, 1, 36, 1, 100.00, '2024-07-01 03:55:11', '2024-07-01 03:55:11'),
+(2, 2, 46, 2, 100.00, '2024-07-06 02:24:12', '2024-07-06 02:24:12'),
+(3, 3, 46, 2, 100.00, '2024-07-06 02:25:28', '2024-07-06 02:25:28'),
+(4, 4, 46, 2, 100.00, '2024-07-06 02:25:51', '2024-07-06 02:25:51'),
+(5, 5, 46, 2, 100.00, '2024-07-06 02:31:36', '2024-07-06 02:31:36'),
+(7, 6, 46, 2, 100.00, '2024-07-06 02:33:40', '2024-07-06 02:33:40'),
+(9, 7, 46, 2, 100.00, '2024-07-06 02:34:23', '2024-07-06 02:34:23'),
+(11, 8, 27, 1, 100.00, '2024-07-06 02:38:07', '2024-07-06 02:38:07'),
+(13, 9, 36, 1, 100.00, '2024-07-06 03:08:18', '2024-07-06 03:08:18'),
+(14, 9, 36, 1, 100.00, NULL, NULL),
+(15, 10, 27, 1, 100.00, '2024-07-06 03:14:55', '2024-07-06 03:14:55');
 
 -- --------------------------------------------------------
 
@@ -1601,7 +1608,16 @@ CREATE TABLE `payments` (
 --
 
 INSERT INTO `payments` (`id`, `order_id`, `name`, `email`, `product_details`, `user_id`, `reward_id`, `amount`, `payment_receipt`, `accepted`, `status`, `payer_email`, `created_at`, `updated_at`) VALUES
-(2, 1, NULL, NULL, '[{\"product_id\":\"36\",\"quantity\":\"1\",\"price\":\"100.00\"}]', 32, NULL, 130.00, 'payment_receipt/Screenshot (57).png', 0, 'initial', NULL, '2024-07-01 03:55:11', '2024-07-01 03:55:11');
+(2, 1, NULL, NULL, '[{\"product_id\":\"36\",\"quantity\":\"1\",\"price\":\"100.00\"}]', 32, NULL, 130.00, 'payment_receipt/Screenshot (57).png', 0, 'initial', NULL, '2024-07-01 03:55:11', '2024-07-01 03:55:11'),
+(3, 2, NULL, NULL, '[{\"product_id\":\"46\",\"quantity\":\"2\",\"price\":\"100.00\"}]', 32, NULL, 200.00, 'payment_receipt/Screenshot_20240313-163712.jpg', 0, 'initial', NULL, '2024-07-06 02:24:12', '2024-07-06 02:24:12'),
+(4, 3, NULL, NULL, '[{\"product_id\":\"46\",\"quantity\":\"2\",\"price\":\"100.00\"}]', 32, NULL, 200.00, 'payment_receipt/Screenshot_20240313-163712.jpg', 0, 'initial', NULL, '2024-07-06 02:25:28', '2024-07-06 02:25:28'),
+(5, 4, NULL, NULL, '[{\"product_id\":\"46\",\"quantity\":\"2\",\"price\":\"100.00\"}]', 32, NULL, 200.00, 'payment_receipt/Screenshot_20240313-163712.jpg', 0, 'initial', NULL, '2024-07-06 02:25:51', '2024-07-06 02:25:51'),
+(6, 5, NULL, NULL, '[{\"product_id\":\"46\",\"quantity\":\"2\",\"price\":\"100.00\"}]', 32, NULL, 200.00, 'payment_receipt/Screenshot_20240313-163712.jpg', 0, 'initial', NULL, '2024-07-06 02:31:36', '2024-07-06 02:31:36'),
+(7, 6, NULL, NULL, '[{\"product_id\":\"46\",\"quantity\":\"2\",\"price\":\"100.00\"}]', 32, NULL, 200.00, 'payment_receipt/Screenshot_20240313-163712.jpg', 0, 'initial', NULL, '2024-07-06 02:33:40', '2024-07-06 02:33:40'),
+(8, 7, NULL, NULL, '[{\"product_id\":\"46\",\"quantity\":\"2\",\"price\":\"100.00\"}]', 32, NULL, 200.00, 'payment_receipt/Screenshot_20240313-163712.jpg', 0, 'initial', NULL, '2024-07-06 02:34:23', '2024-07-06 02:34:23'),
+(9, 8, NULL, NULL, '[{\"product_id\":\"27\",\"quantity\":\"1\",\"price\":\"100.00\"}]', 32, NULL, 100.00, 'payment_receipt/IMG-20240124-WA0041-removebg-preview.png', 0, 'initial', NULL, '2024-07-06 02:38:07', '2024-07-06 02:38:07'),
+(10, 9, NULL, NULL, '[{\"product_id\":\"36\",\"quantity\":\"1\",\"price\":\"100.00\"}]', 32, NULL, 100.00, 'payment_receipt/IMG-20240124-WA0041.jpg', 0, 'initial', NULL, '2024-07-06 03:08:18', '2024-07-06 03:08:18'),
+(11, 10, 'eve', NULL, '[{\"product_id\":\"27\",\"quantity\":\"1\",\"price\":\"100.00\"}]', 32, NULL, 100.00, 'payment_receipt/IMG-20240124-WA0039.jpg', 0, 'initial', 'arstech2a@gmail.com', '2024-07-06 03:14:55', '2024-07-06 03:14:55');
 
 -- --------------------------------------------------------
 
@@ -1715,14 +1731,14 @@ CREATE TABLE `products` (
 INSERT INTO `products` (`id`, `title`, `slug`, `category`, `subcategory_id`, `f_thumbnail`, `sku`, `short_desc`, `description`, `price1`, `price2`, `price3`, `price4`, `price5`, `extra_desc`, `cost_price`, `sale_price`, `old_price`, `start_date`, `end_date`, `is_discount`, `is_stock`, `stock_status_id`, `stock_qty`, `u_stock_qty`, `brand_id`, `price`, `store_id`, `variation_color`, `variation_size`, `tax_id`, `is_publish`, `user_id`, `og_title`, `og_image`, `og_description`, `og_keywords`, `created_at`, `updated_at`) VALUES
 (10, 'The last of us', 'The-last-of-us', '7', NULL, 'img-20230525-175230-800x800.jpg', 'TG-78', 'The last of us Tv and Game', 'The last of us Tv and Game', '1000', '1150', '1250', '1500', '1650', NULL, 1150.000, 1100.000, 1250.000, '2024-06-23', '2024-06-25', 1, 1, 0, 3, NULL, 4, 'price4', '32', 'red,green,blue,black,white', 'small,medium,large', NULL, 1, NULL, 'The last of us Tv and Game', 'norwegian_forest_cat-wallpaper-1920x1080.jpg', 'The last of us Tv', 'The last of us Tv and Game', '2024-06-23 07:50:07', '2024-06-24 03:44:53'),
 (26, 'Product Title 1', 'Product-Title-1', '7', NULL, 'images (1).jpg', 'SKU001', 'Short Desc 1', 'Product Desc 1', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 1, 100, NULL, 1, NULL, '30', 'red,white,yellow', 'medium', NULL, 1, NULL, 'Product 1 Title', NULL, 'Product 1 Desc', 'Keyword 1', '2024-06-24 06:30:18', '2024-07-02 11:53:30'),
-(27, 'Product Title 2', 'Product-Title-2', '14', 2, '14110006003.png', 'SKU002', 'Short Desc 2', 'Product Desc 2', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 1, 120, NULL, 2, NULL, '30', 'red,blue', 'small', NULL, 1, NULL, 'Product 2 Title', NULL, 'Product 2 Desc', 'Keyword 2', '2024-06-24 06:30:18', '2024-07-02 11:35:48'),
+(27, 'Product Title 2', 'Product-Title-2', '14', 2, '14110006003.png', 'SKU002', 'Short Desc 2', 'Product Desc 2', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 1, 118, NULL, 2, NULL, '30', 'red,blue', 'small', NULL, 1, NULL, 'Product 2 Title', NULL, 'Product 2 Desc', 'Keyword 2', '2024-06-24 06:30:18', '2024-07-06 03:14:55'),
 (28, 'Product Title 4', 'Product-Title-4', '14', 1, 'thumbnail1.jpg', 'SKU001', 'Short Desc 4', 'Product Desc 4', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 1, 100, NULL, 1, NULL, '1', NULL, NULL, NULL, 1, NULL, 'Product 1 Title', NULL, 'Product 1 Desc', 'Keyword 1', '2024-06-25 02:34:39', '2024-06-25 02:34:39'),
 (29, 'Product Title 5', 'Product-Title-5', '7', 2, 'sp216bl.png', 'SKU002', 'Short Desc 5', 'Product Desc 5', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 1, 120, NULL, 2, NULL, '30', 'red,green', 'large', NULL, 1, NULL, 'Product 2 Title', NULL, 'Product 2 Desc', 'Keyword 2', '2024-06-25 02:34:39', '2024-07-02 12:33:49'),
 (32, 'Product Title 6', 'Product-Title-6', '14', 2, 'thumbnail1.jpg', 'SKU006', 'Short Desc 6', 'Product Desc 6', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 1, 100, NULL, 1, NULL, '32', NULL, NULL, NULL, 1, NULL, 'Product 1 Title', NULL, 'Product 1 Desc', 'Keyword 1', '2024-06-25 03:29:03', '2024-06-25 03:29:03'),
 (33, 'Product Title 7', 'Product-Title-7', '7', 1, '10163.png', 'SKU007', 'Short Desc 7', 'Product Desc 7', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 1, 120, NULL, 2, NULL, '30', 'green,white', 'medium', NULL, 1, NULL, 'Product 2 Title', NULL, 'Product 2 Desc', 'Keyword 2', '2024-06-25 03:29:03', '2024-07-02 11:50:07'),
 (35, 'Product Title 9', 'Product-Title-9', '14', 2, 'thumbnail1.jpg', 'SKU009', 'Short Desc 6', 'Product Desc 9', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 1, 100, NULL, 1, NULL, '32', 'red,green,blue,black,white', 'small,medium,large', NULL, 1, NULL, 'Product 9 Title', NULL, 'Product 9 Desc', 'Keyword 11', '2024-06-25 03:42:52', '2024-06-25 03:42:52'),
-(36, 'Product Title 10', 'Product-Title-10', '7', 1, '10161.png', 'SKU0010', 'Short Desc 7', 'Product Desc 10', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 1, 119, NULL, 2, NULL, '30', 'black,yellow', 'medium', NULL, 1, NULL, 'Product 10 Title', NULL, 'Product 10 Desc', 'Keyword 12', '2024-06-25 03:42:52', '2024-07-02 01:38:12'),
-(46, 'Product Title 10 BLACK', 'Product-Title-10-BLACK', '7', 1, 'sp216bl.png', 'SKU0010-MEDIUM-BLACK', 'Short Desc 7', 'Product Desc 10', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 1, 119, NULL, 2, NULL, '30', 'black,yellow', 'medium', NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-02 21:43:39', '2024-07-02 21:43:39'),
+(36, 'Product Title 10', 'Product-Title-10', '7', 1, '10161.png', 'SKU0010', 'Short Desc 7', 'Product Desc 10', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 1, 118, NULL, 2, NULL, '30', 'black,yellow', 'medium', NULL, 1, NULL, 'Product 10 Title', NULL, 'Product 10 Desc', 'Keyword 12', '2024-06-25 03:42:52', '2024-07-06 03:08:18'),
+(46, 'Product Title 10 BLACK', 'Product-Title-10-BLACK', '7', 1, 'sp216bl.png', 'SKU0010-MEDIUM-BLACK', 'Short Desc 7', 'Product Desc 10', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 1, 107, NULL, 2, NULL, '30', 'black,yellow', 'medium', NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-02 21:43:39', '2024-07-06 02:34:23'),
 (47, 'Product Title 10 YELLOW', 'Product-Title-10-YELLOW', '7', 1, '10164.png', 'SKU0010-MEDIUM-YELLOW', 'Short Desc 7', 'Product Desc 10', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 1, 119, NULL, 2, NULL, '30', 'black,yellow', 'medium', NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-02 21:43:39', '2024-07-02 21:43:39');
 
 -- --------------------------------------------------------
@@ -1999,7 +2015,16 @@ INSERT INTO `screen_times` (`id`, `user_id`, `product_id`, `url`, `time_spent`, 
 (4, 32, 47, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 20527, '2024-07-04 00:52:41', '2024-07-04 00:52:41'),
 (5, 32, 47, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 345604, '2024-07-04 00:58:27', '2024-07-04 00:58:27'),
 (6, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 13503, '2024-07-04 00:58:49', '2024-07-04 00:58:49'),
-(7, 32, 47, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 7817, '2024-07-04 01:28:47', '2024-07-04 01:28:47');
+(7, 32, 47, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 7817, '2024-07-04 01:28:47', '2024-07-04 01:28:47'),
+(8, 32, 47, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 7677, '2024-07-05 05:44:24', '2024-07-05 05:44:24'),
+(9, 32, 47, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 3790, '2024-07-05 05:45:47', '2024-07-05 05:45:47'),
+(10, 32, 46, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 28700, '2024-07-05 05:48:14', '2024-07-05 05:48:14'),
+(11, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 3059, '2024-07-05 06:33:13', '2024-07-05 06:33:13'),
+(12, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 3971, '2024-07-05 06:33:18', '2024-07-05 06:33:18'),
+(13, 32, 46, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 3353, '2024-07-06 01:33:15', '2024-07-06 01:33:15'),
+(14, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-2', 4099, '2024-07-06 02:37:51', '2024-07-06 02:37:51'),
+(15, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 1882, '2024-07-06 03:08:06', '2024-07-06 03:08:06'),
+(16, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-2', 2081, '2024-07-06 03:12:47', '2024-07-06 03:12:47');
 
 -- --------------------------------------------------------
 
@@ -2538,6 +2563,21 @@ CREATE TABLE `ticket_related_services` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `time_logs`
+--
+
+CREATE TABLE `time_logs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `start_time` datetime NOT NULL,
+  `end_time` datetime DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -2589,7 +2629,7 @@ INSERT INTO `users` (`id`, `account_type`, `price`, `role`, `permissions`, `name
 (1, 'admin', NULL, 1, NULL, 'SUPER ADMINISTRADOR', 'admin@gmail.com', '2023-03-23 07:45:02', '$2y$10$9SbqzcUtyfeaf4019gajcOGQ4/k.XfIpeMXZp/ZERKUP0Z9GA02MK', NULL, '8878326802', 'india', NULL, NULL, NULL, NULL, NULL, '2024-07-04 02:30:29', 1, 1, 1, NULL, NULL, '149071.png', NULL, NULL, NULL, 1, 0, 1, 1, NULL, NULL, 'es', 1, '2023-03-23 07:45:02', '2024-07-04 02:30:29'),
 (30, NULL, 'price3', 2, NULL, 'sdfsdfsf', 'subadmdfsfain@gmail.com', '2023-03-23 07:45:02', 'vbcvbhfghd', NULL, NULL, NULL, NULL, '987765546213132', NULL, 'it', 'arstexch', '2024-06-29 03:50:42', 1, 1, 1, NULL, NULL, NULL, NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:49:44', '2024-06-29 03:50:42'),
 (31, NULL, 'price2', 2, NULL, 'sofia', 'hhfghfhhffhfhfhrnatrajinfotech@gmail.com', NULL, 'sdfsfsfdsfsfsfsfsfs', NULL, NULL, 'ghfdgdfg', NULL, '465464df65g54d', 'ghjhgjgjg', 'erewr', 'asdsdfdsf', NULL, 0, 1, 1, NULL, NULL, NULL, NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:51:51', '2024-06-22 01:51:51'),
-(32, NULL, 'price3', 2, NULL, 'eve', 'eve@gmail.com', '2023-03-23 07:45:02', 'eve@3sss', NULL, '9589642080', 'bolivia', '7,14', '65465464879787', 'bolivia', 'Software', 'everytech', '2024-07-04 03:25:14', 1, 1, 1, NULL, NULL, 'IMG_4416_vo4r1a_1712164410.jpg', NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:56:11', '2024-07-04 03:25:14');
+(32, NULL, 'price3', 2, NULL, 'eve', 'arstech2a@gmail.com', '2023-03-23 07:45:02', 'eve@3sss', NULL, '9589642080', 'bolivia', '7,14', '65465464879787', 'bolivia', 'Software', 'everytech', '2024-07-06 01:18:28', 1, 1, 1, NULL, NULL, 'IMG_4416_vo4r1a_1712164410.jpg', NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:56:11', '2024-07-06 01:18:28');
 
 -- --------------------------------------------------------
 
@@ -3002,6 +3042,12 @@ ALTER TABLE `ticket_related_services`
   ADD UNIQUE KEY `ticket_related_services_uuid_unique` (`uuid`);
 
 --
+-- Indexes for table `time_logs`
+--
+ALTER TABLE `time_logs`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -3103,7 +3149,7 @@ ALTER TABLE `campaigns`
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -3211,13 +3257,13 @@ ALTER TABLE `notifications`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `our_histories`
@@ -3241,7 +3287,7 @@ ALTER TABLE `password_resets`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `payment_gateway`
@@ -3301,7 +3347,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `screen_times`
 --
 ALTER TABLE `screen_times`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `settings`
@@ -3374,6 +3420,12 @@ ALTER TABLE `ticket_priorities`
 --
 ALTER TABLE `ticket_related_services`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `time_logs`
+--
+ALTER TABLE `time_logs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`

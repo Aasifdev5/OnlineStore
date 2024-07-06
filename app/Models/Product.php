@@ -53,5 +53,8 @@ class Product extends Model
 {
     return $this->hasMany(ScreenTime::class, 'product_id');
 }
-
+public function orders()
+{
+    return $this->belongsToMany(Order::class)->withPivot('quantity', 'price');
+}
 }

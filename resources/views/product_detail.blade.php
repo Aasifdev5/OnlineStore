@@ -293,7 +293,7 @@
                                             Add to Wishlist
                                         </a>
                                         <a class="text-center variant__buy--now__btn primary__btn"
-                                            href="{{ url('addToCart') }}/{{ $price }}/{{ $product->id.'/1' }}">Buy it
+                                            href="{{ url('BuyaddToCart') }}/{{ $price }}/{{ $product->id.'/1' }}">Buy it
                                             now</a>
                                     </div>
                                     <div class="product__variant--list mb-15">

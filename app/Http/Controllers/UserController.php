@@ -27,6 +27,7 @@ use App\Models\Payment;
 use App\Models\Product;
 use App\Models\Related_product;
 use App\Models\Role;
+use App\Models\TimeLog;
 use App\Models\User;
 use App\Models\Wishlist;
 use App\Notifications\NewUserRegisteredNotification;
@@ -99,7 +100,7 @@ class UserController extends Controller
             $categories = Category::all();
             $pages = Page::all();
             $general_setting = GeneralSetting::find('1');
-            return view('index', compact('categories', 'user_session',  'general_setting', 'pages','products'));
+            return view('index', compact('categories', 'user_session',  'general_setting', 'pages', 'products'));
         } else {
             return Redirect()->with('fail', 'You have to login first');
         }
@@ -231,6 +232,10 @@ class UserController extends Controller
 
                 $user->update(['is_online' => 1, 'last_seen' => Carbon::now()]);
                 $request->session()->put('LoggedIn', $user->id);
+                TimeLog::create([
+                    'user_id' => $user->id,
+                    'start_time' => Carbon::now(),
+                ]);
                 return redirect('home');
             } else {
                 return back()->with('fail', 'Password does not match');
@@ -685,7 +690,7 @@ class UserController extends Controller
         // Return JSON response with a 200 status code (assuming success)
         return response()->json($products, 200);
     }
-    public function addToCart($price, $id,$quantity)
+    public function addToCart($price, $id, $quantity)
     {
         // dd($quantity);
         $saveIntoCart = Cart::create([
@@ -694,7 +699,18 @@ class UserController extends Controller
             'price' => $price,
             'quantity' => $quantity,
         ]);
-        return back()->with('success','Product is added to cart');
+        return back()->with('success', 'Product is added to cart');
+    }
+    public function BuyaddToCart($price, $id, $quantity)
+    {
+        // dd($quantity);
+        $saveIntoCart = Cart::create([
+            'user_id' => Session::get('LoggedIn'),
+            'product_id' => $id,
+            'price' => $price,
+            'quantity' => $quantity,
+        ]);
+        return redirect()->route('cart');
     }
     public function updateQuantity(Request $request)
     {
@@ -732,7 +748,7 @@ class UserController extends Controller
             'price' => $price,
             'is_stock' => $stockcheck,
         ]);
-        return back()->with('success','Product is added to wishlist');
+        return back()->with('success', 'Product is added to wishlist');
     }
     public function RemoveWish($id)
     {
@@ -999,6 +1015,11 @@ class UserController extends Controller
         if (Session::has('LoggedIn')) {
             $data = User::find(Session::has('LoggedIn'));
             $data->update(['is_online' => 0, 'last_seen' => Carbon::now()]);
+            // Log the logout time
+            $lastTimeLog = TimeLog::where('user_id', Session::get('LoggedIn'))->latest()->first();
+            if ($lastTimeLog) {
+                $lastTimeLog->update(['end_time' => Carbon::now()]);
+            }
             Session::forget('LoggedIn');
             $request->session()->invalidate();
             return redirect('/');
