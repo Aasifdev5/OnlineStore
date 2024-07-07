@@ -79,7 +79,7 @@ class ProductsImport implements ToModel, WithHeadingRow
                     $sku = $mainSku . '-' . $size . '-' . $color;
                     $product->updateOrCreate(
                         [
-                            'title' => $product->title . ' ' . strtoupper($color),
+                            'title' => $product->title,
                             'slug' => getSlug($product->slug . '-' . strtoupper($color)),
                         ],
                         [
@@ -121,7 +121,14 @@ class ProductsImport implements ToModel, WithHeadingRow
             }
         }
 
-
+        ProductVariations::create([
+            'product_id' => $product->id,
+            'size' => $product->sku,
+            'color' => $product->sku,
+            'sku' => $product->sku,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
         return $product;
     }
 }

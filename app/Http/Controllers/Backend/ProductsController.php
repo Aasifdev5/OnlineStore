@@ -474,7 +474,7 @@ class ProductsController extends Controller
                         // Create or update the product with color-specific details
                         $product->updateOrCreate(
                             [
-                                'title' => $product->title . ' ' . strtoupper($color),
+                                'title' => $product->title,
                                 'slug' => getSlug($product->slug . '-' . strtoupper($color)),
                             ],
                             [
@@ -517,9 +517,19 @@ class ProductsController extends Controller
             }
         }
 
+
+
         // Insert all variations into ProductVariations table
         if (!empty($variations)) {
             ProductVariations::insert($variations);
+            ProductVariations::create([
+                'product_id' => $id,
+                'size' => $mainSku,
+                'color' => $mainSku,
+                'sku' => $mainSku,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
         }
 
         // Update the product with variations data

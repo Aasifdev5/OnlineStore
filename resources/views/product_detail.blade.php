@@ -1,6 +1,6 @@
 @extends('master')
 @section('title')
-    {{ $product->slug }}
+    {{ $product->title }}
 @endsection
 @section('content')
     <main class="main__content_wrapper">
@@ -166,7 +166,7 @@
                                             <legend class="product__variant--title mb-8">Color :</legend>
                                             <div class="variant__color d-flex">
                                                 @php
-                                                    // Fetch all product variations
+                                                    // Fetch all product variations for the current product
                                                     $variations = \App\Models\ProductVariations::where(
                                                         'product_id',
                                                         $product->id,
@@ -175,25 +175,36 @@
                                                     // Initialize an empty collection for filtered images
                                                     $filteredProductImages = collect();
 
+                                                    // Fetch images for the main product (based on $product->id)
+                                                    $mainProductImages = \App\Models\Product::where('id', $product->id)
+                                                        ->orderBy('id', 'desc')
+                                                        ->get();
+
+                                                    // Merge main product images into the collection
+                                                    $filteredProductImages = $filteredProductImages->merge(
+                                                        $mainProductImages,
+                                                    );
+
+                                                    // Loop through each variation to fetch variation-specific images
                                                     foreach ($variations as $variation) {
-                                                        // Fetch product images where color matches the variation color
-                                                        $productImages = \App\Models\Product::where(
+                                                        // Fetch product images where SKU matches the variation SKU
+                                                        $variationImages = \App\Models\Product::where(
                                                             'sku',
                                                             $variation->sku,
                                                         )
-
                                                             ->orderBy('id', 'desc')
                                                             ->get();
 
-                                                        // Merge images into the collection
+                                                        // Merge variation-specific images into the collection
                                                         $filteredProductImages = $filteredProductImages->merge(
-                                                            $productImages,
+                                                            $variationImages,
                                                         );
                                                     }
 
                                                     // Convert filtered product images collection to JSON for JavaScript
                                                     $filteredProductImagesJson = $filteredProductImages->toJson();
                                                 @endphp
+
                                                 <style>
                                                     .variant__color--value:hover {
                                                         border-color: #000;
@@ -203,25 +214,95 @@
                                                         transform: scale(1.1);
                                                     }
                                                 </style>
+
+                                                <script>
+                                                    function setActiveVariant(productId) {
+                                                        // Uncheck the radio input
+                                                        document.getElementById('color-' + productId).checked = false;
+
+                                                        // Reset the border style for the label
+                                                        document.querySelector('label[for="color-' + productId + '"]').style.border = '2px solid #ccc';
+
+                                                        // Check the radio input
+                                                        document.getElementById('color-' + productId).checked = true;
+
+                                                        // Set the border of the label to indicate the active state
+                                                        document.querySelector('label[for="color-' + productId + '"]').style.border = '2px solid #000';
+                                                    }
+
+                                                    // If you want to set a default checked state
+                                                    document.addEventListener('DOMContentLoaded', function() {
+                                                        var defaultChecked = document.querySelector('.variant__color--list input[type="radio"]:checked');
+                                                        if (defaultChecked) {
+                                                            setActiveVariant(defaultChecked.value);
+                                                        }
+                                                    });
+                                                </script>
+
                                                 @foreach ($filteredProductImages as $row)
-                                                    <div class="variant__color--list"
-                                                        style="display: inline-block; margin: 10px;">
-                                                        <input id="color-{{ $row->color }}" name="color"
-                                                            type="radio" data-color="{{ $row->color }}">
-                                                        <label class="variant__color--value {{ $row->color }}"
-                                                            for="color-{{ $row->color }}" title="{{ $row->color }}"
-                                                            style="display: block; width: 60px; height: 60px; cursor: pointer; border: 2px solid #ccc; border-radius: 50%; overflow: hidden; transition: all 0.3s ease;">
-                                                            <a href="{{ url('product-details') }}/{{ $row->slug }}">
-                                                                <img class="variant__color--value__img"
-                                                                    src="{{ asset('product_images/' . $row->f_thumbnail) }}"
-                                                                    alt="variant-color-img"
-                                                                    style="width: 100%; height: 100%; object-fit: cover; transition: all 0.3s ease; border-radius: 50%;">
-                                                            </a>
-                                                        </label>
-                                                    </div>
+
+
                                                 @endforeach
                                             </div>
+                                            @php
+                                                // Fetch the initial product variation by SKU
+                                                $variation = \App\Models\ProductVariations::where(
+                                                    'sku',
+                                                    $product->sku,
+                                                )->first();
 
+                                                if ($variation) {
+                                                    // Fetch the product associated with the variation
+                                                    $product = \App\Models\Product::find($variation->product_id);
+
+                                                    if ($product) {
+                                                        // Fetch all other variants of the same product
+                                                        $otherVariants = \App\Models\ProductVariations::where(
+                                                            'product_id',
+                                                            $product->id,
+                                                        )->get();
+
+                                                        // Initialize an empty array for other variation images
+                                                        $otherVariationImages = [];
+
+                                                        // Loop through each variant to fetch its images
+                                                        foreach ($otherVariants as $variant) {
+                                                            // Fetch product images where SKU matches the variant SKU
+                                                            $images = \App\Models\Product::where('sku', $variant->sku)
+
+                                                                ->get();
+
+                                                            // Add images to the array, keyed by variant SKU
+                                                            $otherVariationImages[$variant->sku] = $images;
+                                                        }
+
+                                                        // Render images for each variant
+                                                        foreach ($otherVariationImages as $sku => $images) {
+                                                            foreach ($images as $image) {
+
+                                                                    echo '<div class="variant__color--list" style="display: inline-block; margin: 10px;">';
+                                                                echo '<input name="color" type="radio">';
+                                                                echo '<label class="variant__color--value" for="color-' .
+                                                                    $image->color .
+                                                                    '" style="display: block; width: 60px; height: 60px; cursor: pointer; border: 2px solid #ccc; border-radius: 50%; overflow: hidden; transition: all 0.3s ease;">';
+                                                                echo '<a href="' .
+                                                                    url('product-details') .
+                                                                    '/' .
+                                                                    $image->slug .
+                                                                    '">';
+                                                                echo '<img class="variant__color--value__img" src="' .
+                                                                    asset('product_images/' . $image->f_thumbnail) .
+                                                                    '" alt="variant-color-img" style="width: 100%; height: 100%; object-fit: cover; transition: all 0.3s ease; border-radius: 50%;">';
+                                                                echo '</a>';
+                                                                echo '</label>';
+                                                                echo '</div>';
+
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            @endphp
 
 
                                         </fieldset>
@@ -230,54 +311,60 @@
 
                                     <div class="product__variant--list quantity d-flex align-items-center mb-20">
                                         <div class="quantity__box">
-                                            <button type="button" class="quantity__value quickview__value--quantity decrease" aria-label="quantity value" value="Decrease Value">-</button>
+                                            <button type="button"
+                                                class="quantity__value quickview__value--quantity decrease"
+                                                aria-label="quantity value" value="Decrease Value">-</button>
                                             <label>
-                                                <input type="number" class="quantity__number quickview__value--number" value="1" data-counter />
+                                                <input type="number" class="quantity__number quickview__value--number"
+                                                    value="1" data-counter />
                                             </label>
-                                            <button type="button" class="quantity__value quickview__value--quantity increase" aria-label="quantity value" value="Increase Value">+</button>
+                                            <button type="button"
+                                                class="quantity__value quickview__value--quantity increase"
+                                                aria-label="quantity value" value="Increase Value">+</button>
                                         </div>
 
-                                        <a class="primary__btn quickview__cart--btn" id="addToCartBtn" href="{{ url('addToCart') }}/{{ $price }}/{{ $product->id }}">Add To Cart</a>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-    const decreaseButton = document.querySelector('.decrease');
-    const increaseButton = document.querySelector('.increase');
-    const quantityInput = document.querySelector('.quantity__number');
-    const addToCartBtn = document.getElementById('addToCartBtn');
-    const baseUrl = '{{ url("addToCart") }}/{{ $price }}/{{ $product->id }}';
+                                        <a class="primary__btn quickview__cart--btn" id="addToCartBtn"
+                                            href="{{ url('addToCart') }}/{{ $price }}/{{ $product->id }}">Add To
+                                            Cart</a>
+                                        <script>
+                                            document.addEventListener('DOMContentLoaded', function() {
+                                                const decreaseButton = document.querySelector('.decrease');
+                                                const increaseButton = document.querySelector('.increase');
+                                                const quantityInput = document.querySelector('.quantity__number');
+                                                const addToCartBtn = document.getElementById('addToCartBtn');
+                                                const baseUrl = '{{ url('addToCart') }}/{{ $price }}/{{ $product->id }}';
 
-    const updateQuantity = () => {
-        let quantity = parseInt(quantityInput.value);
-        if (quantity < 1) {
-            quantity = 1;
-            quantityInput.value = 1;
-        }
-        addToCartBtn.setAttribute('href', `${baseUrl}/${quantity}`);
-    };
+                                                const updateQuantity = () => {
+                                                    let quantity = parseInt(quantityInput.value);
+                                                    if (quantity < 1) {
+                                                        quantity = 1;
+                                                        quantityInput.value = 1;
+                                                    }
+                                                    addToCartBtn.setAttribute('href', `${baseUrl}/${quantity}`);
+                                                };
 
-    decreaseButton.addEventListener('click', () => {
-        let currentValue = parseInt(quantityInput.value);
-        if (currentValue > 1) {
-            quantityInput.value = currentValue - 1;
-            updateQuantity();
-        }
-    });
+                                                decreaseButton.addEventListener('click', () => {
+                                                    let currentValue = parseInt(quantityInput.value);
+                                                    if (currentValue > 1) {
+                                                        quantityInput.value = currentValue - 1;
+                                                        updateQuantity();
+                                                    }
+                                                });
 
-    increaseButton.addEventListener('click', () => {
-        let currentValue = parseInt(quantityInput.value);
-        quantityInput.value = currentValue ;
-        updateQuantity();
-    });
+                                                increaseButton.addEventListener('click', () => {
+                                                    let currentValue = parseInt(quantityInput.value);
+                                                    quantityInput.value = currentValue;
+                                                    updateQuantity();
+                                                });
 
-    quantityInput.addEventListener('change', () => {
-        updateQuantity();
-    });
+                                                quantityInput.addEventListener('change', () => {
+                                                    updateQuantity();
+                                                });
 
-    // Initialize the href with the default quantity
-    updateQuantity();
-});
-
-</script>
+                                                // Initialize the href with the default quantity
+                                                updateQuantity();
+                                            });
+                                        </script>
                                     </div>
                                     <div class="product__variant--list mb-15">
                                         <a class="variant__wishlist--icon mb-15"
@@ -293,7 +380,8 @@
                                             Add to Wishlist
                                         </a>
                                         <a class="text-center variant__buy--now__btn primary__btn"
-                                            href="{{ url('BuyaddToCart') }}/{{ $price }}/{{ $product->id.'/1' }}">Buy it
+                                            href="{{ url('BuyaddToCart') }}/{{ $price }}/{{ $product->id . '/1' }}">Buy
+                                            it
                                             now</a>
                                     </div>
                                     <div class="product__variant--list mb-15">
@@ -480,7 +568,7 @@
                                             </div>
                                             <div class="product__card--footer">
                                                 <a class="product__card--btn primary__btn"
-                                                    href="{{ url('addToCart') }}/{{ $price }}/{{ $row->id.'/1' }}">
+                                                    href="{{ url('addToCart') }}/{{ $price }}/{{ $row->id . '/1' }}">
                                                     <svg width="14" height="11" viewBox="0 0 14 11"
                                                         fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path
