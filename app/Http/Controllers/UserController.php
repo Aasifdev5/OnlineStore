@@ -250,7 +250,7 @@ class UserController extends Controller
             $pages = Page::all();
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
             $product = Product::where('slug', $slug)->first();
-
+            $latestProductId = $product->id;
             $related_products = DB::table('products')
                 ->join('related_products', 'products.id', '=', 'related_products.related_item_id')
                 ->select('related_products.id as related_id', 'products.title', 'products.id', 'products.f_thumbnail', 'products.slug', 'products.price1', 'products.price2', 'products.price3', 'products.price4', 'products.price5')
@@ -259,7 +259,7 @@ class UserController extends Controller
                 ->paginate(15);
 
             $general_setting = GeneralSetting::find('1');
-            return view('product_detail', compact('product', 'user_session', 'related_products', 'general_setting', 'pages'));
+            return view('product_detail', compact('product', 'user_session', 'related_products', 'general_setting', 'pages','latestProductId'));
         } else {
             return Redirect()->with('fail', 'You have to login first');
         }

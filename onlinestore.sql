@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 06, 2024 at 12:36 PM
+-- Generation Time: Jul 07, 2024 at 03:10 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -1730,8 +1730,8 @@ CREATE TABLE `products` (
 
 INSERT INTO `products` (`id`, `title`, `slug`, `category`, `subcategory_id`, `f_thumbnail`, `sku`, `short_desc`, `description`, `price1`, `price2`, `price3`, `price4`, `price5`, `extra_desc`, `cost_price`, `sale_price`, `old_price`, `start_date`, `end_date`, `is_discount`, `is_stock`, `stock_status_id`, `stock_qty`, `u_stock_qty`, `brand_id`, `price`, `store_id`, `variation_color`, `variation_size`, `tax_id`, `is_publish`, `user_id`, `og_title`, `og_image`, `og_description`, `og_keywords`, `created_at`, `updated_at`) VALUES
 (10, 'The last of us', 'The-last-of-us', '7', NULL, 'img-20230525-175230-800x800.jpg', 'TG-78', 'The last of us Tv and Game', 'The last of us Tv and Game', '1000', '1150', '1250', '1500', '1650', NULL, 1150.000, 1100.000, 1250.000, '2024-06-23', '2024-06-25', 1, 1, 0, 3, NULL, 4, 'price4', '32', 'red,green,blue,black,white', 'small,medium,large', NULL, 1, NULL, 'The last of us Tv and Game', 'norwegian_forest_cat-wallpaper-1920x1080.jpg', 'The last of us Tv', 'The last of us Tv and Game', '2024-06-23 07:50:07', '2024-06-24 03:44:53'),
-(26, 'Product Title 1', 'Product-Title-1', '7', NULL, 'images (1).jpg', 'SKU001', 'Short Desc 1', 'Product Desc 1', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 1, 100, NULL, 1, NULL, '30', 'red,white,yellow', 'medium', NULL, 1, NULL, 'Product 1 Title', NULL, 'Product 1 Desc', 'Keyword 1', '2024-06-24 06:30:18', '2024-07-02 11:53:30'),
-(27, 'Product Title 2', 'Product-Title-2', '14', 2, '14110006003.png', 'SKU002', 'Short Desc 2', 'Product Desc 2', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 1, 118, NULL, 2, NULL, '30', 'red,blue', 'small', NULL, 1, NULL, 'Product 2 Title', NULL, 'Product 2 Desc', 'Keyword 2', '2024-06-24 06:30:18', '2024-07-06 03:14:55'),
+(26, 'Product Title 1', 'Product-Title-1', '7', NULL, 'images (1).jpg', 'SKU001', 'Short Desc 1', 'Product Desc 1', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 1, 100, NULL, 1, NULL, '30', 'red,blue,white', 'medium', NULL, 1, NULL, 'Product 1 Title', NULL, 'Product 1 Desc', 'Keyword 1', '2024-06-24 06:30:18', '2024-07-07 06:17:38'),
+(27, 'Product Title 2', 'Product-Title-2', '14', 2, '14110006003.png', 'SKU002', 'Short Desc 2', 'Product Desc 2', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 1, 118, NULL, 2, NULL, '30', 'red,white', 'small', NULL, 1, NULL, 'Product 2 Title', NULL, 'Product 2 Desc', 'Keyword 2', '2024-06-24 06:30:18', '2024-07-07 05:45:47'),
 (28, 'Product Title 4', 'Product-Title-4', '14', 1, 'thumbnail1.jpg', 'SKU001', 'Short Desc 4', 'Product Desc 4', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 1, 100, NULL, 1, NULL, '1', NULL, NULL, NULL, 1, NULL, 'Product 1 Title', NULL, 'Product 1 Desc', 'Keyword 1', '2024-06-25 02:34:39', '2024-06-25 02:34:39'),
 (29, 'Product Title 5', 'Product-Title-5', '7', 2, 'sp216bl.png', 'SKU002', 'Short Desc 5', 'Product Desc 5', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 1, 120, NULL, 2, NULL, '30', 'red,green', 'large', NULL, 1, NULL, 'Product 2 Title', NULL, 'Product 2 Desc', 'Keyword 2', '2024-06-25 02:34:39', '2024-07-02 12:33:49'),
 (32, 'Product Title 6', 'Product-Title-6', '14', 2, 'thumbnail1.jpg', 'SKU006', 'Short Desc 6', 'Product Desc 6', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 1, 100, NULL, 1, NULL, '32', NULL, NULL, NULL, 1, NULL, 'Product 1 Title', NULL, 'Product 1 Desc', 'Keyword 1', '2024-06-25 03:29:03', '2024-06-25 03:29:03'),
@@ -1739,7 +1739,12 @@ INSERT INTO `products` (`id`, `title`, `slug`, `category`, `subcategory_id`, `f_
 (35, 'Product Title 9', 'Product-Title-9', '14', 2, 'thumbnail1.jpg', 'SKU009', 'Short Desc 6', 'Product Desc 9', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 1, 100, NULL, 1, NULL, '32', 'red,green,blue,black,white', 'small,medium,large', NULL, 1, NULL, 'Product 9 Title', NULL, 'Product 9 Desc', 'Keyword 11', '2024-06-25 03:42:52', '2024-06-25 03:42:52'),
 (36, 'Product Title 10', 'Product-Title-10', '7', 1, '10161.png', 'SKU0010', 'Short Desc 7', 'Product Desc 10', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 1, 118, NULL, 2, NULL, '30', 'black,yellow', 'medium', NULL, 1, NULL, 'Product 10 Title', NULL, 'Product 10 Desc', 'Keyword 12', '2024-06-25 03:42:52', '2024-07-06 03:08:18'),
 (46, 'Product Title 10 BLACK', 'Product-Title-10-BLACK', '7', 1, 'sp216bl.png', 'SKU0010-MEDIUM-BLACK', 'Short Desc 7', 'Product Desc 10', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 1, 107, NULL, 2, NULL, '30', 'black,yellow', 'medium', NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-02 21:43:39', '2024-07-06 02:34:23'),
-(47, 'Product Title 10 YELLOW', 'Product-Title-10-YELLOW', '7', 1, '10164.png', 'SKU0010-MEDIUM-YELLOW', 'Short Desc 7', 'Product Desc 10', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 1, 119, NULL, 2, NULL, '30', 'black,yellow', 'medium', NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-02 21:43:39', '2024-07-02 21:43:39');
+(47, 'Product Title 10 YELLOW', 'Product-Title-10-YELLOW', '7', 1, '10164.png', 'SKU0010-MEDIUM-YELLOW', 'Short Desc 7', 'Product Desc 10', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 1, 119, NULL, 2, NULL, '30', 'black,yellow', 'medium', NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-02 21:43:39', '2024-07-02 21:43:39'),
+(48, 'Product Title 2', 'Product-Title-2-RED', '14', 2, '14110006005.png', 'SKU002-SMALL-RED', 'Short Desc 2', 'Product Desc 2', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 1, 118, NULL, 2, NULL, '30', 'red,white', 'small', NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-07 05:45:47', '2024-07-07 05:45:47'),
+(49, 'Product Title 2', 'Product-Title-2-WHITE', '14', 2, '14110006002.png', 'SKU002-SMALL-WHITE', 'Short Desc 2', 'Product Desc 2', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 1, 118, NULL, 2, NULL, '30', 'red,white', 'small', NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-07 05:45:47', '2024-07-07 05:45:47'),
+(50, 'Product Title 1', 'Product-Title-1-RED', '7', NULL, '10162.png', 'SKU001-MEDIUM-RED', 'Short Desc 1', 'Product Desc 1', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 1, 100, NULL, 1, NULL, '30', 'red,blue,white', 'medium', NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-07 06:17:38', '2024-07-07 06:17:38'),
+(51, 'Product Title 1', 'Product-Title-1-BLUE', '7', NULL, '14130001002.png', 'SKU001-MEDIUM-BLUE', 'Short Desc 1', 'Product Desc 1', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 1, 100, NULL, 1, NULL, '30', 'red,blue,white', 'medium', NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-07 06:17:38', '2024-07-07 06:17:38'),
+(52, 'Product Title 1', 'Product-Title-1-WHITE', '7', NULL, '14110006002.png', 'SKU001-MEDIUM-WHITE', 'Short Desc 1', 'Product Desc 1', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 1, 100, NULL, 1, NULL, '30', 'red,blue,white', 'medium', NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-07 06:17:38', '2024-07-07 06:17:38');
 
 -- --------------------------------------------------------
 
@@ -1779,7 +1784,14 @@ CREATE TABLE `product_variations` (
 
 INSERT INTO `product_variations` (`id`, `product_id`, `size`, `color`, `sku`, `created_at`, `updated_at`) VALUES
 (1, 36, 'medium', 'black', 'SKU0010-MEDIUM-BLACK', '2024-07-02 21:43:39', '2024-07-02 21:43:39'),
-(2, 36, 'medium', 'yellow', 'SKU0010-MEDIUM-YELLOW', '2024-07-02 21:43:39', '2024-07-02 21:43:39');
+(2, 36, 'medium', 'yellow', 'SKU0010-MEDIUM-YELLOW', '2024-07-02 21:43:39', '2024-07-02 21:43:39'),
+(3, 27, 'small', 'red', 'SKU002-SMALL-RED', '2024-07-07 05:45:46', '2024-07-07 05:45:46'),
+(4, 27, 'small', 'white', 'SKU002-SMALL-WHITE', '2024-07-07 05:45:47', '2024-07-07 05:45:47'),
+(5, 27, 'SKU002', 'SKU002', 'SKU002', '2024-07-07 05:45:47', '2024-07-07 05:45:47'),
+(6, 26, 'medium', 'red', 'SKU001-MEDIUM-RED', '2024-07-07 06:17:38', '2024-07-07 06:17:38'),
+(7, 26, 'medium', 'blue', 'SKU001-MEDIUM-BLUE', '2024-07-07 06:17:38', '2024-07-07 06:17:38'),
+(8, 26, 'medium', 'white', 'SKU001-MEDIUM-WHITE', '2024-07-07 06:17:38', '2024-07-07 06:17:38'),
+(9, 26, 'SKU001', 'SKU001', 'SKU001', '2024-07-07 06:17:38', '2024-07-07 06:17:38');
 
 -- --------------------------------------------------------
 
@@ -1887,7 +1899,12 @@ INSERT INTO `pro_images` (`id`, `product_id`, `thumbnail`, `color`, `desc`, `cre
 (79, 29, 'product_images/10161.png', 'red', NULL, '2024-07-02 12:33:49', '2024-07-02 12:33:49'),
 (80, 29, 'product_images/Lente sp216bk.png', 'green', NULL, '2024-07-02 12:33:49', '2024-07-02 12:33:49'),
 (81, 36, 'product_images/sp216bl.png', 'black', NULL, '2024-07-02 21:43:39', '2024-07-02 21:43:39'),
-(82, 36, 'product_images/10164.png', 'yellow', NULL, '2024-07-02 21:43:39', '2024-07-02 21:43:39');
+(82, 36, 'product_images/10164.png', 'yellow', NULL, '2024-07-02 21:43:39', '2024-07-02 21:43:39'),
+(83, 27, 'product_images/14110006005.png', 'red', NULL, '2024-07-07 05:45:47', '2024-07-07 05:45:47'),
+(84, 27, 'product_images/14110006002.png', 'white', NULL, '2024-07-07 05:45:47', '2024-07-07 05:45:47'),
+(85, 26, 'product_images/10162.png', 'red', NULL, '2024-07-07 06:17:38', '2024-07-07 06:17:38'),
+(86, 26, 'product_images/14130001002.png', 'blue', NULL, '2024-07-07 06:17:38', '2024-07-07 06:17:38'),
+(87, 26, 'product_images/14110006002.png', 'white', NULL, '2024-07-07 06:17:38', '2024-07-07 06:17:38');
 
 -- --------------------------------------------------------
 
@@ -2024,7 +2041,117 @@ INSERT INTO `screen_times` (`id`, `user_id`, `product_id`, `url`, `time_spent`, 
 (13, 32, 46, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 3353, '2024-07-06 01:33:15', '2024-07-06 01:33:15'),
 (14, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-2', 4099, '2024-07-06 02:37:51', '2024-07-06 02:37:51'),
 (15, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 1882, '2024-07-06 03:08:06', '2024-07-06 03:08:06'),
-(16, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-2', 2081, '2024-07-06 03:12:47', '2024-07-06 03:12:47');
+(16, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-2', 2081, '2024-07-06 03:12:47', '2024-07-06 03:12:47'),
+(17, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 31160, '2024-07-07 03:41:26', '2024-07-07 03:41:26'),
+(18, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 1425, '2024-07-07 03:41:32', '2024-07-07 03:41:32'),
+(19, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 20309, '2024-07-07 03:41:55', '2024-07-07 03:41:55'),
+(20, 32, 46, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 5394, '2024-07-07 03:49:50', '2024-07-07 03:49:50'),
+(21, 32, 46, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 4148, '2024-07-07 03:49:55', '2024-07-07 03:49:55'),
+(22, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 10689, '2024-07-07 03:50:10', '2024-07-07 03:50:10'),
+(23, 32, 33, 'http://127.0.0.1:8000/product-details/Product-Title-7', 5923, '2024-07-07 03:50:24', '2024-07-07 03:50:24'),
+(24, 32, 33, 'http://127.0.0.1:8000/product-details/Product-Title-7', 7933, '2024-07-07 03:51:01', '2024-07-07 03:51:01'),
+(25, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-2', 4600, '2024-07-07 03:51:13', '2024-07-07 03:51:13'),
+(26, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-2', 11367, '2024-07-07 03:51:24', '2024-07-07 03:51:24'),
+(27, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 3379, '2024-07-07 03:51:33', '2024-07-07 03:51:33'),
+(28, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 1291, '2024-07-07 03:51:34', '2024-07-07 03:51:34'),
+(29, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 14282, '2024-07-07 04:45:50', '2024-07-07 04:45:50'),
+(30, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 5772, '2024-07-07 04:45:56', '2024-07-07 04:45:56'),
+(31, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 7916, '2024-07-07 04:51:00', '2024-07-07 04:51:00'),
+(32, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 8093, '2024-07-07 04:51:36', '2024-07-07 04:51:36'),
+(33, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 1477, '2024-07-07 04:51:37', '2024-07-07 04:51:37'),
+(34, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 8575, '2024-07-07 04:54:58', '2024-07-07 04:54:58'),
+(35, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 1405, '2024-07-07 04:54:59', '2024-07-07 04:54:59'),
+(36, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 2455, '2024-07-07 04:55:02', '2024-07-07 04:55:02'),
+(37, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 1884, '2024-07-07 04:55:05', '2024-07-07 04:55:05'),
+(38, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 4290, '2024-07-07 04:55:09', '2024-07-07 04:55:09'),
+(39, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 3603, '2024-07-07 04:55:13', '2024-07-07 04:55:13'),
+(40, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 12469, '2024-07-07 04:57:01', '2024-07-07 04:57:01'),
+(41, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 5976, '2024-07-07 04:57:11', '2024-07-07 04:57:11'),
+(42, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 1313, '2024-07-07 04:57:13', '2024-07-07 04:57:13'),
+(43, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 2221, '2024-07-07 04:57:15', '2024-07-07 04:57:15'),
+(44, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 1400, '2024-07-07 04:57:17', '2024-07-07 04:57:17'),
+(45, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 13455, '2024-07-07 04:57:31', '2024-07-07 04:57:31'),
+(46, 32, 33, 'http://127.0.0.1:8000/product-details/Product-Title-7', 6206, '2024-07-07 04:57:42', '2024-07-07 04:57:42'),
+(47, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 3658, '2024-07-07 04:58:30', '2024-07-07 04:58:30'),
+(48, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 3513, '2024-07-07 04:58:34', '2024-07-07 04:58:34'),
+(49, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 8380, '2024-07-07 04:58:43', '2024-07-07 04:58:43'),
+(50, 32, 33, 'http://127.0.0.1:8000/product-details/Product-Title-7', 3598, '2024-07-07 04:58:53', '2024-07-07 04:58:53'),
+(51, 32, 33, 'http://127.0.0.1:8000/product-details/Product-Title-7', 3457, '2024-07-07 04:58:57', '2024-07-07 04:58:57'),
+(52, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 18494, '2024-07-07 04:59:19', '2024-07-07 04:59:19'),
+(53, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 38841, '2024-07-07 04:59:59', '2024-07-07 04:59:59'),
+(54, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 3164, '2024-07-07 05:09:20', '2024-07-07 05:09:20'),
+(55, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 1566, '2024-07-07 05:09:22', '2024-07-07 05:09:22'),
+(56, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 17501, '2024-07-07 05:09:40', '2024-07-07 05:09:40'),
+(57, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 28165, '2024-07-07 05:10:23', '2024-07-07 05:10:23'),
+(58, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 1979, '2024-07-07 05:10:25', '2024-07-07 05:10:25'),
+(59, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 4189, '2024-07-07 05:10:30', '2024-07-07 05:10:30'),
+(60, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 19442, '2024-07-07 05:14:59', '2024-07-07 05:14:59'),
+(61, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 1698, '2024-07-07 05:15:01', '2024-07-07 05:15:01'),
+(62, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 4596, '2024-07-07 05:15:06', '2024-07-07 05:15:06'),
+(63, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 3835, '2024-07-07 05:16:57', '2024-07-07 05:16:57'),
+(64, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 1391, '2024-07-07 05:16:59', '2024-07-07 05:16:59'),
+(65, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 3319, '2024-07-07 05:17:03', '2024-07-07 05:17:03'),
+(66, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 1834, '2024-07-07 05:17:05', '2024-07-07 05:17:05'),
+(67, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 2311, '2024-07-07 05:17:08', '2024-07-07 05:17:08'),
+(68, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 3186, '2024-07-07 05:17:13', '2024-07-07 05:17:13'),
+(69, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 1863, '2024-07-07 05:17:15', '2024-07-07 05:17:15'),
+(70, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 1153927, '2024-07-07 05:36:30', '2024-07-07 05:36:30'),
+(71, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-2', 5687, '2024-07-07 05:36:40', '2024-07-07 05:36:40'),
+(72, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 31462, '2024-07-07 05:37:18', '2024-07-07 05:37:18'),
+(73, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 2676, '2024-07-07 05:37:21', '2024-07-07 05:37:21'),
+(74, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 1592, '2024-07-07 05:37:23', '2024-07-07 05:37:23'),
+(75, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-2', 13520, '2024-07-07 05:46:24', '2024-07-07 05:46:24'),
+(76, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-2-RED', 1793, '2024-07-07 05:46:26', '2024-07-07 05:46:26'),
+(77, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-2-WHITE', 1573, '2024-07-07 05:46:28', '2024-07-07 05:46:28'),
+(78, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-5', 2342, '2024-07-07 05:47:05', '2024-07-07 05:47:05'),
+(79, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-2-RED', 1827, '2024-07-07 05:47:07', '2024-07-07 05:47:07'),
+(80, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-2-WHITE', 1723, '2024-07-07 05:47:09', '2024-07-07 05:47:09'),
+(81, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-5', 4154, '2024-07-07 05:47:13', '2024-07-07 05:47:13'),
+(82, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-2', 5903, '2024-07-07 06:05:40', '2024-07-07 06:05:40'),
+(83, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-2-WHITE', 1681, '2024-07-07 06:05:42', '2024-07-07 06:05:42'),
+(84, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-5', 1199, '2024-07-07 06:05:43', '2024-07-07 06:05:43'),
+(85, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-2-RED', 144323, '2024-07-07 06:08:08', '2024-07-07 06:08:08'),
+(86, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-2-RED', 1280, '2024-07-07 06:08:10', '2024-07-07 06:08:10'),
+(87, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-2-WHITE', 1279, '2024-07-07 06:08:12', '2024-07-07 06:08:12'),
+(88, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-5', 1783, '2024-07-07 06:08:14', '2024-07-07 06:08:14'),
+(89, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-WHITE', 5633, '2024-07-07 06:18:09', '2024-07-07 06:18:09'),
+(90, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-RED', 852, '2024-07-07 06:18:10', '2024-07-07 06:18:10'),
+(91, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-BLUE', 1327, '2024-07-07 06:18:12', '2024-07-07 06:18:12'),
+(92, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-WHITE', 428591, '2024-07-07 06:25:21', '2024-07-07 06:25:21'),
+(93, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-BLUE', 1796, '2024-07-07 06:25:24', '2024-07-07 06:25:24'),
+(94, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-WHITE', 5016, '2024-07-07 06:25:29', '2024-07-07 06:25:29'),
+(95, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-4', 3471, '2024-07-07 06:25:33', '2024-07-07 06:25:33'),
+(96, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-WHITE', 879, '2024-07-07 06:25:34', '2024-07-07 06:25:34'),
+(97, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-BLUE', 957, '2024-07-07 06:25:36', '2024-07-07 06:25:36'),
+(98, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-RED', 2644, '2024-07-07 06:50:37', '2024-07-07 06:50:37'),
+(99, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-BLUE', 106870, '2024-07-07 06:54:42', '2024-07-07 06:54:42'),
+(100, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-WHITE', 3160, '2024-07-07 07:15:08', '2024-07-07 07:15:08'),
+(101, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-BLUE', 2843, '2024-07-07 07:15:11', '2024-07-07 07:15:11'),
+(102, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-WHITE', 6259, '2024-07-07 07:15:18', '2024-07-07 07:15:18'),
+(103, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1', 10561, '2024-07-07 07:15:29', '2024-07-07 07:15:29'),
+(104, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-4', 3986, '2024-07-07 07:15:33', '2024-07-07 07:15:33'),
+(105, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1', 1266, '2024-07-07 07:15:35', '2024-07-07 07:15:35'),
+(106, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-WHITE', 12008, '2024-07-07 07:16:48', '2024-07-07 07:16:48'),
+(107, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1', 3295, '2024-07-07 07:16:52', '2024-07-07 07:16:52'),
+(108, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-4', 2027, '2024-07-07 07:16:54', '2024-07-07 07:16:54'),
+(109, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-BLUE', 2670, '2024-07-07 07:16:58', '2024-07-07 07:16:58'),
+(110, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-RED', 3775, '2024-07-07 07:17:23', '2024-07-07 07:17:23'),
+(111, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-BLUE', 2705, '2024-07-07 07:18:23', '2024-07-07 07:18:23'),
+(112, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-WHITE', 1742, '2024-07-07 07:18:26', '2024-07-07 07:18:26'),
+(113, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-RED', 1388, '2024-07-07 07:18:28', '2024-07-07 07:18:28'),
+(114, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-BLUE', 1244, '2024-07-07 07:18:29', '2024-07-07 07:18:29'),
+(115, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-WHITE', 3113, '2024-07-07 07:19:01', '2024-07-07 07:19:01'),
+(116, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-WHITE', 1453, '2024-07-07 07:19:03', '2024-07-07 07:19:03'),
+(117, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1', 1677, '2024-07-07 07:19:05', '2024-07-07 07:19:05'),
+(118, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-RED', 1422, '2024-07-07 07:19:07', '2024-07-07 07:19:07'),
+(119, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-BLUE', 991, '2024-07-07 07:19:08', '2024-07-07 07:19:08'),
+(120, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-WHITE', 5289, '2024-07-07 07:20:37', '2024-07-07 07:20:37'),
+(121, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-RED', 3120, '2024-07-07 07:20:55', '2024-07-07 07:20:55'),
+(122, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-WHITE', 1352, '2024-07-07 07:20:57', '2024-07-07 07:20:57'),
+(123, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-BLUE', 1135, '2024-07-07 07:20:59', '2024-07-07 07:20:59'),
+(124, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-RED', 2858, '2024-07-07 07:22:33', '2024-07-07 07:22:33'),
+(125, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-WHITE', 895, '2024-07-07 07:22:34', '2024-07-07 07:22:34'),
+(126, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-BLUE', 1036, '2024-07-07 07:22:36', '2024-07-07 07:22:36');
 
 -- --------------------------------------------------------
 
@@ -2575,6 +2702,15 @@ CREATE TABLE `time_logs` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `time_logs`
+--
+
+INSERT INTO `time_logs` (`id`, `user_id`, `start_time`, `end_time`, `created_at`, `updated_at`) VALUES
+(1, 32, '2024-07-07 07:31:42', NULL, '2024-07-07 02:01:42', '2024-07-07 02:01:42'),
+(2, 32, '2024-07-07 09:09:03', NULL, '2024-07-07 03:39:03', '2024-07-07 03:39:03'),
+(3, 32, '2024-07-07 12:04:06', NULL, '2024-07-07 06:34:06', '2024-07-07 06:34:06');
+
 -- --------------------------------------------------------
 
 --
@@ -2626,10 +2762,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `account_type`, `price`, `role`, `permissions`, `name`, `email`, `email_verified_at`, `password`, `custom_password`, `mobile_number`, `city`, `categories`, `alter_mobile_number`, `location`, `department`, `store`, `last_seen`, `is_online`, `is_active`, `status`, `about`, `photo_url`, `profile_photo`, `remember_token`, `ip_address`, `balance`, `is_system`, `is_subscribed`, `privacy`, `gender`, `created_by`, `deleted_at`, `language`, `is_super_admin`, `created_at`, `updated_at`) VALUES
-(1, 'admin', NULL, 1, NULL, 'SUPER ADMINISTRADOR', 'admin@gmail.com', '2023-03-23 07:45:02', '$2y$10$9SbqzcUtyfeaf4019gajcOGQ4/k.XfIpeMXZp/ZERKUP0Z9GA02MK', NULL, '8878326802', 'india', NULL, NULL, NULL, NULL, NULL, '2024-07-04 02:30:29', 1, 1, 1, NULL, NULL, '149071.png', NULL, NULL, NULL, 1, 0, 1, 1, NULL, NULL, 'es', 1, '2023-03-23 07:45:02', '2024-07-04 02:30:29'),
+(1, 'admin', NULL, 1, NULL, 'SUPER ADMINISTRADOR', 'admin@gmail.com', '2023-03-23 07:45:02', '$2y$10$9SbqzcUtyfeaf4019gajcOGQ4/k.XfIpeMXZp/ZERKUP0Z9GA02MK', NULL, '8878326802', 'india', NULL, NULL, NULL, NULL, NULL, '2024-07-07 05:44:41', 1, 1, 1, NULL, NULL, '149071.png', NULL, NULL, NULL, 1, 0, 1, 1, NULL, NULL, 'es', 1, '2023-03-23 07:45:02', '2024-07-07 05:44:41'),
 (30, NULL, 'price3', 2, NULL, 'sdfsdfsf', 'subadmdfsfain@gmail.com', '2023-03-23 07:45:02', 'vbcvbhfghd', NULL, NULL, NULL, NULL, '987765546213132', NULL, 'it', 'arstexch', '2024-06-29 03:50:42', 1, 1, 1, NULL, NULL, NULL, NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:49:44', '2024-06-29 03:50:42'),
 (31, NULL, 'price2', 2, NULL, 'sofia', 'hhfghfhhffhfhfhrnatrajinfotech@gmail.com', NULL, 'sdfsfsfdsfsfsfsfsfs', NULL, NULL, 'ghfdgdfg', NULL, '465464df65g54d', 'ghjhgjgjg', 'erewr', 'asdsdfdsf', NULL, 0, 1, 1, NULL, NULL, NULL, NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:51:51', '2024-06-22 01:51:51'),
-(32, NULL, 'price3', 2, NULL, 'eve', 'arstech2a@gmail.com', '2023-03-23 07:45:02', 'eve@3sss', NULL, '9589642080', 'bolivia', '7,14', '65465464879787', 'bolivia', 'Software', 'everytech', '2024-07-06 01:18:28', 1, 1, 1, NULL, NULL, 'IMG_4416_vo4r1a_1712164410.jpg', NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:56:11', '2024-07-06 01:18:28');
+(32, NULL, 'price3', 2, NULL, 'eve', 'arstech2a@gmail.com', '2023-03-23 07:45:02', 'eve@3sss', NULL, '9589642080', 'bolivia', '7,14', '65465464879787', 'bolivia', 'Software', 'everytech', '2024-07-07 06:34:06', 1, 1, 1, NULL, NULL, 'IMG_4416_vo4r1a_1712164410.jpg', NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:56:11', '2024-07-07 06:34:06');
 
 -- --------------------------------------------------------
 
@@ -3305,7 +3441,7 @@ ALTER TABLE `permissions`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `product_reviews`
@@ -3317,7 +3453,7 @@ ALTER TABLE `product_reviews`
 -- AUTO_INCREMENT for table `product_variations`
 --
 ALTER TABLE `product_variations`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `pro_categories`
@@ -3329,7 +3465,7 @@ ALTER TABLE `pro_categories`
 -- AUTO_INCREMENT for table `pro_images`
 --
 ALTER TABLE `pro_images`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- AUTO_INCREMENT for table `related_products`
@@ -3347,7 +3483,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `screen_times`
 --
 ALTER TABLE `screen_times`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
 
 --
 -- AUTO_INCREMENT for table `settings`
@@ -3425,7 +3561,7 @@ ALTER TABLE `ticket_related_services`
 -- AUTO_INCREMENT for table `time_logs`
 --
 ALTER TABLE `time_logs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
