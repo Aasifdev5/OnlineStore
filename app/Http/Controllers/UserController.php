@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\UserRegistered;
 use App\Mail\ComposeMail;
-
+use App\Models\TimeLog;
 use App\Mail\SendMailreset;
 use App\Models\BankDetails;
 use App\Models\BillingDetail;
@@ -12,6 +12,7 @@ use App\Models\Blog;
 use App\Models\BlogCategory;
 use App\Models\BlogComment;
 use App\Models\Campaign;
+use App\Models\ProductVariations;
 use App\Models\Cart;
 use App\Models\Category;
 use App\Models\City;
@@ -27,7 +28,6 @@ use App\Models\Payment;
 use App\Models\Product;
 use App\Models\Related_product;
 use App\Models\Role;
-use App\Models\TimeLog;
 use App\Models\User;
 use App\Models\Wishlist;
 use App\Notifications\NewUserRegisteredNotification;
@@ -96,11 +96,18 @@ class UserController extends Controller
         if (Session::has('LoggedIn')) {
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
             $userCategories = !empty($user_session->categories) ? explode(',', $user_session->categories) : [];
-            $products = Product::whereIn('category', $userCategories)->orderBy('id', 'desc')->paginate(6);
+           $products = Product::whereIn('category', $userCategories)
+    ->whereNotIn('sku', function($query) {
+        $query->select('sku')
+              ->from('product_variations');
+    })
+    ->orderBy('id', 'desc')
+    ->paginate(6);
+
             $categories = Category::all();
             $pages = Page::all();
             $general_setting = GeneralSetting::find('1');
-            return view('index', compact('categories', 'user_session',  'general_setting', 'pages', 'products'));
+            return view('index', compact('categories', 'user_session',  'general_setting', 'pages','products'));
         } else {
             return Redirect()->with('fail', 'You have to login first');
         }
@@ -250,7 +257,7 @@ class UserController extends Controller
             $pages = Page::all();
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
             $product = Product::where('slug', $slug)->first();
-            $latestProductId = $product->id;
+$latestProductId = $product->id;
             $related_products = DB::table('products')
                 ->join('related_products', 'products.id', '=', 'related_products.related_item_id')
                 ->select('related_products.id as related_id', 'products.title', 'products.id', 'products.f_thumbnail', 'products.slug', 'products.price1', 'products.price2', 'products.price3', 'products.price4', 'products.price5')
@@ -270,14 +277,15 @@ class UserController extends Controller
 
             $pages = Page::all();
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
-            $orders = Order::where('orders.user_id', Session::get('LoggedIn'))
-                ->leftJoin('payments', 'orders.id', '=', 'payments.order_id')
-                ->where('payments.accepted', 1) // Filter by accepted payments (paid)
-                ->with(['orderItems' => function ($query) {
-                    $query->with('product');
-                }])
-                ->select('orders.id', 'orders.created_at', 'orders.total_amount', 'payments.accepted')
-                ->get();
+            // Fetch orders with related order items, products, and payment status
+          $orders = Order::where('orders.user_id', Session::get('LoggedIn'))
+    ->leftJoin('payments', 'orders.id', '=', 'payments.order_id')
+    ->where('payments.accepted', 1) // Filter by accepted payments (paid)
+    ->with(['orderItems' => function ($query) {
+        $query->with('product');
+    }])
+    ->select('orders.id', 'orders.created_at', 'orders.total_amount', 'payments.accepted')
+    ->get();
 
 
 
@@ -655,10 +663,39 @@ class UserController extends Controller
             $pages = Page::all();
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
             $userCategories = !empty($user_session->categories) ? explode(',', $user_session->categories) : [];
-            $products = Product::whereIn('category', $userCategories)->orderBy('id', 'desc')->paginate(9);
+           $products = Product::whereIn('category', $userCategories)
+    ->whereNotIn('sku', function($query) {
+        $query->select('sku')
+              ->from('product_variations');
+    })
+    ->orderBy('id', 'desc')
+    ->paginate(9);
+
+
 
             $general_setting = GeneralSetting::find('1');
             return view('shop', compact('products', 'user_session',  'general_setting', 'pages'));
+        } else {
+            return Redirect()->with('fail', 'You have to login first');
+        }
+    }
+    public function productbyCategory($id)
+    {
+        if (Session::has('LoggedIn')) {
+            $pages = Page::all();
+            $user_session = User::where('id', Session::get('LoggedIn'))->first();
+            $userCategories = !empty($user_session->categories) ? explode(',', $user_session->categories) : [];
+           $products = Product::whereIn('category', $userCategories)
+    ->whereNotIn('sku', function($query) {
+        $query->select('sku')
+              ->from('product_variations');
+    })
+    ->orderBy('id', 'desc')
+    ->paginate(9);
+
+
+            $general_setting = GeneralSetting::find('1');
+            return view('productbyCategory', compact('products', 'user_session',  'general_setting', 'pages'));
         } else {
             return Redirect()->with('fail', 'You have to login first');
         }
@@ -690,7 +727,7 @@ class UserController extends Controller
         // Return JSON response with a 200 status code (assuming success)
         return response()->json($products, 200);
     }
-    public function addToCart($price, $id, $quantity)
+    public function addToCart($price, $id,$quantity)
     {
         // dd($quantity);
         $saveIntoCart = Cart::create([
@@ -699,9 +736,9 @@ class UserController extends Controller
             'price' => $price,
             'quantity' => $quantity,
         ]);
-        return back()->with('success', 'Product is added to cart');
+        return back()->with('success','Product is added to cart');
     }
-    public function BuyaddToCart($price, $id, $quantity)
+     public function BuyaddToCart($price, $id,$quantity)
     {
         // dd($quantity);
         $saveIntoCart = Cart::create([
@@ -728,7 +765,7 @@ class UserController extends Controller
         if ($cartItem) {
             $cartItem->quantity = $quantity;
             $cartItem->save();
-            return response()->json(['success' => true, 'quantity' => $cartItem->quantity, 'total' => $cartItem->total]); // Adjust 'total' based on your calculation
+            return response()->json(['success' => true]);
         }
 
         return response()->json(['success' => false, 'message' => 'Cart item not found'], 404);
@@ -748,7 +785,7 @@ class UserController extends Controller
             'price' => $price,
             'is_stock' => $stockcheck,
         ]);
-        return back()->with('success', 'Product is added to wishlist');
+        return back()->with('success','Product is added to wishlist');
     }
     public function RemoveWish($id)
     {
@@ -762,20 +799,6 @@ class UserController extends Controller
             }
         } else {
             return redirect()->route('login')->with('fail', 'You have to login first');
-        }
-    }
-    public function productbyCategory($id)
-    {
-        if (Session::has('LoggedIn')) {
-            $pages = Page::all();
-            $user_session = User::where('id', Session::get('LoggedIn'))->first();
-            $userCategories = !empty($user_session->categories) ? explode(',', $user_session->categories) : [];
-            $products = Product::where('category', $id)->orderBy('id', 'desc')->paginate(9);
-
-            $general_setting = GeneralSetting::find('1');
-            return view('productbyCategory', compact('products', 'user_session',  'general_setting', 'pages'));
-        } else {
-            return Redirect()->with('fail', 'You have to login first');
         }
     }
     public function removeCart($id)

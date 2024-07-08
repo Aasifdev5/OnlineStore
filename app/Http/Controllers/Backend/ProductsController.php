@@ -522,14 +522,7 @@ class ProductsController extends Controller
         // Insert all variations into ProductVariations table
         if (!empty($variations)) {
             ProductVariations::insert($variations);
-            ProductVariations::create([
-                'product_id' => $id,
-                'size' => $mainSku,
-                'color' => $mainSku,
-                'sku' => $mainSku,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+
         }
 
         // Update the product with variations data

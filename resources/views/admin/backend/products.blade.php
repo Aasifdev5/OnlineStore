@@ -43,7 +43,7 @@
                                     <form action="{{ url('admin\saveProductsData') }}" method="POST">
                                         @csrf
                                         <div class="row">
-                                            <div class="col-lg-12">
+                                            <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label for="title">{{ __('Product Name') }}<span
                                                             class="red">*</span></label>
@@ -51,9 +51,8 @@
                                                         class="form-control parsley-validated" data-required="true">
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
+
+                                            <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label for="slug">{{ __('Slug') }}<span
                                                             class="red">*</span></label>
@@ -61,13 +60,9 @@
                                                         class="form-control parsley-validated" data-required="true">
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
-
-
-
-                                            <div class="col-sm-4">
-                                                <label class="col-form-label"> Category</label>
+                                            <div class="col-sm-6">
+                                                <label class="col-form-label"> Category<span
+                                                            class="red">*</span></label>
                                                 <select name="categories"  class="select2 form-control">
                                                     <option value="">Please Category</option>
                                         @php
@@ -78,7 +73,7 @@
                                         @endforeach
                                     </select>
                                             </div>
-                                            <div class="col-sm-4">
+                                            <div class="col-sm-6">
 
                                                     <label for="brand_id">{{ __('Brand') }}<span
                                                             class="red">*</span></label>
@@ -93,21 +88,14 @@
                                                     </select>
 
                                             </div>
-                                            <div class="col-sm-4">
-
-                                                    <label for="store_id">{{ __('Store') }}<span
-                                                            class="red">*</span></label>
-                                                    <select name="store_id" id="store_id"
-                                                        class="select2 chosen-select form-control">
-                                                        @foreach ($storeList as $row)
-                                                            <option value="{{ $row->id }}">
-                                                                {{ $row->store }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-
-                                            </div>
                                         </div>
+
+
+
+
+
+
+
 
                                         <input type="hidden" name="RecordId" id="RecordId">
                                         <br>

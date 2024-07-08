@@ -204,22 +204,7 @@
                                                                 </select>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-6">
-                                                            <div class="form-group">
-                                                                <label for="storeid">{{ __('Store') }}<span
-                                                                        class="red">*</span></label>
-                                                                <select name="store_id" id="storeid"
-                                                                    class="select2 chosen-select form-control">
-                                                                    @foreach ($storeList as $row)
-                                                                        <option value="{{ $row->id }}" @if ($datalist->store_id==$row->id)
-                                                                            @selected(true)
-                                                                        @endif>
-                                                                            {{ $row->store }}
-                                                                        </option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
-                                                        </div>
+
                                                     </div>
 
 

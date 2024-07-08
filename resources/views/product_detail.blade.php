@@ -166,76 +166,159 @@
                                         <fieldset class="variant__input--fieldset">
                                             <legend class="product__variant--title mb-8">Color :</legend>
                                             <div class="variant__color d-flex">
+                                                @php
+                                                    // Fetch all product variations for the current product
+                                                    $variations = \App\Models\ProductVariations::where(
+                                                        'product_id',
+                                                        $product->id,
+                                                    )->get();
 
+                                                    // Initialize an empty collection for filtered images
+                                                    $filteredProductImages = collect();
+
+                                                    // Fetch images for the main product (based on $product->id)
+                                                    $mainProductImages = \App\Models\Product::where('id', $product->id)
+                                                        ->orderBy('id', 'desc')
+                                                        ->get();
+
+                                                    // Merge main product images into the collection
+                                                    $filteredProductImages = $filteredProductImages->merge(
+                                                        $mainProductImages,
+                                                    );
+
+                                                    // Loop through each variation to fetch variation-specific images
+                                                    foreach ($variations as $variation) {
+                                                        // Fetch product images where SKU matches the variation SKU
+                                                        $variationImages = \App\Models\Product::where(
+                                                            'sku',
+                                                            $variation->sku,
+                                                        )
+                                                            ->orderBy('id', 'desc')
+                                                            ->get();
+
+                                                        // Merge variation-specific images into the collection
+                                                        $filteredProductImages = $filteredProductImages->merge(
+                                                            $variationImages,
+                                                        );
+                                                    }
+
+                                                    // Convert filtered product images collection to JSON for JavaScript
+                                                    $filteredProductImagesJson = $filteredProductImages->toJson();
+                                                @endphp
 
                                                 <style>
                                                     .variant__color--value:hover {
                                                         border-color: #000;
-                                                    }
 
-                                                    .variant__color--value__img:hover {
                                                         transform: scale(1.1);
                                                     }
                                                 </style>
-@php
-// Fetch the initial product variation by SKU
-$variation = \App\Models\ProductVariations::where(
-    'sku',
-    $product->sku,
-)->first();
 
-if ($variation) {
-    // Fetch the product associated with the variation
-    $product = \App\Models\Product::find($variation->product_id);
+                                                <script>
+                                                    function setActiveVariant(productId) {
+                                                        // Uncheck the radio input
+                                                        document.getElementById('color-' + productId).checked = false;
+                                                        // Reset the border style for the label
+                                                        document.querySelector('label[for="color-' + productId + '"]').style.border = '2px solid #ccc';
+                                                        // Check the radio input
+                                                        document.getElementById('color-' + productId).checked = true;
+                                                        // Set the border of the label to indicate the active state
+                                                        document.querySelector('label[for="color-' + productId + '"]').style.border = '2px solid #000';
+                                                    }
+                                                    // If you want to set a default checked state
+                                                    document.addEventListener('DOMContentLoaded', function() {
+                                                        var defaultChecked = document.querySelector('.variant__color--list input[type="radio"]:checked');
+                                                        if (defaultChecked) {
+                                                            setActiveVariant(defaultChecked.value);
+                                                        }
+                                                    });
+                                                </script>
 
-    if ($product) {
-        // Fetch all other variants of the same product
-        $otherVariants = \App\Models\ProductVariations::where(
-            'product_id',
-            $product->id,
-        )->get();
+                                                @foreach ($filteredProductImages as $row)
+                                                    @if ($row->id != $product->id)
+                                                        <div class="variant__color--list"
+                                                            style="display: inline-block; margin: 10px;">
+                                                            <input id="color-{{ $row->color }}" name="color"
+                                                                type="radio" data-color="{{ $row->color }}">
+                                                            <label class="variant__color--value {{ $row->color }}"
+                                                                for="color-{{ $row->color }}"
+                                                                title="{{ $row->color }}"
+                                                                style="display: block; width: 60px; height: 60px; cursor: pointer; border: 2px solid #ccc; border-radius: 50%; overflow: hidden; transition: all 0.3s ease;">
+                                                                <a
+                                                                    href="{{ url('product-details') }}/{{ $row->slug }}">
+                                                                    <img class="variant__color--value__img"
+                                                                        src="{{ asset('product_images/' . $row->f_thumbnail) }}"
+                                                                        alt="variant-color-img"
+                                                                        style="width: 100%; height: 100%; object-fit: cover; transition: all 0.3s ease; border-radius: 50%;">
+                                                                </a>
+                                                            </label>
+                                                        </div>
+                                                    @endif
+                                                @endforeach
+                                            </div>
 
-        // Initialize an empty array for other variation images
-        $otherVariationImages = [];
-
-        // Loop through each variant to fetch its images
-        foreach ($otherVariants as $variant) {
-            // Fetch product images where SKU matches the variant SKU
-            $images = \App\Models\Product::where('sku', $variant->sku)
-
-                ->get();
-
-            // Add images to the array, keyed by variant SKU
-            $otherVariationImages[$variant->sku] = $images;
-        }
-
-        // Render images for each variant
-        foreach ($otherVariationImages as $sku => $images) {
-            foreach ($images as $image) {
-
-                    echo '<div class="variant__color--list" style="display: inline-block; margin: 10px;">';
-                echo '<input name="color" type="radio">';
-                echo '<label class="variant__color--value" for="color-' .
-                    $image->color .
-                    '" style="display: block; width: 60px; height: 60px; cursor: pointer; border: 2px solid #ccc; border-radius: 50%; overflow: hidden; transition: all 0.3s ease;">';
-                echo '<a href="' .
-                    url('product-details') .
-                    '/' .
-                    $image->slug .
-                    '">';
-                echo '<img class="variant__color--value__img" src="' .
-                    asset('product_images/' . $image->f_thumbnail) .
-                    '" alt="variant-color-img" style="width: 100%; height: 100%; object-fit: cover; transition: all 0.3s ease; border-radius: 50%;">';
-                echo '</a>';
-                echo '</label>';
-                echo '</div>';
+                                            <div class="variant__color d-flex">
 
 
-            }
-        }
-    }
-}
-@endphp
+
+                                                @php
+                                                    // Fetch the initial product variation by SKU
+                                                    $variation = \App\Models\ProductVariations::where(
+                                                        'sku',
+                                                        $product->sku,
+                                                    )->first();
+
+                                                    if ($variation) {
+                                                        // Fetch the product associated with the variation
+                                                        $product = \App\Models\Product::find($variation->product_id);
+
+                                                        if ($product) {
+                                                            // Fetch all other variants of the same product
+                                                            $otherVariants = \App\Models\ProductVariations::where(
+                                                                'product_id',
+                                                                $product->id,
+                                                            )->get();
+
+                                                            // Initialize an empty array for other variation images
+                                                            $otherVariationImages = [];
+
+                                                            // Loop through each variant to fetch its images
+                                                            foreach ($otherVariants as $variant) {
+                                                                // Fetch product images where SKU matches the variant SKU
+                                                                $images = \App\Models\Product::where(
+                                                                    'sku',
+                                                                    $variant->sku,
+                                                                )
+                                                                ->get();
+
+                                                                // Add images to the array, keyed by variant SKU
+                                                                $otherVariationImages[$variant->sku] = $images;
+                                                            }
+
+                                                            // Render images for each variant
+                                                            foreach ($otherVariationImages as $sku => $images) {
+                                                                foreach ($images as $image) {
+                                                                    echo '<div class="variant__color--list" style="display: inline-block; margin: 10px;">';
+                                                                    echo '<input name="color" type="radio">';
+                                                                    echo '<label class="variant__color--value" for="color-' .
+                                                                        $image->color .
+                                                                        '" style="display: block; width: 60px; height: 60px; cursor: pointer; border: 2px solid #ccc; border-radius: 50%; overflow: hidden; transition: all 0.3s ease;">';
+                                                                    echo '<a href="' .
+                                                                        url('product-details') .
+                                                                        '/' .
+                                                                        $image->slug .
+                                                                        '">';
+                                                                    echo '<img class="variant__color--value__img" src="' .
+                                                                        asset('product_images/' . $image->f_thumbnail) .
+                                                                        '" alt="variant-color-img" style="width: 100%; height: 100%; object-fit: cover; transition: all 0.3s ease; border-radius: 50%;">';
+                                                                    echo '</a>';
+                                                                    echo '</label>';
+                                                                    echo '</div>';
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                @endphp
 
 
                                             </div>
@@ -261,7 +344,8 @@ if ($variation) {
                                         </div>
 
                                         <a class="primary__btn quickview__cart--btn" id="addToCartBtn"
-                                            href="{{ url('addToCart') }}/{{ $price }}/{{ $latestProductId }}">Add To
+                                            href="{{ url('addToCart') }}/{{ $price }}/{{ $latestProductId }}">Add
+                                            To
                                             Cart</a>
                                         <script>
                                             document.addEventListener('DOMContentLoaded', function() {

@@ -121,14 +121,7 @@ class ProductsImport implements ToModel, WithHeadingRow
             }
         }
 
-        ProductVariations::create([
-            'product_id' => $product->id,
-            'size' => $product->sku,
-            'color' => $product->sku,
-            'sku' => $product->sku,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+
         return $product;
     }
 }
