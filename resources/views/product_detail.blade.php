@@ -205,124 +205,223 @@
                                                     // Convert filtered product images collection to JSON for JavaScript
                                                     $filteredProductImagesJson = $filteredProductImages->toJson();
                                                 @endphp
+<style>
+    .variant__color--list:hover .color-tooltip {
+        visibility: visible;
+        opacity: 1;
+    }
 
-                                                <style>
-                                                    .variant__color--value:hover {
-                                                        border-color: #000;
+    .variant__color--value {
+        display: block;
+        width: 60px;
+        height: 60px;
+        cursor: pointer;
+        border: 2px solid #ccc;
+        border-radius: 50%;
+        overflow: hidden;
+        transition: border-color 0.3s ease;
+        position: relative;
+    }
 
-                                                        transform: scale(1.1);
-                                                    }
-                                                </style>
+    .variant__color--value:hover {
+        border-color: #000;
+    }
 
-                                                <script>
-                                                    function setActiveVariant(productId) {
-                                                        // Uncheck the radio input
-                                                        document.getElementById('color-' + productId).checked = false;
-                                                        // Reset the border style for the label
-                                                        document.querySelector('label[for="color-' + productId + '"]').style.border = '2px solid #ccc';
-                                                        // Check the radio input
-                                                        document.getElementById('color-' + productId).checked = true;
-                                                        // Set the border of the label to indicate the active state
-                                                        document.querySelector('label[for="color-' + productId + '"]').style.border = '2px solid #000';
-                                                    }
-                                                    // If you want to set a default checked state
-                                                    document.addEventListener('DOMContentLoaded', function() {
-                                                        var defaultChecked = document.querySelector('.variant__color--list input[type="radio"]:checked');
-                                                        if (defaultChecked) {
-                                                            setActiveVariant(defaultChecked.value);
-                                                        }
-                                                    });
-                                                </script>
+    .color-tooltip {
+        position: absolute;
+        bottom: -25px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: rgba(0, 0, 0, 0.75);
+        color: black;
+        text-align: center;
+        border-radius: 5px;
+        padding: 2px 5px;
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        white-space: nowrap;
+        z-index: 10;
+    }
+</style>
+@foreach ($filteredProductImages as $row)
 
-                                                @foreach ($filteredProductImages as $row)
-                                                    @if ($row->id != $product->id)
-                                                        <div class="variant__color--list"
-                                                            style="display: inline-block; margin: 10px;">
-                                                            <input id="color-{{ $row->color }}" name="color"
-                                                                type="radio" data-color="{{ $row->color }}">
-                                                            <label class="variant__color--value {{ $row->color }}"
-                                                                for="color-{{ $row->color }}"
-                                                                title="{{ $row->color }}"
-                                                                style="display: block; width: 60px; height: 60px; cursor: pointer; border: 2px solid #ccc; border-radius: 50%; overflow: hidden; transition: all 0.3s ease;">
-                                                                <a
-                                                                    href="{{ url('product-details') }}/{{ $row->slug }}">
-                                                                    <img class="variant__color--value__img"
-                                                                        src="{{ asset('product_images/' . $row->f_thumbnail) }}"
-                                                                        alt="variant-color-img"
-                                                                        style="width: 100%; height: 100%; object-fit: cover; transition: all 0.3s ease; border-radius: 50%;">
-                                                                </a>
-                                                            </label>
-                                                        </div>
-                                                    @endif
-                                                @endforeach
+            @if ($row->id != $product->id)
+           @php
+    // Fetch the product variation by SKU
+    $color = \App\Models\ProductVariations::where('sku', $row->sku)->first()->color;
+
+
+@endphp
+
+                <div class="variant__color--list" style="display: inline-block; margin: 10px; position: relative;">
+            <a href="{{ url('product-details') }}/{{ $row->slug }}" class="variant__color--value" title="{{ $color }}" data-toggle="tooltip" data-placement="bottom">
+                <img class="variant__color--value__img"
+                     src="{{ asset('product_images/' . $row->f_thumbnail) }}"
+                     alt="variant-color-img"
+                     style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                <span class="color-tooltip">{{ $color }}</span>
+            </a>
+        </div>
+            @endif
+        @endforeach
+
+<!-- Ensure jQuery is loaded first -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Include any other scripts that depend on jQuery here -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Initialize tooltips after jQuery is loaded -->
+    <script>
+       $(document).ready(function () {
+            // Initialize tooltips
+            $('.variant__color--value').tooltip({
+                trigger: 'manual', // Use manual trigger
+                animation: false // Disable animation for immediate tooltip update
+            });
+
+            // Handle mouse enter event
+            $('.variant__color--value').mouseenter(function () {
+                var color = $(this).find('.color-tooltip').data('color'); // Get color from data attribute
+                $(this).attr('title', color); // Set the title attribute
+                $(this).tooltip('show'); // Show the tooltip
+            });
+
+            // Handle mouse leave event
+            $('.variant__color--value').mouseleave(function () {
+                $(this).tooltip('hide'); // Hide the tooltip
+            });
+        });
+    </script>
+
+
+
+
+
+
+
                                             </div>
 
                                             <div class="variant__color d-flex">
 
 
 
-                                                @php
-                                                    // Fetch the initial product variation by SKU
-                                                    $variation = \App\Models\ProductVariations::where(
-                                                        'sku',
-                                                        $product->sku,
-                                                    )->first();
+                                                <?php
+    // Fetch the initial product variation by SKU
+    $variation = \App\Models\ProductVariations::where('sku', $product->sku)->first();
 
-                                                    if ($variation) {
-                                                        // Fetch the product associated with the variation
-                                                        $product = \App\Models\Product::find($variation->product_id);
+    if ($variation) {
+        // Fetch the product associated with the variation
+        $product = \App\Models\Product::find($variation->product_id);
 
-                                                        if ($product) {
-                                                            // Fetch all other variants of the same product
-                                                            $otherVariants = \App\Models\ProductVariations::where(
-                                                                'product_id',
-                                                                $product->id,
-                                                            )->get();
+        if ($product) {
+            // Fetch all other variants of the same product
+            $otherVariants = \App\Models\ProductVariations::where('product_id', $product->id)->get();
 
-                                                            // Initialize an empty array for other variation images
-                                                            $otherVariationImages = [];
+            // Initialize an empty array for other variation images
+            $otherVariationImages = [];
 
-                                                            // Loop through each variant to fetch its images
-                                                            foreach ($otherVariants as $variant) {
-                                                                // Fetch product images where SKU matches the variant SKU
-                                                                $images = \App\Models\Product::where(
-                                                                    'sku',
-                                                                    $variant->sku,
-                                                                )
-                                                                ->get();
+            // Loop through each variant to fetch its images
+            foreach ($otherVariants as $variant) {
+                // Fetch product images where SKU matches the variant SKU
+                $images = \App\Models\Product::where('sku', $variant->sku)->get();
 
-                                                                // Add images to the array, keyed by variant SKU
-                                                                $otherVariationImages[$variant->sku] = $images;
-                                                            }
+                // Add images to the array, keyed by variant SKU
+                $otherVariationImages[$variant->sku] = $images;
+            }
+            ?>
+            <style>
+    .variant__color--list:hover .color-tooltip {
+        visibility: visible;
+        opacity: 1;
+    }
 
-                                                            // Render images for each variant
-                                                            foreach ($otherVariationImages as $sku => $images) {
-                                                                foreach ($images as $image) {
-                                                                    echo '<div class="variant__color--list" style="display: inline-block; margin: 10px;">';
-                                                                    echo '<input name="color" type="radio">';
-                                                                    echo '<label class="variant__color--value" for="color-' .
-                                                                        $image->color .
-                                                                        '" style="display: block; width: 60px; height: 60px; cursor: pointer; border: 2px solid #ccc; border-radius: 50%; overflow: hidden; transition: all 0.3s ease;">';
-                                                                    echo '<a href="' .
-                                                                        url('product-details') .
-                                                                        '/' .
-                                                                        $image->slug .
-                                                                        '">';
-                                                                    echo '<img class="variant__color--value__img" src="' .
-                                                                        asset('product_images/' . $image->f_thumbnail) .
-                                                                        '" alt="variant-color-img" style="width: 100%; height: 100%; object-fit: cover; transition: all 0.3s ease; border-radius: 50%;">';
-                                                                    echo '</a>';
-                                                                    echo '</label>';
-                                                                    echo '</div>';
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                @endphp
+    .variant__color--value {
+        display: block;
+        width: 60px;
+        height: 60px;
+        cursor: pointer;
+        border: 2px solid #ccc;
+        border-radius: 50%;
+        overflow: hidden;
+        transition: border-color 0.3s ease;
+        position: relative;
+    }
+
+    .variant__color--value:hover {
+        border-color: #000;
+    }
+
+    .color-tooltip {
+        position: absolute;
+        bottom: -25px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: rgba(0, 0, 0, 0.75);
+        color: black;
+        text-align: center;
+        border-radius: 5px;
+        padding: 2px 5px;
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        white-space: nowrap;
+        z-index: 10;
+    }
+</style>
+            @foreach ($otherVariationImages as $sku => $images)
+    @foreach ($images as $image)
+        @php
+            $color = \App\Models\ProductVariations::where('sku', $image->sku)->first()->color;
+        @endphp
+
+        <div class="variant__color--list" style="display: inline-block; margin: 10px; position: relative;">
+            <a href="{{ url('product-details') }}/{{ $image->slug }}" class="variant__color--value" title="{{ $color }}" data-toggle="tooltip" data-placement="bottom">
+                 <img class="variant__color--value__img"
+                     src="{{ asset('product_images/' . $image->f_thumbnail) }}"
+                     alt="variant-color-img"
+                     style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                <span class="color-tooltip">{{ $color }}</span>
+            </a>
+        </div>
+    @endforeach
+@endforeach
+<script>
+    $(document).ready(function () {
+    // Initialize tooltips
+    $('.variant__color--value').tooltip({
+        trigger: 'manual', // Use manual trigger
+        animation: false, // Disable animation for immediate tooltip update
+        title: function () {
+            return $(this).find('.color-tooltip').data('color'); // Set title dynamically from data attribute
+        }
+    });
+
+    // Handle mouse enter event
+    $('.variant__color--value').mouseenter(function () {
+        $(this).tooltip('show'); // Show the tooltip
+    });
+
+    // Handle mouse leave event
+    $('.variant__color--value').mouseleave(function () {
+        $(this).tooltip('hide'); // Hide the tooltip
+    });
+});
+
+</script>
+            <?php
+        }
+    }
+?>
+
+
 
 
                                             </div>
+<style>
 
+</style>
 
 
                                         </fieldset>
@@ -344,9 +443,7 @@
                                         </div>
 
                                         <a class="primary__btn quickview__cart--btn" id="addToCartBtn"
-                                            href="{{ url('addToCart') }}/{{ $price }}/{{ $latestProductId }}">Add
-                                            To
-                                            Cart</a>
+                                            href="{{ url('addToCart') }}/{{ $price }}/{{ $latestProductId }}">Añadir al carrito</a>
                                         <script>
                                             document.addEventListener('DOMContentLoaded', function() {
                                                 const decreaseButton = document.querySelector('.decrease');
@@ -398,12 +495,10 @@
                                                     fill="none" stroke="currentColor" stroke-linecap="round"
                                                     stroke-linejoin="round" stroke-width="32" />
                                             </svg>
-                                            Add to Wishlist
+                                            Añadir a la lista de deseos
                                         </a>
                                         <a class="text-center variant__buy--now__btn primary__btn"
-                                            href="{{ url('BuyaddToCart') }}/{{ $price }}/{{ $latestProductId . '/1' }}">Buy
-                                            it
-                                            now</a>
+                                            href="{{ url('BuyaddToCart') }}/{{ $price }}/{{ $latestProductId . '/1' }}">Comprar ahora</a>
                                     </div>
                                     <div class="product__variant--list mb-15">
                                         <div class="product__details--info__meta">
@@ -413,7 +508,7 @@
                                     </div>
                                 </div>
                                 <div class="quickview__social d-flex align-items-center mb-15">
-                                    <label class="quickview__social--title">Social Share:</label>
+                                    <label class="quickview__social--title">Compartir en redes sociales:</label>
                                     <ul class="quickview__social--wrapper mt-0 d-flex">
                                         <li class="quickview__social--list">
                                             <a class="quickview__social--icon" target="_blank"
@@ -466,7 +561,7 @@
                                     </ul>
                                 </div>
                                 <div class="guarantee__safe--checkout">
-                                    <h5 class="guarantee__safe--checkout__title">Guaranteed Safe Checkout</h5>
+                                    <h5 class="guarantee__safe--checkout__title">Compra garantizada segura</h5>
 
                                 </div>
                             </form>
@@ -485,24 +580,30 @@
             <div class="container">
                 <div class="row row-cols-1">
                     <div class="col">
-                        <ul class="product__tab--one product__details--tab d-flex mb-30">
-                            <li class="product__details--tab__list active" data-toggle="tab" data-target="#description">
-                                Description</li>
+    <ul class="product__tab--one product__details--tab d-flex mb-30">
+        <li class="product__details--tab__list active" data-toggle="tab" data-target="#short_description">
+            Breve descripción
+        </li>
+        <li class="product__details--tab__list" data-toggle="tab" data-target="#description">
+            Descripción
+        </li>
+    </ul>
+    <div class="product__details--tab__inner border-radius-10">
+        <div class="tab-content">
+            <div id="short_description" class="tab-pane active show">
+                <div class="product__tab--content">
+                    {!! $product->short_desc !!}
+                </div>
+            </div>
+            <div id="description" class="tab-pane">
+                <div class="product__tab--content">
+                    {!! $product->description !!}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-                        </ul>
-                        <div class="product__details--tab__inner border-radius-10">
-                            <div class="tab_content">
-                                <div id="description" class="tab_pane active show">
-                                    <div class="product__tab--content">
-                                        {!! $product->description !!}
-                                    </div>
-                                </div>
-
-
-
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
@@ -512,7 +613,7 @@
         <section class="product__section section--padding ">
             <div class="container">
                 <div class="section__heading border-bottom mb-30">
-                    <h2 class="section__heading--maintitle">You <span>may also like</span></h2>
+                    <h2 class="section__heading--maintitle">TAMBIÉN TE PODRÍA GUSTAR</h2>
                 </div>
                 <div class="product__section--inner pb-15 product__swiper--activation swiper">
                     <div class="swiper-wrapper">
@@ -596,7 +697,7 @@
                                                             d="M13.2371 4H11.5261L8.5027 0.460938C8.29176 0.226562 7.9402 0.203125 7.70582 0.390625C7.47145 0.601562 7.44801 0.953125 7.63551 1.1875L10.0496 4H3.46364L5.8777 1.1875C6.0652 0.953125 6.04176 0.601562 5.80739 0.390625C5.57301 0.203125 5.22145 0.226562 5.01051 0.460938L1.98707 4H0.299574C0.135511 4 0.0183239 4.14062 0.0183239 4.28125V4.84375C0.0183239 5.00781 0.135511 5.125 0.299574 5.125H0.721449L1.3777 9.78906C1.44801 10.3516 1.91676 10.75 2.47926 10.75H11.0339C11.5964 10.75 12.0652 10.3516 12.1355 9.78906L12.7918 5.125H13.2371C13.3777 5.125 13.5183 5.00781 13.5183 4.84375V4.28125C13.5183 4.14062 13.3777 4 13.2371 4ZM11.0339 9.625H2.47926L1.86989 5.125H11.6433L11.0339 9.625ZM7.33082 6.4375C7.33082 6.13281 7.07301 5.875 6.76832 5.875C6.4402 5.875 6.20582 6.13281 6.20582 6.4375V8.3125C6.20582 8.64062 6.4402 8.875 6.76832 8.875C7.07301 8.875 7.33082 8.64062 7.33082 8.3125V6.4375ZM9.95582 6.4375C9.95582 6.13281 9.69801 5.875 9.39332 5.875C9.0652 5.875 8.83082 6.13281 8.83082 6.4375V8.3125C8.83082 8.64062 9.0652 8.875 9.39332 8.875C9.69801 8.875 9.95582 8.64062 9.95582 8.3125V6.4375ZM4.70582 6.4375C4.70582 6.13281 4.44801 5.875 4.14332 5.875C3.8152 5.875 3.58082 6.13281 3.58082 6.4375V8.3125C3.58082 8.64062 3.8152 8.875 4.14332 8.875C4.44801 8.875 4.70582 8.64062 4.70582 8.3125V6.4375Z"
                                                             fill="currentColor" />
                                                     </svg>
-                                                    Add to cart
+                                                    Añadir al carrito
                                                 </a>
                                             </div>
                                         </div>
@@ -629,49 +730,49 @@
         <!-- End product section -->
 
         <!-- Start shipping section -->
-        <section class="shipping__section">
-            <div class="container">
-                <div class="shipping__inner style2 d-flex">
-                    <div class="shipping__items style2 d-flex align-items-center">
-                        <div class="shipping__icon">
-                            <img src="{{ asset('assets/img/other/shipping1.webp') }}" alt="icon-img">
-                        </div>
-                        <div class="shipping__content">
-                            <h2 class="shipping__content--title h3">Free Shipping</h2>
-                            <p class="shipping__content--desc">Free shipping over $100</p>
-                        </div>
+    <section class="shipping__section">
+        <div class="container">
+            <div class="shipping__inner style2 d-flex">
+                <div class="shipping__items style2 d-flex align-items-center">
+                    <div class="shipping__icon">
+                        <img src="{{ asset('assets/img/other/shipping1.webp') }}" alt="icon-img">
                     </div>
-                    <div class="shipping__items style2 d-flex align-items-center">
-                        <div class="shipping__icon">
-                            <img src="{{ asset('assets/img/other/shipping2.webp') }}" alt="icon-img">
-                        </div>
-                        <div class="shipping__content">
-                            <h2 class="shipping__content--title h3">Support 24/7</h2>
-                            <p class="shipping__content--desc">Contact us 24 hours a day</p>
-                        </div>
+                    <div class="shipping__content">
+                        <h2 class="shipping__content--title h3">Envíamos tus compras</h2>
+                        <p class="shipping__content--desc">La mejor gestiòn de envìo</p>
                     </div>
-                    <div class="shipping__items style2 d-flex align-items-center">
-                        <div class="shipping__icon">
-                            <img src="{{ asset('assets/img/other/shipping3.webp') }}" alt="icon-img">
-                        </div>
-                        <div class="shipping__content">
-                            <h2 class="shipping__content--title h3">100% Money Back</h2>
-                            <p class="shipping__content--desc">You have 30 days to Return</p>
-                        </div>
+                </div>
+                <div class="shipping__items style2 d-flex align-items-center">
+                    <div class="shipping__icon">
+                        <img src="{{ asset('assets/img/other/shipping2.webp') }}" alt="icon-img">
                     </div>
-                    <div class="shipping__items style2 d-flex align-items-center">
-                        <div class="shipping__icon">
-                            <img src="{{ asset('assets/img/other/shipping4.webp') }}" alt="icon-img">
-                        </div>
-                        <div class="shipping__content">
-                            <h2 class="shipping__content--title h3">Payment Secure</h2>
-                            <p class="shipping__content--desc">We ensure secure payment</p>
-                        </div>
+                    <div class="shipping__content">
+                        <h2 class="shipping__content--title h3">Soporte 24/7</h2>
+                        <p class="shipping__content--desc">Contáctanos las 24 horas del día</p>
+                    </div>
+                </div>
+                <div class="shipping__items style2 d-flex align-items-center">
+                    <div class="shipping__icon">
+                        <img src="{{ asset('assets/img/other/shipping3.webp') }}" alt="icon-img">
+                    </div>
+                    <div class="shipping__content">
+                        <h2 class="shipping__content--title h3">Sólo lo mejor</h2>
+                        <p class="shipping__content--desc">La mejor calidad garantizada</p>
+                    </div>
+                </div>
+                <div class="shipping__items style2 d-flex align-items-center">
+                    <div class="shipping__icon">
+                        <img src="{{ asset('assets/img/other/shipping4.webp') }}" alt="icon-img">
+                    </div>
+                    <div class="shipping__content">
+                        <h2 class="shipping__content--title h3">Pago seguro</h2>
+                        <p class="shipping__content--desc">Compra con seguridad y confianza</p>
                     </div>
                 </div>
             </div>
-        </section>
-        <!-- End shipping section -->
+        </div>
+    </section>
+    <!-- End shipping section -->
     </main>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
