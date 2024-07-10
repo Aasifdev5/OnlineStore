@@ -257,6 +257,14 @@ class UserController extends Controller
             $pages = Page::all();
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
             $product = Product::where('slug', $slug)->first();
+            $IsVariation = ProductVariations::where('product_id', $product->id) ->orderBy('id', 'asc')->first();
+            if(!empty($IsVariation)){
+                $IsVariationProductDetails  = Product::where('sku', $IsVariation->sku)->first();
+            }else{
+                $IsVariationProductDetails = '';
+            }
+
+
 $latestProductId = $product->id;
             $related_products = DB::table('products')
                 ->join('related_products', 'products.id', '=', 'related_products.related_item_id')
@@ -266,9 +274,9 @@ $latestProductId = $product->id;
                 ->paginate(15);
 
             $general_setting = GeneralSetting::find('1');
-            return view('product_detail', compact('product', 'user_session', 'related_products', 'general_setting', 'pages','latestProductId'));
+            return view('product_detail', compact('product', 'user_session', 'related_products', 'general_setting', 'pages','latestProductId','IsVariationProductDetails'));
         } else {
-            return Redirect()->with('fail', 'You have to login first');
+            return Redirect()->with('fail', 'Tienes que iniciar sesión primero');
         }
     }
     public function MyOrders()
@@ -349,7 +357,12 @@ $latestProductId = $product->id;
             $userCategories = !empty($user_session->categories) ? explode(',', $user_session->categories) : [];
             $products = Product::whereIn('category', $userCategories)->orderBy('id', 'desc')->paginate(4);
 
-            $latest_products = Product::whereIn('category', $userCategories)->orderBy('id', 'desc')->get();
+            $latest_products = Product::whereIn('category', $userCategories)
+            ->whereNotIn('sku', function($query) {
+                $query->select('sku')
+                      ->from('product_variations');
+            })
+            ->orderBy('id', 'desc')->get();
 
             $wishlist = Wishlist::where('user_id', Session::get('LoggedIn'))->get();
             $general_setting = GeneralSetting::find('1');
@@ -825,7 +838,12 @@ $latestProductId = $product->id;
             $userCategories = !empty($user_session->categories) ? explode(',', $user_session->categories) : [];
             $products = Product::whereIn('category', $userCategories)->orderBy('id', 'desc')->paginate(4);
 
-            $latest_products = Product::whereIn('category', $userCategories)->orderBy('id', 'desc')->get();
+            $latest_products = Product::whereIn('category', $userCategories)
+            ->whereNotIn('sku', function($query) {
+                $query->select('sku')
+                      ->from('product_variations');
+            })
+            ->orderBy('id', 'desc')->get();
 
             $carts = Cart::where('user_id', Session::get('LoggedIn'))->get();
             $general_setting = GeneralSetting::find('1');
