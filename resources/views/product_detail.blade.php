@@ -411,60 +411,56 @@
 
 
                                     <div class="product__variant--list quantity d-flex align-items-center mb-20">
-                                        <div class="quantity__box">
-                                            <button type="button"
-                                                class="quantity__value quickview__value--quantity decrease"
-                                                aria-label="quantity value" value="Decrease Value">-</button>
-                                            <label>
-                                                <input type="number" class="quantity__number quickview__value--number"
-                                                    value="1" data-counter />
-                                            </label>
-                                            <button type="button"
-                                                class="quantity__value quickview__value--quantity increase"
-                                                aria-label="quantity value" value="Increase Value">+</button>
-                                        </div>
+                                       <div class="quantity__box">
+    <button type="button" class="quantity__value quickview__value--quantity decrease-btn" aria-label="quantity value" value="Decrease Value">-</button>
+    <label>
+        <input type="number" class="quantity__number quickview__value--number quantity-input" value="1" data-counter />
+    </label>
+    <button type="button" class="quantity__value quickview__value--quantity increase-btn" aria-label="quantity value" value="Increase Value">+</button>
+</div>
 
-                                        <a class="primary__btn quickview__cart--btn" id="addToCartBtn"
-                                            href="{{ url('addToCart') }}/{{ $price }}/{{ $IsVariationProductDetails->id }}">Añadir al carrito</a>
-                                        <script>
-                                            document.addEventListener('DOMContentLoaded', function() {
-                                                const decreaseButton = document.querySelector('.decrease');
-                                                const increaseButton = document.querySelector('.increase');
-                                                const quantityInput = document.querySelector('.quantity__number');
-                                                const addToCartBtn = document.getElementById('addToCartBtn');
-                                                const baseUrl = '{{ url('addToCart') }}/{{ $price }}/{{ $IsVariationProductDetails->id }}';
+<a class="primary__btn quickview__cart--btn" id="addToCartBtn-unique" href="{{ url('addToCart') }}/{{ $price }}/{{ $IsVariationProductDetails->id }}">Añadir al carrito</a>
 
-                                                const updateQuantity = () => {
-                                                    let quantity = parseInt(quantityInput.value);
-                                                    if (quantity < 1) {
-                                                        quantity = 1;
-                                                        quantityInput.value = 1;
-                                                    }
-                                                    addToCartBtn.setAttribute('href', `${baseUrl}/${quantity}`);
-                                                };
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const decreaseButton = document.querySelector('.decrease-btn');
+        const increaseButton = document.querySelector('.increase-btn');
+        const quantityInput = document.querySelector('.quantity-input');
+        const addToCartBtn = document.getElementById('addToCartBtn-unique');
+        const baseUrl = '{{ url('addToCart') }}/{{ $price }}/{{ $IsVariationProductDetails->id }}';
 
-                                                decreaseButton.addEventListener('click', () => {
-                                                    let currentValue = parseInt(quantityInput.value);
-                                                    if (currentValue > 1) {
-                                                        quantityInput.value = currentValue - 1;
-                                                        updateQuantity();
-                                                    }
-                                                });
+        const updateQuantity = () => {
+            let quantity = parseInt(quantityInput.value);
+            if (quantity < 1) {
+                quantity = 1;
+                quantityInput.value = 1;
+            }
+            addToCartBtn.setAttribute('href', `${baseUrl}/${quantity}`);
+        };
 
-                                                increaseButton.addEventListener('click', () => {
-                                                    let currentValue = parseInt(quantityInput.value);
-                                                    quantityInput.value = currentValue;
-                                                    updateQuantity();
-                                                });
+        decreaseButton.addEventListener('click', () => {
+            let currentValue = parseInt(quantityInput.value);
+            if (currentValue > 1) {
+                quantityInput.value = currentValue - 1;
+                updateQuantity();
+            }
+        });
 
-                                                quantityInput.addEventListener('change', () => {
-                                                    updateQuantity();
-                                                });
+        increaseButton.addEventListener('click', () => {
+            let currentValue = parseInt(quantityInput.value);
+            quantityInput.value = currentValue + 1;
+            updateQuantity();
+        });
 
-                                                // Initialize the href with the default quantity
-                                                updateQuantity();
-                                            });
-                                        </script>
+        quantityInput.addEventListener('change', () => {
+            updateQuantity();
+        });
+
+        // Initialize the href with the default quantity
+        updateQuantity();
+    });
+</script>
+
                                     </div>
                                     <div class="product__variant--list mb-15">
                                         <a class="variant__wishlist--icon mb-15"

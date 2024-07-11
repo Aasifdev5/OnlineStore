@@ -8,11 +8,12 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Payment;
 use App\Models\Product;
+use App\Models\ProductVariations;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -26,7 +27,7 @@ class OrderController extends Controller
             'city' => 'required|string|max:255',
             'country' => 'required|string|max:255',
             'cart_products' => 'required|array',
-            'cart_products.*.product_id' => 'required|integer|exists:products,id',
+            'cart_products.*.product_id' => 'required|integer',
             'cart_products.*.quantity' => 'required|integer|min:1',
             'cart_products.*.price' => 'required|numeric|min:0',
         ]);
@@ -52,9 +53,13 @@ class OrderController extends Controller
 
             // Attach products to the order
             foreach ($request->cart_products as $cart_product) {
+                $productSku= Product::where('id',$cart_product['product_id'])->first();
+                $color = ProductVariations::where('sku',$productSku->sku)->first()->color;
+
                 OrderItem::create([
                     'order_id' => $order->id,
                     'product_id' => $cart_product['product_id'],
+                    'color'=>$color,
                     'quantity' => $cart_product['quantity'],
                     'price' => $cart_product['price'],
                 ]);

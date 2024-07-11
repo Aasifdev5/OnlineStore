@@ -742,10 +742,13 @@ $latestProductId = $product->id;
     }
     public function addToCart($price, $id,$quantity)
     {
-        // dd($quantity);
+        $productSku= Product::where('id',$id)->first();
+        $color = ProductVariations::where('sku',$productSku->sku)->first()->color;
+        // dd($color);
         $saveIntoCart = Cart::create([
             'user_id' => Session::get('LoggedIn'),
             'product_id' => $id,
+            'color'=>$color,
             'price' => $price,
             'quantity' => $quantity,
         ]);
@@ -753,10 +756,14 @@ $latestProductId = $product->id;
     }
      public function BuyaddToCart($price, $id,$quantity)
     {
+        $productSku= Product::where('id',$id)->first();
+        $color = ProductVariations::where('sku',$productSku->sku)->first()->color;
+        // dd($color);
         // dd($quantity);
         $saveIntoCart = Cart::create([
             'user_id' => Session::get('LoggedIn'),
             'product_id' => $id,
+            'color'=>$color,
             'price' => $price,
             'quantity' => $quantity,
         ]);

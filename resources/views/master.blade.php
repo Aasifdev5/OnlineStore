@@ -203,10 +203,10 @@
                         <nav class="header__menu--navigation">
                             <ul class="header__menu--wrapper d-flex">
                                 <li class="header__menu--items">
-                                    <a class="header__menu--link text-white {{ Request::is('home') ? 'active' : '' }}" href="{{ url('home') }}">Home</a>
+                                    <a class="header__menu--link  {{ Request::is('home') ? 'active' : '' }}" href="{{ url('home') }}">Home</a>
                                 </li>
                                 <li class="header__menu--items">
-                                    <a class="header__menu--link text-white {{ Request::is('shop') ? 'active' : '' }}" href="{{ url('shop') }}">Shop</a>
+                                    <a class="header__menu--link {{ Request::is('shop') ? 'active' : '' }}" href="{{ url('shop') }}">Shop</a>
                                 </li>
 
 

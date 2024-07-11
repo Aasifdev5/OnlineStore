@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Your Order</title>
+    <title>Su pedido</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         .container {
@@ -30,31 +30,36 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Thank you for your order!</h1>
+            <h1>¡Gracias por su orden!</h1>
         </div>
 
         <div class="order-details">
-            <h2>Order Summary</h2>
-            <p><strong>Order ID:</strong> {{ $order->id }}</p>
-            <p><strong>Total Amount:</strong> BS{{ number_format($order->total_amount, 2) }}</p>
+            <h2>Resumen del pedido</h2>
+            <p><strong>Pedido ID:</strong> {{ $order->id }}</p>
+            <p><strong>TOTAL GENERAL:</strong> BS{{ number_format($order->total_amount, 2) }}</p>
         </div>
 
         <div class="product-details">
-            <h2>Product Details</h2>
+            <h2>Detalles de los productos</h2>
             <table class="table table-bordered">
                 <thead class="thead-light">
                     <tr>
-                        <th>Product Name</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                        <th>Subtotal</th>
+                        <th>Nombre del producto</th>
+                        <th>Cantidad</th>
+                        <th>Color</th>
+                        <th>PRECIO</th>
+                        <th>Total parcial</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($order->products as $product)
+                    @php
+                    $color = \App\Models\ProductVariations::where('sku',$product->sku)->first()->color;
+                    @endphp
                     <tr>
                         <td>{{ $product->title }}</td>
                         <td>{{ $product->pivot->quantity }}</td>
+                        <td>{{ $color }}</td>
                         <td>BS{{ number_format($product->pivot->price, 2) }}</td>
                         <td>BS{{ number_format($product->pivot->price * $product->pivot->quantity, 2) }}</td>
                     </tr>
@@ -64,8 +69,8 @@
         </div>
 
         <div class="footer">
-            <p>We will notify you once your order is shipped.</p>
-            <p>For any queries, contact our support team.</p>
+            <p>Le notificaremos una vez que se envíe su pedido.</p>
+            <p>Para cualquier consulta, contacta con nuestro equipo de soporte.</p>
         </div>
     </div>
 </body>
