@@ -412,11 +412,11 @@
 
                                     <div class="product__variant--list quantity d-flex align-items-center mb-20">
                                        <div class="quantity__box">
-    <button type="button" class="quantity__value quickview__value--quantity decrease-btn" aria-label="quantity value" value="Decrease Value">-</button>
+    <button type="button" class="quantity__value quickview__value--quantity decrease decrease-btn" aria-label="quantity value" value="Decrease Value">-</button>
     <label>
         <input type="number" class="quantity__number quickview__value--number quantity-input" value="1" data-counter />
     </label>
-    <button type="button" class="quantity__value quickview__value--quantity increase-btn" aria-label="quantity value" value="Increase Value">+</button>
+    <button type="button" class="quantity__value quickview__value--quantity increase increase-btn" aria-label="quantity value" value="Increase Value">+</button>
 </div>
 
 <a class="primary__btn quickview__cart--btn" id="addToCartBtn-unique" href="{{ url('addToCart') }}/{{ $price }}/{{ $IsVariationProductDetails->id }}">Añadir al carrito</a>
