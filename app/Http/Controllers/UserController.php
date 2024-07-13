@@ -692,6 +692,30 @@ $latestProductId = $product->id;
             return Redirect()->with('fail', 'You have to login first');
         }
     }
+    public function filterProducts(Request $request)
+{
+
+    $user_session = User::where('id', Session::get('LoggedIn'))->first();
+    // Assuming $user_session is defined to access user's price field
+    $userPriceField = $user_session->price;
+$userCategories = !empty($user_session->categories) ? explode(',', $user_session->categories) : [];
+     // Fetch products based on price range
+    $minPrice = (int) $request->min_price;
+    $maxPrice = (int) $request->max_price;
+
+   $filteredProducts = Product::whereIn('category', $userCategories)
+    ->whereNotIn('sku', function($query) {
+        $query->select('sku')
+              ->from('product_variations');
+    })
+    ->whereBetween($userPriceField, [$minPrice, $maxPrice])
+    ->orderBy('id', 'desc')
+    ->get();
+
+
+    return response()->json(['products' => $filteredProducts]);
+}
+
     public function productbyCategory($id)
     {
         if (Session::has('LoggedIn')) {
@@ -725,7 +749,7 @@ $latestProductId = $product->id;
 
         // Query products based on user's allowed categories
         $query = Product::whereIn('category', $userCategories);
-        // dd($userCategories);
+
         if (!empty($searchTerm)) {
             $query->where('title', 'like', '%' . $searchTerm . '%');
         }
@@ -734,8 +758,15 @@ $latestProductId = $product->id;
             $query->where('category', $categoryId);
         }
 
+        // Exclude products with skus present in product_variations table
+        $query->whereNotIn('sku', function($subquery) {
+            $subquery->select('sku')
+                     ->from('product_variations');
+        });
+
         // Get products matching the query
         $products = $query->get();
+
 
         // Return JSON response with a 200 status code (assuming success)
         return response()->json($products, 200);

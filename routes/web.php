@@ -168,7 +168,8 @@ Route::get('/verify-email/{id}/{hash}', [VerificationController::class, 'verifyE
 Route::get('/get-states', [UserController::class, 'getStates'])->name('get-states');
 Route::get('/get-cities', [UserController::class, 'getCities'])->name('get-cities');
 
-
+// routes/web.php
+Route::get('/payments/data', [Admin::class, 'getPaymentData'])->name('payments.data');
 Route::group(['prefix' => 'admin'], function () {
 
     Route::group(['middleware' => 'admin-prevent-back-history', SetLocale::class], function () {
@@ -188,6 +189,8 @@ Route::group(['prefix' => 'admin'], function () {
             App::setLocale($ln);
             return redirect()->back();
         });
+
+        Route::get('/filter-products',[UserController::class, 'filterProducts']);
         Route::get('permissions/index', [Admin::class, 'Plist'])->name('permissions.index');
         Route::get('permissions/create', [Admin::class, 'Pcreate'])->name('permissions.create');
         Route::post('permissions', [Admin::class, 'Pstore'])->name('permissions.store');

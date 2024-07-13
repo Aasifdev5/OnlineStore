@@ -611,12 +611,122 @@ class Admin extends Controller
                 ->get();
 
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
+            $labels2 = [];
+            $data2 = [];
+
+            // Get the start and end of the current week
+            $startDate = Carbon::now()->startOfWeek();
+            $endDate = Carbon::now()->endOfWeek();
+
+            // Generate labels and fetch data for each day of the current week
+            for ($date = $startDate; $date <= $endDate; $date->addDay()) {
+                // Append day to labels array
+                $labels2[] = $date->format('D, M j');
+
+                // Fetch payments for the current day with 'accepted' = 1
+                $totalSale = DB::table('payments')
+                    ->where('accepted', 1)
+                    ->whereDate('created_at', $date->format('Y-m-d'))
+                    ->sum('amount');
+
+                // Append total sale to data array
+                $data2[] = $totalSale;
+            }
+
+            $chartData2 = [
+                'labels2' => $labels2, // Labels in order from start to end of week
+                'data2' => $data2, // Data matches the order of labels
+            ];
 
 
-
-            return view('admin.dashboard', compact('user_session', 'total_users', 'usersData'));
+                        return view('admin.dashboard', compact('user_session', 'total_users', 'usersData','chartData2'));
         }
     }
+    public function getPaymentData(Request $request)
+    {
+        $type = $request->input('type', 'week'); // Default to week if not provided
+        $data = [];
+
+        switch ($type) {
+            case 'week':
+                $data = $this->calculateWeeklyData();
+                break;
+            case 'month':
+                $data = $this->calculateMonthlyData();
+                break;
+            case 'year':
+                $data = $this->calculateYearlyData();
+                break;
+            default:
+                return response()->json(['error' => 'Invalid type provided'], 400);
+        }
+
+        return response()->json($data);
+    }
+
+    protected function calculateWeeklyData()
+    {
+        $startDate = Carbon::now()->startOfWeek();
+        $endDate = Carbon::now()->endOfWeek();
+
+        $labels2 = [];
+        $data2 = [];
+
+        for ($date = $startDate; $date <= $endDate; $date->addDay()) {
+            $labels2[] = $date->format('D, M j');
+            $totalSale = DB::table('payments')
+                ->where('accepted', 1)
+                ->whereDate('created_at', $date->format('Y-m-d'))
+                ->sum('amount');
+            $data2[] = $totalSale;
+        }
+
+        return ['labels2' => $labels2, 'data2' => $data2];
+    }
+
+    protected function calculateMonthlyData()
+    {
+        $labels2 = [];
+        $data2 = [];
+
+        $currentMonth = date('m');
+        $currentYear = date('Y');
+        $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $currentMonth, $currentYear);
+
+        for ($day = 1; $day <= $daysInMonth; $day++) {
+            $date = sprintf('%04d-%02d-%02d', $currentYear, $currentMonth, $day);
+            $labels2[] = date('d M', strtotime($date)); // Format as 'day Month'
+            $totalSale = DB::table('payments')
+                ->where('accepted', 1)
+                ->whereDate('created_at', $date)
+                ->sum('amount');
+            $data2[] = $totalSale;
+        }
+
+        return ['labels2' => $labels2, 'data2' => $data2];
+    }
+
+    protected function calculateYearlyData()
+    {
+        $labels2 = [];
+        $data2 = [];
+
+        $currentYear = date('Y');
+
+        for ($month = 1; $month <= 12; $month++) {
+            $monthStart = sprintf('%04d-%02d-01', $currentYear, $month);
+            $monthEnd = date('Y-m-t', strtotime($monthStart));
+            $labels2[] = date('M', strtotime($monthStart)); // Format as 'Month'
+            $totalSale = DB::table('payments')
+                ->where('accepted', 1)
+                ->whereBetween('created_at', [$monthStart, $monthEnd])
+                ->sum('amount');
+            $data2[] = $totalSale;
+        }
+
+        return ['labels2' => $labels2, 'data2' => $data2];
+    }
+
     public function users(Request $request)
     {
         if (Session::has('LoggedIn')) {

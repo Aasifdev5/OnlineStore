@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,11 +14,13 @@
 
     <meta name="description" content="{{ $general_setting->site_description }}" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
+ <!-- Ensure jQuery is loaded first -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- template styles -->
     <link rel="stylesheet" href="{{ asset('admin/css/custom/image-preview.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 
 
 
@@ -169,7 +170,7 @@
                         <form id="product_search_form" class="d-flex header__search--form border-radius-5">
                             <div class="header__select--categories select">
                                 <select name="category_id" class="header__select--inner">
-                                    <option selected value="1">All categories</option>
+                                    <option selected value="1">Todas las categorías</option>
                                     @php
                                         $userCategories = !empty($user_session->categories)
                                         ? explode(',', $user_session->categories)
@@ -185,7 +186,7 @@
                             </div>
                             <div class="header__search--box">
                                 <label>
-                                    <input id="search_term" class="header__search--input" placeholder="Search For Products..." type="text">
+                                    <input id="search_term" class="header__search--input" placeholder="Buscar productos..." type="text">
                                 </label>
                                 <button class="header__search--button bg__primary text-white" aria-label="search button" type="submit">
                                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -203,17 +204,17 @@
                         <nav class="header__menu--navigation">
                             <ul class="header__menu--wrapper d-flex">
                                 <li class="header__menu--items">
-                                    <a class="header__menu--link  {{ Request::is('home') ? 'active' : '' }}" href="{{ url('home') }}">Home</a>
+                                    <a class="header__menu--link  {{ Request::is('home') ? 'active' : '' }}" href="{{ url('home') }}">Inicio</a>
                                 </li>
                                 <li class="header__menu--items">
-                                    <a class="header__menu--link {{ Request::is('shop') ? 'active' : '' }}" href="{{ url('shop') }}">Shop</a>
+                                    <a class="header__menu--link  {{ Request::is('shop') ? 'active' : '' }}" href="{{ url('shop') }}">Tienda</a>
                                 </li>
 
 
 
 
                                 <li class="header__menu--items">
-                                    <a class="header__menu--link" href="{{ url('contact') }}">Contact </a>
+                                    <a class="header__menu--link" href="{{ url('contact') }}">Contacto </a>
                                 </li>
                             </ul>
                         </nav>
@@ -230,7 +231,7 @@
                                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                                             <circle cx="12" cy="7" r="4"></circle>
                                         </svg>
-                                        <span class="visually">My account</span>
+                                        <span class="visually">Mi cuenta</span>
                                     </a>
                                 @else
                                     <a class="header__account--btn" href="{{ url('Userlogin') }}">
@@ -241,7 +242,7 @@
                                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                                             <circle cx="12" cy="7" r="4"></circle>
                                         </svg>
-                                        <span class="visually-hidden">My account</span>
+                                        <span class="visually-hidden">Mi cuenta</span>
                                     </a>
                                 @endif
 
@@ -325,7 +326,7 @@
                                             0
                                         @endif
                                     </span>
-                                    <span class="minicart__btn--text">My Cart <br> <span
+                                    <span class="minicart__btn--text">Mi carrito <br> <span
                                             class="minicart__btn--text__price">@php
                                             $total = \App\Models\Cart::where('user_id', Session::get('LoggedIn'))
                                                                     ->selectRaw('SUM(price * quantity) as total')
@@ -359,7 +360,7 @@
                                         </g>
                                     </svg>
                                     <span class="items__count">0</span>
-                                    <span class="minicart__btn--text"> Cart <br> <span
+                                    <span class="minicart__btn--text"> carrito <br> <span
                                             class="minicart__btn--text__price">BS0.00</span></span>
                                 </a>
                             </li>
@@ -393,7 +394,7 @@
                                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                                             <circle cx="12" cy="7" r="4"></circle>
                                         </svg>
-                                        <span class="visually">My account</span>
+                                        <span class="visually">Mi cuenta</span>
                                     </a>
                                 @else
                                     <a class="header__account--btn" href="{{ url('Userlogin') }}">
@@ -404,7 +405,7 @@
                                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                                             <circle cx="12" cy="7" r="4"></circle>
                                         </svg>
-                                        <span class="visually-hidden">My account</span>
+                                        <span class="visually-hidden">Mi cuenta</span>
                                     </a>
                                 @endif
                             </li>
@@ -517,7 +518,7 @@
                                 <rect y="13.3333" width="17" height="1.5" fill="currentColor" />
                             </svg>
 
-                            <span class="categories__menu--title">Select catagories</span>
+                            <span class="categories__menu--title">SELECCIONAR CATEGORÍAS</span>
                             <svg class="categories__arrowdown--icon" xmlns="http://www.w3.org/2000/svg"
                                 width="12.355" height="8.394" viewBox="0 0 10.355 6.394">
                                 <path d="M15.138,8.59l-3.961,3.952L7.217,8.59,6,9.807l5.178,5.178,5.178-5.178Z"
@@ -611,7 +612,7 @@
                                 <rect y="13.3333" width="17" height="1.5" fill="currentColor" />
                             </svg>
 
-                            <span class="categories__menu--title">Select catagories</span>
+                            <span class="categories__menu--title">SELECCIONAR CATEGORÍAS</span>
                             <svg class="categories__arrowdown--icon" xmlns="http://www.w3.org/2000/svg"
                                 width="12.355" height="8.394" viewBox="0 0 10.355 6.394">
                                 <path d="M15.138,8.59l-3.961,3.952L7.217,8.59,6,9.807l5.178,5.178,5.178-5.178Z"
@@ -690,14 +691,14 @@
                                 <ul class="header__menu--wrapper d-flex">
                                     <li class="header__menu--items">
                                         <a class="header__menu--link text-white {{ Request::is('home') ? 'active' : '' }}"
-                                            href="{{ url('home') }}">Home
+                                            href="{{ url('home') }}">Inicio
 
                                         </a>
 
                                     </li>
                                     <li class="header__menu--items">
                                         <a class="header__menu--link text-white {{ Request::is('shop') ? 'active' : '' }}"
-                                            href="{{ url('shop') }}">Shop
+                                            href="{{ url('shop') }}">Tienda
 
                                         </a>
 
@@ -706,7 +707,7 @@
 
 
                                     <li class="header__menu--items">
-                                        <a class="header__menu--link text-white" href="{{ url('contact') }}">Contact
+                                        <a class="header__menu--link text-white" href="{{ url('contact') }}">Contacto
                                         </a>
                                     </li>
                                 </ul>
@@ -732,20 +733,20 @@
                     <ul class="offcanvas__menu_ul">
                         <li class="header__menu--items">
                             <a class="header__menu--link text-white {{ Request::is('home') ? 'active' : '' }}"
-                                href="{{ url('home') }}">Home
+                                href="{{ url('home') }}">Inicio
 
                             </a>
 
                         </li>
                         <li class="header__menu--items">
                             <a class="header__menu--link text-white {{ Request::is('shop') ? 'active' : '' }}"
-                                href="{{ url('shop') }}">Shop
+                                href="{{ url('shop') }}">Tienda
 
                             </a>
 
                         </li>
                         <li class="offcanvas__menu_li"><a class="offcanvas__menu_item"
-                                href="{{ url('contact') }}">Contact</a></li>
+                                href="{{ url('contact') }}">Contacto</a></li>
                     </ul>
                     <div class="offcanvas__account--items">
                         @if (!empty($user_session))
@@ -756,7 +757,7 @@
                                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                                     <circle cx="12" cy="7" r="4"></circle>
                                 </svg>
-                                <span class="visually">My account</span>
+                                <span class="visually">Mi cuenta</span>
                             </a>
                         @else
                             <a class="offcanvas__account--items__btn d-flex align-items-center"
@@ -774,7 +775,7 @@
                                             stroke-width="32" />
                                     </svg>
                                 </span>
-                                <span class="offcanvas__account--items__label">Login</span>
+                                <span class="offcanvas__account--items__label">Iniciar sesión</span>
                             </a>
                         @endif
 
@@ -798,7 +799,7 @@
                                 </path>
                             </svg>
                         </span>
-                        <span class="offcanvas__stikcy--toolbar__label">Home</span>
+                        <span class="offcanvas__stikcy--toolbar__label">Inicio</span>
                     </a>
                 </li>
 
@@ -839,7 +840,7 @@
                                 </g>
                             </svg>
                         </span>
-                        <span class="offcanvas__stikcy--toolbar__label">Cart</span>
+                        <span class="offcanvas__stikcy--toolbar__label">carrito</span>
                         <span class="items__count">@php
                             $count = \App\Models\Cart::where('user_id', Session::get('LoggedIn'))->count();
                            @endphp
@@ -872,7 +873,7 @@
                                 </g>
                             </svg>
                         </span>
-                        <span class="offcanvas__stikcy--toolbar__label">Cart</span>
+                        <span class="offcanvas__stikcy--toolbar__label">carrito</span>
                         <span class="items__count">
                                0
                            </span>
@@ -891,7 +892,7 @@
                                 </path>
                             </svg>
                         </span>
-                        <span class="offcanvas__stikcy--toolbar__label">Wishlist</span>
+                        <span class="offcanvas__stikcy--toolbar__label">Lista de deseos</span>
                         <span class="items__count">@php
                             $count = \App\Models\Wishlist::where('user_id', Session::get('LoggedIn'))->count();
                            @endphp
@@ -914,7 +915,7 @@
                                 </path>
                             </svg>
                         </span>
-                        <span class="offcanvas__stikcy--toolbar__label">Wishlist</span>
+                        <span class="offcanvas__stikcy--toolbar__label">Lista de deseos</span>
                         <span class="items__count">
                                0
                            </span>
@@ -929,7 +930,7 @@
         <!-- Start serch box area -->
         <div class="predictive__search--box ">
             <div class="predictive__search--box__inner">
-                <h2 class="predictive__search--title">Search Products</h2>
+                <h2 class="predictive__search--title">Buscar productos</h2>
                 <form class="predictive__search--form" action="#">
                     <label>
                         <input class="predictive__search--input" placeholder="Search Here" type="text">
@@ -961,7 +962,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="searchResultsModalLabel">Search Results</h5>
+                <h5 class="modal-title" id="searchResultsModalLabel">Resultados de la búsqueda</h5>
 
             </div>
             <div class="modal-body">
@@ -983,7 +984,7 @@
                 <div class="row ">
                     <div class="col-lg-4 col-md-10">
                         <div class="footer__widget">
-                            <h2 class="footer__widget--title">About Us <button class="footer__widget--button"
+                            <h2 class="footer__widget--title">SOBRE NOSOTROS <button class="footer__widget--button"
                                     aria-label="footer widget button"></button>
                                 <svg class="footer__widget--title__arrowdown--icon" xmlns="http://www.w3.org/2000/svg"
                                     width="12.355" height="8.394" viewBox="0 0 10.355 6.394">
@@ -992,10 +993,7 @@
                                 </svg>
                             </h2>
                             <div class="footer__widget--inner">
-                                <p class="footer__widget--desc">Corporate clients and leisure travelers has
-                                    been relying on Groundlink for dependable
-                                    safe, and professional chauffeured car end
-                                    service in major cities across World.</p>
+                                <p class="footer__widget--desc"></p>
                                 <ul class="social__share footer__social d-flex">
                                     <li class="social__share--list">
                                         <a class="social__share--icon__style2" target="_blank"
@@ -1062,24 +1060,24 @@
                             <ul class="footer__widget--menu footer__widget--inner">
                                 @if (!empty($user_session))
                                     <li class="footer__widget--menu__list"><a class="footer__widget--menu__text"
-                                            href="{{ url('dashboard') }}">My Account</a></li>
+                                            href="{{ url('dashboard') }}">Mi cuenta</a></li>
                                 @else
                                     <li class="footer__widget--menu__list"><a class="footer__widget--menu__text"
-                                            href="{{ url('Userlogin') }}">My Account</a></li>
+                                            href="{{ url('Userlogin') }}">Mi cuenta</a></li>
                                 @endif
 
                                 <li class="footer__widget--menu__list"><a class="footer__widget--menu__text"
-                                        href="{{ url('cart') }}">Shopping Cart</a></li>
+                                        href="{{ url('cart') }}">Carrito de compras</a></li>
 
 
                                 <li class="footer__widget--menu__list"><a class="footer__widget--menu__text"
-                                        href="{{ url('checkout') }}">Checkout</a></li>
+                                        href="{{ url('checkout') }}">Pagar</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-4">
                         <div class="footer__widget">
-                            <h2 class="footer__widget--title ">Resources <button class="footer__widget--button"
+                            <h2 class="footer__widget--title ">RECURSOS <button class="footer__widget--button"
                                     aria-label="footer widget button"></button>
                                 <svg class="footer__widget--title__arrowdown--icon" xmlns="http://www.w3.org/2000/svg"
                                     width="12.355" height="8.394" viewBox="0 0 10.355 6.394">
@@ -1089,19 +1087,19 @@
                             </h2>
                             <ul class="footer__widget--menu footer__widget--inner">
                                 <li class="footer__widget--menu__list"><a class="footer__widget--menu__text"
-                                        href="{{ url('contact') }}">Contact Us</a></li>
+                                        href="{{ url('contact') }}">Contáctenos</a></li>
                                 <li class="footer__widget--menu__list"><a class="footer__widget--menu__text"
-                                        href="{{ url('about') }}">About Us</a></li>
+                                        href="{{ url('about') }}">SOBRE NOSOTROS</a></li>
 
                                 <li class="footer__widget--menu__list"><a class="footer__widget--menu__text"
-                                        href="privacy-policy.html">Privacy Policy</a></li>
+                                        href="privacy-policy.html">Política de privacidad</a></li>
 
                             </ul>
                         </div>
                     </div>
                     <div class="col-lg-2 col-md-4">
                         <div class="footer__widget">
-                            <h2 class="footer__widget--title ">FIND IT FAST <button class="footer__widget--button"
+                            <h2 class="footer__widget--title ">ENCUENTRA RÁPIDO <button class="footer__widget--button"
                                     aria-label="footer widget button"></button>
                                 <svg class="footer__widget--title__arrowdown--icon" xmlns="http://www.w3.org/2000/svg"
                                     width="12.355" height="8.394" viewBox="0 0 10.355 6.394">
@@ -1139,8 +1137,8 @@
                         </svg>
                     </div>
                     <div class="shipping__content">
-                        <h2 class="shipping__content--title text-white h3">Free Shipping</h2>
-                        <p class="shipping__content--desc">Free shipping over $100</p>
+                        <h2 class="shipping__content--title text-white h3">Envíamos tus compras</h2>
+                        <p class="shipping__content--desc">La mejor gestiòn de envìo</p>
                     </div>
                 </div>
                 <div class="shipping__items d-flex align-items-center">
@@ -1183,8 +1181,8 @@
                         </svg>
                     </div>
                     <div class="shipping__content">
-                        <h2 class="shipping__content--title text-white h3">Support 24/7</h2>
-                        <p class="shipping__content--desc">Contact us 24 hours a day</p>
+                        <h2 class="shipping__content--title text-white h3">Soporte 24/7</h2>
+                        <p class="shipping__content--desc">Contáctanos las 24 horas del día</p>
                     </div>
                 </div>
                 <div class="shipping__items d-flex align-items-center">
@@ -1212,8 +1210,8 @@
                         </svg>
                     </div>
                     <div class="shipping__content">
-                        <h2 class="shipping__content--title text-white h3">100% Money Back</h2>
-                        <p class="shipping__content--desc">You have 30 days to Return</p>
+                        <h2 class="shipping__content--title text-white h3">Sólo lo mejor</h2>
+                        <p class="shipping__content--desc">La mejor calidad garantizada</p>
                     </div>
                 </div>
                 <div class="shipping__items d-flex align-items-center">
@@ -1229,8 +1227,8 @@
                         </svg>
                     </div>
                     <div class="shipping__content">
-                        <h2 class="shipping__content--title text-white h3">Payment Secure</h2>
-                        <p class="shipping__content--desc">We ensure secure payment</p>
+                        <h2 class="shipping__content--title text-white h3">Pago seguro</h2>
+                        <p class="shipping__content--desc">Compra con seguridad y confianza</p>
                     </div>
                 </div>
             </div>
@@ -1240,8 +1238,8 @@
 
                 <div class="footer__bottom--inenr ">
                     <center>
-                        <p class="copyright__content"><span class="text__secondary">© 2024</span> All Rights Reserved.
-                        </p>
+                      <p class="copyright__content"><span class="text__secondary">© {{ date('Y') }}</span> Todos los derechos reservados.</p>
+
                     </center>
                     {{-- <div class="footer__logo">
                         <a class="footer__logo--link" href="{{url('/')}}"><img
@@ -1305,7 +1303,7 @@ $(document).ready(function() {
                         const listItem = `
                             <div class="product-card">
                                 <a href="{{ url('product-details') }}/${product.slug}" class="product-link">
-                                    <img src="{{ asset('f_thumbnail') }}/${product.f_thumbnail}" alt="${product.title}" class="product-image">
+                                    <img src="{{ asset('product_images') }}/${product.f_thumbnail}" alt="${product.title}" class="product-image">
                                     <div class="product-info">
                                         <h5 class="product-title">${product.title}</h5>
                                     </div>
