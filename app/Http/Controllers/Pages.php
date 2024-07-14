@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
 use App\Models\Page;
+use App\Mail\ContactFormSubmitted;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ComposeMail;
 use Illuminate\Support\Str;
 
 class Pages extends Controller
@@ -63,48 +66,40 @@ class Pages extends Controller
     }
 
     public function contact_send(Request $request)
-    {
+{
+    // Validate input fields
+    $validatedData = $request->validate([
+        'name' => 'required|string',
+        'email' => 'required|email',
+        'message' => 'required|string',
+    ]);
 
+    // Extract validated data
+    $name = $validatedData['name'];
+    $email = $validatedData['email'];
+    $message_content = $validatedData['message'];
 
-        $inputs = $request->all();
+    // Prepare data for the email
+    $data = [
+        'name' => $name,
+        'email' => $email,
+        'message_content' => $message_content,
+    ];
 
+    try {
+        // Send email using the ContactFormSubmitted Mailable
+        Mail::to('admin@bikebros.net')->send(new ContactFormSubmitted($data));
 
-
-        $data = array(
-            'name' => $inputs['name'],
-            'email' => $inputs['email'],
-            'phone' => $inputs['phone'],
-            'subject' => $inputs['subject'],
-            'user_message' => $inputs['message'],
-        );
-
-        $subject = $inputs['subject'];
-
-        try {
-
-            \Mail::send('emails.contact', $data, function ($message) use ($subject) {
-
-                $message->from(getcong('site_email'), getcong('site_name'));
-
-                $message->to(getcong('site_email'))->subject($subject);
-            });
-
-            \Session::flash('flash_message', 'Thank You. Your Message has been Submitted.');
-            return \Redirect::back();
-        } catch (\Throwable $e) {
-
-            \Log::info($e->getMessage());
-
-            \Session::flash('error_flash_message', $e->getMessage());
-
-            return \Redirect::back();
-        }
-
-
-        \Session::flash('flash_message', 'Thank You. Your Message has been Submitted.');
-
+        // Flash success message and redirect back
+        \Session::flash('flash_message', 'Gracias. Su mensaje ha sido enviado.');
         return \Redirect::back();
+    } catch (\Throwable $e) {
+        // Log error and flash error message
+        \Log::error('No se pudo enviar el correo electrónico del formulario de contacto: ' . $e->getMessage());
+        \Session::flash('error_flash_message', 'No se pudo enviar su mensaje. Por favor, inténtelo de nuevo más tarde.');
+        return \Redirect::back()->withErrors(['error' => 'No se pudo enviar el correo electrónico.']);
     }
+}
 
 
     public function addnew(Request $request)

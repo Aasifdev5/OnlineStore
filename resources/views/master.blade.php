@@ -39,6 +39,23 @@
     <!-- Custom Style CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <style>
+      body {
+        -webkit-touch-callout: none; /* Disable callouts (iOS Safari) */
+        -webkit-user-select: none; /* Disable text selection (iOS Safari, Chrome etc.) */
+        -moz-user-select: none; /* Disable text selection (Firefox) */
+        -ms-user-select: none; /* Disable text selection (Edge) */
+        user-select: none; /* Disable text selection (standard) */
+    }
+     #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0); /* Transparent background */
+            pointer-events: none; /* Allow pointer events to pass through */
+            z-index: 9999; /* Ensure it's above other content */
+        }
         /* Modal Styling */
         .modal-header {
             background-color: #fadc00;
@@ -212,10 +229,17 @@
 
 
 
+                      @foreach ($pages as $page)
+    @if ($page->page_title == "Sobre nosotros" || $page->page_title == "Contact")
+        <li class="header__menu--items">
+            <a class="header__menu--link {{ Request::is('page/' . $page->page_slug) ? 'active' : '' }}" href="{{ url('page/' . $page->page_slug) }}">
+                Contacto
+            </a>
+        </li>
+    @endif
+@endforeach
 
-                                <li class="header__menu--items">
-                                    <a class="header__menu--link" href="{{ url('contact') }}">Contacto </a>
-                                </li>
+
                             </ul>
                         </nav>
                     </div>
@@ -704,12 +728,18 @@
 
                                     </li>
 
+@foreach ($pages as $page)
+    @if ($page->page_title == "Sobre nosotros" || $page->page_title == "Contact")
+        <li class="header__menu--items">
+            <a class="header__menu--link text-white {{ Request::is('page/' . $page->page_slug) ? 'active' : '' }}" href="{{ url('page/' . $page->page_slug) }}">
+                Contacto
+            </a>
+        </li>
+    @endif
+@endforeach
 
 
-                                    <li class="header__menu--items">
-                                        <a class="header__menu--link text-white" href="{{ url('contact') }}">Contacto
-                                        </a>
-                                    </li>
+
                                 </ul>
                             </nav>
                         </div>
@@ -745,8 +775,18 @@
                             </a>
 
                         </li>
-                        <li class="offcanvas__menu_li"><a class="offcanvas__menu_item"
-                                href="{{ url('contact') }}">Contacto</a></li>
+                        @foreach ($pages as $page)
+    @if ($page->page_title == "Sobre nosotros" || $page->page_title == "Contact")
+        <li class="offcanvas__menu_li">
+            <a class="offcanvas__menu_item {{ Request::is('page/' . $page->page_slug) ? 'active' : '' }}" href="{{ url('page/' . $page->page_slug) }}">
+                Contacto
+            </a>
+        </li>
+    @endif
+@endforeach
+
+
+
                     </ul>
                     <div class="offcanvas__account--items">
                         @if (!empty($user_session))
@@ -975,6 +1015,8 @@
 
 
     @yield('content')
+ <!-- Transparent overlay -->
+    <div id="overlay"></div>
 
     <!-- Start footer section -->
     <footer class="footer__section footer__bg">
@@ -1086,8 +1128,17 @@
                                 </svg>
                             </h2>
                             <ul class="footer__widget--menu footer__widget--inner">
-                                <li class="footer__widget--menu__list"><a class="footer__widget--menu__text"
-                                        href="{{ url('contact') }}">Contáctenos</a></li>
+                                @foreach ($pages as $page)
+    @if ($page->page_title == "Sobre nosotros" || $page->page_title == "contact")
+        <li class="footer__widget--menu__list">
+            <a class="footer__widget--menu__text {{ Request::is('page/' . $page->page_slug) ? 'active' : '' }}" href="{{ url('page/' . $page->page_slug) }}">
+                Contacto
+            </a>
+        </li>
+    @endif
+@endforeach
+
+
                                 <li class="footer__widget--menu__list"><a class="footer__widget--menu__text"
                                         href="{{ url('about') }}">SOBRE NOSOTROS</a></li>
 
@@ -1267,6 +1318,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
+    document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
 $(document).ready(function() {
     $('#product_search_form').submit(function(event) {
         event.preventDefault(); // Prevent form submission
