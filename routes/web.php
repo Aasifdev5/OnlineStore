@@ -189,7 +189,7 @@ Route::group(['prefix' => 'admin'], function () {
             App::setLocale($ln);
             return redirect()->back();
         });
-
+        Route::get('/getOrderDetails/{orderId}', [Admin::class, 'getOrderDetails'])->name('getOrderDetails');
         Route::get('/filter-products',[UserController::class, 'filterProducts']);
         Route::get('permissions/index', [Admin::class, 'Plist'])->name('permissions.index');
         Route::get('permissions/create', [Admin::class, 'Pcreate'])->name('permissions.create');

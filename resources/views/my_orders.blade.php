@@ -104,7 +104,7 @@
         <tr class="account__table--header__row">
             <th class="account__table--header__cell">Order</th>
             <th class="account__table--header__cell">Date</th>
-            <th class="account__table--header__cell">Payment Status</th>
+
             <th class="account__table--header__cell">Product</th>
             <th class="account__table--header__cell">Total</th>
             <th class="account__table--header__cell">Invoice</th>
@@ -120,17 +120,7 @@
                     @if ($first)
                         <td class="account__table--body__cell" rowspan="{{ count($order->orderItems) }}">{{ $order->id }}</td>
                         <td class="account__table--body__cell" rowspan="{{ count($order->orderItems) }}">{{ $order->created_at->format('F j, Y') }}</td>
-                        <td class="account__table--body__cell" rowspan="{{ count($order->orderItems) }}">
-                            @if ($order->accepted == 1)
-                                <span class="badge badge-success">Paid</span>
-                            @elseif ($order->accepted == 0)
-                                <span class="badge badge-warning">Pending</span>
-                            @elseif ($order->accepted == -1)
-                                <span class="badge badge-danger">Failed</span>
-                            @else
-                                <span class="badge badge-secondary">Unknown</span>
-                            @endif
-                        </td>
+
                     @endif
                     <td class="account__table--body__cell">{{ $orderItem->product->title }}</td>
                     <td class="account__table--body__cell">BS{{ number_format($orderItem->price * $orderItem->quantity, 2) }}</td>

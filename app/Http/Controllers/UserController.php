@@ -288,7 +288,7 @@ $latestProductId = $product->id;
             // Fetch orders with related order items, products, and payment status
           $orders = Order::where('orders.user_id', Session::get('LoggedIn'))
     ->leftJoin('payments', 'orders.id', '=', 'payments.order_id')
-    ->where('payments.accepted', 1) // Filter by accepted payments (paid)
+
     ->with(['orderItems' => function ($query) {
         $query->with('product');
     }])

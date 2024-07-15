@@ -675,7 +675,7 @@ class Admin extends Controller
         for ($date = $startDate; $date <= $endDate; $date->addDay()) {
             $labels2[] = $date->format('D, M j');
             $totalSale = DB::table('payments')
-                ->where('accepted', 1)
+
                 ->whereDate('created_at', $date->format('Y-m-d'))
                 ->sum('amount');
             $data2[] = $totalSale;
@@ -697,7 +697,7 @@ class Admin extends Controller
             $date = sprintf('%04d-%02d-%02d', $currentYear, $currentMonth, $day);
             $labels2[] = date('d M', strtotime($date)); // Format as 'day Month'
             $totalSale = DB::table('payments')
-                ->where('accepted', 1)
+
                 ->whereDate('created_at', $date)
                 ->sum('amount');
             $data2[] = $totalSale;
@@ -718,7 +718,7 @@ class Admin extends Controller
             $monthEnd = date('Y-m-t', strtotime($monthStart));
             $labels2[] = date('M', strtotime($monthStart)); // Format as 'Month'
             $totalSale = DB::table('payments')
-                ->where('accepted', 1)
+
                 ->whereBetween('created_at', [$monthStart, $monthEnd])
                 ->sum('amount');
             $data2[] = $totalSale;
@@ -1867,6 +1867,52 @@ class Admin extends Controller
 
             return view('admin.balance', compact('user_session', 'transaction'));
         }
+    }
+    public function getOrderDetails($orderId)
+    {
+        // Fetch order details from your database
+        $order = Order::where('id', $orderId)->first();
+
+        if (!$order) {
+            return response()->json(['error' => 'Order not found'], 404);
+        }
+        $transaction = Payment::where('order_id',$orderId)->first();
+        // Assuming `product_details` field contains JSON data of products
+        $products = json_decode($transaction->product_details, true);
+
+        // Prepare an array to store detailed product information
+        $detailedProducts = [];
+
+        foreach ($products as $product) {
+            $productDetails = Product::find($product['product_id']);
+
+            // Skip if product details not found
+            if (!$productDetails) {
+                continue;
+            }
+
+            // Fetch order item to get color
+            $orderItem = OrderItem::where('order_id', $orderId)
+                                  ->where('product_id', $product['product_id'])
+                                  ->first();
+
+            $productColor = $orderItem ? $orderItem->color : 'N/A';
+            $productSku = $productDetails->sku ?? 'N/A';
+
+            // Build the detailed product information array
+            $detailedProducts[] = [
+                'id' => $productDetails->id,
+                'title' => $productDetails->title,
+                'sku' => $productSku,
+                'price' => $product['price'],
+                'quantity' => $product['quantity'],
+                'color' => $productColor,
+                'image' => asset('product_images/' . $productDetails->f_thumbnail),
+            ];
+        }
+
+        // Return order details as JSON response with detailed products
+        return response()->json(['products' => $detailedProducts]);
     }
     public function accept($id)
     {
