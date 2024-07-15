@@ -1,6 +1,6 @@
 @extends('master')
 @section('title')
-    Cart
+    Carrito de compras
 @endsection
 @section('content')
     <main class="main__content_wrapper">
@@ -18,17 +18,18 @@
                     </div>
                 @endif
                 <div class="cart__section--inner">
-                    <form action="#">
-                        <h2 class="cart__title mb-30">Shopping Cart</h2>
+                    <form action="{{ route('order.store') }}" method="POST">
+                        @csrf
+                        <h2 class="cart__title mb-30">Carrito de compras</h2>
                         <div class="row">
-                            <div class="col-lg-8">
+                            <div class="col-lg-12">
                                 <div class="cart__table">
                                     <table class="cart__table--inner">
                                         <thead class="cart__table--header">
                                             <tr class="cart__table--header__items">
-                                                <th class="cart__table--header__list">Product</th>
-                                                <th class="cart__table--header__list">Price</th>
-                                                <th class="cart__table--header__list">Quantity</th>
+                                                <th class="cart__table--header__list">PRODUCTO</th>
+                                                <th class="cart__table--header__list">PRECIO</th>
+                                                <th class="cart__table--header__list">CANTIDAD</th>
                                                 <th class="cart__table--header__list">Total</th>
                                             </tr>
                                         </thead>
@@ -54,7 +55,7 @@
                                                             </div>
                                                             <div class="cart__content">
                                                                 <h3 class="cart__content--title h4">
-                                                                    <a href="{{ url('product-details/' . $product_details->slug) }}">{{ $product_details->title }}</a>
+                                                                    <a href="{{ url('product-details/' . $product_details->slug) }}">{{ $product_details->title }}@if(!empty($item->color)) {{$item->color}} @endif</a>
                                                                 </h3>
                                                             </div>
                                                         </div>
@@ -75,6 +76,7 @@
                                                         <span class="cart__price end">{{ 'BS ' . $total }}</span>
                                                     </td>
                                                 </tr>
+
                                             @else
                                                 <tr class="cart__table--body__items">
                                                     <td colspan="4" class="cart__table--body__list">
@@ -85,6 +87,31 @@
                                                 </tr>
                                             @endif
                                         @endforeach
+                                         @foreach ($carts as $row)
+                                    <input type="hidden" name="cart_products[{{ $loop->index }}][product_id]"
+                                        value="{{ $row->product_id }}">
+                                    <input type="hidden" name="cart_products[{{ $loop->index }}][quantity]"
+                                        value="{{ $row->quantity }}">
+                                    <input type="hidden" name="cart_products[{{ $loop->index }}][price]"
+                                        value="{{ $row->price }}">
+                                @endforeach
+                                        <table class="cart__summary--total__table">
+                                            <tbody>
+
+                                              <tr class="cart__summary--total__list">
+                                                    <td  class="cart__summary--total__title text-left">TOTAL GENERAL</td>
+
+                                                    <td class="cart__summary--amount text-right" >@php
+                                            $total = \App\Models\Cart::where('user_id', Session::get('LoggedIn'))
+                                                                    ->selectRaw('SUM(price * quantity) as total')
+                                                                    ->pluck('total')
+                                                                    ->first();
+                                            $formattedTotal = $total ? 'BS' . number_format($total, 2) : 'BS0.00';
+                                        @endphp
+                                        {{ $formattedTotal }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
 
                                         <script>
                                             document.addEventListener('DOMContentLoaded', function() {
@@ -152,48 +179,19 @@
                                         </tbody>
                                     </table>
                                     <div class="continue__shopping d-flex justify-content-between">
-                                        <a class="continue__shopping--link" href="{{ url('shop') }}">Continue
-                                            shopping</a>
-                                        <button class="continue__shopping--clear" type="submit">Clear Cart</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="cart__summary border-radius-10">
-
-                                    <div class="cart__note mb-20">
-                                        <h3 class="cart__note--title">Note</h3>
-                                        <p class="cart__note--desc">Add special instructions for your seller...</p>
-                                        <textarea class="cart__note--textarea border-radius-5"></textarea>
-                                    </div>
-                                    <div class="cart__summary--total mb-20">
-                                        <table class="cart__summary--total__table">
-                                            <tbody>
-
-                                                <tr class="cart__summary--total__list">
-                                                    <td class="cart__summary--total__title text-left">GRAND TOTAL</td>
-                                                    <td class="cart__summary--amount text-right">@php
-                                                        $total = \App\Models\Cart::where('user_id', Session::get('LoggedIn'))
-                                                                                ->selectRaw('SUM(price * quantity) as total')
-                                                                                ->pluck('total')
-                                                                                ->first();
-                                                        $formattedTotal = $total ? 'BS' . number_format($total, 2) : 'BS0.00';
-                                                    @endphp
-                                                    {{ $formattedTotal }}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="cart__summary--footer">
+                                        <div class="cart__summary--footer">
 
                                         <ul class="d-flex justify-content-between">
 
-                                            <li><a class="cart__summary--footer__btn primary__btn checkout"
-                                                    href="{{ url('checkout') }}">Check Out</a></li>
+                                            <li><button type="submit" class="cart__summary--footer__btn primary__btn checkout"
+                                                    >Pedido</button></li>
                                         </ul>
+                                    </div>
+
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </form>
                 </div>
@@ -205,7 +203,7 @@
         <section class="product__section section--padding  pt-0">
             <div class="container">
                 <div class="section__heading border-bottom mb-30">
-                    <h2 class="section__heading--maintitle">New <span>Products</span></h2>
+                    <h2 class="section__heading--maintitle">Nuevo <span>Productos</span></h2>
                 </div>
                 <div class="product__section--inner pb-15 product__swiper--activation swiper">
                     <div class="swiper-wrapper">
@@ -236,23 +234,48 @@
                                         $price = $row->price5;
                                     @endphp
                                 @endif
+                                 @php
+                                                        $IsVariation = \App\Models\ProductVariations::where(
+                                                            'product_id',
+                                                            $row->id,
+                                                        )
+                                                            ->orderBy('id', 'asc')
+                                                            ->first();
+                                                        if (!empty($IsVariation)) {
+                                                            $IsVariationProductDetails = \App\Models\Product::where(
+                                                                'sku',
+                                                                $IsVariation->sku,
+                                                            )->first();
+                                                        } else {
+                                                            $IsVariationProductDetails = '';
+                                                        }
+                                                    @endphp
                                 <div class="swiper-slide">
                                     <article class="product__card">
                                         <div class="product__card--thumbnail">
                                             <a class="product__card--thumbnail__link display-block"
                                                 href="{{ url('product-details') }}{{ '/' . $row->slug }}">
-                                                <img class="product__card--thumbnail__img product__primary--img"
-                                                    src="{{ asset('product_images/' . $row->f_thumbnail) }}"
-                                                    alt="product-img">
-                                                <img class="product__card--thumbnail__img product__secondary--img"
-                                                    src="{{ asset('product_images/' . $row->f_thumbnail) }}"
-                                                    alt="product-img">
+                                                @if (!empty($IsVariation))
+                                                                        <img class="product__card--thumbnail__img product__primary--img"
+                                                                            src="{{ asset('product_images/' . $IsVariationProductDetails->f_thumbnail) }}"
+                                                                            alt="product-img">
+                                                                        <img class="product__card--thumbnail__img product__secondary--img"
+                                                                            src="{{ asset('product_images/' . $IsVariationProductDetails->f_thumbnail) }}"
+                                                                            alt="product-img">
+                                                                    @else
+                                                                        <img class="product__card--thumbnail__img product__primary--img"
+                                                                            src="{{ asset('product_images/' . $row->f_thumbnail) }}"
+                                                                            alt="product-img">
+                                                                        <img class="product__card--thumbnail__img product__secondary--img"
+                                                                            src="{{ asset('product_images/' . $row->f_thumbnail) }}"
+                                                                            alt="product-img">
+                                                                    @endif
                                             </a>
 
                                             <ul
                                                 class="product__card--action d-flex align-items-center justify-content-center">
 
-
+ @if (empty($IsVariation))
                                                 <li class="product__card--action__list">
                                                     <a class="product__card--action__btn" title="Wishlist"
                                                         href="{{ url('addToWishlist') }}/{{ $price }}/{{ $row->id }}">
@@ -266,6 +289,7 @@
                                                         <span class="visually-hidden">Wishlist</span>
                                                     </a>
                                                 </li>
+                                                @endif
                                             </ul>
                                         </div>
                                         <div class="product__card--content">
@@ -281,6 +305,7 @@
                                                 {{-- <span class="old__price"> $362.00</span> --}}
                                             </div>
                                             <div class="product__card--footer">
+                                                 @if (empty($IsVariation))
                                                 <a class="product__card--btn primary__btn"
                                                     href="{{ url('addToCart') }}/{{ $price }}/{{ $row->id.'/1' }}">
                                                     <svg width="14" height="11" viewBox="0 0 14 11" fill="none"
@@ -289,8 +314,9 @@
                                                             d="M13.2371 4H11.5261L8.5027 0.460938C8.29176 0.226562 7.9402 0.203125 7.70582 0.390625C7.47145 0.601562 7.44801 0.953125 7.63551 1.1875L10.0496 4H3.46364L5.8777 1.1875C6.0652 0.953125 6.04176 0.601562 5.80739 0.390625C5.57301 0.203125 5.22145 0.226562 5.01051 0.460938L1.98707 4H0.299574C0.135511 4 0.0183239 4.14062 0.0183239 4.28125V4.84375C0.0183239 5.00781 0.135511 5.125 0.299574 5.125H0.721449L1.3777 9.78906C1.44801 10.3516 1.91676 10.75 2.47926 10.75H11.0339C11.5964 10.75 12.0652 10.3516 12.1355 9.78906L12.7918 5.125H13.2371C13.3777 5.125 13.5183 5.00781 13.5183 4.84375V4.28125C13.5183 4.14062 13.3777 4 13.2371 4ZM11.0339 9.625H2.47926L1.86989 5.125H11.6433L11.0339 9.625ZM7.33082 6.4375C7.33082 6.13281 7.07301 5.875 6.76832 5.875C6.4402 5.875 6.20582 6.13281 6.20582 6.4375V8.3125C6.20582 8.64062 6.4402 8.875 6.76832 8.875C7.07301 8.875 7.33082 8.64062 7.33082 8.3125V6.4375ZM9.95582 6.4375C9.95582 6.13281 9.69801 5.875 9.39332 5.875C9.0652 5.875 8.83082 6.13281 8.83082 6.4375V8.3125C8.83082 8.64062 9.0652 8.875 9.39332 8.875C9.69801 8.875 9.95582 8.64062 9.95582 8.3125V6.4375ZM4.70582 6.4375C4.70582 6.13281 4.44801 5.875 4.14332 5.875C3.8152 5.875 3.58082 6.13281 3.58082 6.4375V8.3125C3.58082 8.64062 3.8152 8.875 4.14332 8.875C4.44801 8.875 4.70582 8.64062 4.70582 8.3125V6.4375Z"
                                                             fill="currentColor" />
                                                     </svg>
-                                                    Add to cart
+                                                   Añadir al carrito
                                                 </a>
+                                                @endif
                                             </div>
                                         </div>
                                     </article>
@@ -321,50 +347,51 @@
         </section>
         <!-- End product section -->
 
-        <!-- Start shipping section -->
-        <section class="shipping__section">
-            <div class="container">
-                <div class="shipping__inner style2 d-flex">
-                    <div class="shipping__items style2 d-flex align-items-center">
-                        <div class="shipping__icon">
-                            <img src="{{ asset('assets/img/other/shipping1.webp') }}" alt="icon-img">
-                        </div>
-                        <div class="shipping__content">
-                            <h2 class="shipping__content--title h3">Free Shipping</h2>
-                            <p class="shipping__content--desc">Free shipping over $100</p>
-                        </div>
+
+    <!-- Start shipping section -->
+    <section class="shipping__section">
+        <div class="container">
+            <div class="shipping__inner style2 d-flex">
+                <div class="shipping__items style2 d-flex align-items-center">
+                    <div class="shipping__icon">
+                        <img src="assets/img/other/shipping1.webp" alt="icon-img">
                     </div>
-                    <div class="shipping__items style2 d-flex align-items-center">
-                        <div class="shipping__icon">
-                            <img src="{{ asset('assets/img/other/shipping2.webp') }}" alt="icon-img">
-                        </div>
-                        <div class="shipping__content">
-                            <h2 class="shipping__content--title h3">Support 24/7</h2>
-                            <p class="shipping__content--desc">Contact us 24 hours a day</p>
-                        </div>
+                    <div class="shipping__content">
+                        <h2 class="shipping__content--title h3">Envíamos tus compras</h2>
+                        <p class="shipping__content--desc">La mejor gestiòn de envìo</p>
                     </div>
-                    <div class="shipping__items style2 d-flex align-items-center">
-                        <div class="shipping__icon">
-                            <img src="{{ asset('assets/img/other/shipping3.webp') }}" alt="icon-img">
-                        </div>
-                        <div class="shipping__content">
-                            <h2 class="shipping__content--title h3">100% Money Back</h2>
-                            <p class="shipping__content--desc">You have 30 days to Return</p>
-                        </div>
+                </div>
+                <div class="shipping__items style2 d-flex align-items-center">
+                    <div class="shipping__icon">
+                        <img src="assets/img/other/shipping2.webp" alt="icon-img">
                     </div>
-                    <div class="shipping__items style2 d-flex align-items-center">
-                        <div class="shipping__icon">
-                            <img src="{{ asset('assets/img/other/shipping4.webp') }}" alt="icon-img">
-                        </div>
-                        <div class="shipping__content">
-                            <h2 class="shipping__content--title h3">Payment Secure</h2>
-                            <p class="shipping__content--desc">We ensure secure payment</p>
-                        </div>
+                    <div class="shipping__content">
+                        <h2 class="shipping__content--title h3">Soporte 24/7</h2>
+                        <p class="shipping__content--desc">Contáctanos las 24 horas del día</p>
+                    </div>
+                </div>
+                <div class="shipping__items style2 d-flex align-items-center">
+                    <div class="shipping__icon">
+                        <img src="assets/img/other/shipping3.webp" alt="icon-img">
+                    </div>
+                    <div class="shipping__content">
+                        <h2 class="shipping__content--title h3">Sólo lo mejor</h2>
+                        <p class="shipping__content--desc">La mejor calidad garantizada</p>
+                    </div>
+                </div>
+                <div class="shipping__items style2 d-flex align-items-center">
+                    <div class="shipping__icon">
+                        <img src="assets/img/other/shipping4.webp" alt="icon-img">
+                    </div>
+                    <div class="shipping__content">
+                        <h2 class="shipping__content--title h3">Pago seguro</h2>
+                        <p class="shipping__content--desc">Compra con seguridad y confianza</p>
                     </div>
                 </div>
             </div>
-        </section>
-        <!-- End shipping section -->
+        </div>
+    </section>
+    <!-- End shipping section -->
 
 
 

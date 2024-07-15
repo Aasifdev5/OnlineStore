@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Su pedido</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -12,21 +13,27 @@
             border-radius: 10px;
             background-color: #f9f9f9;
         }
+
         .header {
             text-align: center;
             padding: 10px 0;
             border-bottom: 1px solid #ddd;
             margin-bottom: 20px;
         }
-        .order-details, .product-details {
+
+        .order-details,
+        .product-details {
             margin-bottom: 20px;
         }
-        .product-details th, .product-details td {
+
+        .product-details th,
+        .product-details td {
             padding: 10px;
             text-align: left;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
@@ -52,18 +59,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($order->products as $product)
-                    @php
-                    $color = \App\Models\ProductVariations::where('sku',$product->sku)->first()->color;
-                    @endphp
-                    <tr>
-                        <td>{{ $product->title }}</td>
-                        <td>{{ $product->pivot->quantity }}</td>
-                        <td>{{ $color }}</td>
-                        <td>BS{{ number_format($product->pivot->price, 2) }}</td>
-                        <td>BS{{ number_format($product->pivot->price * $product->pivot->quantity, 2) }}</td>
-                    </tr>
+                    @foreach ($order->products as $product)
+                        @php
+                            $productVariation = \App\Models\ProductVariations::where('sku', $product->sku)->first();
+                            $color = $productVariation ? $productVariation->color : 'N/A'; // Set default color to 'N/A' if not found
+                        @endphp
+                        <tr>
+                            <td>{{ $product->title }}</td>
+                            <td>{{ $product->pivot->quantity }}</td>
+                            <td>{{ $color }}</td>
+                            <td>BS{{ number_format($product->pivot->price, 2) }}</td>
+                            <td>BS{{ number_format($product->pivot->price * $product->pivot->quantity, 2) }}</td>
+                        </tr>
                     @endforeach
+
                 </tbody>
             </table>
         </div>
@@ -74,4 +83,5 @@
         </div>
     </div>
 </body>
+
 </html>

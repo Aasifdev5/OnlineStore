@@ -695,25 +695,51 @@ $latestProductId = $product->id;
     public function filterProducts(Request $request)
 {
 
-    $user_session = User::where('id', Session::get('LoggedIn'))->first();
+
+$user_session = User::where('id', Session::get('LoggedIn'))->first();
     // Assuming $user_session is defined to access user's price field
     $userPriceField = $user_session->price;
-$userCategories = !empty($user_session->categories) ? explode(',', $user_session->categories) : [];
+    $userCategories = !empty($user_session->categories) ? explode(',', $user_session->categories) : [];
      // Fetch products based on price range
     $minPrice = (int) $request->min_price;
     $maxPrice = (int) $request->max_price;
-
-   $filteredProducts = Product::whereIn('category', $userCategories)
-    ->whereNotIn('sku', function($query) {
+$filteredProducts = \DB::table('products as p')
+    ->leftJoin('product_variations as pv', function($join) {
+        $join->on('p.id', '=', 'pv.product_id')
+             ->whereRaw('pv.id = (select max(id) from product_variations where product_id = p.id)');
+    })
+    ->leftJoin('products as variation_products', 'pv.sku', '=', 'variation_products.sku')
+    ->whereIn('p.category', $userCategories)
+    ->whereNotIn('p.sku', function($query) {
         $query->select('sku')
               ->from('product_variations');
     })
-    ->whereBetween($userPriceField, [$minPrice, $maxPrice])
-    ->orderBy('id', 'desc')
+    ->whereBetween('p.' . $userPriceField, [$minPrice, $maxPrice])
+    ->orderBy('p.id', 'asc')
+    ->groupBy('p.id')
+    ->select('p.id', 'p.title', 'p.slug', 'p.f_thumbnail', 'p.price', 'variation_products.f_thumbnail as variation_thumbnail')
     ->get();
 
+// Adjust data structure as needed before returning JSON response
+$products = [];
+foreach ($filteredProducts as $product) {
+    $hasVariation = !empty($product->variation_thumbnail);
+    $thumbnail = $hasVariation ? $product->variation_thumbnail : $product->f_thumbnail;
 
-    return response()->json(['products' => $filteredProducts]);
+    $products[] = [
+        'id' => $product->id,
+        'title' => $product->title,
+        'slug' => $product->slug,
+        'f_thumbnail' => $thumbnail,
+        'price' => $product->price,
+        'has_variation' => $hasVariation,
+        'variation_details' => [
+            'f_thumbnail' => $product->variation_thumbnail ?? '',
+        ],
+    ];
+}
+
+return response()->json(['products' => $products]);
 }
 
     public function productbyCategory($id)
@@ -747,59 +773,88 @@ $userCategories = !empty($user_session->categories) ? explode(',', $user_session
 
         $userCategories = $user_session->categories ? explode(',', $user_session->categories) : [];
 
-        // Query products based on user's allowed categories
-        $query = Product::whereIn('category', $userCategories);
+// Query products based on user's allowed categories
+$query = Product::whereIn('category', $userCategories);
 
-        if (!empty($searchTerm)) {
-            $query->where('title', 'like', '%' . $searchTerm . '%');
-        }
+if (!empty($searchTerm)) {
+    $query->where('title', 'like', '%' . $searchTerm . '%');
+}
 
-        if (!empty($categoryId) && $categoryId != 1) {
-            $query->where('category', $categoryId);
-        }
+if (!empty($categoryId) && $categoryId != 1) {
+    $query->where('category', $categoryId);
+}
 
-        // Exclude products with skus present in product_variations table
-        $query->whereNotIn('sku', function($subquery) {
-            $subquery->select('sku')
-                     ->from('product_variations');
-        });
+// Exclude products with skus present in product_variations table
+$query->whereNotIn('sku', function($subquery) {
+    $subquery->select('sku')
+             ->from('product_variations');
+});
 
-        // Get products matching the query
-        $products = $query->get();
+// Get products matching the query
+$products = $query->get();
 
 
         // Return JSON response with a 200 status code (assuming success)
         return response()->json($products, 200);
     }
-    public function addToCart($price, $id,$quantity)
-    {
-        $productSku= Product::where('id',$id)->first();
-        $color = ProductVariations::where('sku',$productSku->sku)->first()->color;
-        // dd($color);
-        $saveIntoCart = Cart::create([
-            'user_id' => Session::get('LoggedIn'),
-            'product_id' => $id,
-            'color'=>$color,
-            'price' => $price,
-            'quantity' => $quantity,
-        ]);
-        return back()->with('success','Product is added to cart');
+    public function addToCart($price, $id, $quantity)
+{
+    $productSku = Product::where('id', $id)->first();
+
+    if (!$productSku) {
+        return back()->with('error', 'Product not found.');
     }
-     public function BuyaddToCart($price, $id,$quantity)
-    {
-        $productSku= Product::where('id',$id)->first();
-        $color = ProductVariations::where('sku',$productSku->sku)->first()->color;
-        // dd($color);
-        // dd($quantity);
-        $saveIntoCart = Cart::create([
-            'user_id' => Session::get('LoggedIn'),
-            'product_id' => $id,
-            'color'=>$color,
-            'price' => $price,
-            'quantity' => $quantity,
-        ]);
-        return redirect()->route('cart');
+
+    $variation = ProductVariations::where('sku', $productSku->sku)->first();
+
+    // Check if a variation exists
+    if ($variation) {
+        $color = $variation->color;
+    } else {
+        $color = ''; // Handle the case where no variation is found
     }
+
+    // Save into cart
+    $saveIntoCart = Cart::create([
+        'user_id' => Session::get('LoggedIn'),
+        'product_id' => $id,
+        'color' => $color,
+        'price' => $price,
+        'quantity' => $quantity,
+    ]);
+
+    return back()->with('success', 'Product is added to cart');
+}
+
+     public function BuyaddToCart($price, $id, $quantity)
+{
+    $product = Product::find($id);
+
+    if (!$product) {
+        return back()->with('error', 'Product not found.');
+    }
+
+    $variation = ProductVariations::where('sku', $product->sku)->first();
+
+    // Check if a variation exists
+    if ($variation) {
+        $color = $variation->color;
+    } else {
+        $color = ''; // Handle the case where no variation is found
+    }
+
+    // Save into cart
+    $saveIntoCart = Cart::create([
+        'user_id' => Session::get('LoggedIn'),
+        'product_id' => $id,
+        'color' => $color,
+        'price' => $price,
+        'quantity' => $quantity,
+    ]);
+
+    return redirect()->route('cart');
+}
+
     public function updateQuantity(Request $request)
     {
         $productId = $request->input('productId');

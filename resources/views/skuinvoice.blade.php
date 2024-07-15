@@ -97,6 +97,7 @@
         <thead class="thead-light">
             <tr>
                 <th>Producto</th>
+                <th>SKU</th>
                 <th>Descripción</th>
                 <th>Cantidad</th>
                 <th>Precio unitario</th>
@@ -107,6 +108,7 @@
             @foreach($items as $item)
             <tr>
                 <td>{{ $item->product->title }}</td>
+                <td>{{$item->product->sku}}</td>
                 <td>{!! $item->product->short_desc !!}</td>
                 <td>{{ $item->quantity }}</td>
                 <td>{{ number_format($item->price, 2) }}</td>
@@ -116,7 +118,7 @@
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="4">Gran total:</td>
+                <td colspan="5">Gran total:</td>
                 <td>{{ number_format($order->total_amount, 2) }}</td>
             </tr>
         </tfoot>

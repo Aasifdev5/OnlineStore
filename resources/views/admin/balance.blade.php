@@ -1,6 +1,6 @@
 @extends('admin.Master')
 @section('title')
-    Order Request
+    Pedido
 @endsection
 @section('content')
     <style>
@@ -79,7 +79,7 @@
                             </div>
                         @endif
                         <div class="card-header">
-                            <h5> Order Request List</h5>
+                            <h5> Lista de solicitudes de pedidos</h5>
 
                         </div>
                         <div class="card-body">
@@ -88,87 +88,85 @@
                                     <thead class="thead-dark">
                                         <tr>
                                             <th>#</th>
-                                            <th>Order ID</th>
+                                            <th>Usuario</th>
+                                            <th>Número de pedido</th>
                                             <th>Monto</th>
-                                            <th>Recibo</th>
-                                            <th>Estado</th>
-                                            <th>Acción</th>
+                                            <th>Producto</th>
+                                            <th>SKU</th>
+                                            <th>Precio</th>
+                                            <th>Cantidad</th>
+                                            <th>Color</th>
+                                            <th>Imagen</th>
+                                            <th>Factura</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @php
                                             $previousOrderId = null; // To keep track of the previous order ID
-                                            $totalAmount = 0; // To accumulate the total amount for the order
                                         @endphp
 
                                         @foreach ($transaction as $transaction)
                                             @php
                                                 $products = json_decode($transaction->product_details, true);
                                                 $orderAmount = $transaction->amount;
+                                                $user = \App\Models\User::find($transaction->user_id); // Fetch user information
                                             @endphp
 
-                                            @foreach ($products as $product)
+                                            @foreach ($products as $index => $product)
                                                 @php
                                                     $productDetails = \App\Models\Product::find($product['product_id']);
-                                                    $totalAmount += $product['price']; // Summing up the price of each product
+                                                    if (!$productDetails) {
+                                                        continue;
+                                                    } // Skip if product details not found
+
+                                                    $orderItem = \App\Models\OrderItem::where(
+                                                        'order_id',
+                                                        $transaction->order_id,
+                                                    )
+                                                        ->where('product_id', $product['product_id'])
+                                                        ->first();
+                                                    $productColor = $orderItem ? $orderItem->color : 'N/A';
+                                                    $productSku = $productDetails->sku ?? 'N/A';
+
+                                                    // Show "Descargar factura" link only for the first product in each order
+                                                    $showInvoiceLink = $index === 0;
                                                 @endphp
 
-                                                @if ($productDetails)
-                                                    @if ($transaction->order_id !== $previousOrderId)
-                                                        <tr>
-                                                            <td colspan="6">Order ID: {{ $transaction->order_id }}</td>
-                                                            <!-- Display the total order amount -->
-                                                        </tr>
-                                                        <tr>
-                                                            <td>{{ $loop->parent->iteration }}</td>
-                                                            <!-- Use $loop->parent to get the iteration of the outer loop -->
-                                                            <td>{{ $transaction->order_id }}</td>
-                                                            <td>{{ $orderAmount }}</td>
-                                                            <td>
-                                                                @if ($transaction->payment_receipt)
-                                                                    <a href="{{ asset($transaction->payment_receipt) }}"
-                                                                        target="_blank">
-                                                                        <img src="{{ asset($transaction->payment_receipt) }}"
-                                                                            alt="Payment Receipt" style="max-width: 100px;">
-                                                                    </a>
-                                                                @else
-                                                                    No receipt uploaded
-                                                                @endif
-                                                            </td>
-                                                            <td>
-                                                                @if ($transaction->accepted)
-                                                                    Aceptado
-                                                                @else
-                                                                    Pendiente
-                                                                @endif
-                                                            </td>
-                                                            <td>
-                                                                @if (!$transaction->accepted)
-                                                                    <a href="{{ route('accept', ['id' => $transaction->id]) }}"
-                                                                        class="btn btn-sm btn-success">Aceptar</a>
-                                                                @endif
-                                                            </td>
-                                                        </tr>
-                                                        @php
-                                                            $previousOrderId = $transaction->order_id;
-                                                            $totalAmount = 0; // Reset total amount for the new order ID
-                                                        @endphp
-                                                    @endif
+                                                @if ($transaction->order_id !== $previousOrderId)
                                                     <tr>
-                                                        <td></td>
-                                                        <td>{{ $productDetails->title }}</td>
-                                                        <td>{{ $product['price'] }}</td>
-                                                        <td> <img
-                                                                src="{{ asset('f_thumbnail/' . $productDetails->f_thumbnail) }}"
-                                                                width="70" height="50" /></td>
-                                                        <td colspan="3"></td>
+                                                        <td>{{ $loop->parent->iteration }}</td>
+                                                        <td>{{ $user ? $user->name : 'Usuario desconocido' }}</td>
+                                                        <td>{{ $transaction->order_id }}</td>
+                                                        <td>{{ 'Total : BS' . number_format($orderAmount, 2) }}</td>
+                                                        <td colspan="6"></td>
                                                         <!-- Empty colspan to align with headers -->
                                                     </tr>
+                                                    @php
+                                                        $previousOrderId = $transaction->order_id;
+                                                    @endphp
                                                 @endif
+
+                                                <tr>
+                                                    <td>{{ $index + 1 }}</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td>{{ $productDetails->title }}</td>
+                                                    <td>{{ $productSku }}</td>
+                                                    <td>{{ 'BS' . number_format($product['price'], 2) }}</td>
+                                                    <td>{{ $product['quantity'] }}</td>
+                                                    <td>{{ $productColor }}</td>
+                                                    <td><img src="{{ asset('product_images/' . $productDetails->f_thumbnail) }}"
+                                                            width="70" height="50" /></td>
+                                                    <td class="account__table--body__cell">
+                                                        @if ($showInvoiceLink)
+                                                            <a href="{{ route('SkugenerateInvoice', ['id' => $transaction->order_id]) }}"
+                                                                class="btn btn-primary">Descargar factura</a>
+                                                        @endif
+                                                    </td>
+                                                </tr>
                                             @endforeach
                                         @endforeach
-
-
                                     </tbody>
                                 </table>
 

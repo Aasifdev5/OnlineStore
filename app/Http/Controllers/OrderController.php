@@ -11,21 +11,15 @@ use App\Models\Product;
 use App\Models\ProductVariations;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
     public function store(Request $request)
     {
         $request->validate([
-            'full_name' => 'required|string|max:255',
-            'amount' => 'required|numeric',
-            'payment_receipt' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-            'address' => 'required|string|max:255',
-            'city' => 'required|string|max:255',
-            'country' => 'required|string|max:255',
             'cart_products' => 'required|array',
             'cart_products.*.product_id' => 'required|integer',
             'cart_products.*.quantity' => 'required|integer|min:1',
@@ -39,34 +33,37 @@ class OrderController extends Controller
             $total_amount += $cart_product['price'] * $cart_product['quantity'];
         }
 
-        DB::transaction(function () use ($request, $user_id, $total_amount) {
+        $OrderId = DB::transaction(function () use ($request, $user_id, $total_amount) {
+            $userDetails = User::find($user_id);
+
             // Create the order
             $order = Order::create([
                 'user_id' => $user_id,
-                'full_name' => $request->full_name,
-                'address' => $request->address,
-                'city' => $request->city,
-                'country' => $request->country,
+                'full_name' => $userDetails->name,
+                'address' => $userDetails->location,
+                'city' => $userDetails->city,
+                'country' => $userDetails->city,
                 'postal_code' => $request->postal_code,
                 'total_amount' => $total_amount,
             ]);
 
-            // Attach products to the order
             foreach ($request->cart_products as $cart_product) {
-                $productSku= Product::where('id',$cart_product['product_id'])->first();
-                $color = ProductVariations::where('sku',$productSku->sku)->first()->color;
-
-                OrderItem::create([
-                    'order_id' => $order->id,
-                    'product_id' => $cart_product['product_id'],
-                    'color'=>$color,
-                    'quantity' => $cart_product['quantity'],
-                    'price' => $cart_product['price'],
-                ]);
-
-                // Update product stock
                 $product = Product::find($cart_product['product_id']);
+
                 if ($product) {
+                    $productVariation = ProductVariations::where('sku', $product->sku)->first();
+
+                    $color = $productVariation ? $productVariation->color : '';
+
+                    OrderItem::create([
+                        'order_id' => $order->id,
+                        'product_id' => $cart_product['product_id'],
+                        'color' => $color,
+                        'quantity' => $cart_product['quantity'],
+                        'price' => $cart_product['price'],
+                    ]);
+
+                    // Update product stock
                     $product->stock_qty -= $cart_product['quantity'];
                     $product->save();
                 } else {
@@ -110,8 +107,10 @@ class OrderController extends Controller
 
             // Clear the user's cart
             Cart::where('user_id', $user_id)->delete();
+
+            return $order->id; // Return the order ID
         });
 
-        return redirect()->route('order.success');
+        return redirect()->route('invoice.generate', ['id' => $OrderId]);
     }
 }

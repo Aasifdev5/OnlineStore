@@ -119,6 +119,7 @@
 
 <body>
 
+    @if (Request::path() !== 'cart')
     <!-- Start preloader -->
     <div id="preloader">
         <div id="ctn-preloader" class="ctn-preloader">
@@ -159,6 +160,8 @@
         </div>
     </div>
     <!-- End preloader -->
+@endif
+
 
     <!-- Start header area -->
     <header class="header__section mb-20">
