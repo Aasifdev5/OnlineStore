@@ -419,7 +419,8 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/getProductsTableData', [ProductsController::class, 'getProductsTableData'])->name('backend.getProductsTableData');
         Route::post('saveProductsData', [ProductsController::class, 'saveProductsData'])->name('saveProductsData');
         Route::delete('/deleteProducts/{id}', [ProductsController::class, 'deleteProducts'])->name('backend.deleteProducts');
-
+        Route::get('/get-subcategories/{categoryId}', [ProductsController::class, 'getSubcategories']);
+        Route::get('/get-childcategories/{subcategoryId}', [ProductsController::class, 'getChildcategories']);
         Route::post('/hasProductSlug', [ProductsController::class, 'hasProductSlug'])->name('backend.hasProductSlug');
         //Update
         Route::get('/product/{id}', [ProductsController::class, 'getProductPageData'])->name('backend.product');

@@ -82,6 +82,7 @@ class ProductsController extends Controller
             'f_thumbnail' => $thumbnail,
             'category' => $category,
             'subcategory_id' => $subcategory_id,
+            'childcategory' => $childcategory,
             'short_desc' => $short_desc,
             'description' => $description,
             'brand_id' => $brand_id,
@@ -211,6 +212,10 @@ class ProductsController extends Controller
             $brandlist = Brand::where('is_publish', 1)->orderBy('name', 'asc')->get();
             $categorylist = Pro_category::where('is_publish', 1)->orderBy('name', 'asc')->get();
             $subcategorylist = Subcategory::all();
+            $childcategory = Subcategory::where('parent_category_id', '!=', 0)
+                            ->where('category_id', '!=', 0)
+                            ->get();
+
             $taxlist = Tax::orderBy('title', 'asc')->get();
             $unitlist = Attribute::orderBy('name', 'asc')->get();
             $datalist = Product::where('id', $id)->first();
@@ -221,10 +226,20 @@ class ProductsController extends Controller
                 ->orderBy('users.store', 'asc')
                 ->get();
 
-            return view('admin.backend.product', compact('brandlist', 'categorylist', 'storeList', 'taxlist', 'storeList', 'unitlist', 'user_session', 'datalist', 'subcategorylist'));
+            return view('admin.backend.product', compact('brandlist', 'categorylist', 'storeList', 'taxlist', 'storeList', 'unitlist', 'user_session', 'datalist', 'subcategorylist','childcategory'));
         }
     }
+public function getSubcategories($categoryId)
+    {
+        $subcategories = Subcategory::where('parent_category_id', $categoryId)->get();
+        return response()->json($subcategories);
+    }
 
+    public function getChildcategories($subcategoryId)
+    {
+        $childcategories = Subcategory::where('category_id', $subcategoryId)->get();
+        return response()->json($childcategories);
+    }
 
 
     //get Price
@@ -483,6 +498,7 @@ class ProductsController extends Controller
                                 'sku' => $sku,
                                 'category' => $product->category,
                                 'subcategory_id' => $product->subcategory_id,
+                                'childcategory' => $product->childcategory,
                                 'short_desc' => $product->short_desc,
                                 'brand_id' => $product->brand_id,
                                 'store_id' => $product->store_id,
