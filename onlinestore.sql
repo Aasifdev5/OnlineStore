@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 07, 2024 at 03:10 PM
+-- Generation Time: Jul 17, 2024 at 09:33 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -327,14 +327,21 @@ CREATE TABLE `brands` (
 --
 
 INSERT INTO `brands` (`id`, `name`, `thumbnail`, `is_featured`, `is_publish`, `lan`, `created_at`, `updated_at`) VALUES
-(1, 'Kari', '09092022091522-400x400-brand-3.png', 1, 1, 'en', '2022-07-30 03:05:01', '2022-09-08 21:45:53'),
-(2, 'Mina', '09092022091526-400x400-brand-5.png', 1, 1, 'en', '2022-07-30 03:05:28', '2022-09-08 21:46:05'),
-(3, 'Arod', '09092022091535-400x400-brand-7.png', 1, 1, 'en', '2022-07-30 03:05:43', '2022-09-08 21:46:16'),
-(4, 'Pana Food', '09092022091519-400x400-brand-2.png', 1, 1, 'en', '2022-07-30 03:06:07', '2022-09-08 21:46:25'),
-(7, 'Nisha', '09092022091524-400x400-brand-4.png', 1, 1, 'en', '2022-07-30 03:08:17', '2024-06-25 00:13:43'),
-(8, 'Alex', NULL, NULL, NULL, NULL, '2024-06-26 22:41:42', '2024-06-26 22:41:42'),
-(9, 'df', NULL, NULL, NULL, NULL, '2024-06-26 22:45:06', '2024-06-26 22:45:06'),
-(10, 'xc', NULL, NULL, NULL, NULL, '2024-06-26 22:46:32', '2024-06-26 22:46:32');
+(4, 'Rockbros', '09092022091519-400x400-brand-2.png', 1, 1, 'en', '2022-07-30 03:06:07', '2024-06-27 03:11:23'),
+(8, 'Shimano', NULL, NULL, NULL, NULL, '2024-06-27 04:19:42', '2024-07-17 01:57:30'),
+(9, 'Chaoyang', NULL, NULL, NULL, NULL, '2024-07-17 01:57:57', '2024-07-17 01:57:57'),
+(10, 'Troy Lee', NULL, NULL, NULL, NULL, '2024-07-17 01:58:17', '2024-07-17 01:58:17'),
+(11, 'KMC', NULL, NULL, NULL, NULL, '2024-07-17 01:58:34', '2024-07-17 01:58:34'),
+(12, 'Zoom', NULL, NULL, NULL, NULL, '2024-07-17 01:59:21', '2024-07-17 01:59:21'),
+(13, 'Wanda', NULL, NULL, NULL, NULL, '2024-07-17 01:59:38', '2024-07-17 01:59:38'),
+(14, 'Dura más', NULL, NULL, NULL, NULL, '2024-07-17 01:59:55', '2024-07-17 01:59:55'),
+(15, 'Deckas', NULL, NULL, NULL, NULL, '2024-07-17 02:00:17', '2024-07-17 02:00:17'),
+(16, 'Ipro', NULL, NULL, NULL, NULL, '2024-07-17 02:01:11', '2024-07-17 02:01:11'),
+(17, 'Aria', NULL, NULL, NULL, NULL, '2024-07-17 02:01:54', '2024-07-17 02:01:54'),
+(18, 'Taiwan', NULL, NULL, NULL, NULL, '2024-07-17 02:02:14', '2024-07-17 02:02:14'),
+(19, 'Pacific', NULL, NULL, NULL, NULL, '2024-07-17 02:02:38', '2024-07-17 02:02:38'),
+(20, 'Trupper', NULL, NULL, NULL, NULL, '2024-07-17 02:02:59', '2024-07-17 02:02:59'),
+(21, 'Uyustools', NULL, NULL, NULL, NULL, '2024-07-17 02:03:14', '2024-07-17 02:03:14');
 
 -- --------------------------------------------------------
 
@@ -398,11 +405,20 @@ CREATE TABLE `carts` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `product_id` bigint(20) UNSIGNED NOT NULL,
+  `color` varchar(255) DEFAULT NULL,
   `price` decimal(10,2) NOT NULL,
   `quantity` int(10) UNSIGNED NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `carts`
+--
+
+INSERT INTO `carts` (`id`, `user_id`, `product_id`, `color`, `price`, `quantity`, `created_at`, `updated_at`) VALUES
+(43, 33, 82, 'blanco', 40.00, 10, '2024-07-16 21:54:47', '2024-07-16 21:55:23'),
+(44, 33, 83, 'naranja', 40.00, 10, '2024-07-16 21:54:59', '2024-07-16 21:55:34');
 
 -- --------------------------------------------------------
 
@@ -431,10 +447,10 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `uuid`, `name`, `image`, `is_feature`, `slug`, `meta_title`, `meta_description`, `meta_keywords`, `og_image`, `status`, `created_at`, `updated_at`) VALUES
-(7, '90cd37ac-b804-4095-a471-3651ec40718a', 'Bicicleta', 'uploads/category/1711952243-bxpq7BT3hU.png', 'no', 'Bicicleta', 'Bicicleta', 'Bicicleta', 'Bicicleta', 'uploads/meta/1711873741-Pp45UkDnvf.png', 1, '2022-12-04 17:05:33', '2024-06-28 01:06:09'),
-(9, 'a1d1c370-5ce4-4bbc-9b27-5e8645282259', 'Motorcycle', 'uploads/category/1711873546-zEEkXFlIHs.png', 'no', 'Motorcycle', NULL, NULL, NULL, 'uploads/meta/1711873546-AhtaJbnpyt.png', 1, '2022-12-04 17:05:33', '2024-03-31 02:59:53'),
-(14, '86008391-2012-4caa-8a23-671590e5ce89', 'Shimano', 'uploads/category/1711873644-7BrNKAri9h.png', 'no', 'Shimano', NULL, NULL, NULL, 'uploads/meta/1711873644-LR7hxcxK2M.png', 1, '2024-03-31 01:43:56', '2024-03-31 02:57:24'),
-(15, 'd5a337f2-8f46-47ea-ab54-bb651bcafc2c', 'Load Line', 'uploads/category/1711870592-6dexcokD6I.png', 'no', 'Load-Line', NULL, NULL, NULL, 'uploads/meta/1711870592-VnhTOQYtmd.png', 1, '2024-03-31 02:06:32', '2024-03-31 02:06:32');
+(7, '90cd37ac-b804-4095-a471-3651ec40718a', 'Bicicleta', 'uploads/category/1720419591-OiolP0oVX7.svg', 'no', 'Bicicleta', 'Bicicleta', 'Bicicleta', 'Bicicleta', 'uploads/meta/1720419591-rFBebR3bND.svg', 1, '2022-12-04 17:05:33', '2024-07-08 06:19:51'),
+(9, 'a1d1c370-5ce4-4bbc-9b27-5e8645282259', 'Motocicleta', 'uploads/category/1720753152-aVZCoC6QrF.png', 'no', 'Motocicleta', NULL, NULL, NULL, 'uploads/meta/1720753152-eGKVPr8FL3.png', 1, '2022-12-04 17:05:33', '2024-07-12 02:59:12'),
+(14, '86008391-2012-4caa-8a23-671590e5ce89', 'Shimano', 'uploads/category/1720753178-uBy8xNIuYv.png', 'no', 'Shimano', NULL, NULL, NULL, 'uploads/meta/1720753178-6DpInDWdgL.png', 1, '2024-03-31 01:43:56', '2024-07-12 02:59:38'),
+(15, 'd5a337f2-8f46-47ea-ab54-bb651bcafc2c', 'Linea de carga', 'uploads/category/1720753204-jnK9HK3G44.png', 'no', 'Linea-de-carga', NULL, NULL, NULL, 'uploads/meta/1720753204-D3aASkGblP.png', 1, '2024-03-31 02:06:32', '2024-07-12 03:00:04');
 
 -- --------------------------------------------------------
 
@@ -821,7 +837,7 @@ CREATE TABLE `general_settings` (
 --
 
 INSERT INTO `general_settings` (`id`, `time_zone`, `default_language`, `styling`, `address`, `site_name`, `site_email`, `site_logo`, `site_favicon`, `site_description`, `site_keywords`, `site_header_code`, `site_footer_code`, `site_copyright`, `currency_code`, `footer_fb_link`, `footer_twitter_link`, `footer_instagram_link`, `footer_google_play_link`, `footer_apple_store_link`, `smtp_host`, `smtp_port`, `smtp_email`, `smtp_password`, `smtp_encryption`, `google_login`, `facebook_login`, `google_client_id`, `google_client_secret`, `google_redirect`, `facebook_app_id`, `facebook_client_secret`, `facebook_redirect`, `linkedin_login`, `linkedin_client_id`, `linkedin_app_id`, `Instagram_login`, `Instagram_client_id`, `instagram_app_id`, `git_login`, `git_client_id`, `git_app_id`, `twitter_login`, `twitter_client_id`, `twitter_app_id`, `created_at`, `updated_at`) VALUES
-(1, 'Pacific/Midway', 'English', '5619876543210', '722 NY ,US', 'BIKEBROS', 'BIKEBROS@gmail.com', 'Logo bikebros oficial color amarillo.png', 'WhatsApp_Image_2024-06-19_at_20.37.04-removebg-preview.png', '<p>BIKEBROS</p>', 'BIKEBROS', '', '', '© Copyright by BIKEBROS 2024', 'Afghan Afghani', 'https://www.facebook.com/', 'https://twitter.com/?lang=en', 'https://www.instagram.com/', '', '', 'smtp.gmail.com', '465', 'ars3sssssss@gmail.com', 'aexvmzqihfdqmnno', 'TLS', 'yes', NULL, '8', '9876543210', 'http://127.0.0.1:8000/auth/git/callback', NULL, NULL, 'http://127.0.0.1:8000/auth/twitter/callback', 'yes', '6546544654', '512sd213sad1232df13sd2f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-23 07:37:40');
+(1, 'America/aracas', 'English', '5619876543210', '722 NY ,US', 'BIKEBROS', 'BIKEBROS@gmail.com', 'logos bikebros.png', 'WhatsApp_Image_2024-06-19_at_20.37.04-removebg-preview.png', '<p>BIKEBROS</p>', '<p>BIKEBROS</p>', '', '', '© Copyright by BIKEBROS 2024', 'Afghan Afghani', 'https://www.facebook.com/', 'https://twitter.com/?lang=en', 'https://www.instagram.com/', '', '', 'smtp.gmail.com', '465', 'ars3sssssss@gmail.com', 'aexvmzqihfdqmnno', 'TLS', 'yes', NULL, '8', '9876543210', 'http://127.0.0.1:8000/auth/git/callback', NULL, NULL, 'http://127.0.0.1:8000/auth/twitter/callback', 'yes', '6546544654', '512sd213sad1232df13sd2f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-07-11 22:20:41');
 
 -- --------------------------------------------------------
 
@@ -939,9 +955,9 @@ CREATE TABLE `mail_templates` (
 --
 
 INSERT INTO `mail_templates` (`id`, `alias`, `name`, `subject`, `body`, `shortcodes`, `status`) VALUES
-(10, 'password_reset', 'Restablecer Contraseña', 'Notificación de Restablecimiento de Contraseña', '<p><strong>Reset Password Notification</strong></p><p><img src=\"../../../logo-removebg-preview.png\" alt=\"\"></p><h2><strong>Hello!</strong></h2><p>You are receiving this email because we received a password reset request for your account, please click on the link below to reset your password.</p><p><a href=\"{{link}}\">{{link}}</a></p><p>This password reset link will expire in <strong>15</strong> minutes. If you did not request a password reset, no further action is required.</p><p><strong>Best Regards</strong></p><p><strong>ACELERA Team</strong></p><p>&nbsp;<a href=\"https://www.instagram.com/skyforecasting/\"><img src=\"https://skyforecasting.net/help-center/media/images/ofBRYlvT1cu30VS_1700260141.png\"></a> <a href=\"https://twitter.com/skyforecasting\"><img src=\"https://skyforecasting.net/help-center/media/images/lSr0pUYldGRD46h_1700260215.png\"></a> <img src=\"https://skyforecasting.net/help-center/media/images/pk8iEq2c7f3mICO_1700260869.png\"> <img src=\"https://skyforecasting.net/help-center/media/images/krFVCzRVOornVih_1700260896.png\"></p><p>You received this email because you subscribed to our list.<br>&nbsp;<a href=\"https://skyforecasting.net/unsubscribepage/unsubscribe.html\">Unsubscribe</a> from future emails or update email preferences.<br>© 2024 ACELERA. All Rights Reserved.</p><p>&nbsp;</p><p><br>&nbsp;</p><p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</p><p>&nbsp;</p>', '{\n\"link\":\"Password reset link\",\n\"expiry_time\":\"Link expiry time\",\n\"website_name\":\"Your website name\"\n}', 1),
-(11, 'email_verification', 'Verificación de Correo Electrónico', 'Verificar Dirección de Correo Electrónico', '<p><strong>Verify Email Address</strong></p><p><img src=\"../../../logo-removebg-preview.png\" alt=\"\"></p><h2>Hello!</h2><p>Please click on the link below to verify your email address.</p><p><a href=\"{{link}}\">{{link}}</a></p><p>If you did not create an account, no further action is required.</p><p><br><strong>Best Regards</strong></p><p><strong>ACELERA&nbsp; Team</strong></p><p>&nbsp;<a href=\"https://www.instagram.com/skyforecasting/\"><img src=\"https://skyforecasting.net/help-center/media/images/ofBRYlvT1cu30VS_1700260141.png\"></a> <a href=\"https://twitter.com/skyforecasting\"><img src=\"https://skyforecasting.net/help-center/media/images/lSr0pUYldGRD46h_1700260215.png\"></a> <a href=\"https://www.facebook.com/profile.php?id=61553152322786\"><img src=\"https://skyforecasting.net/help-center/media/images/pk8iEq2c7f3mICO_1700260869.png\"></a> <a href=\"https://www.youtube.com/channel/UCscdHPJ4f79CAmiO2f9gJoA\"><img src=\"https://skyforecasting.net/help-center/media/images/krFVCzRVOornVih_1700260896.png\"></a></p><p>You received this email because you subscribed to our list.<br>&nbsp;<a href=\"https://skyforecasting.net/unsubscribepage/unsubscribe.html\">Unsubscribe</a> from future emails or update email preferences.<br>© 2024 ACELERA. All Rights Reserved.</p>', '{\"link\":\"Email verification link\",\"website_name\":\"Your website name\"}', 1),
-(18, 'welcome', 'Bienvenida', 'Bienvenido a ACELERA', '<h2><strong>Welcome to ACELERA&nbsp;</strong></h2><p><strong><img src=\"../../../logo-removebg-preview.png\" alt=\"\"></strong></p><p>Hey {{name}},&nbsp;</p><p>Welcome to &nbsp;<strong>ACELERA</strong>! We’re so excited to have you on board.</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Start Exploring</p><p>If you have any questions along the way, don’t hesitate to reach out to our customer success team. We’re always here to help.</p><p><br><strong>Best Regards</strong></p><p><strong>ACELERA&nbsp; Team</strong></p><p>&nbsp;<a href=\"https://www.instagram.com/skyforecasting/\"><img src=\"https://skyforecasting.net/help-center/media/images/ofBRYlvT1cu30VS_1700260141.png\"></a> <a href=\"https://twitter.com/skyforecasting\"><img src=\"https://skyforecasting.net/help-center/media/images/lSr0pUYldGRD46h_1700260215.png\"></a> <a href=\"https://www.facebook.com/profile.php?id=61553152322786\"><img src=\"https://skyforecasting.net/help-center/media/images/pk8iEq2c7f3mICO_1700260869.png\"></a> <a href=\"https://www.youtube.com/channel/UCscdHPJ4f79CAmiO2f9gJoA\"><img src=\"https://skyforecasting.net/help-center/media/images/krFVCzRVOornVih_1700260896.png\"></a></p><p>You received this email because you subscribed to our list.<br>&nbsp;<a href=\"https://skyforecasting.net/unsubscribepage/unsubscribe.html\">Unsubscribe</a> from future emails or update email preferences.<br>© 2024 &nbsp;ACELERA. All Rights Reserved.</p>', '{\"name\":\"name\",\"website_name\":\"Your website name\"}', 1);
+(10, 'password_reset', 'Restablecer Contraseña', 'Notificación de Restablecimiento de Contraseña', '<p><strong>Reset Password Notification</strong></p><p><img src=\"../../../logo-removebg-preview.png\" alt=\"\"></p><h2><strong>Hello!</strong></h2><p>You are receiving this email because we received a password reset request for your account, please click on the link below to reset your password.</p><p><a href=\"{{link}}\">{{link}}</a></p><p>This password reset link will expire in <strong>15</strong> minutes. If you did not request a password reset, no further action is required.</p><p><strong>Best Regards</strong></p><p><strong>BIKEBROS Team</strong></p><p>&nbsp;<a href=\"https://www.instagram.com/skyforecasting/\"><img src=\"https://skyforecasting.net/help-center/media/images/ofBRYlvT1cu30VS_1700260141.png\"></a> <a href=\"https://twitter.com/skyforecasting\"><img src=\"https://skyforecasting.net/help-center/media/images/lSr0pUYldGRD46h_1700260215.png\"></a> <img src=\"https://skyforecasting.net/help-center/media/images/pk8iEq2c7f3mICO_1700260869.png\"> <img src=\"https://skyforecasting.net/help-center/media/images/krFVCzRVOornVih_1700260896.png\"></p><p>You received this email because you subscribed to our list.<br>&nbsp;<a href=\"https://skyforecasting.net/unsubscribepage/unsubscribe.html\">Unsubscribe</a> from future emails or update email preferences.<br>© 2024 BIKEBROS. All Rights Reserved.</p><p>&nbsp;</p><p><br>&nbsp;</p><p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</p><p>&nbsp;</p>', '{\n\"link\":\"Password reset link\",\n\"expiry_time\":\"Link expiry time\",\n\"website_name\":\"Your website name\"\n}', 1),
+(11, 'email_verification', 'Verificación de Correo Electrónico', 'Verificar Dirección de Correo Electrónico', '<p><strong>Verify Email Address</strong></p><p><img src=\"../../../logo-removebg-preview.png\" alt=\"\"></p><h2>Hello!</h2><p>Please click on the link below to verify your email address.</p><p><a href=\"{{link}}\">{{link}}</a></p><p>If you did not create an account, no further action is required.</p><p><br><strong>Best Regards</strong></p><p><strong>BIKEBROS&nbsp;Team</strong></p><p>&nbsp;<a href=\"https://www.instagram.com/skyforecasting/\"><img src=\"https://skyforecasting.net/help-center/media/images/ofBRYlvT1cu30VS_1700260141.png\"></a> <a href=\"https://twitter.com/skyforecasting\"><img src=\"https://skyforecasting.net/help-center/media/images/lSr0pUYldGRD46h_1700260215.png\"></a> <a href=\"https://www.facebook.com/profile.php?id=61553152322786\"><img src=\"https://skyforecasting.net/help-center/media/images/pk8iEq2c7f3mICO_1700260869.png\"></a> <a href=\"https://www.youtube.com/channel/UCscdHPJ4f79CAmiO2f9gJoA\"><img src=\"https://skyforecasting.net/help-center/media/images/krFVCzRVOornVih_1700260896.png\"></a></p><p>You received this email because you subscribed to our list.<br>&nbsp;<a href=\"https://skyforecasting.net/unsubscribepage/unsubscribe.html\">Unsubscribe</a> from future emails or update email preferences.<br>© 2024 BIKEBROS. All Rights Reserved.</p>', '{\"link\":\"Email verification link\",\"website_name\":\"Your website name\"}', 1),
+(18, 'welcome', 'Bienvenida', 'Bienvenido a BIKEBROS', '<h2><strong>Bienvenido a BikeBros</strong></h2><p><strong><img src=\"../../../logo-removebg-preview.png\" alt=\"\"></strong></p><p>Hola {{name}},&nbsp;</p><p>Welcome to &nbsp;<strong>ACELERA</strong>! We’re so excited to have you on board.</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Start Exploring</p><p>If you have any questions along the way, don’t hesitate to reach out to our customer success team. We’re always here to help.</p><p><br><strong>Best Regards</strong></p><p><strong>ACELERA&nbsp; Team</strong></p><p>&nbsp;<a href=\"https://www.instagram.com/skyforecasting/\"><img src=\"https://skyforecasting.net/help-center/media/images/ofBRYlvT1cu30VS_1700260141.png\"></a> <a href=\"https://twitter.com/skyforecasting\"><img src=\"https://skyforecasting.net/help-center/media/images/lSr0pUYldGRD46h_1700260215.png\"></a> <a href=\"https://www.facebook.com/profile.php?id=61553152322786\"><img src=\"https://skyforecasting.net/help-center/media/images/pk8iEq2c7f3mICO_1700260869.png\"></a> <a href=\"https://www.youtube.com/channel/UCscdHPJ4f79CAmiO2f9gJoA\"><img src=\"https://skyforecasting.net/help-center/media/images/krFVCzRVOornVih_1700260896.png\"></a></p><p>You received this email because you subscribed to our list.<br>&nbsp;<a href=\"https://skyforecasting.net/unsubscribepage/unsubscribe.html\">Unsubscribe</a> from future emails or update email preferences.<br>© 2024 &nbsp;ACELERA. All Rights Reserved.</p>', '{\"name\":\"name\",\"website_name\":\"Your website name\"}', 1);
 
 -- --------------------------------------------------------
 
@@ -1341,11 +1357,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (28, '2024_01_17_140951_create_credit_reload_promotions_table', 16),
 (29, '2024_01_16_172130_create_attentions_table', 17),
 (30, '2024_06_09_091155_create_permissions_table', 18),
-(31, '2024_06_24_084835_create_product_variations_table', 19),
-(32, '2024_06_30_063352_create_wishlists_table', 20),
-(33, '2024_06_30_095240_create_billing_details_table', 21),
-(34, '2024_06_30_103519_create_orders_table', 22),
-(35, '2024_06_30_103639_create_order_items_table', 23);
+(31, '2024_06_24_084835_create_product_variations_table', 19);
 
 -- --------------------------------------------------------
 
@@ -1460,16 +1472,13 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `full_name`, `address`, `city`, `country`, `postal_code`, `total_amount`, `created_at`, `updated_at`) VALUES
-(1, 32, 'Aasif Ahmed', '722 azad nagar indore', 'Indore', 'India', '452001', 100.00, '2024-07-01 03:55:11', '2024-07-01 03:55:11'),
-(2, 32, 'eve', 'bolivia', 'bolivia', 'Bolivia', NULL, 200.00, '2024-07-06 02:24:12', '2024-07-06 02:24:12'),
-(3, 32, 'eve', 'bolivia', 'bolivia', 'Bolivia', NULL, 200.00, '2024-07-06 02:25:28', '2024-07-06 02:25:28'),
-(4, 32, 'eve', 'bolivia', 'bolivia', 'Bolivia', NULL, 200.00, '2024-07-06 02:25:51', '2024-07-06 02:25:51'),
-(5, 32, 'eve', 'bolivia', 'bolivia', 'Bolivia', NULL, 200.00, '2024-07-06 02:31:36', '2024-07-06 02:31:36'),
-(6, 32, 'eve', 'bolivia', 'bolivia', 'Bolivia', NULL, 200.00, '2024-07-06 02:33:40', '2024-07-06 02:33:40'),
-(7, 32, 'eve', 'bolivia', 'bolivia', 'Bolivia', NULL, 200.00, '2024-07-06 02:34:23', '2024-07-06 02:34:23'),
-(8, 32, 'eve', 'bolivia', 'bolivia', 'Bolivia', NULL, 100.00, '2024-07-06 02:38:07', '2024-07-06 02:38:07'),
-(9, 32, 'eve', 'bolivia', 'bolivia', 'Bolivia', NULL, 100.00, '2024-07-06 03:08:18', '2024-07-06 03:08:18'),
-(10, 32, 'eve', 'bolivia', 'bolivia', 'Bolivia', NULL, 100.00, '2024-07-06 03:14:55', '2024-07-06 03:14:55');
+(23, 44, 'Ivan', 'La Paz', 'La Paz', 'La Paz', NULL, 6912.00, '2024-07-15 04:42:02', '2024-07-15 04:42:02'),
+(28, 34, 'Aasif Ahmed', 'Indore', 'Indore', 'Indore', NULL, 576.00, '2024-07-15 06:20:38', '2024-07-15 06:20:38'),
+(29, 34, 'Aasif Ahmed', 'Indore', 'Indore', 'Indore', NULL, 34.00, '2024-07-15 09:04:17', '2024-07-15 09:04:17'),
+(30, 44, 'Ivan', 'La Paz', 'La Paz', 'La Paz', NULL, 686.00, '2024-07-15 14:07:54', '2024-07-15 14:07:54'),
+(31, 33, 'Juan', 'dfgfdghdf', 'ythgfh', 'ythgfh', NULL, 240.00, '2024-07-16 15:23:20', '2024-07-16 15:23:20'),
+(32, 40, 'Maribel Prueba', 'Plaza Scout', 'La Paz', 'La Paz', NULL, 1533.00, '2024-07-16 21:59:10', '2024-07-16 21:59:10'),
+(33, 40, 'Maribel Prueba', 'Plaza Scout', 'La Paz', 'La Paz', NULL, 1533.00, '2024-07-16 21:59:19', '2024-07-16 21:59:19');
 
 -- --------------------------------------------------------
 
@@ -1481,6 +1490,7 @@ CREATE TABLE `order_items` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `order_id` bigint(20) UNSIGNED NOT NULL,
   `product_id` bigint(20) UNSIGNED NOT NULL,
+  `color` varchar(255) DEFAULT NULL,
   `quantity` int(11) NOT NULL,
   `price` decimal(10,2) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -1491,18 +1501,34 @@ CREATE TABLE `order_items` (
 -- Dumping data for table `order_items`
 --
 
-INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `price`, `created_at`, `updated_at`) VALUES
-(1, 1, 36, 1, 100.00, '2024-07-01 03:55:11', '2024-07-01 03:55:11'),
-(2, 2, 46, 2, 100.00, '2024-07-06 02:24:12', '2024-07-06 02:24:12'),
-(3, 3, 46, 2, 100.00, '2024-07-06 02:25:28', '2024-07-06 02:25:28'),
-(4, 4, 46, 2, 100.00, '2024-07-06 02:25:51', '2024-07-06 02:25:51'),
-(5, 5, 46, 2, 100.00, '2024-07-06 02:31:36', '2024-07-06 02:31:36'),
-(7, 6, 46, 2, 100.00, '2024-07-06 02:33:40', '2024-07-06 02:33:40'),
-(9, 7, 46, 2, 100.00, '2024-07-06 02:34:23', '2024-07-06 02:34:23'),
-(11, 8, 27, 1, 100.00, '2024-07-06 02:38:07', '2024-07-06 02:38:07'),
-(13, 9, 36, 1, 100.00, '2024-07-06 03:08:18', '2024-07-06 03:08:18'),
-(14, 9, 36, 1, 100.00, NULL, NULL),
-(15, 10, 27, 1, 100.00, '2024-07-06 03:14:55', '2024-07-06 03:14:55');
+INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `color`, `quantity`, `price`, `created_at`, `updated_at`) VALUES
+(39, 23, 82, 'blanco', 18, 98.00, '2024-07-15 04:42:02', '2024-07-15 04:42:02'),
+(40, 23, 78, 'blanco', 7, 70.00, '2024-07-15 04:42:02', '2024-07-15 04:42:02'),
+(41, 23, 79, 'amarillo', 18, 70.00, '2024-07-15 04:42:02', '2024-07-15 04:42:02'),
+(42, 23, 82, 'blanco', 21, 98.00, '2024-07-15 04:42:02', '2024-07-15 04:42:02'),
+(43, 23, 83, 'naranja', 12, 98.00, '2024-07-15 04:42:02', '2024-07-15 04:42:02'),
+(44, 23, 80, '', 1, 164.00, '2024-07-15 04:42:02', '2024-07-15 04:42:02'),
+(45, 24, 80, '', 4, 144.00, '2024-07-15 06:15:44', '2024-07-15 06:15:44'),
+(46, 25, 80, '', 4, 144.00, '2024-07-15 06:16:07', '2024-07-15 06:16:07'),
+(47, 26, 80, '', 4, 144.00, '2024-07-15 06:18:22', '2024-07-15 06:18:22'),
+(48, 27, 80, '', 4, 144.00, '2024-07-15 06:19:27', '2024-07-15 06:19:27'),
+(49, 28, 80, '', 4, 144.00, '2024-07-15 06:20:38', '2024-07-15 06:20:38'),
+(50, 29, 85, 'verde', 1, 34.00, '2024-07-15 09:04:17', '2024-07-15 09:04:17'),
+(51, 30, 83, 'naranja', 7, 98.00, '2024-07-15 14:07:54', '2024-07-15 14:07:54'),
+(52, 31, 83, 'naranja', 5, 40.00, '2024-07-16 15:23:20', '2024-07-16 15:23:20'),
+(53, 31, 83, 'naranja', 1, 40.00, '2024-07-16 15:23:20', '2024-07-16 15:23:20'),
+(54, 32, 83, 'naranja', 2, 98.00, '2024-07-16 21:59:10', '2024-07-16 21:59:10'),
+(55, 32, 83, 'naranja', 1, 98.00, '2024-07-16 21:59:10', '2024-07-16 21:59:10'),
+(56, 32, 82, 'blanco', 6, 98.00, '2024-07-16 21:59:10', '2024-07-16 21:59:10'),
+(57, 32, 82, 'blanco', 1, 98.00, '2024-07-16 21:59:10', '2024-07-16 21:59:10'),
+(58, 32, 82, 'blanco', 1, 98.00, '2024-07-16 21:59:10', '2024-07-16 21:59:10'),
+(59, 32, 85, 'verde', 7, 65.00, '2024-07-16 21:59:10', '2024-07-16 21:59:10'),
+(60, 33, 83, 'naranja', 2, 98.00, '2024-07-16 21:59:19', '2024-07-16 21:59:19'),
+(61, 33, 83, 'naranja', 1, 98.00, '2024-07-16 21:59:19', '2024-07-16 21:59:19'),
+(62, 33, 82, 'blanco', 6, 98.00, '2024-07-16 21:59:19', '2024-07-16 21:59:19'),
+(63, 33, 82, 'blanco', 1, 98.00, '2024-07-16 21:59:19', '2024-07-16 21:59:19'),
+(64, 33, 82, 'blanco', 1, 98.00, '2024-07-16 21:59:19', '2024-07-16 21:59:19'),
+(65, 33, 85, 'verde', 7, 65.00, '2024-07-16 21:59:19', '2024-07-16 21:59:19');
 
 -- --------------------------------------------------------
 
@@ -1608,16 +1634,13 @@ CREATE TABLE `payments` (
 --
 
 INSERT INTO `payments` (`id`, `order_id`, `name`, `email`, `product_details`, `user_id`, `reward_id`, `amount`, `payment_receipt`, `accepted`, `status`, `payer_email`, `created_at`, `updated_at`) VALUES
-(2, 1, NULL, NULL, '[{\"product_id\":\"36\",\"quantity\":\"1\",\"price\":\"100.00\"}]', 32, NULL, 130.00, 'payment_receipt/Screenshot (57).png', 0, 'initial', NULL, '2024-07-01 03:55:11', '2024-07-01 03:55:11'),
-(3, 2, NULL, NULL, '[{\"product_id\":\"46\",\"quantity\":\"2\",\"price\":\"100.00\"}]', 32, NULL, 200.00, 'payment_receipt/Screenshot_20240313-163712.jpg', 0, 'initial', NULL, '2024-07-06 02:24:12', '2024-07-06 02:24:12'),
-(4, 3, NULL, NULL, '[{\"product_id\":\"46\",\"quantity\":\"2\",\"price\":\"100.00\"}]', 32, NULL, 200.00, 'payment_receipt/Screenshot_20240313-163712.jpg', 0, 'initial', NULL, '2024-07-06 02:25:28', '2024-07-06 02:25:28'),
-(5, 4, NULL, NULL, '[{\"product_id\":\"46\",\"quantity\":\"2\",\"price\":\"100.00\"}]', 32, NULL, 200.00, 'payment_receipt/Screenshot_20240313-163712.jpg', 0, 'initial', NULL, '2024-07-06 02:25:51', '2024-07-06 02:25:51'),
-(6, 5, NULL, NULL, '[{\"product_id\":\"46\",\"quantity\":\"2\",\"price\":\"100.00\"}]', 32, NULL, 200.00, 'payment_receipt/Screenshot_20240313-163712.jpg', 0, 'initial', NULL, '2024-07-06 02:31:36', '2024-07-06 02:31:36'),
-(7, 6, NULL, NULL, '[{\"product_id\":\"46\",\"quantity\":\"2\",\"price\":\"100.00\"}]', 32, NULL, 200.00, 'payment_receipt/Screenshot_20240313-163712.jpg', 0, 'initial', NULL, '2024-07-06 02:33:40', '2024-07-06 02:33:40'),
-(8, 7, NULL, NULL, '[{\"product_id\":\"46\",\"quantity\":\"2\",\"price\":\"100.00\"}]', 32, NULL, 200.00, 'payment_receipt/Screenshot_20240313-163712.jpg', 0, 'initial', NULL, '2024-07-06 02:34:23', '2024-07-06 02:34:23'),
-(9, 8, NULL, NULL, '[{\"product_id\":\"27\",\"quantity\":\"1\",\"price\":\"100.00\"}]', 32, NULL, 100.00, 'payment_receipt/IMG-20240124-WA0041-removebg-preview.png', 0, 'initial', NULL, '2024-07-06 02:38:07', '2024-07-06 02:38:07'),
-(10, 9, NULL, NULL, '[{\"product_id\":\"36\",\"quantity\":\"1\",\"price\":\"100.00\"}]', 32, NULL, 100.00, 'payment_receipt/IMG-20240124-WA0041.jpg', 0, 'initial', NULL, '2024-07-06 03:08:18', '2024-07-06 03:08:18'),
-(11, 10, 'eve', NULL, '[{\"product_id\":\"27\",\"quantity\":\"1\",\"price\":\"100.00\"}]', 32, NULL, 100.00, 'payment_receipt/IMG-20240124-WA0039.jpg', 0, 'initial', 'arstech2a@gmail.com', '2024-07-06 03:14:55', '2024-07-06 03:14:55');
+(36, 23, 'Ivan', NULL, '[{\"product_id\":\"82\",\"quantity\":\"18\",\"price\":\"98.00\"},{\"product_id\":\"78\",\"quantity\":\"7\",\"price\":\"70.00\"},{\"product_id\":\"79\",\"quantity\":\"18\",\"price\":\"70.00\"},{\"product_id\":\"82\",\"quantity\":\"21\",\"price\":\"98.00\"},{\"product_id\":\"83\",\"quantity\":\"12\",\"price\":\"98.00\"},{\"product_id\":\"80\",\"quantity\":\"1\",\"price\":\"164.00\"}]', 44, NULL, 6912.00, NULL, 0, 'initial', 'jago1410@gmail.com', '2024-07-15 04:42:02', '2024-07-15 04:42:02'),
+(41, 28, 'Aasif Ahmed', NULL, '[{\"product_id\":\"80\",\"quantity\":\"4\",\"price\":\"144.00\"}]', 34, NULL, 576.00, NULL, 0, 'initial', 'arstech2a@gmail.com', '2024-07-15 06:20:38', '2024-07-15 06:20:38'),
+(42, 29, 'Aasif Ahmed', NULL, '[{\"product_id\":\"85\",\"quantity\":\"1\",\"price\":\"34.00\"}]', 34, NULL, 34.00, NULL, 0, 'initial', 'arstech2a@gmail.com', '2024-07-15 09:04:17', '2024-07-15 09:04:17'),
+(43, 30, 'Ivan', NULL, '[{\"product_id\":\"83\",\"quantity\":\"7\",\"price\":\"98.00\"}]', 44, NULL, 686.00, NULL, 0, 'initial', 'jago1410@gmail.com', '2024-07-15 14:07:54', '2024-07-15 14:07:54'),
+(44, 31, 'Juan', NULL, '[{\"product_id\":\"83\",\"quantity\":\"5\",\"price\":\"40.00\"},{\"product_id\":\"83\",\"quantity\":\"1\",\"price\":\"40.00\"}]', 33, NULL, 240.00, NULL, 0, 'initial', 'adminer@gmail.com', '2024-07-16 15:23:20', '2024-07-16 15:23:20'),
+(45, 32, 'Maribel Prueba', NULL, '[{\"product_id\":\"83\",\"quantity\":\"2\",\"price\":\"98.00\"},{\"product_id\":\"83\",\"quantity\":\"1\",\"price\":\"98.00\"},{\"product_id\":\"82\",\"quantity\":\"6\",\"price\":\"98.00\"},{\"product_id\":\"82\",\"quantity\":\"1\",\"price\":\"98.00\"},{\"product_id\":\"82\",\"quantity\":\"1\",\"price\":\"98.00\"},{\"product_id\":\"85\",\"quantity\":\"7\",\"price\":\"65.00\"}]', 40, NULL, 1533.00, NULL, 0, 'initial', 'ml.urquizo@gmail.com', '2024-07-16 21:59:10', '2024-07-16 21:59:10'),
+(46, 33, 'Maribel Prueba', NULL, '[{\"product_id\":\"83\",\"quantity\":\"2\",\"price\":\"98.00\"},{\"product_id\":\"83\",\"quantity\":\"1\",\"price\":\"98.00\"},{\"product_id\":\"82\",\"quantity\":\"6\",\"price\":\"98.00\"},{\"product_id\":\"82\",\"quantity\":\"1\",\"price\":\"98.00\"},{\"product_id\":\"82\",\"quantity\":\"1\",\"price\":\"98.00\"},{\"product_id\":\"85\",\"quantity\":\"7\",\"price\":\"65.00\"}]', 40, NULL, 1533.00, NULL, 0, 'initial', 'ml.urquizo@gmail.com', '2024-07-16 21:59:19', '2024-07-16 21:59:19');
 
 -- --------------------------------------------------------
 
@@ -1686,10 +1709,11 @@ CREATE TABLE `products` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `title` text DEFAULT NULL,
   `slug` varchar(191) NOT NULL,
+  `sku` varchar(191) DEFAULT NULL,
   `category` varchar(255) DEFAULT NULL,
   `subcategory_id` int(11) DEFAULT NULL,
+  `childcategory` int(11) DEFAULT NULL,
   `f_thumbnail` text DEFAULT NULL,
-  `sku` varchar(191) DEFAULT NULL,
   `short_desc` text DEFAULT NULL,
   `description` text DEFAULT NULL,
   `price1` varchar(255) DEFAULT NULL,
@@ -1728,23 +1752,19 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `title`, `slug`, `category`, `subcategory_id`, `f_thumbnail`, `sku`, `short_desc`, `description`, `price1`, `price2`, `price3`, `price4`, `price5`, `extra_desc`, `cost_price`, `sale_price`, `old_price`, `start_date`, `end_date`, `is_discount`, `is_stock`, `stock_status_id`, `stock_qty`, `u_stock_qty`, `brand_id`, `price`, `store_id`, `variation_color`, `variation_size`, `tax_id`, `is_publish`, `user_id`, `og_title`, `og_image`, `og_description`, `og_keywords`, `created_at`, `updated_at`) VALUES
-(10, 'The last of us', 'The-last-of-us', '7', NULL, 'img-20230525-175230-800x800.jpg', 'TG-78', 'The last of us Tv and Game', 'The last of us Tv and Game', '1000', '1150', '1250', '1500', '1650', NULL, 1150.000, 1100.000, 1250.000, '2024-06-23', '2024-06-25', 1, 1, 0, 3, NULL, 4, 'price4', '32', 'red,green,blue,black,white', 'small,medium,large', NULL, 1, NULL, 'The last of us Tv and Game', 'norwegian_forest_cat-wallpaper-1920x1080.jpg', 'The last of us Tv', 'The last of us Tv and Game', '2024-06-23 07:50:07', '2024-06-24 03:44:53'),
-(26, 'Product Title 1', 'Product-Title-1', '7', NULL, 'images (1).jpg', 'SKU001', 'Short Desc 1', 'Product Desc 1', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 1, 100, NULL, 1, NULL, '30', 'red,blue,white', 'medium', NULL, 1, NULL, 'Product 1 Title', NULL, 'Product 1 Desc', 'Keyword 1', '2024-06-24 06:30:18', '2024-07-07 06:17:38'),
-(27, 'Product Title 2', 'Product-Title-2', '14', 2, '14110006003.png', 'SKU002', 'Short Desc 2', 'Product Desc 2', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 1, 118, NULL, 2, NULL, '30', 'red,white', 'small', NULL, 1, NULL, 'Product 2 Title', NULL, 'Product 2 Desc', 'Keyword 2', '2024-06-24 06:30:18', '2024-07-07 05:45:47'),
-(28, 'Product Title 4', 'Product-Title-4', '14', 1, 'thumbnail1.jpg', 'SKU001', 'Short Desc 4', 'Product Desc 4', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 1, 100, NULL, 1, NULL, '1', NULL, NULL, NULL, 1, NULL, 'Product 1 Title', NULL, 'Product 1 Desc', 'Keyword 1', '2024-06-25 02:34:39', '2024-06-25 02:34:39'),
-(29, 'Product Title 5', 'Product-Title-5', '7', 2, 'sp216bl.png', 'SKU002', 'Short Desc 5', 'Product Desc 5', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 1, 120, NULL, 2, NULL, '30', 'red,green', 'large', NULL, 1, NULL, 'Product 2 Title', NULL, 'Product 2 Desc', 'Keyword 2', '2024-06-25 02:34:39', '2024-07-02 12:33:49'),
-(32, 'Product Title 6', 'Product-Title-6', '14', 2, 'thumbnail1.jpg', 'SKU006', 'Short Desc 6', 'Product Desc 6', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 1, 100, NULL, 1, NULL, '32', NULL, NULL, NULL, 1, NULL, 'Product 1 Title', NULL, 'Product 1 Desc', 'Keyword 1', '2024-06-25 03:29:03', '2024-06-25 03:29:03'),
-(33, 'Product Title 7', 'Product-Title-7', '7', 1, '10163.png', 'SKU007', 'Short Desc 7', 'Product Desc 7', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 1, 120, NULL, 2, NULL, '30', 'green,white', 'medium', NULL, 1, NULL, 'Product 2 Title', NULL, 'Product 2 Desc', 'Keyword 2', '2024-06-25 03:29:03', '2024-07-02 11:50:07'),
-(35, 'Product Title 9', 'Product-Title-9', '14', 2, 'thumbnail1.jpg', 'SKU009', 'Short Desc 6', 'Product Desc 9', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 1, 100, NULL, 1, NULL, '32', 'red,green,blue,black,white', 'small,medium,large', NULL, 1, NULL, 'Product 9 Title', NULL, 'Product 9 Desc', 'Keyword 11', '2024-06-25 03:42:52', '2024-06-25 03:42:52'),
-(36, 'Product Title 10', 'Product-Title-10', '7', 1, '10161.png', 'SKU0010', 'Short Desc 7', 'Product Desc 10', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 1, 118, NULL, 2, NULL, '30', 'black,yellow', 'medium', NULL, 1, NULL, 'Product 10 Title', NULL, 'Product 10 Desc', 'Keyword 12', '2024-06-25 03:42:52', '2024-07-06 03:08:18'),
-(46, 'Product Title 10 BLACK', 'Product-Title-10-BLACK', '7', 1, 'sp216bl.png', 'SKU0010-MEDIUM-BLACK', 'Short Desc 7', 'Product Desc 10', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 1, 107, NULL, 2, NULL, '30', 'black,yellow', 'medium', NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-02 21:43:39', '2024-07-06 02:34:23'),
-(47, 'Product Title 10 YELLOW', 'Product-Title-10-YELLOW', '7', 1, '10164.png', 'SKU0010-MEDIUM-YELLOW', 'Short Desc 7', 'Product Desc 10', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 1, 119, NULL, 2, NULL, '30', 'black,yellow', 'medium', NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-02 21:43:39', '2024-07-02 21:43:39'),
-(48, 'Product Title 2', 'Product-Title-2-RED', '14', 2, '14110006005.png', 'SKU002-SMALL-RED', 'Short Desc 2', 'Product Desc 2', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 1, 118, NULL, 2, NULL, '30', 'red,white', 'small', NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-07 05:45:47', '2024-07-07 05:45:47'),
-(49, 'Product Title 2', 'Product-Title-2-WHITE', '14', 2, '14110006002.png', 'SKU002-SMALL-WHITE', 'Short Desc 2', 'Product Desc 2', '120', '110', '100', '90', '80', NULL, 60.000, 105.000, 125.000, '0000-00-00', '0000-00-00', 1, 1, 1, 118, NULL, 2, NULL, '30', 'red,white', 'small', NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-07 05:45:47', '2024-07-07 05:45:47'),
-(50, 'Product Title 1', 'Product-Title-1-RED', '7', NULL, '10162.png', 'SKU001-MEDIUM-RED', 'Short Desc 1', 'Product Desc 1', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 1, 100, NULL, 1, NULL, '30', 'red,blue,white', 'medium', NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-07 06:17:38', '2024-07-07 06:17:38'),
-(51, 'Product Title 1', 'Product-Title-1-BLUE', '7', NULL, '14130001002.png', 'SKU001-MEDIUM-BLUE', 'Short Desc 1', 'Product Desc 1', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 1, 100, NULL, 1, NULL, '30', 'red,blue,white', 'medium', NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-07 06:17:38', '2024-07-07 06:17:38'),
-(52, 'Product Title 1', 'Product-Title-1-WHITE', '7', NULL, '14110006002.png', 'SKU001-MEDIUM-WHITE', 'Short Desc 1', 'Product Desc 1', '100', '90', '80', '70', '60', NULL, 50.000, 95.000, 110.000, '0000-00-00', '0000-00-00', 1, 1, 1, 100, NULL, 1, NULL, '30', 'red,blue,white', 'medium', NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-07 06:17:38', '2024-07-07 06:17:38');
+INSERT INTO `products` (`id`, `title`, `slug`, `sku`, `category`, `subcategory_id`, `childcategory`, `f_thumbnail`, `short_desc`, `description`, `price1`, `price2`, `price3`, `price4`, `price5`, `extra_desc`, `cost_price`, `sale_price`, `old_price`, `start_date`, `end_date`, `is_discount`, `is_stock`, `stock_status_id`, `stock_qty`, `u_stock_qty`, `brand_id`, `price`, `store_id`, `variation_color`, `variation_size`, `tax_id`, `is_publish`, `user_id`, `og_title`, `og_image`, `og_description`, `og_keywords`, `created_at`, `updated_at`) VALUES
+(76, 'testing', 'testing', 'sku001', '7', 1, 41, '10161.png', '<p>testing</p>', '<p>testing</p>', '10', '20', '30', '50', '70', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 10, NULL, 4, NULL, NULL, 'negro,blanco,amarillo', 'Mediano', NULL, 1, NULL, 'testing', NULL, 'testing', 'testing', '2024-07-08 04:05:17', '2024-07-16 10:24:28'),
+(77, 'testing', 'testing-BLACK', 'sku001-MEDIUM-BLACK', '7', 1, 41, 'sp216bl.png', 'testing', 'testing', '10', '20', '30', '50', '70', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, -3, NULL, 4, NULL, NULL, 'negro,blanco,amarillo', 'Mediano', NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-08 04:15:04', '2024-07-15 04:23:24'),
+(78, 'testing', 'testing-WHITE', 'sku001-MEDIUM-WHITE', '7', 1, 41, '14110006002.png', '<p>testing</p>', '<p>testing</p>', '10', '20', '30', '50', '70', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 2, NULL, 4, NULL, NULL, 'negro,blanco,amarillo', 'Mediano', NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-08 04:15:04', '2024-07-16 10:40:52'),
+(79, 'testing', 'testing-YELLOW', 'sku001-MEDIUM-YELLOW', '7', 2, NULL, '10164.png', 'testing', 'testing', '10', '20', '30', '50', '70', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, -14, NULL, 4, NULL, NULL, 'negro,blanco,amarillo', 'Mediano', NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-08 04:15:04', '2024-07-15 04:42:02'),
+(80, 'Lentes De Ciclismo Polarizados', 'Lentes-De-Ciclismo-Polarizados', 'sku002', '7', 2, 31, 'Lente sp216bk.png', '<p style=\"margin: 0cm 0cm 19.2pt; font-size: 12pt; font-family: \'Times New Roman\', serif;\"><span style=\"font-size: 11.5pt; font-family: Arial, sans-serif; color: #7a7a7a;\">Detalles del producto:</span></p>\r\n<p style=\"margin: 0cm 0cm 19.2pt; font-size: 12pt; font-family: \'Times New Roman\', serif;\"><span style=\"font-size: 11.5pt; font-family: Arial, sans-serif; color: #7a7a7a;\">Modelo: polarizadas<br>Peso: aprox. 29g<br>Material: Lente de PC + marco TR</span></p>', '<p style=\"margin: 0cm 0cm 19.2pt; font-size: 12pt; font-family: \'Times New Roman\', serif;\"><span style=\"font-size: 11.5pt; font-family: Arial, sans-serif; color: #7a7a7a;\">Modelo: polarizadas<br>Peso: aprox. 29g<br>Material: Lente de PC + marco TR</span></p>\r\n<p style=\"margin: 0cm 0cm 19.2pt; font-size: 12pt; font-family: \'Times New Roman\', serif;\"><span style=\"font-size: 11.5pt; font-family: Arial, sans-serif; color: #7a7a7a;\">Caracter&iacute;stica:</span></p>\r\n<ol style=\"margin-top: 0cm; margin-bottom: 19.2pt;\">\r\n<li style=\"margin: 0cm 0cm 19.2pt 0px; font-size: 12pt; font-family: \'Times New Roman\', serif;\"><span style=\"font-size: 11.5pt; font-family: Arial, sans-serif; color: #7a7a7a;\">Lente polarizada, filtra el resplandor<br>2. Protecci&oacute;n UV 400<br>3. Almohadillas nasales ajustables<br>4. Marco integrado para Miop&iacute;a<br>5. Ultraligero, suave y c&oacute;modo</span></li>\r\n</ol>', '194', '114', '94', '144', '164', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, -2, NULL, 4, NULL, NULL, NULL, NULL, NULL, 1, NULL, 'glass', NULL, 'glass', 'glass', '2024-07-08 05:31:04', '2024-07-16 09:55:27'),
+(81, 'testing 3', 'testing-3', 'sku003', '7', 2, NULL, '14110006003.png', 'testing 3', 'testing 3', '20', '40', '60', '88', '98', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 12, NULL, 4, NULL, NULL, 'blanco,naranja', 'Grande', NULL, 1, NULL, 'testing 3', NULL, 'testing 3', 'testing 3', '2024-07-08 07:02:46', '2024-07-10 08:46:55'),
+(82, 'testing 3', 'testing-3-WHITE', 'sku003-LARGE-WHITE', '7', 2, NULL, '14130001002.png', 'testing 3', 'testing 3', '20', '40', '60', '88', '98', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, -63, NULL, 4, NULL, NULL, 'blanco,naranja', 'Grande', NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-08 07:05:12', '2024-07-16 21:59:19'),
+(83, 'testing 3', 'testing-3-ORANGE', 'sku003-LARGE-ORANGE', '7', 2, NULL, '14110006005.png', 'testing 3', 'testing 3', '20', '40', '60', '88', '98', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, -32, NULL, 4, NULL, NULL, 'blanco,naranja', 'Grande', NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-08 07:05:12', '2024-07-16 21:59:19'),
+(86, 'Lentes De Ciclismo SP216 Fotocromáticos Rockbros', 'Lentes-De-Ciclismo-SP216-Fotocromáticos-Rockbros', 'SP216BK', '7', 2, 31, 'Lente sp216bk.png', '<p><span data-sheets-root=\"1\">Uso: Unisex<br>Peso: aproximadamente 30g (sin embalaje)<br>Color: negro/azul<br>Material: PC + TR<br>Tama&ntilde;o: aproximadamente 13,5*12,5*5,5 cm</span></p>', '<p><span data-sheets-root=\"1\">1. Marco completo, vista panor&aacute;mica<br>2. Cambio de Color inteligente<br>3 UV400 protecci&oacute;n<br>4. PROTECCI&Oacute;N suave para las orejas<br>5. Almohadilla nasal ajustable<br>6. Ultraligero</span></p>', '200', '120', '90', '140', '160', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, 16, NULL, 4, NULL, NULL, 'azul,negro', 'Mediano', NULL, 1, NULL, 'SP216BK', 'Lente sp216bk.png', '<p>Lentes De Ciclismo SP216 Fotocrom&aacute;ticos Rockbros</p>', 'Lentes De Ciclismo SP216 Fotocromáticos Rockbros', '2024-07-16 22:35:00', '2024-07-16 22:41:26'),
+(87, 'Lentes De Ciclismo SP216 Fotocromáticos Rockbros', 'Lentes-De-Ciclismo-SP216-Fotocromáticos-Rockbros-AZUL', 'SP216BK-MEDIANO-AZUL', '7', 2, 31, 'Lente sp216bk.png', '<p><span data-sheets-root=\"1\">Uso: Unisex<br>Peso: aproximadamente 30g (sin embalaje)<br>Color: negro/azul<br>Material: PC + TR<br>Tama&ntilde;o: aproximadamente 13,5*12,5*5,5 cm</span></p>', '<p><span data-sheets-root=\"1\">1. Marco completo, vista panor&aacute;mica<br>2. Cambio de Color inteligente<br>3 UV400 protecci&oacute;n<br>4. PROTECCI&Oacute;N suave para las orejas<br>5. Almohadilla nasal ajustable<br>6. Ultraligero</span></p>', '200', '120', '90', '140', '160', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, 16, NULL, 4, NULL, NULL, 'azul,negro', 'Mediano', NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-16 22:40:20', '2024-07-16 22:40:20'),
+(88, 'Lentes De Ciclismo SP216 Fotocromáticos Rockbros', 'Lentes-De-Ciclismo-SP216-Fotocromáticos-Rockbros-NEGRO', 'SP216BK-MEDIANO-NEGRO', '7', 2, 31, 'Lente sp216bk.png', '<p><span data-sheets-root=\"1\">Uso: Unisex<br>Peso: aproximadamente 30g (sin embalaje)<br>Color: negro/azul<br>Material: PC + TR<br>Tama&ntilde;o: aproximadamente 13,5*12,5*5,5 cm</span></p>', '<p><span data-sheets-root=\"1\">1. Marco completo, vista panor&aacute;mica<br>2. Cambio de Color inteligente<br>3 UV400 protecci&oacute;n<br>4. PROTECCI&Oacute;N suave para las orejas<br>5. Almohadilla nasal ajustable<br>6. Ultraligero</span></p>', '200', '120', '90', '140', '160', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, 16, NULL, 4, NULL, NULL, 'azul,negro', 'Mediano', NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-16 22:40:46', '2024-07-16 22:40:46'),
+(89, 'ttttt', 'rrrr', NULL, '7', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, NULL, NULL, 'negro', 'Grande', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-07-17 00:56:26', '2024-07-17 00:57:10');
 
 -- --------------------------------------------------------
 
@@ -1783,15 +1803,14 @@ CREATE TABLE `product_variations` (
 --
 
 INSERT INTO `product_variations` (`id`, `product_id`, `size`, `color`, `sku`, `created_at`, `updated_at`) VALUES
-(1, 36, 'medium', 'black', 'SKU0010-MEDIUM-BLACK', '2024-07-02 21:43:39', '2024-07-02 21:43:39'),
-(2, 36, 'medium', 'yellow', 'SKU0010-MEDIUM-YELLOW', '2024-07-02 21:43:39', '2024-07-02 21:43:39'),
-(3, 27, 'small', 'red', 'SKU002-SMALL-RED', '2024-07-07 05:45:46', '2024-07-07 05:45:46'),
-(4, 27, 'small', 'white', 'SKU002-SMALL-WHITE', '2024-07-07 05:45:47', '2024-07-07 05:45:47'),
-(5, 27, 'SKU002', 'SKU002', 'SKU002', '2024-07-07 05:45:47', '2024-07-07 05:45:47'),
-(6, 26, 'medium', 'red', 'SKU001-MEDIUM-RED', '2024-07-07 06:17:38', '2024-07-07 06:17:38'),
-(7, 26, 'medium', 'blue', 'SKU001-MEDIUM-BLUE', '2024-07-07 06:17:38', '2024-07-07 06:17:38'),
-(8, 26, 'medium', 'white', 'SKU001-MEDIUM-WHITE', '2024-07-07 06:17:38', '2024-07-07 06:17:38'),
-(9, 26, 'SKU001', 'SKU001', 'SKU001', '2024-07-07 06:17:38', '2024-07-07 06:17:38');
+(68, 76, 'medium', 'negro', 'sku001-MEDIUM-BLACK', '2024-07-08 04:15:04', '2024-07-08 04:15:04'),
+(69, 76, 'medium', 'blanco', 'sku001-MEDIUM-WHITE', '2024-07-08 04:15:04', '2024-07-08 04:15:04'),
+(70, 76, 'medium', 'amarillo', 'sku001-MEDIUM-YELLOW', '2024-07-08 04:15:04', '2024-07-08 04:15:04'),
+(71, 81, 'large', 'blanco', 'sku003-LARGE-WHITE', '2024-07-08 07:05:12', '2024-07-08 07:05:12'),
+(72, 81, 'large', 'naranja', 'sku003-LARGE-ORANGE', '2024-07-08 07:05:12', '2024-07-08 07:05:12'),
+(77, 86, 'Mediano', 'azul', 'SP216BK-MEDIANO-AZUL', '2024-07-16 22:40:46', '2024-07-16 22:40:46'),
+(78, 86, 'Mediano', 'negro', 'SP216BK-MEDIANO-NEGRO', '2024-07-16 22:40:46', '2024-07-16 22:40:46'),
+(79, 89, 'Grande', 'negro', '-GRANDE-NEGRO', '2024-07-17 00:57:10', '2024-07-17 00:57:10');
 
 -- --------------------------------------------------------
 
@@ -1857,54 +1876,14 @@ CREATE TABLE `pro_images` (
 --
 
 INSERT INTO `pro_images` (`id`, `product_id`, `thumbnail`, `color`, `desc`, `created_at`, `updated_at`) VALUES
-(1, 165, 'product_images/IMG-20240124-WA0041.jpg', NULL, NULL, '2024-06-23 03:47:40', '2024-06-23 03:47:40'),
-(2, 165, 'product_images/1701941848819-1.JPEG', NULL, NULL, '2024-06-23 03:47:40', '2024-06-23 03:47:40'),
-(3, 165, 'product_images/New Doc 2017-03-28_4.jpg', NULL, NULL, '2024-06-23 03:47:40', '2024-06-23 03:47:40'),
-(4, 165, 'product_images/IMG_5071_rkauxh_1712164664.jpg', NULL, NULL, '2024-06-23 03:47:40', '2024-06-23 03:47:40'),
-(5, 165, 'product_images/IMG_4416_vo4r1a_1712164410.jpg', NULL, NULL, '2024-06-23 03:47:40', '2024-06-23 03:47:40'),
-(6, 3, 'product_images/Commons_QR_code.png', NULL, NULL, '2024-06-23 04:25:41', '2024-06-23 04:25:41'),
-(7, 3, 'product_images/Sin título-2.png', NULL, NULL, '2024-06-23 04:25:41', '2024-06-23 04:25:41'),
-(8, 3, 'product_images/IMG_5071_rkauxh_1712164664.jpg', NULL, NULL, '2024-06-23 04:25:41', '2024-06-23 04:25:41'),
-(9, 3, 'product_images/IMG_4416_vo4r1a_1712164410.jpg', NULL, NULL, '2024-06-23 04:25:41', '2024-06-23 04:25:41'),
-(10, 3, 'product_images/images (1).jpg', NULL, NULL, '2024-06-23 04:25:41', '2024-06-23 04:25:41'),
-(11, 8, 'product_images/1701941848819-1 - Copy.JPEG', NULL, NULL, '2024-06-23 07:22:18', '2024-06-23 07:22:18'),
-(12, 8, 'product_images/IMG-20240124-WA0041-removebg-preview.png', NULL, NULL, '2024-06-23 07:22:18', '2024-06-23 07:22:18'),
-(13, 8, 'product_images/New Doc 2017-03-28_4.jpg', NULL, NULL, '2024-06-23 07:22:18', '2024-06-23 07:22:18'),
-(14, 8, 'product_images/Commons_QR_code.png', NULL, NULL, '2024-06-23 07:24:31', '2024-06-23 07:24:31'),
-(15, 10, 'product_images/supermassive_black_hole-wallpaper-5120x2880.jpg', NULL, NULL, '2024-06-23 07:52:03', '2024-06-23 07:52:03'),
-(16, 10, 'product_images/the_batman_2021_robert_pattinson-wallpaper-7680x4320.jpg', NULL, NULL, '2024-06-23 07:52:03', '2024-06-23 07:52:03'),
-(17, 10, 'product_images/tom_clancys_ghost_recon_wildlands_season_pass-wallpaper-5120x2880.jpg', NULL, NULL, '2024-06-23 07:52:03', '2024-06-23 07:52:03'),
-(34, 26, 'product_images/image1.jpg', NULL, NULL, '2024-06-24 06:30:18', '2024-06-24 06:30:18'),
-(35, 26, 'product_images/image2.jpg', NULL, NULL, '2024-06-24 06:30:18', '2024-06-24 06:30:18'),
-(44, 26, 'product_images/logohorizontal.png', 'green', NULL, '2024-06-24 08:53:52', '2024-06-24 08:53:52'),
-(45, 26, 'product_images/download.png', 'blue', NULL, '2024-06-24 08:53:52', '2024-06-24 08:53:52'),
-(46, 26, 'product_images/english-flag-vector-675964.jpg', 'black', NULL, '2024-06-24 08:53:52', '2024-06-24 08:53:52'),
-(47, 28, 'product_images/image1.jpg', NULL, NULL, '2024-06-25 02:34:39', '2024-06-25 02:34:39'),
-(48, 28, 'product_images/image2.jpg', NULL, NULL, '2024-06-25 02:34:39', '2024-06-25 02:34:39'),
-(56, 32, 'product_images/image1.jpg', NULL, NULL, '2024-06-25 03:29:03', '2024-06-25 03:29:03'),
-(57, 32, 'product_images/image2.jpg', NULL, NULL, '2024-06-25 03:29:03', '2024-06-25 03:29:03'),
-(62, 35, 'product_images/image1.jpg', NULL, NULL, '2024-06-25 03:42:52', '2024-06-25 03:42:52'),
-(63, 35, 'product_images/image2.jpg', NULL, NULL, '2024-06-25 03:42:52', '2024-06-25 03:42:52'),
-(66, 36, 'product_images/10161.png', 'm', NULL, '2024-07-02 01:37:33', '2024-07-02 01:37:33'),
-(69, 27, 'product_images/14110006003.png', 'm', NULL, '2024-07-02 10:50:13', '2024-07-02 10:50:13'),
-(70, 27, 'product_images/14110006005.png', 'red', NULL, '2024-07-02 11:35:48', '2024-07-02 11:35:48'),
-(71, 27, 'product_images/14110006002.png', 'blue', NULL, '2024-07-02 11:35:48', '2024-07-02 11:35:48'),
-(72, 33, 'product_images/10163.png', 'm', NULL, '2024-07-02 11:49:37', '2024-07-02 11:49:37'),
-(73, 33, 'product_images/Lente sp216bk.png', 'green', NULL, '2024-07-02 11:50:07', '2024-07-02 11:50:07'),
-(74, 33, 'product_images/14110006002.png', 'white', NULL, '2024-07-02 11:50:07', '2024-07-02 11:50:07'),
-(75, 26, 'product_images/10162.png', 'red', NULL, '2024-07-02 11:53:30', '2024-07-02 11:53:30'),
-(76, 26, 'product_images/14110006002.png', 'white', NULL, '2024-07-02 11:53:30', '2024-07-02 11:53:30'),
-(77, 26, 'product_images/10164.png', 'yellow', NULL, '2024-07-02 11:53:30', '2024-07-02 11:53:30'),
-(78, 29, 'product_images/sp216bl.png', 'm', NULL, '2024-07-02 12:33:09', '2024-07-02 12:33:09'),
-(79, 29, 'product_images/10161.png', 'red', NULL, '2024-07-02 12:33:49', '2024-07-02 12:33:49'),
-(80, 29, 'product_images/Lente sp216bk.png', 'green', NULL, '2024-07-02 12:33:49', '2024-07-02 12:33:49'),
-(81, 36, 'product_images/sp216bl.png', 'black', NULL, '2024-07-02 21:43:39', '2024-07-02 21:43:39'),
-(82, 36, 'product_images/10164.png', 'yellow', NULL, '2024-07-02 21:43:39', '2024-07-02 21:43:39'),
-(83, 27, 'product_images/14110006005.png', 'red', NULL, '2024-07-07 05:45:47', '2024-07-07 05:45:47'),
-(84, 27, 'product_images/14110006002.png', 'white', NULL, '2024-07-07 05:45:47', '2024-07-07 05:45:47'),
-(85, 26, 'product_images/10162.png', 'red', NULL, '2024-07-07 06:17:38', '2024-07-07 06:17:38'),
-(86, 26, 'product_images/14130001002.png', 'blue', NULL, '2024-07-07 06:17:38', '2024-07-07 06:17:38'),
-(87, 26, 'product_images/14110006002.png', 'white', NULL, '2024-07-07 06:17:38', '2024-07-07 06:17:38');
+(2, 76, 'product_images/sp216bl.png', 'black', NULL, '2024-07-08 04:15:04', '2024-07-08 04:15:04'),
+(3, 76, 'product_images/14110006002.png', 'white', NULL, '2024-07-08 04:15:04', '2024-07-08 04:15:04'),
+(4, 76, 'product_images/10164.png', 'yellow', NULL, '2024-07-08 04:15:04', '2024-07-08 04:15:04'),
+(7, 81, 'product_images/14130001002.png', 'white', NULL, '2024-07-08 07:05:12', '2024-07-08 07:05:12'),
+(8, 81, 'product_images/14110006005.png', 'orange', NULL, '2024-07-08 07:05:12', '2024-07-08 07:05:12'),
+(10, 86, 'product_images/Lente sp216bk.png', 'm', NULL, '2024-07-16 22:39:27', '2024-07-16 22:39:27'),
+(11, 86, 'product_images/Lente sp216bk.png', 'azul', NULL, '2024-07-16 22:40:20', '2024-07-16 22:40:20'),
+(12, 86, 'product_images/Lente sp216bk.png', 'negro', NULL, '2024-07-16 22:40:46', '2024-07-16 22:40:46');
 
 -- --------------------------------------------------------
 
@@ -1919,13 +1898,6 @@ CREATE TABLE `related_products` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `related_products`
---
-
-INSERT INTO `related_products` (`id`, `product_id`, `related_item_id`, `created_at`, `updated_at`) VALUES
-(3, 10, 8, '2024-06-25 06:34:33', '2024-06-25 06:34:33');
 
 -- --------------------------------------------------------
 
@@ -2028,130 +2000,590 @@ CREATE TABLE `screen_times` (
 --
 
 INSERT INTO `screen_times` (`id`, `user_id`, `product_id`, `url`, `time_spent`, `created_at`, `updated_at`) VALUES
-(3, 32, 47, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 12715, '2024-07-04 00:52:33', '2024-07-04 00:52:33'),
-(4, 32, 47, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 20527, '2024-07-04 00:52:41', '2024-07-04 00:52:41'),
-(5, 32, 47, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 345604, '2024-07-04 00:58:27', '2024-07-04 00:58:27'),
-(6, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 13503, '2024-07-04 00:58:49', '2024-07-04 00:58:49'),
-(7, 32, 47, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 7817, '2024-07-04 01:28:47', '2024-07-04 01:28:47'),
-(8, 32, 47, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 7677, '2024-07-05 05:44:24', '2024-07-05 05:44:24'),
-(9, 32, 47, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 3790, '2024-07-05 05:45:47', '2024-07-05 05:45:47'),
-(10, 32, 46, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 28700, '2024-07-05 05:48:14', '2024-07-05 05:48:14'),
-(11, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 3059, '2024-07-05 06:33:13', '2024-07-05 06:33:13'),
-(12, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 3971, '2024-07-05 06:33:18', '2024-07-05 06:33:18'),
-(13, 32, 46, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 3353, '2024-07-06 01:33:15', '2024-07-06 01:33:15'),
-(14, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-2', 4099, '2024-07-06 02:37:51', '2024-07-06 02:37:51'),
-(15, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 1882, '2024-07-06 03:08:06', '2024-07-06 03:08:06'),
-(16, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-2', 2081, '2024-07-06 03:12:47', '2024-07-06 03:12:47'),
-(17, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 31160, '2024-07-07 03:41:26', '2024-07-07 03:41:26'),
-(18, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 1425, '2024-07-07 03:41:32', '2024-07-07 03:41:32'),
-(19, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 20309, '2024-07-07 03:41:55', '2024-07-07 03:41:55'),
-(20, 32, 46, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 5394, '2024-07-07 03:49:50', '2024-07-07 03:49:50'),
-(21, 32, 46, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 4148, '2024-07-07 03:49:55', '2024-07-07 03:49:55'),
-(22, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 10689, '2024-07-07 03:50:10', '2024-07-07 03:50:10'),
-(23, 32, 33, 'http://127.0.0.1:8000/product-details/Product-Title-7', 5923, '2024-07-07 03:50:24', '2024-07-07 03:50:24'),
-(24, 32, 33, 'http://127.0.0.1:8000/product-details/Product-Title-7', 7933, '2024-07-07 03:51:01', '2024-07-07 03:51:01'),
-(25, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-2', 4600, '2024-07-07 03:51:13', '2024-07-07 03:51:13'),
-(26, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-2', 11367, '2024-07-07 03:51:24', '2024-07-07 03:51:24'),
-(27, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 3379, '2024-07-07 03:51:33', '2024-07-07 03:51:33'),
-(28, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 1291, '2024-07-07 03:51:34', '2024-07-07 03:51:34'),
-(29, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 14282, '2024-07-07 04:45:50', '2024-07-07 04:45:50'),
-(30, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 5772, '2024-07-07 04:45:56', '2024-07-07 04:45:56'),
-(31, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 7916, '2024-07-07 04:51:00', '2024-07-07 04:51:00'),
-(32, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 8093, '2024-07-07 04:51:36', '2024-07-07 04:51:36'),
-(33, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 1477, '2024-07-07 04:51:37', '2024-07-07 04:51:37'),
-(34, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 8575, '2024-07-07 04:54:58', '2024-07-07 04:54:58'),
-(35, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 1405, '2024-07-07 04:54:59', '2024-07-07 04:54:59'),
-(36, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 2455, '2024-07-07 04:55:02', '2024-07-07 04:55:02'),
-(37, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 1884, '2024-07-07 04:55:05', '2024-07-07 04:55:05'),
-(38, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 4290, '2024-07-07 04:55:09', '2024-07-07 04:55:09'),
-(39, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 3603, '2024-07-07 04:55:13', '2024-07-07 04:55:13'),
-(40, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 12469, '2024-07-07 04:57:01', '2024-07-07 04:57:01'),
-(41, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 5976, '2024-07-07 04:57:11', '2024-07-07 04:57:11'),
-(42, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 1313, '2024-07-07 04:57:13', '2024-07-07 04:57:13'),
-(43, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 2221, '2024-07-07 04:57:15', '2024-07-07 04:57:15'),
-(44, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 1400, '2024-07-07 04:57:17', '2024-07-07 04:57:17'),
-(45, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 13455, '2024-07-07 04:57:31', '2024-07-07 04:57:31'),
-(46, 32, 33, 'http://127.0.0.1:8000/product-details/Product-Title-7', 6206, '2024-07-07 04:57:42', '2024-07-07 04:57:42'),
-(47, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 3658, '2024-07-07 04:58:30', '2024-07-07 04:58:30'),
-(48, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 3513, '2024-07-07 04:58:34', '2024-07-07 04:58:34'),
-(49, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 8380, '2024-07-07 04:58:43', '2024-07-07 04:58:43'),
-(50, 32, 33, 'http://127.0.0.1:8000/product-details/Product-Title-7', 3598, '2024-07-07 04:58:53', '2024-07-07 04:58:53'),
-(51, 32, 33, 'http://127.0.0.1:8000/product-details/Product-Title-7', 3457, '2024-07-07 04:58:57', '2024-07-07 04:58:57'),
-(52, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 18494, '2024-07-07 04:59:19', '2024-07-07 04:59:19'),
-(53, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 38841, '2024-07-07 04:59:59', '2024-07-07 04:59:59'),
-(54, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 3164, '2024-07-07 05:09:20', '2024-07-07 05:09:20'),
-(55, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 1566, '2024-07-07 05:09:22', '2024-07-07 05:09:22'),
-(56, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 17501, '2024-07-07 05:09:40', '2024-07-07 05:09:40'),
-(57, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 28165, '2024-07-07 05:10:23', '2024-07-07 05:10:23'),
-(58, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 1979, '2024-07-07 05:10:25', '2024-07-07 05:10:25'),
-(59, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 4189, '2024-07-07 05:10:30', '2024-07-07 05:10:30'),
-(60, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 19442, '2024-07-07 05:14:59', '2024-07-07 05:14:59'),
-(61, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 1698, '2024-07-07 05:15:01', '2024-07-07 05:15:01'),
-(62, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 4596, '2024-07-07 05:15:06', '2024-07-07 05:15:06'),
-(63, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 3835, '2024-07-07 05:16:57', '2024-07-07 05:16:57'),
-(64, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 1391, '2024-07-07 05:16:59', '2024-07-07 05:16:59'),
-(65, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 3319, '2024-07-07 05:17:03', '2024-07-07 05:17:03'),
-(66, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 1834, '2024-07-07 05:17:05', '2024-07-07 05:17:05'),
-(67, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 2311, '2024-07-07 05:17:08', '2024-07-07 05:17:08'),
-(68, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 3186, '2024-07-07 05:17:13', '2024-07-07 05:17:13'),
-(69, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 1863, '2024-07-07 05:17:15', '2024-07-07 05:17:15'),
-(70, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 1153927, '2024-07-07 05:36:30', '2024-07-07 05:36:30'),
-(71, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-2', 5687, '2024-07-07 05:36:40', '2024-07-07 05:36:40'),
-(72, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10', 31462, '2024-07-07 05:37:18', '2024-07-07 05:37:18'),
-(73, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-BLACK', 2676, '2024-07-07 05:37:21', '2024-07-07 05:37:21'),
-(74, 32, 36, 'http://127.0.0.1:8000/product-details/Product-Title-10-YELLOW', 1592, '2024-07-07 05:37:23', '2024-07-07 05:37:23'),
-(75, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-2', 13520, '2024-07-07 05:46:24', '2024-07-07 05:46:24'),
-(76, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-2-RED', 1793, '2024-07-07 05:46:26', '2024-07-07 05:46:26'),
-(77, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-2-WHITE', 1573, '2024-07-07 05:46:28', '2024-07-07 05:46:28'),
-(78, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-5', 2342, '2024-07-07 05:47:05', '2024-07-07 05:47:05'),
-(79, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-2-RED', 1827, '2024-07-07 05:47:07', '2024-07-07 05:47:07'),
-(80, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-2-WHITE', 1723, '2024-07-07 05:47:09', '2024-07-07 05:47:09'),
-(81, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-5', 4154, '2024-07-07 05:47:13', '2024-07-07 05:47:13'),
-(82, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-2', 5903, '2024-07-07 06:05:40', '2024-07-07 06:05:40'),
-(83, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-2-WHITE', 1681, '2024-07-07 06:05:42', '2024-07-07 06:05:42'),
-(84, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-5', 1199, '2024-07-07 06:05:43', '2024-07-07 06:05:43'),
-(85, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-2-RED', 144323, '2024-07-07 06:08:08', '2024-07-07 06:08:08'),
-(86, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-2-RED', 1280, '2024-07-07 06:08:10', '2024-07-07 06:08:10'),
-(87, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-2-WHITE', 1279, '2024-07-07 06:08:12', '2024-07-07 06:08:12'),
-(88, 32, 27, 'http://127.0.0.1:8000/product-details/Product-Title-5', 1783, '2024-07-07 06:08:14', '2024-07-07 06:08:14'),
-(89, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-WHITE', 5633, '2024-07-07 06:18:09', '2024-07-07 06:18:09'),
-(90, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-RED', 852, '2024-07-07 06:18:10', '2024-07-07 06:18:10'),
-(91, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-BLUE', 1327, '2024-07-07 06:18:12', '2024-07-07 06:18:12'),
-(92, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-WHITE', 428591, '2024-07-07 06:25:21', '2024-07-07 06:25:21'),
-(93, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-BLUE', 1796, '2024-07-07 06:25:24', '2024-07-07 06:25:24'),
-(94, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-WHITE', 5016, '2024-07-07 06:25:29', '2024-07-07 06:25:29'),
-(95, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-4', 3471, '2024-07-07 06:25:33', '2024-07-07 06:25:33'),
-(96, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-WHITE', 879, '2024-07-07 06:25:34', '2024-07-07 06:25:34'),
-(97, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-BLUE', 957, '2024-07-07 06:25:36', '2024-07-07 06:25:36'),
-(98, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-RED', 2644, '2024-07-07 06:50:37', '2024-07-07 06:50:37'),
-(99, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-BLUE', 106870, '2024-07-07 06:54:42', '2024-07-07 06:54:42'),
-(100, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-WHITE', 3160, '2024-07-07 07:15:08', '2024-07-07 07:15:08'),
-(101, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-BLUE', 2843, '2024-07-07 07:15:11', '2024-07-07 07:15:11'),
-(102, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-WHITE', 6259, '2024-07-07 07:15:18', '2024-07-07 07:15:18'),
-(103, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1', 10561, '2024-07-07 07:15:29', '2024-07-07 07:15:29'),
-(104, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-4', 3986, '2024-07-07 07:15:33', '2024-07-07 07:15:33'),
-(105, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1', 1266, '2024-07-07 07:15:35', '2024-07-07 07:15:35'),
-(106, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-WHITE', 12008, '2024-07-07 07:16:48', '2024-07-07 07:16:48'),
-(107, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1', 3295, '2024-07-07 07:16:52', '2024-07-07 07:16:52'),
-(108, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-4', 2027, '2024-07-07 07:16:54', '2024-07-07 07:16:54'),
-(109, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-BLUE', 2670, '2024-07-07 07:16:58', '2024-07-07 07:16:58'),
-(110, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-RED', 3775, '2024-07-07 07:17:23', '2024-07-07 07:17:23'),
-(111, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-BLUE', 2705, '2024-07-07 07:18:23', '2024-07-07 07:18:23'),
-(112, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-WHITE', 1742, '2024-07-07 07:18:26', '2024-07-07 07:18:26'),
-(113, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-RED', 1388, '2024-07-07 07:18:28', '2024-07-07 07:18:28'),
-(114, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-BLUE', 1244, '2024-07-07 07:18:29', '2024-07-07 07:18:29'),
-(115, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-WHITE', 3113, '2024-07-07 07:19:01', '2024-07-07 07:19:01'),
-(116, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-WHITE', 1453, '2024-07-07 07:19:03', '2024-07-07 07:19:03'),
-(117, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1', 1677, '2024-07-07 07:19:05', '2024-07-07 07:19:05'),
-(118, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-RED', 1422, '2024-07-07 07:19:07', '2024-07-07 07:19:07'),
-(119, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-BLUE', 991, '2024-07-07 07:19:08', '2024-07-07 07:19:08'),
-(120, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-WHITE', 5289, '2024-07-07 07:20:37', '2024-07-07 07:20:37'),
-(121, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-RED', 3120, '2024-07-07 07:20:55', '2024-07-07 07:20:55'),
-(122, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-WHITE', 1352, '2024-07-07 07:20:57', '2024-07-07 07:20:57'),
-(123, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-BLUE', 1135, '2024-07-07 07:20:59', '2024-07-07 07:20:59'),
-(124, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-RED', 2858, '2024-07-07 07:22:33', '2024-07-07 07:22:33'),
-(125, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-WHITE', 895, '2024-07-07 07:22:34', '2024-07-07 07:22:34'),
-(126, 32, 26, 'http://127.0.0.1:8000/product-details/Product-Title-1-BLUE', 1036, '2024-07-07 07:22:36', '2024-07-07 07:22:36');
+(1, 33, 33, 'https://bikebros.net/product-details/Gafas-Deportivas-Ciclismo-Uv400', 33005, '2024-07-04 07:01:56', '2024-07-04 07:01:56'),
+(2, 33, 33, 'https://bikebros.net/product-details/Gafas-Deportivas-Ciclismo-Uv400', 5383594, '2024-07-04 08:31:43', '2024-07-04 08:31:43'),
+(3, 33, 41, 'https://bikebros.net/product-details/asd', 27540, '2024-07-04 08:33:47', '2024-07-04 08:33:47'),
+(4, 33, 41, 'https://bikebros.net/product-details/asd', 46326, '2024-07-04 08:34:06', '2024-07-04 08:34:06'),
+(5, 33, 41, 'https://bikebros.net/product-details/asd', 9492, '2024-07-04 08:34:18', '2024-07-04 08:34:18'),
+(6, 33, 41, 'https://bikebros.net/product-details/asd', 2177, '2024-07-04 08:34:39', '2024-07-04 08:34:39'),
+(7, 33, 41, 'https://bikebros.net/product-details/asd', 11245, '2024-07-04 08:34:53', '2024-07-04 08:34:53'),
+(8, 32, 28, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados', 24826, '2024-07-04 08:37:08', '2024-07-04 08:37:08'),
+(9, 32, 28, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados', 171056, '2024-07-04 08:40:02', '2024-07-04 08:40:02'),
+(10, 33, 47, 'https://bikebros.net/product-details/Product-99', 15632, '2024-07-04 10:22:38', '2024-07-04 10:22:38'),
+(11, 33, 47, 'https://bikebros.net/product-details/Product-99', 7013, '2024-07-04 10:22:47', '2024-07-04 10:22:47'),
+(12, 32, 47, 'https://bikebros.net/product-details/Product-99', 8074, '2024-07-05 11:24:36', '2024-07-05 11:24:36'),
+(13, 32, 47, 'https://bikebros.net/product-details/Product-99', 3312, '2024-07-05 11:25:31', '2024-07-05 11:25:31'),
+(14, 32, 46, 'https://bikebros.net/product-details/Product-95-BLACK', 3661, '2024-07-05 12:01:39', '2024-07-05 12:01:39'),
+(15, 32, 46, 'https://bikebros.net/product-details/Product-95-BLACK', 12193, '2024-07-05 12:01:53', '2024-07-05 12:01:53'),
+(16, 32, 47, 'https://bikebros.net/product-details/Product-99', 9970, '2024-07-05 13:45:12', '2024-07-05 13:45:12'),
+(17, 32, 47, 'https://bikebros.net/product-details/Product-99', 8207, '2024-07-05 13:45:23', '2024-07-05 13:45:23'),
+(18, 32, 47, 'https://bikebros.net/product-details/Product-99', 9276, '2024-07-05 13:51:45', '2024-07-05 13:51:45'),
+(19, 32, 47, 'https://bikebros.net/product-details/Product-99', 3726, '2024-07-05 13:51:51', '2024-07-05 13:51:51'),
+(20, 39, 43, 'https://bikebros.net/product-details/asd-BLACK', 4649, '2024-07-05 18:13:37', '2024-07-05 18:13:37'),
+(21, 39, 43, 'https://bikebros.net/product-details/asd-BLACK', 3496, '2024-07-05 18:13:41', '2024-07-05 18:13:41'),
+(22, 39, 43, 'https://bikebros.net/product-details/asd-BLACK', 3518, '2024-07-05 18:13:46', '2024-07-05 18:13:46'),
+(23, 39, 43, 'https://bikebros.net/product-details/asd-BLACK', 38301, '2024-07-05 18:14:25', '2024-07-05 18:14:25'),
+(24, 39, 43, 'https://bikebros.net/product-details/asd-BLACK', 5317, '2024-07-05 18:14:31', '2024-07-05 18:14:31'),
+(25, 39, 43, 'https://bikebros.net/product-details/asd-BLACK', 36010, '2024-07-05 18:15:08', '2024-07-05 18:15:08'),
+(26, 39, 46, 'https://bikebros.net/product-details/Product-95-BLACK', 3127, '2024-07-05 18:15:19', '2024-07-05 18:15:19'),
+(27, 39, 46, 'https://bikebros.net/product-details/Product-95-BLACK', 4043, '2024-07-05 18:15:24', '2024-07-05 18:15:24'),
+(28, 39, 46, 'https://bikebros.net/product-details/Product-95-BLACK', 2960, '2024-07-05 18:15:28', '2024-07-05 18:15:28'),
+(29, 39, 33, 'https://bikebros.net/product-details/Gafas-Deportivas-Ciclismo-Uv400', 8501, '2024-07-05 18:20:48', '2024-07-05 18:20:48'),
+(30, 39, 33, 'https://bikebros.net/product-details/Gafas-Deportivas-Ciclismo-Uv400', 3577, '2024-07-05 18:20:53', '2024-07-05 18:20:53'),
+(31, 39, 33, 'https://bikebros.net/product-details/Gafas-Deportivas-Ciclismo-Uv400', 3783, '2024-07-05 18:20:57', '2024-07-05 18:20:57'),
+(32, 33, 33, 'https://bikebros.net/product-details/Gafas-Deportivas-Ciclismo-Uv400', 2783622, '2024-07-05 20:14:39', '2024-07-05 20:14:39'),
+(33, 32, 48, 'https://bikebros.net/product-details/Product-99-RED', 2233, '2024-07-06 07:07:13', '2024-07-06 07:07:13'),
+(34, 32, 48, 'https://bikebros.net/product-details/Product-99-RED', 2004, '2024-07-06 07:08:58', '2024-07-06 07:08:58'),
+(35, 32, 48, 'https://bikebros.net/product-details/Product-99-RED', 3557, '2024-07-06 07:21:04', '2024-07-06 07:21:04'),
+(36, 32, 45, 'https://bikebros.net/product-details/Product-95', 13309, '2024-07-06 08:47:51', '2024-07-06 08:47:51'),
+(37, 33, 33, 'https://bikebros.net/product-details/Gafas-Deportivas-Ciclismo-Uv400', 12508, '2024-07-07 06:33:14', '2024-07-07 06:33:14'),
+(38, 33, 33, 'https://bikebros.net/product-details/Gafas-Deportivas-Ciclismo-Uv400', 4665, '2024-07-07 06:33:19', '2024-07-07 06:33:19'),
+(39, 33, 47, 'https://bikebros.net/product-details/Product-99', 4335, '2024-07-07 06:52:13', '2024-07-07 06:52:13'),
+(40, 33, 47, 'https://bikebros.net/product-details/Product-99', 5412, '2024-07-07 06:52:19', '2024-07-07 06:52:19'),
+(41, 33, 45, 'https://bikebros.net/product-details/Product-95', 9019, '2024-07-07 06:54:46', '2024-07-07 06:54:46'),
+(42, 33, 46, 'https://bikebros.net/product-details/Product-95-BLACK', 5337, '2024-07-07 06:54:51', '2024-07-07 06:54:51'),
+(43, 33, 46, 'https://bikebros.net/product-details/Product-95-BLACK', 4870, '2024-07-07 06:54:57', '2024-07-07 06:54:57'),
+(44, 33, 45, 'https://bikebros.net/product-details/Product-95', 24842, '2024-07-07 06:58:00', '2024-07-07 06:58:00'),
+(45, 33, 46, 'https://bikebros.net/product-details/Product-95-BLACK', 7225, '2024-07-07 06:58:07', '2024-07-07 06:58:07'),
+(46, 33, 46, 'https://bikebros.net/product-details/Product-95-BLACK', 7533, '2024-07-07 06:58:15', '2024-07-07 06:58:15'),
+(47, 33, 45, 'https://bikebros.net/product-details/Product-95', 25147, '2024-07-07 07:05:46', '2024-07-07 07:05:46'),
+(48, 33, 45, 'https://bikebros.net/product-details/Product-95', 3942, '2024-07-07 07:05:50', '2024-07-07 07:05:50'),
+(49, 33, 46, 'https://bikebros.net/product-details/Product-95-BLACK', 600112, '2024-07-07 07:25:44', '2024-07-07 07:25:44'),
+(50, 33, 32, 'https://bikebros.net/product-details/Lentes-De-Ciclismo', 32751, '2024-07-07 07:26:24', '2024-07-07 07:26:24'),
+(51, 33, 45, 'https://bikebros.net/product-details/Product-95', 4717, '2024-07-07 07:35:15', '2024-07-07 07:35:15'),
+(52, 33, 45, 'https://bikebros.net/product-details/Product-95', 4877, '2024-07-07 07:35:21', '2024-07-07 07:35:21'),
+(53, 33, 46, 'https://bikebros.net/product-details/Product-95-BLACK', 4518, '2024-07-07 07:35:25', '2024-07-07 07:35:25'),
+(54, 33, 46, 'https://bikebros.net/product-details/Product-95-BLACK', 3871, '2024-07-07 07:35:30', '2024-07-07 07:35:30'),
+(55, 33, 44, 'https://bikebros.net/product-details/asd-YELLOW', 88238, '2024-07-07 07:48:02', '2024-07-07 07:48:02'),
+(56, 32, 10, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-10161-Fotocrom%C3%A1ticos-Rockbros', 14602, '2024-07-07 07:56:30', '2024-07-07 07:56:30'),
+(57, 33, 49, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros', 3782, '2024-07-07 08:09:51', '2024-07-07 08:09:51'),
+(58, 33, 51, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-BLACK', 9879, '2024-07-07 08:10:01', '2024-07-07 08:10:01'),
+(59, 33, 51, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-BLACK', 5891, '2024-07-07 08:10:12', '2024-07-07 08:10:12'),
+(60, 33, 49, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros', 4579, '2024-07-07 08:10:37', '2024-07-07 08:10:37'),
+(61, 33, 50, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-BLUE', 4463, '2024-07-07 08:10:42', '2024-07-07 08:10:42'),
+(62, 33, 50, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-BLUE', 3238, '2024-07-07 08:10:46', '2024-07-07 08:10:46'),
+(63, 33, 47, 'https://bikebros.net/product-details/Product-99', 19862, '2024-07-07 08:13:47', '2024-07-07 08:13:47'),
+(64, 33, 48, 'https://bikebros.net/product-details/Product-99-RED', 227678, '2024-07-07 08:17:46', '2024-07-07 08:17:46'),
+(65, 33, 41, 'https://bikebros.net/product-details/asd', 11430, '2024-07-07 08:18:07', '2024-07-07 08:18:07'),
+(66, 33, 41, 'https://bikebros.net/product-details/asd', 1710, '2024-07-07 08:18:10', '2024-07-07 08:18:10'),
+(67, 33, 41, 'https://bikebros.net/product-details/asd', 133349, '2024-07-07 08:33:28', '2024-07-07 08:33:28'),
+(68, 33, 41, 'https://bikebros.net/product-details/asd', 10173, '2024-07-07 08:39:54', '2024-07-07 08:39:54'),
+(69, 33, 41, 'https://bikebros.net/product-details/asd', 2421, '2024-07-07 08:39:58', '2024-07-07 08:39:58'),
+(70, 33, 43, 'https://bikebros.net/product-details/asd-BLACK', 5166, '2024-07-07 09:01:34', '2024-07-07 09:01:34'),
+(71, 33, 44, 'https://bikebros.net/product-details/asd-YELLOW', 2597, '2024-07-07 09:04:48', '2024-07-07 09:04:48'),
+(72, 33, 47, 'https://bikebros.net/product-details/Product-99', 4629, '2024-07-07 09:07:40', '2024-07-07 09:07:40'),
+(73, 33, 48, 'https://bikebros.net/product-details/Product-99-RED', 8763, '2024-07-07 09:07:50', '2024-07-07 09:07:50'),
+(74, 33, 41, 'https://bikebros.net/product-details/asd', 3261, '2024-07-07 09:08:12', '2024-07-07 09:08:12'),
+(75, 33, 43, 'https://bikebros.net/product-details/asd-BLACK', 2331308, '2024-07-07 09:47:06', '2024-07-07 09:47:06'),
+(76, 33, 41, 'https://bikebros.net/product-details/asd', 17502, '2024-07-07 10:29:54', '2024-07-07 10:29:54'),
+(77, 33, 43, 'https://bikebros.net/product-details/asd-BLACK', 3511055, '2024-07-07 11:28:26', '2024-07-07 11:28:26'),
+(78, 33, 28, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados-PINK', 5887, '2024-07-07 11:34:03', '2024-07-07 11:34:03'),
+(79, 33, 28, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados-WHITE', 57567, '2024-07-07 11:35:02', '2024-07-07 11:35:02'),
+(80, 33, 28, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados-PINK', 1083, '2024-07-07 11:35:05', '2024-07-07 11:35:05'),
+(81, 33, 28, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados-WHITE', 2513, '2024-07-07 11:35:09', '2024-07-07 11:35:09'),
+(82, 33, 28, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados', 100519, '2024-07-07 11:39:35', '2024-07-07 11:39:35'),
+(83, 33, 28, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados', 2428, '2024-07-07 11:40:32', '2024-07-07 11:40:32'),
+(84, 33, 28, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados-WHITE', 1457, '2024-07-07 11:40:35', '2024-07-07 11:40:35'),
+(85, 33, 28, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados-PINK', 2918, '2024-07-07 11:40:39', '2024-07-07 11:40:39'),
+(86, 33, 32, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-ORANGE', 6057, '2024-07-07 11:43:49', '2024-07-07 11:43:49'),
+(87, 33, 32, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-BLACK', 1810, '2024-07-07 11:43:53', '2024-07-07 11:43:53'),
+(88, 33, 32, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-ORANGE', 426403, '2024-07-07 11:51:01', '2024-07-07 11:51:01'),
+(89, 33, 27, 'https://bikebros.net/product-details/GAFAS-DE-SOL-FOTOCR%C3%93MICAS-BROWN', 17624, '2024-07-07 11:51:36', '2024-07-07 11:51:36'),
+(90, 33, 27, 'https://bikebros.net/product-details/GAFAS-DE-SOL-FOTOCR%C3%93MICAS-WHITE', 3107, '2024-07-07 11:57:27', '2024-07-07 11:57:27'),
+(91, 33, 57, 'https://bikebros.net/product-details/GAFAS-DE-SOL-FOTOCR%C3%93MICAS-WHITE', 65808, '2024-07-07 12:00:02', '2024-07-07 12:00:02'),
+(92, 33, 28, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados', 9593, '2024-07-07 12:01:51', '2024-07-07 12:01:51'),
+(93, 33, 28, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados-PINK', 1576, '2024-07-07 12:01:54', '2024-07-07 12:01:54'),
+(94, 33, 28, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados-WHITE', 3370, '2024-07-07 12:01:59', '2024-07-07 12:01:59'),
+(95, 33, 32, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-ORANGE', 3908, '2024-07-07 12:10:57', '2024-07-07 12:10:57'),
+(96, 33, 32, 'https://bikebros.net/product-details/Lentes-De-Ciclismo', 5793, '2024-07-07 12:11:11', '2024-07-07 12:11:11'),
+(97, 33, 32, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-BLACK', 1743, '2024-07-07 12:11:14', '2024-07-07 12:11:14'),
+(98, 33, 32, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-ORANGE', 2316, '2024-07-07 12:11:18', '2024-07-07 12:11:18'),
+(99, 33, 32, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-BLACK', 232211, '2024-07-07 12:15:13', '2024-07-07 12:15:13'),
+(100, 33, 59, 'https://bikebros.net/product-details/testing-GRAY', 4064, '2024-07-07 12:15:27', '2024-07-07 12:15:27'),
+(101, 33, 59, 'https://bikebros.net/product-details/testing-PURPLE', 7462, '2024-07-07 12:18:46', '2024-07-07 12:18:46'),
+(102, 33, 59, 'https://bikebros.net/product-details/testing', 243169, '2024-07-07 12:22:58', '2024-07-07 12:22:58'),
+(103, 33, 59, 'https://bikebros.net/product-details/testing-GRAY', 1179, '2024-07-07 12:23:00', '2024-07-07 12:23:00'),
+(104, 33, 59, 'https://bikebros.net/product-details/testing-PINK', 1126, '2024-07-07 12:23:03', '2024-07-07 12:23:03'),
+(105, 33, 59, 'https://bikebros.net/product-details/testing-PURPLE', 3519, '2024-07-07 12:23:33', '2024-07-07 12:23:33'),
+(106, 33, 59, 'https://bikebros.net/product-details/testing-PINK', 3538, '2024-07-07 12:24:04', '2024-07-07 12:24:04'),
+(107, 33, 59, 'https://bikebros.net/product-details/testing-PINK', 1055, '2024-07-07 12:24:07', '2024-07-07 12:24:07'),
+(108, 33, 59, 'https://bikebros.net/product-details/testing-GRAY', 1465, '2024-07-07 12:24:10', '2024-07-07 12:24:10'),
+(109, 33, 59, 'https://bikebros.net/product-details/testing-PURPLE', 1467, '2024-07-07 12:24:13', '2024-07-07 12:24:13'),
+(110, 33, 59, 'https://bikebros.net/product-details/testing', 4583, '2024-07-07 12:26:45', '2024-07-07 12:26:45'),
+(111, 33, 59, 'https://bikebros.net/product-details/testing', 1383, '2024-07-07 12:26:48', '2024-07-07 12:26:48'),
+(112, 33, 59, 'https://bikebros.net/product-details/testing-GRAY', 1947, '2024-07-07 12:26:52', '2024-07-07 12:26:52'),
+(113, 33, 59, 'https://bikebros.net/product-details/testing-PINK', 1515, '2024-07-07 12:26:55', '2024-07-07 12:26:55'),
+(114, 33, 59, 'https://bikebros.net/product-details/testing-PURPLE', 20993, '2024-07-07 12:27:17', '2024-07-07 12:27:17'),
+(115, 33, 32, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-ORANGE', 3087, '2024-07-07 12:27:31', '2024-07-07 12:27:31'),
+(116, 33, 32, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-BLACK', 1930, '2024-07-07 12:27:35', '2024-07-07 12:27:35'),
+(117, 33, 32, 'https://bikebros.net/product-details/Lentes-De-Ciclismo', 118881, '2024-07-07 12:29:35', '2024-07-07 12:29:35'),
+(118, 33, 59, 'https://bikebros.net/product-details/testing-PINK', 4050, '2024-07-07 12:30:06', '2024-07-07 12:30:06'),
+(119, 33, 59, 'https://bikebros.net/product-details/testing-PURPLE', 2237, '2024-07-07 12:30:09', '2024-07-07 12:30:09'),
+(120, 33, 59, 'https://bikebros.net/product-details/testing-GRAY', 1577, '2024-07-07 12:30:13', '2024-07-07 12:30:13'),
+(121, 33, 59, 'https://bikebros.net/product-details/testing', 3979, '2024-07-07 12:30:25', '2024-07-07 12:30:25'),
+(122, 33, 59, 'https://bikebros.net/product-details/testing-GRAY', 2141, '2024-07-07 12:30:29', '2024-07-07 12:30:29'),
+(123, 33, 59, 'https://bikebros.net/product-details/testing-PINK', 1327, '2024-07-07 12:30:32', '2024-07-07 12:30:32'),
+(124, 33, 59, 'https://bikebros.net/product-details/testing-PURPLE', 3482, '2024-07-07 12:30:37', '2024-07-07 12:30:37'),
+(125, 33, 59, 'https://bikebros.net/product-details/testing-PURPLE', 3781, '2024-07-07 12:30:43', '2024-07-07 12:30:43'),
+(126, 33, 59, 'https://bikebros.net/product-details/testing', 4383, '2024-07-07 12:31:14', '2024-07-07 12:31:14'),
+(127, 33, 59, 'https://bikebros.net/product-details/testing-PINK', 1824, '2024-07-07 12:31:17', '2024-07-07 12:31:17'),
+(128, 33, 59, 'https://bikebros.net/product-details/testing-PINK', 2173, '2024-07-07 12:31:22', '2024-07-07 12:31:22'),
+(129, 33, 59, 'https://bikebros.net/product-details/testing-PURPLE', 1169, '2024-07-07 12:31:25', '2024-07-07 12:31:25'),
+(130, 33, 59, 'https://bikebros.net/product-details/testing-PURPLE', 2714, '2024-07-07 12:31:30', '2024-07-07 12:31:30'),
+(131, 33, 59, 'https://bikebros.net/product-details/testing-GRAY', 10003, '2024-07-07 12:35:07', '2024-07-07 12:35:07'),
+(132, 33, 59, 'https://bikebros.net/product-details/testing-GRAY', 5931, '2024-07-07 12:35:15', '2024-07-07 12:35:15'),
+(133, 33, 59, 'https://bikebros.net/product-details/testing', 33723, '2024-07-07 12:40:39', '2024-07-07 12:40:39'),
+(134, 33, 59, 'https://bikebros.net/product-details/testing', 6365, '2024-07-07 12:40:47', '2024-07-07 12:40:47'),
+(135, 33, 59, 'https://bikebros.net/product-details/testing-GRAY', 7028, '2024-07-07 12:56:57', '2024-07-07 12:56:57'),
+(136, 33, 59, 'https://bikebros.net/product-details/testing-PINK', 3826, '2024-07-07 12:58:01', '2024-07-07 12:58:01'),
+(137, 33, 59, 'https://bikebros.net/product-details/testing-PURPLE', 1953, '2024-07-07 12:58:05', '2024-07-07 12:58:05'),
+(138, 33, 59, 'https://bikebros.net/product-details/testing', 1353, '2024-07-07 12:58:08', '2024-07-07 12:58:08'),
+(139, 33, 59, 'https://bikebros.net/product-details/testing-GRAY', 2664, '2024-07-07 12:58:12', '2024-07-07 12:58:12'),
+(140, 33, 59, 'https://bikebros.net/product-details/testing-GRAY', 6336, '2024-07-07 12:58:20', '2024-07-07 12:58:20'),
+(141, 33, 59, 'https://bikebros.net/product-details/testing-PURPLE', 2201, '2024-07-07 12:58:24', '2024-07-07 12:58:24'),
+(142, 33, 59, 'https://bikebros.net/product-details/testing-PURPLE', 1680, '2024-07-07 12:58:28', '2024-07-07 12:58:28'),
+(143, 33, 59, 'https://bikebros.net/product-details/testing', 3767, '2024-07-07 12:58:33', '2024-07-07 12:58:33'),
+(144, 33, 59, 'https://bikebros.net/product-details/testing', 4207, '2024-07-07 12:58:40', '2024-07-07 12:58:40'),
+(145, 33, 63, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-BLUE', 3066, '2024-07-07 15:29:08', '2024-07-07 15:29:08'),
+(146, 33, 63, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-BLACK', 7711, '2024-07-07 15:29:16', '2024-07-07 15:29:16'),
+(147, 33, 63, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-BLUE', 3625, '2024-07-07 15:29:20', '2024-07-07 15:29:20'),
+(148, 33, 63, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-BLUE', 4714, '2024-07-07 15:29:25', '2024-07-07 15:29:25'),
+(149, 33, 63, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-BLACK', 64939, '2024-07-07 15:30:30', '2024-07-07 15:30:30'),
+(150, 33, 63, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-BLACK', 3116, '2024-07-07 15:30:34', '2024-07-07 15:30:34'),
+(151, 33, 63, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-BLUE', 4420, '2024-07-07 15:30:39', '2024-07-07 15:30:39'),
+(152, 33, 63, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-BLUE', 4217, '2024-07-07 15:36:56', '2024-07-07 15:36:56'),
+(153, 33, 63, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-BLUE', 420096, '2024-07-07 15:37:39', '2024-07-07 15:37:39'),
+(154, 33, 63, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros', 80007, '2024-07-07 15:38:25', '2024-07-07 15:38:25'),
+(155, 33, 66, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-BLUE', 5308, '2024-07-07 15:44:19', '2024-07-07 15:44:19'),
+(156, 33, 66, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-BLUE', 3138, '2024-07-07 15:44:22', '2024-07-07 15:44:22'),
+(157, 33, 66, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-BLACK', 6838, '2024-07-07 15:44:29', '2024-07-07 15:44:29'),
+(158, 33, 66, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-BLUE', 8758, '2024-07-07 15:44:38', '2024-07-07 15:44:38'),
+(159, 33, 69, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-10164-Polarizados-Rockbros', 4998, '2024-07-07 16:08:16', '2024-07-07 16:08:16'),
+(160, 33, 69, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-10164-Polarizados-Rockbros', 3649, '2024-07-07 16:08:21', '2024-07-07 16:08:21'),
+(161, 33, 69, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-10164-Polarizados-Rockbros-WHITE', 4080, '2024-07-07 16:08:25', '2024-07-07 16:08:25'),
+(162, 33, 71, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-10164-Polarizados-Rockbros-YELLOW', 57474, '2024-07-07 16:09:36', '2024-07-07 16:09:36'),
+(163, 33, 69, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-10164-Polarizados-Rockbros', 24512, '2024-07-07 16:10:33', '2024-07-07 16:10:33'),
+(164, 32, 69, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-10164-Polarizados-Rockbros-BLUE', 4156, '2024-07-07 16:10:46', '2024-07-07 16:10:46'),
+(165, 32, 69, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-10164-Polarizados-Rockbros-WHITE', 1470, '2024-07-07 16:10:49', '2024-07-07 16:10:49'),
+(166, 33, 69, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-10164-Polarizados-Rockbros-BLUE', 7794, '2024-07-07 16:13:44', '2024-07-07 16:13:44'),
+(167, 33, 69, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-10164-Polarizados-Rockbros-WHITE', 3159, '2024-07-07 16:13:48', '2024-07-07 16:13:48'),
+(168, 33, 69, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-10164-Polarizados-Rockbros', 3641, '2024-07-07 16:13:52', '2024-07-07 16:13:52'),
+(169, 33, 69, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-10164-Polarizados-Rockbros', 4605, '2024-07-07 16:14:02', '2024-07-07 16:14:02'),
+(170, 33, 69, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-10164-Polarizados-Rockbros-WHITE', 4249, '2024-07-07 16:14:10', '2024-07-07 16:14:10'),
+(171, 32, 69, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-10164-Polarizados-Rockbros', 266755, '2024-07-07 16:15:18', '2024-07-07 16:15:18'),
+(172, 33, 71, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-10164-Polarizados-Rockbros-YELLOW', 82855, '2024-07-07 16:15:39', '2024-07-07 16:15:39'),
+(173, 33, 73, 'https://bikebros.net/product-details/new-product', 4105, '2024-07-07 16:21:36', '2024-07-07 16:21:36'),
+(174, 33, 73, 'https://bikebros.net/product-details/new-product', 5814, '2024-07-07 16:21:42', '2024-07-07 16:21:42'),
+(175, 32, 69, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-10164-Polarizados-Rockbros-WHITE', 367942, '2024-07-07 16:21:44', '2024-07-07 16:21:44'),
+(176, 33, 73, 'https://bikebros.net/product-details/new-product-BLACK', 3302, '2024-07-07 16:21:46', '2024-07-07 16:21:46'),
+(177, 33, 73, 'https://bikebros.net/product-details/new-product-BLUE', 3388, '2024-07-07 16:21:50', '2024-07-07 16:21:50'),
+(178, 32, 73, 'https://bikebros.net/product-details/new-product-BLACK', 3215, '2024-07-07 16:22:11', '2024-07-07 16:22:11'),
+(179, 32, 73, 'https://bikebros.net/product-details/new-product-BLACK', 1437, '2024-07-07 16:22:14', '2024-07-07 16:22:14'),
+(180, 33, 73, 'https://bikebros.net/product-details/new-product', 24761, '2024-07-07 16:22:15', '2024-07-07 16:22:15'),
+(181, 33, 73, 'https://bikebros.net/product-details/new-product', 20268, '2024-07-07 16:22:55', '2024-07-07 16:22:55'),
+(182, 33, 73, 'https://bikebros.net/product-details/new-product-BLUE', 5682, '2024-07-07 16:23:11', '2024-07-07 16:23:11'),
+(183, 33, 76, 'https://bikebros.net/product-details/testing', 12316, '2024-07-08 04:15:57', '2024-07-08 04:15:57'),
+(184, 33, 76, 'https://bikebros.net/product-details/testing-YELLOW', 8056, '2024-07-08 04:16:11', '2024-07-08 04:16:11'),
+(185, 33, 76, 'https://bikebros.net/product-details/testing-BLACK', 1061, '2024-07-08 04:16:13', '2024-07-08 04:16:13'),
+(186, 33, 76, 'https://bikebros.net/product-details/testing-WHITE', 1510, '2024-07-08 04:16:16', '2024-07-08 04:16:16'),
+(187, 33, 76, 'https://bikebros.net/product-details/testing-YELLOW', 54752, '2024-07-08 04:17:13', '2024-07-08 04:17:13'),
+(188, 33, 76, 'https://bikebros.net/product-details/testing', 13128, '2024-07-08 04:25:57', '2024-07-08 04:25:57'),
+(189, 33, 76, 'https://bikebros.net/product-details/testing', 3309, '2024-07-08 04:33:22', '2024-07-08 04:33:22'),
+(190, 33, 76, 'https://bikebros.net/product-details/testing-BLACK', 1770, '2024-07-08 04:33:25', '2024-07-08 04:33:25'),
+(191, 33, 76, 'https://bikebros.net/product-details/testing-WHITE', 1694, '2024-07-08 04:33:28', '2024-07-08 04:33:28'),
+(192, 33, 76, 'https://bikebros.net/product-details/testing-YELLOW', 35267, '2024-07-08 04:34:05', '2024-07-08 04:34:05'),
+(193, 33, 76, 'https://bikebros.net/product-details/testing-BLACK', 8418, '2024-07-08 04:34:23', '2024-07-08 04:34:23'),
+(194, 33, 76, 'https://bikebros.net/product-details/testing', 1079967, '2024-07-08 04:52:32', '2024-07-08 04:52:32'),
+(195, 33, 76, 'https://bikebros.net/product-details/testing-WHITE', 6649, '2024-07-08 04:55:00', '2024-07-08 04:55:00'),
+(196, 33, 76, 'https://bikebros.net/product-details/testing-YELLOW', 5587, '2024-07-08 04:55:06', '2024-07-08 04:55:06'),
+(197, 33, 76, 'https://bikebros.net/product-details/testing-BLACK', 3598, '2024-07-08 04:55:10', '2024-07-08 04:55:10'),
+(198, 33, 76, 'https://bikebros.net/product-details/testing-YELLOW', 4323, '2024-07-08 04:55:43', '2024-07-08 04:55:43'),
+(199, 33, 76, 'https://bikebros.net/product-details/testing-YELLOW', 3694, '2024-07-08 04:55:47', '2024-07-08 04:55:47'),
+(200, 33, 76, 'https://bikebros.net/product-details/testing', 4596, '2024-07-08 04:56:00', '2024-07-08 04:56:00'),
+(201, 33, 76, 'https://bikebros.net/product-details/testing-YELLOW', 4134, '2024-07-08 04:56:04', '2024-07-08 04:56:04'),
+(202, 33, 76, 'https://bikebros.net/product-details/testing-WHITE', 3877, '2024-07-08 04:56:09', '2024-07-08 04:56:09'),
+(203, 33, 76, 'https://bikebros.net/product-details/testing-BLACK', 4597, '2024-07-08 04:56:14', '2024-07-08 04:56:14'),
+(204, 33, 76, 'https://bikebros.net/product-details/testing', 14313, '2024-07-08 04:56:35', '2024-07-08 04:56:35'),
+(205, 33, 76, 'https://bikebros.net/product-details/testing', 2655, '2024-07-08 05:24:15', '2024-07-08 05:24:15'),
+(206, 33, 76, 'https://bikebros.net/product-details/testing-BLACK', 1950, '2024-07-08 05:24:18', '2024-07-08 05:24:18'),
+(207, 33, 76, 'https://bikebros.net/product-details/testing-WHITE', 1942, '2024-07-08 05:24:22', '2024-07-08 05:24:22'),
+(208, 33, 76, 'https://bikebros.net/product-details/testing-YELLOW', 4985, '2024-07-08 05:24:28', '2024-07-08 05:24:28'),
+(209, 33, 80, 'https://bikebros.net/product-details/glass', 14498, '2024-07-08 05:33:53', '2024-07-08 05:33:53'),
+(210, 33, 76, 'https://bikebros.net/product-details/testing', 308251, '2024-07-08 05:39:30', '2024-07-08 05:39:30'),
+(211, 33, 80, 'https://bikebros.net/product-details/glass', 5343, '2024-07-08 05:42:23', '2024-07-08 05:42:23'),
+(212, 33, 76, 'https://bikebros.net/product-details/testing', 12408, '2024-07-08 05:42:40', '2024-07-08 05:42:40'),
+(213, 33, 76, 'https://bikebros.net/product-details/testing-BLACK', 3596, '2024-07-08 05:42:45', '2024-07-08 05:42:45'),
+(214, 33, 76, 'https://bikebros.net/product-details/testing-WHITE', 4142, '2024-07-08 05:42:51', '2024-07-08 05:42:51'),
+(215, 33, 76, 'https://bikebros.net/product-details/testing-YELLOW', 3646, '2024-07-08 05:46:48', '2024-07-08 05:46:48'),
+(216, 33, 76, 'https://bikebros.net/product-details/testing-BLACK', 1347, '2024-07-08 05:46:50', '2024-07-08 05:46:50'),
+(217, 33, 76, 'https://bikebros.net/product-details/testing-WHITE', 11365, '2024-07-08 05:47:03', '2024-07-08 05:47:03'),
+(218, 33, 76, 'https://bikebros.net/product-details/testing', 2452, '2024-07-08 05:47:13', '2024-07-08 05:47:13'),
+(219, 33, 76, 'https://bikebros.net/product-details/testing-WHITE', 2756, '2024-07-08 05:47:17', '2024-07-08 05:47:17'),
+(220, 33, 76, 'https://bikebros.net/product-details/testing-YELLOW', 1390, '2024-07-08 05:47:20', '2024-07-08 05:47:20'),
+(221, 33, 76, 'https://bikebros.net/product-details/testing-BLACK', 662897, '2024-07-08 05:58:25', '2024-07-08 05:58:25'),
+(222, 33, 80, 'https://bikebros.net/product-details/glass', 6248, '2024-07-08 05:58:40', '2024-07-08 05:58:40'),
+(223, 33, 76, 'https://bikebros.net/product-details/testing', 14339, '2024-07-08 06:07:40', '2024-07-08 06:07:40'),
+(224, 33, 76, 'https://bikebros.net/product-details/testing-BLACK', 18787, '2024-07-08 06:13:23', '2024-07-08 06:13:23'),
+(225, 33, 80, 'https://bikebros.net/product-details/glass', 2853, '2024-07-08 06:33:37', '2024-07-08 06:33:37'),
+(226, 33, 76, 'https://bikebros.net/product-details/testing', 4213, '2024-07-08 06:33:48', '2024-07-08 06:33:48'),
+(227, 33, 76, 'https://bikebros.net/product-details/testing-BLACK', 2301, '2024-07-08 06:33:51', '2024-07-08 06:33:51'),
+(228, 33, 76, 'https://bikebros.net/product-details/testing-WHITE', 1131, '2024-07-08 06:33:54', '2024-07-08 06:33:54'),
+(229, 33, 76, 'https://bikebros.net/product-details/testing-YELLOW', 2173, '2024-07-08 06:33:58', '2024-07-08 06:33:58'),
+(230, 33, 76, 'https://bikebros.net/product-details/testing', 4811, '2024-07-08 06:35:19', '2024-07-08 06:35:19'),
+(231, 33, 76, 'https://bikebros.net/product-details/testing-BLACK', 246769, '2024-07-08 06:39:28', '2024-07-08 06:39:28'),
+(232, 33, 76, 'https://bikebros.net/product-details/testing', 9536, '2024-07-08 06:50:02', '2024-07-08 06:50:02'),
+(233, 33, 76, 'https://bikebros.net/product-details/testing-BLACK', 649120, '2024-07-08 07:00:54', '2024-07-08 07:00:54'),
+(234, 33, 80, 'https://bikebros.net/product-details/glass', 3016, '2024-07-08 07:01:22', '2024-07-08 07:01:22'),
+(235, 33, 76, 'https://bikebros.net/product-details/testing', 3488, '2024-07-08 07:01:32', '2024-07-08 07:01:32'),
+(236, 33, 76, 'https://bikebros.net/product-details/testing-BLACK', 1929, '2024-07-08 07:01:35', '2024-07-08 07:01:35'),
+(237, 33, 76, 'https://bikebros.net/product-details/testing-WHITE', 1691, '2024-07-08 07:01:38', '2024-07-08 07:01:38'),
+(238, 33, 76, 'https://bikebros.net/product-details/testing-YELLOW', 5488, '2024-07-08 07:01:45', '2024-07-08 07:01:45'),
+(239, 33, 81, 'https://bikebros.net/product-details/testing-3', 6208, '2024-07-08 07:06:09', '2024-07-08 07:06:09'),
+(240, 33, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 2359, '2024-07-08 07:06:12', '2024-07-08 07:06:12'),
+(241, 33, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 10620, '2024-07-08 07:06:25', '2024-07-08 07:06:25'),
+(242, 33, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 3049, '2024-07-08 07:06:30', '2024-07-08 07:06:30'),
+(243, 33, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 3023, '2024-07-08 07:06:35', '2024-07-08 07:06:35'),
+(244, 33, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 3990, '2024-07-08 07:06:42', '2024-07-08 07:06:42'),
+(245, 33, 76, 'https://bikebros.net/product-details/testing', 3203, '2024-07-08 07:06:54', '2024-07-08 07:06:54'),
+(246, 33, 76, 'https://bikebros.net/product-details/testing', 3575, '2024-07-08 07:07:00', '2024-07-08 07:07:00'),
+(247, 33, 80, 'https://bikebros.net/product-details/glass', 6420, '2024-07-08 07:07:13', '2024-07-08 07:07:13'),
+(248, 33, 76, 'https://bikebros.net/product-details/testing', 16540, '2024-07-08 07:15:37', '2024-07-08 07:15:37'),
+(249, 33, 76, 'https://bikebros.net/product-details/testing', 55676, '2024-07-08 07:32:06', '2024-07-08 07:32:06'),
+(250, 33, 76, 'https://bikebros.net/product-details/testing', 12418, '2024-07-08 07:32:54', '2024-07-08 07:32:54'),
+(251, 33, 76, 'https://bikebros.net/product-details/testing-BLACK', 174975, '2024-07-08 07:35:50', '2024-07-08 07:35:50'),
+(252, 33, 81, 'https://bikebros.net/product-details/testing-3', 3866, '2024-07-08 07:58:09', '2024-07-08 07:58:09'),
+(253, 33, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 3890, '2024-07-08 07:58:13', '2024-07-08 07:58:13'),
+(254, 33, 80, 'https://bikebros.net/product-details/glass', 10180, '2024-07-08 07:58:45', '2024-07-08 07:58:45'),
+(255, 33, 76, 'https://bikebros.net/product-details/testing', 17605, '2024-07-08 07:59:10', '2024-07-08 07:59:10'),
+(256, 33, 76, 'https://bikebros.net/product-details/testing', 419884, '2024-07-08 08:06:16', '2024-07-08 08:06:16'),
+(257, 33, 76, 'https://bikebros.net/product-details/testing-YELLOW', 6957, '2024-07-08 08:06:24', '2024-07-08 08:06:24'),
+(258, 33, 76, 'https://bikebros.net/product-details/testing-WHITE', 18104, '2024-07-08 08:08:03', '2024-07-08 08:08:03'),
+(259, 33, 80, 'https://bikebros.net/product-details/glass', 2152, '2024-07-08 08:08:56', '2024-07-08 08:08:56'),
+(260, 33, 76, 'https://bikebros.net/product-details/testing-WHITE', 3235, '2024-07-08 08:09:13', '2024-07-08 08:09:13'),
+(261, 33, 80, 'https://bikebros.net/product-details/glass', 23445, '2024-07-08 08:09:26', '2024-07-08 08:09:26'),
+(262, 33, 76, 'https://bikebros.net/product-details/testing', 3034, '2024-07-08 08:19:23', '2024-07-08 08:19:23'),
+(263, 33, 76, 'https://bikebros.net/product-details/testing-BLACK', 4289, '2024-07-08 08:19:28', '2024-07-08 08:19:28'),
+(264, 33, 76, 'https://bikebros.net/product-details/testing-BLACK', 2243, '2024-07-08 08:19:33', '2024-07-08 08:19:33'),
+(265, 33, 81, 'https://bikebros.net/product-details/testing-3', 4421, '2024-07-08 08:21:10', '2024-07-08 08:21:10'),
+(266, 33, 81, 'https://bikebros.net/product-details/testing-3', 3165, '2024-07-08 08:21:18', '2024-07-08 08:21:18'),
+(267, 33, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 3100, '2024-07-08 08:21:21', '2024-07-08 08:21:21'),
+(268, 33, 76, 'https://bikebros.net/product-details/testing', 6531, '2024-07-08 08:34:55', '2024-07-08 08:34:55'),
+(269, 33, 76, 'https://bikebros.net/product-details/testing-BLACK', 4834, '2024-07-08 08:35:02', '2024-07-08 08:35:02'),
+(270, 33, 76, 'https://bikebros.net/product-details/testing', 16148, '2024-07-08 08:35:58', '2024-07-08 08:35:58'),
+(271, 33, 80, 'https://bikebros.net/product-details/glass', 2859, '2024-07-08 08:36:26', '2024-07-08 08:36:26'),
+(272, 33, 81, 'https://bikebros.net/product-details/testing-3', 8067, '2024-07-08 08:48:17', '2024-07-08 08:48:17'),
+(273, 33, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 4725, '2024-07-08 08:48:23', '2024-07-08 08:48:23'),
+(274, 33, 76, 'https://bikebros.net/product-details/testing', 7802, '2024-07-08 08:50:44', '2024-07-08 08:50:44'),
+(275, 33, 76, 'https://bikebros.net/product-details/testing', 6864, '2024-07-08 09:16:26', '2024-07-08 09:16:26'),
+(276, 33, 76, 'https://bikebros.net/product-details/testing', 28129, '2024-07-08 09:24:24', '2024-07-08 09:24:24'),
+(277, 33, 80, 'https://bikebros.net/product-details/glass', 13030, '2024-07-08 10:57:18', '2024-07-08 10:57:18'),
+(278, 33, 76, 'https://bikebros.net/product-details/testing', 8505, '2024-07-08 10:57:35', '2024-07-08 10:57:35'),
+(279, 33, 76, 'https://bikebros.net/product-details/testing-BLACK', 7015, '2024-07-08 10:57:44', '2024-07-08 10:57:44'),
+(280, 33, 76, 'https://bikebros.net/product-details/testing-WHITE', 309626, '2024-07-08 11:02:55', '2024-07-08 11:02:55'),
+(281, 33, 80, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados', 42717, '2024-07-08 11:12:21', '2024-07-08 11:12:21'),
+(282, 40, 76, 'https://bikebros.net/product-details/testing', 3690, '2024-07-08 12:05:32', '2024-07-08 12:05:32'),
+(283, 40, 76, 'https://bikebros.net/product-details/testing-BLACK', 7735, '2024-07-08 12:05:40', '2024-07-08 12:05:40'),
+(284, 40, 76, 'https://bikebros.net/product-details/testing-YELLOW', 70918, '2024-07-08 12:07:49', '2024-07-08 12:07:49'),
+(285, 40, 76, 'https://bikebros.net/product-details/testing-BLACK', 2710, '2024-07-08 12:07:53', '2024-07-08 12:07:53'),
+(286, 40, 76, 'https://bikebros.net/product-details/testing-BLACK', 4854, '2024-07-08 12:07:58', '2024-07-08 12:07:58'),
+(287, 40, 80, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados', 6940, '2024-07-08 12:10:42', '2024-07-08 12:10:42'),
+(288, 40, 80, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados', 1682, '2024-07-08 12:10:44', '2024-07-08 12:10:44'),
+(289, 33, 76, 'https://bikebros.net/product-details/testing', 3052, '2024-07-08 16:57:29', '2024-07-08 16:57:29'),
+(290, 33, 76, 'https://bikebros.net/product-details/testing-YELLOW', 3560, '2024-07-08 16:57:33', '2024-07-08 16:57:33'),
+(291, 33, 76, 'https://bikebros.net/product-details/testing-WHITE', 3276, '2024-07-08 16:57:36', '2024-07-08 16:57:36'),
+(292, 33, 76, 'https://bikebros.net/product-details/testing-WHITE', 37881, '2024-07-08 16:58:25', '2024-07-08 16:58:25'),
+(293, 33, 76, 'https://bikebros.net/product-details/testing-WHITE', 2500, '2024-07-08 16:58:31', '2024-07-08 16:58:31'),
+(294, 33, 76, 'https://bikebros.net/product-details/testing', 93294, '2024-07-08 17:01:53', '2024-07-08 17:01:53'),
+(295, 33, 76, 'https://bikebros.net/product-details/testing-BLACK', 2998, '2024-07-08 17:01:57', '2024-07-08 17:01:57'),
+(296, 33, 76, 'https://bikebros.net/product-details/testing-WHITE', 15178, '2024-07-08 17:02:12', '2024-07-08 17:02:12'),
+(297, 33, 76, 'https://bikebros.net/product-details/testing', 3110, '2024-07-08 17:05:33', '2024-07-08 17:05:33'),
+(298, 33, 76, 'https://bikebros.net/product-details/testing-BLACK', 2879, '2024-07-08 17:05:36', '2024-07-08 17:05:36'),
+(299, 33, 76, 'https://bikebros.net/product-details/testing-WHITE', 2737, '2024-07-08 17:05:39', '2024-07-08 17:05:39'),
+(300, 33, 76, 'https://bikebros.net/product-details/testing-YELLOW', 3711, '2024-07-08 17:05:43', '2024-07-08 17:05:43'),
+(301, 33, 81, 'https://bikebros.net/product-details/testing-3', 3784, '2024-07-08 17:05:51', '2024-07-08 17:05:51'),
+(302, 33, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 3016, '2024-07-08 17:05:55', '2024-07-08 17:05:55'),
+(303, 33, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 4538, '2024-07-08 17:06:00', '2024-07-08 17:06:00'),
+(304, 33, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 9095, '2024-07-08 17:06:04', '2024-07-08 17:06:04'),
+(305, 33, 81, 'https://bikebros.net/product-details/testing-3', 20463, '2024-07-08 17:06:54', '2024-07-08 17:06:54'),
+(306, 40, 80, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados', 32290, '2024-07-08 17:46:38', '2024-07-08 17:46:38'),
+(307, 33, 76, 'https://bikebros.net/product-details/testing', 8573, '2024-07-09 01:36:26', '2024-07-09 01:36:26'),
+(308, 33, 76, 'https://bikebros.net/product-details/testing-YELLOW', 3866, '2024-07-09 01:36:30', '2024-07-09 01:36:30'),
+(309, 33, 76, 'https://bikebros.net/product-details/testing', 617530, '2024-07-09 05:52:02', '2024-07-09 05:52:02'),
+(310, 33, 76, 'https://bikebros.net/product-details/testing-BLACK', 8887, '2024-07-09 06:08:36', '2024-07-09 06:08:36'),
+(311, 33, 76, 'https://bikebros.net/product-details/testing', 12104, '2024-07-09 06:36:09', '2024-07-09 06:36:09'),
+(312, 33, 76, 'https://bikebros.net/product-details/testing-BLACK', 6366, '2024-07-09 06:41:36', '2024-07-09 06:41:36'),
+(313, 33, 76, 'https://bikebros.net/product-details/testing-BLACK', 4424, '2024-07-09 06:41:42', '2024-07-09 06:41:42'),
+(314, 33, 76, 'https://bikebros.net/product-details/testing-BLACK', 1480, '2024-07-09 06:41:45', '2024-07-09 06:41:45'),
+(315, 33, 76, 'https://bikebros.net/product-details/testing-BLACK', 2191, '2024-07-09 06:41:49', '2024-07-09 06:41:49'),
+(316, 33, 76, 'https://bikebros.net/product-details/testing-WHITE', 5211, '2024-07-09 06:41:56', '2024-07-09 06:41:56'),
+(317, 33, 76, 'https://bikebros.net/product-details/testing-WHITE', 6399, '2024-07-09 06:42:04', '2024-07-09 06:42:04'),
+(318, 33, 76, 'https://bikebros.net/product-details/testing-BLACK', 24575, '2024-07-09 06:45:15', '2024-07-09 06:45:15'),
+(319, 33, 76, 'https://bikebros.net/product-details/testing', 9292, '2024-07-09 06:50:34', '2024-07-09 06:50:34'),
+(320, 33, 76, 'https://bikebros.net/product-details/testing', 4974, '2024-07-09 06:58:03', '2024-07-09 06:58:03'),
+(321, 33, 76, 'https://bikebros.net/product-details/testing', 20280, '2024-07-09 06:59:34', '2024-07-09 06:59:34'),
+(322, 33, 76, 'https://bikebros.net/product-details/testing', 8568, '2024-07-09 07:45:59', '2024-07-09 07:45:59'),
+(323, 33, 76, 'https://bikebros.net/product-details/testing-BLACK', 13354, '2024-07-09 08:03:38', '2024-07-09 08:03:38'),
+(324, 33, 80, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados', 6779, '2024-07-09 08:05:43', '2024-07-09 08:05:43'),
+(325, 33, 81, 'https://bikebros.net/product-details/testing-3', 8425, '2024-07-09 08:06:01', '2024-07-09 08:06:01'),
+(326, 33, 81, 'https://bikebros.net/product-details/testing-3', 4916, '2024-07-09 08:12:00', '2024-07-09 08:12:00'),
+(327, 33, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 6160, '2024-07-09 08:12:08', '2024-07-09 08:12:08'),
+(328, 33, 76, 'https://bikebros.net/product-details/testing', 8115, '2024-07-09 08:12:24', '2024-07-09 08:12:24'),
+(329, 33, 80, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados', 4012, '2024-07-09 08:12:34', '2024-07-09 08:12:34'),
+(330, 33, 81, 'https://bikebros.net/product-details/testing-3', 8216, '2024-07-09 08:17:59', '2024-07-09 08:17:59'),
+(331, 33, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 6188, '2024-07-09 08:18:06', '2024-07-09 08:18:06'),
+(332, 33, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 4578, '2024-07-09 08:18:12', '2024-07-09 08:18:12'),
+(333, 33, 76, 'https://bikebros.net/product-details/testing', 10342, '2024-07-09 08:18:43', '2024-07-09 08:18:43'),
+(334, 33, 76, 'https://bikebros.net/product-details/testing-WHITE', 5558, '2024-07-09 08:18:50', '2024-07-09 08:18:50'),
+(335, 33, 76, 'https://bikebros.net/product-details/testing-YELLOW', 4990, '2024-07-09 08:18:56', '2024-07-09 08:18:56'),
+(336, 33, 76, 'https://bikebros.net/product-details/testing-BLACK', 957843, '2024-07-09 08:34:57', '2024-07-09 08:34:57'),
+(337, 33, 81, 'https://bikebros.net/product-details/testing-3', 9612, '2024-07-09 20:46:27', '2024-07-09 20:46:27'),
+(338, 33, 81, 'https://bikebros.net/product-details/testing-3', 5433, '2024-07-10 04:44:40', '2024-07-10 04:44:40'),
+(339, 33, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 4490, '2024-07-10 04:44:46', '2024-07-10 04:44:46'),
+(340, 33, 76, 'https://bikebros.net/product-details/testing', 6181292, '2024-07-10 06:28:19', '2024-07-10 06:28:19'),
+(341, 33, 81, 'https://bikebros.net/product-details/testing-3', 8039, '2024-07-10 06:28:40', '2024-07-10 06:28:40'),
+(342, 33, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 7425, '2024-07-10 06:28:49', '2024-07-10 06:28:49'),
+(343, 33, 81, 'https://bikebros.net/product-details/testing-3', 5934, '2024-07-10 07:39:04', '2024-07-10 07:39:04'),
+(344, 33, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 4336, '2024-07-10 07:39:08', '2024-07-10 07:39:08'),
+(345, 33, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 3553, '2024-07-10 07:39:12', '2024-07-10 07:39:12'),
+(346, 33, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 3287, '2024-07-10 07:39:16', '2024-07-10 07:39:16'),
+(347, 33, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 4608, '2024-07-10 07:39:21', '2024-07-10 07:39:21'),
+(348, 33, 76, 'https://bikebros.net/product-details/testing', 8249, '2024-07-10 07:39:42', '2024-07-10 07:39:42'),
+(349, 33, 76, 'https://bikebros.net/product-details/testing-BLACK', 4960, '2024-07-10 07:39:47', '2024-07-10 07:39:47'),
+(350, 33, 76, 'https://bikebros.net/product-details/testing-BLACK', 4102, '2024-07-10 07:39:52', '2024-07-10 07:39:52'),
+(351, 44, 81, 'https://bikebros.net/product-details/testing-3', 5473, '2024-07-10 08:00:05', '2024-07-10 08:00:05'),
+(352, 44, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 8251, '2024-07-10 08:00:14', '2024-07-10 08:00:14'),
+(353, 44, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 3197, '2024-07-10 08:00:17', '2024-07-10 08:00:17'),
+(354, 44, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 6120, '2024-07-10 08:00:24', '2024-07-10 08:00:24'),
+(355, 44, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 17705, '2024-07-10 08:00:43', '2024-07-10 08:00:43'),
+(356, 44, 80, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados', 3655, '2024-07-10 08:00:53', '2024-07-10 08:00:53'),
+(357, 44, 80, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados', 5570, '2024-07-10 08:00:59', '2024-07-10 08:00:59'),
+(358, 44, 80, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados', 3894, '2024-07-10 08:01:03', '2024-07-10 08:01:03'),
+(359, 44, 81, 'https://bikebros.net/product-details/testing-3', 6789, '2024-07-10 08:10:48', '2024-07-10 08:10:48'),
+(360, 44, 81, 'https://bikebros.net/product-details/testing-3', 3535, '2024-07-10 08:10:52', '2024-07-10 08:10:52'),
+(361, 44, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 3441, '2024-07-10 08:10:56', '2024-07-10 08:10:56'),
+(362, 44, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 3241, '2024-07-10 08:10:59', '2024-07-10 08:10:59'),
+(363, 44, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 5615, '2024-07-10 08:11:05', '2024-07-10 08:11:05'),
+(364, 44, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 4161, '2024-07-10 08:11:10', '2024-07-10 08:11:10'),
+(365, 44, 81, 'https://bikebros.net/product-details/testing-3', 6809, '2024-07-10 08:21:10', '2024-07-10 08:21:10'),
+(366, 44, 81, 'https://bikebros.net/product-details/testing-3', 3330, '2024-07-10 08:21:14', '2024-07-10 08:21:14'),
+(367, 44, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 4806, '2024-07-10 08:21:19', '2024-07-10 08:21:19'),
+(368, 44, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 3167, '2024-07-10 08:21:23', '2024-07-10 08:21:23'),
+(369, 44, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 5166, '2024-07-10 08:21:28', '2024-07-10 08:21:28'),
+(370, 44, 81, 'https://bikebros.net/product-details/testing-3', 45471, '2024-07-10 08:27:04', '2024-07-10 08:27:04'),
+(371, 44, 81, 'https://bikebros.net/product-details/testing-3', 6650, '2024-07-10 08:28:30', '2024-07-10 08:28:30'),
+(372, 44, 81, 'https://bikebros.net/product-details/testing-3', 25499, '2024-07-10 08:28:57', '2024-07-10 08:28:57'),
+(373, 44, 81, 'https://bikebros.net/product-details/testing-3', 100804, '2024-07-10 08:33:12', '2024-07-10 08:33:12'),
+(374, 44, 81, 'https://bikebros.net/product-details/testing-3', 4493, '2024-07-10 08:41:50', '2024-07-10 08:41:50'),
+(375, 44, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 31631, '2024-07-10 08:42:22', '2024-07-10 08:42:22'),
+(376, 44, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 22566, '2024-07-10 08:42:45', '2024-07-10 08:42:45'),
+(377, 44, 81, 'https://bikebros.net/product-details/testing-3', 24270, '2024-07-10 08:43:18', '2024-07-10 08:43:18'),
+(378, 44, 76, 'https://bikebros.net/product-details/testing', 11892, '2024-07-10 08:43:43', '2024-07-10 08:43:43'),
+(379, 44, 76, 'https://bikebros.net/product-details/testing-BLACK', 20729, '2024-07-10 08:44:04', '2024-07-10 08:44:04'),
+(380, 44, 76, 'https://bikebros.net/product-details/testing-WHITE', 5284, '2024-07-10 08:44:10', '2024-07-10 08:44:10'),
+(381, 44, 76, 'https://bikebros.net/product-details/testing-YELLOW', 5332, '2024-07-10 08:44:16', '2024-07-10 08:44:16'),
+(382, 44, 76, 'https://bikebros.net/product-details/testing', 24111, '2024-07-10 08:44:49', '2024-07-10 08:44:49'),
+(383, 44, 76, 'https://bikebros.net/product-details/testing-BLACK', 6359, '2024-07-10 08:44:56', '2024-07-10 08:44:56'),
+(384, 44, 76, 'https://bikebros.net/product-details/testing-BLACK', 12422, '2024-07-10 08:45:09', '2024-07-10 08:45:09'),
+(385, 44, 76, 'https://bikebros.net/product-details/testing-BLACK', 4367, '2024-07-10 08:45:14', '2024-07-10 08:45:14'),
+(386, 44, 76, 'https://bikebros.net/product-details/testing-BLACK', 5785, '2024-07-10 08:45:20', '2024-07-10 08:45:20'),
+(387, 44, 76, 'https://bikebros.net/product-details/testing', 6752, '2024-07-10 08:45:40', '2024-07-10 08:45:40'),
+(388, 33, 81, 'https://bikebros.net/product-details/testing-3', 52943, '2024-07-10 09:45:19', '2024-07-10 09:45:19'),
+(389, 33, 80, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados', 7003, '2024-07-10 09:47:38', '2024-07-10 09:47:38'),
+(390, 33, 81, 'https://bikebros.net/product-details/testing-3', 15993, '2024-07-10 09:48:02', '2024-07-10 09:48:02'),
+(391, 33, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 6207, '2024-07-10 09:48:10', '2024-07-10 09:48:10'),
+(392, 33, 81, 'https://bikebros.net/product-details/testing-3', 10393, '2024-07-10 10:05:08', '2024-07-10 10:05:08'),
+(393, 33, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 2642, '2024-07-10 10:05:12', '2024-07-10 10:05:12'),
+(394, 33, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 2340, '2024-07-10 10:05:16', '2024-07-10 10:05:16'),
+(395, 33, 80, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados', 3422, '2024-07-10 10:05:34', '2024-07-10 10:05:34'),
+(396, 33, 81, 'https://bikebros.net/product-details/testing-3', 11163, '2024-07-10 10:07:48', '2024-07-10 10:07:48'),
+(397, 33, 76, 'https://bikebros.net/product-details/testing', 2655, '2024-07-10 10:08:00', '2024-07-10 10:08:00'),
+(398, 33, 76, 'https://bikebros.net/product-details/testing-WHITE', 1633, '2024-07-10 10:08:03', '2024-07-10 10:08:03'),
+(399, 33, 76, 'https://bikebros.net/product-details/testing-YELLOW', 6533, '2024-07-10 10:08:11', '2024-07-10 10:08:11'),
+(400, 33, 81, 'https://bikebros.net/product-details/testing-3', 24494, '2024-07-10 11:41:00', '2024-07-10 11:41:00'),
+(401, 33, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 3967, '2024-07-10 11:41:05', '2024-07-10 11:41:05'),
+(402, 33, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 24383, '2024-07-10 11:41:31', '2024-07-10 11:41:31'),
+(403, 33, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 4896, '2024-07-10 11:41:38', '2024-07-10 11:41:38'),
+(404, 33, 81, 'https://bikebros.net/product-details/testing-3', 21326, '2024-07-10 11:52:02', '2024-07-10 11:52:02'),
+(405, 33, 81, 'https://bikebros.net/product-details/testing-3', 10270, '2024-07-10 11:52:15', '2024-07-10 11:52:15');
+INSERT INTO `screen_times` (`id`, `user_id`, `product_id`, `url`, `time_spent`, `created_at`, `updated_at`) VALUES
+(406, 33, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 3596, '2024-07-10 11:52:20', '2024-07-10 11:52:20'),
+(407, 33, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 2688, '2024-07-10 11:52:25', '2024-07-10 11:52:25'),
+(408, 33, 81, 'https://bikebros.net/product-details/testing-3', 16725, '2024-07-10 11:53:50', '2024-07-10 11:53:50'),
+(409, 33, 80, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados', 19427, '2024-07-10 11:55:34', '2024-07-10 11:55:34'),
+(410, 33, 81, 'https://bikebros.net/product-details/testing-3', 5096, '2024-07-10 12:05:36', '2024-07-10 12:05:36'),
+(411, 33, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 2599, '2024-07-10 12:05:40', '2024-07-10 12:05:40'),
+(412, 33, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 1884, '2024-07-10 12:05:44', '2024-07-10 12:05:44'),
+(413, 33, 76, 'https://bikebros.net/product-details/testing', 8710, '2024-07-10 12:06:02', '2024-07-10 12:06:02'),
+(414, 33, 76, 'https://bikebros.net/product-details/testing-BLACK', 16145, '2024-07-10 12:06:20', '2024-07-10 12:06:20'),
+(415, 33, 76, 'https://bikebros.net/product-details/testing-WHITE', 1757, '2024-07-10 12:06:23', '2024-07-10 12:06:23'),
+(416, 33, 76, 'https://bikebros.net/product-details/testing-YELLOW', 15767, '2024-07-10 12:06:40', '2024-07-10 12:06:40'),
+(417, 33, 81, 'https://bikebros.net/product-details/testing-3', 5347, '2024-07-10 12:09:06', '2024-07-10 12:09:06'),
+(418, 33, 76, 'https://bikebros.net/product-details/testing', 13109, '2024-07-10 12:09:29', '2024-07-10 12:09:29'),
+(419, 33, 81, 'https://bikebros.net/product-details/testing-3', 4028, '2024-07-10 12:14:00', '2024-07-10 12:14:00'),
+(420, 33, 81, 'https://bikebros.net/product-details/testing-3', 2818, '2024-07-10 12:14:49', '2024-07-10 12:14:49'),
+(421, 33, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 1266, '2024-07-10 12:14:51', '2024-07-10 12:14:51'),
+(422, 33, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 2266, '2024-07-10 12:14:55', '2024-07-10 12:14:55'),
+(423, 33, 76, 'https://bikebros.net/product-details/testing', 6383, '2024-07-10 12:15:09', '2024-07-10 12:15:09'),
+(424, 33, 76, 'https://bikebros.net/product-details/testing-BLACK', 2176, '2024-07-10 12:15:13', '2024-07-10 12:15:13'),
+(425, 33, 76, 'https://bikebros.net/product-details/testing-WHITE', 69323, '2024-07-10 12:16:24', '2024-07-10 12:16:24'),
+(426, 33, 76, 'https://bikebros.net/product-details/testing', 115178, '2024-07-10 12:18:26', '2024-07-10 12:18:26'),
+(427, 33, 81, 'https://bikebros.net/product-details/testing-3', 3187, '2024-07-10 12:22:17', '2024-07-10 12:22:17'),
+(428, 33, 76, 'https://bikebros.net/product-details/testing', 5894, '2024-07-10 12:28:00', '2024-07-10 12:28:00'),
+(429, 33, 76, 'https://bikebros.net/product-details/testing-WHITE', 13053, '2024-07-10 12:28:14', '2024-07-10 12:28:14'),
+(430, 33, 81, 'https://bikebros.net/product-details/testing-3', 1913, '2024-07-10 12:33:14', '2024-07-10 12:33:14'),
+(431, 33, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 18350, '2024-07-10 12:39:05', '2024-07-10 12:39:05'),
+(432, 33, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 2253, '2024-07-10 12:39:09', '2024-07-10 12:39:09'),
+(433, 33, 81, 'https://bikebros.net/product-details/testing-3', 2149, '2024-07-10 12:40:03', '2024-07-10 12:40:03'),
+(434, 33, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 2809, '2024-07-10 12:40:14', '2024-07-10 12:40:14'),
+(435, 33, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 52771, '2024-07-10 12:41:08', '2024-07-10 12:41:08'),
+(436, 33, 81, 'https://bikebros.net/product-details/testing-3', 3696, '2024-07-10 12:41:38', '2024-07-10 12:41:38'),
+(437, 33, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 5239, '2024-07-10 12:41:45', '2024-07-10 12:41:45'),
+(438, 33, 80, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados', 3657, '2024-07-10 12:41:54', '2024-07-10 12:41:54'),
+(439, 33, 76, 'https://bikebros.net/product-details/testing', 7565, '2024-07-10 12:42:11', '2024-07-10 12:42:11'),
+(440, 33, 76, 'https://bikebros.net/product-details/testing-WHITE', 3416, '2024-07-10 12:42:15', '2024-07-10 12:42:15'),
+(441, 33, 76, 'https://bikebros.net/product-details/testing-YELLOW', 3156, '2024-07-10 12:42:20', '2024-07-10 12:42:20'),
+(442, 44, 76, 'https://bikebros.net/product-details/testing', 11327, '2024-07-10 14:24:31', '2024-07-10 14:24:31'),
+(443, 44, 76, 'https://bikebros.net/product-details/testing-WHITE', 5563, '2024-07-10 14:24:37', '2024-07-10 14:24:37'),
+(444, 44, 76, 'https://bikebros.net/product-details/testing-BLACK', 6097, '2024-07-10 14:24:43', '2024-07-10 14:24:43'),
+(445, 44, 76, 'https://bikebros.net/product-details/testing', 7096, '2024-07-10 14:24:56', '2024-07-10 14:24:56'),
+(446, 44, 76, 'https://bikebros.net/product-details/testing', 80275, '2024-07-10 14:26:58', '2024-07-10 14:26:58'),
+(447, 44, 76, 'https://bikebros.net/product-details/testing-WHITE', 41092, '2024-07-10 14:27:39', '2024-07-10 14:27:39'),
+(448, 44, 76, 'https://bikebros.net/product-details/testing-WHITE', 7471, '2024-07-10 14:27:47', '2024-07-10 14:27:47'),
+(449, 44, 76, 'https://bikebros.net/product-details/testing-WHITE', 3860, '2024-07-10 14:27:52', '2024-07-10 14:27:52'),
+(450, 44, 76, 'https://bikebros.net/product-details/testing-YELLOW', 7197, '2024-07-10 14:28:00', '2024-07-10 14:28:00'),
+(451, 44, 76, 'https://bikebros.net/product-details/testing-YELLOW', 5481, '2024-07-10 14:28:06', '2024-07-10 14:28:06'),
+(452, 40, 81, 'https://bikebros.net/product-details/testing-3', 3467, '2024-07-10 17:40:45', '2024-07-10 17:40:45'),
+(453, 40, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 2176, '2024-07-10 17:40:47', '2024-07-10 17:40:47'),
+(454, 40, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 1098, '2024-07-10 17:40:49', '2024-07-10 17:40:49'),
+(455, 40, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 2056, '2024-07-10 17:40:51', '2024-07-10 17:40:51'),
+(456, 40, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 1007, '2024-07-10 17:40:52', '2024-07-10 17:40:52'),
+(457, 40, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 2424, '2024-07-10 17:40:55', '2024-07-10 17:40:55'),
+(458, 40, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 2109, '2024-07-10 17:40:57', '2024-07-10 17:40:57'),
+(459, 44, 81, 'https://bikebros.net/product-details/testing-3', 5939, '2024-07-11 01:12:29', '2024-07-11 01:12:29'),
+(460, 44, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 4405, '2024-07-11 01:12:34', '2024-07-11 01:12:34'),
+(461, 44, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 5295, '2024-07-11 01:12:40', '2024-07-11 01:12:40'),
+(462, 44, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 59532, '2024-07-11 01:13:41', '2024-07-11 01:13:41'),
+(463, 44, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 5787, '2024-07-11 01:13:48', '2024-07-11 01:13:48'),
+(464, 44, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 3746, '2024-07-11 01:13:52', '2024-07-11 01:13:52'),
+(465, 33, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 6961, '2024-07-11 05:02:05', '2024-07-11 05:02:05'),
+(466, 33, 76, 'https://bikebros.net/product-details/testing', 5851, '2024-07-11 05:08:10', '2024-07-11 05:08:10'),
+(467, 33, 76, 'https://bikebros.net/product-details/testing', 49884, '2024-07-11 05:08:55', '2024-07-11 05:08:55'),
+(468, 33, 76, 'https://bikebros.net/product-details/testing', 2762, '2024-07-11 05:09:04', '2024-07-11 05:09:04'),
+(469, 33, 76, 'https://bikebros.net/product-details/testing-WHITE', 3702, '2024-07-11 05:09:09', '2024-07-11 05:09:09'),
+(470, 33, 76, 'https://bikebros.net/product-details/testing-WHITE', 2414, '2024-07-11 05:09:17', '2024-07-11 05:09:17'),
+(471, 33, 76, 'https://bikebros.net/product-details/testing-YELLOW', 2000, '2024-07-11 05:09:20', '2024-07-11 05:09:20'),
+(472, 33, 76, 'https://bikebros.net/product-details/testing-YELLOW', 2751, '2024-07-11 05:15:59', '2024-07-11 05:15:59'),
+(473, 33, 76, 'https://bikebros.net/product-details/testing-YELLOW', 22551, '2024-07-11 05:16:24', '2024-07-11 05:16:24'),
+(474, 33, 76, 'https://bikebros.net/product-details/testing-YELLOW', 26845, '2024-07-11 05:16:53', '2024-07-11 05:16:53'),
+(475, 33, 76, 'https://bikebros.net/product-details/testing-BLACK', 3582, '2024-07-11 05:16:58', '2024-07-11 05:16:58'),
+(476, 33, 76, 'https://bikebros.net/product-details/testing-BLACK', 5717, '2024-07-11 05:58:46', '2024-07-11 05:58:46'),
+(477, 34, 81, 'https://bikebros.net/product-details/testing-3', 19766, '2024-07-11 06:28:50', '2024-07-11 06:28:50'),
+(478, 34, 81, 'https://bikebros.net/product-details/testing-3', 2447, '2024-07-11 06:28:55', '2024-07-11 06:28:55'),
+(479, 34, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 5342, '2024-07-11 06:29:02', '2024-07-11 06:29:02'),
+(480, 34, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 7373, '2024-07-11 06:29:11', '2024-07-11 06:29:11'),
+(481, 34, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 2663, '2024-07-11 06:29:17', '2024-07-11 06:29:17'),
+(482, 34, 76, 'https://bikebros.net/product-details/testing', 14266, '2024-07-11 06:34:39', '2024-07-11 06:34:39'),
+(483, 34, 76, 'https://bikebros.net/product-details/testing-BLACK', 12807, '2024-07-11 06:34:53', '2024-07-11 06:34:53'),
+(484, 34, 76, 'https://bikebros.net/product-details/testing', 25076, '2024-07-11 06:43:52', '2024-07-11 06:43:52'),
+(485, 34, 76, 'https://bikebros.net/product-details/testing', 2666, '2024-07-11 06:43:58', '2024-07-11 06:43:58'),
+(486, 34, 76, 'https://bikebros.net/product-details/testing', 13639, '2024-07-11 06:46:06', '2024-07-11 06:46:06'),
+(487, 34, 76, 'https://bikebros.net/product-details/testing', 6350, '2024-07-11 06:53:45', '2024-07-11 06:53:45'),
+(488, 34, 76, 'https://bikebros.net/product-details/testing-WHITE', 1335, '2024-07-11 06:53:48', '2024-07-11 06:53:48'),
+(489, 34, 76, 'https://bikebros.net/product-details/testing-WHITE', 1782, '2024-07-11 06:53:52', '2024-07-11 06:53:52'),
+(490, 34, 80, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados', 5581, '2024-07-11 06:59:47', '2024-07-11 06:59:47'),
+(491, 34, 76, 'https://bikebros.net/product-details/testing', 16445, '2024-07-11 07:00:09', '2024-07-11 07:00:09'),
+(492, 34, 76, 'https://bikebros.net/product-details/testing', 2212, '2024-07-11 07:00:14', '2024-07-11 07:00:14'),
+(493, 34, 81, 'https://bikebros.net/product-details/testing-3', 1962, '2024-07-11 07:00:31', '2024-07-11 07:00:31'),
+(494, 34, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 4426, '2024-07-11 07:00:37', '2024-07-11 07:00:37'),
+(495, 34, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 3582, '2024-07-11 07:00:43', '2024-07-11 07:00:43'),
+(496, 33, 81, 'https://bikebros.net/product-details/testing-3', 2604, '2024-07-11 15:42:52', '2024-07-11 15:42:52'),
+(497, 33, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 4395, '2024-07-11 15:42:57', '2024-07-11 15:42:57'),
+(498, 33, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 34101, '2024-07-11 15:43:32', '2024-07-11 15:43:32'),
+(499, 33, 81, 'https://bikebros.net/product-details/testing-3', 3205, '2024-07-11 15:43:49', '2024-07-11 15:43:49'),
+(500, 44, 81, 'https://bikebros.net/product-details/testing-3', 4562, '2024-07-11 20:30:40', '2024-07-11 20:30:40'),
+(501, 44, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 3896, '2024-07-11 20:30:45', '2024-07-11 20:30:45'),
+(502, 44, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 2817, '2024-07-11 20:30:48', '2024-07-11 20:30:48'),
+(503, 44, 76, 'https://bikebros.net/product-details/testing', 8160, '2024-07-11 20:31:32', '2024-07-11 20:31:32'),
+(504, 44, 76, 'https://bikebros.net/product-details/testing', 2804, '2024-07-11 20:31:35', '2024-07-11 20:31:35'),
+(505, 44, 76, 'https://bikebros.net/product-details/testing-YELLOW', 4978, '2024-07-11 20:31:40', '2024-07-11 20:31:40'),
+(506, 44, 76, 'https://bikebros.net/product-details/testing-YELLOW', 3151, '2024-07-11 20:31:44', '2024-07-11 20:31:44'),
+(507, 33, 76, 'https://bikebros.net/product-details/testing', 12334, '2024-07-13 15:04:53', '2024-07-13 15:04:53'),
+(508, 33, 81, 'https://bikebros.net/product-details/testing-3', 2930, '2024-07-13 17:09:48', '2024-07-13 17:09:48'),
+(509, 33, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 5304, '2024-07-13 17:09:54', '2024-07-13 17:09:54'),
+(510, 33, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 5348, '2024-07-13 17:10:01', '2024-07-13 17:10:01'),
+(511, 33, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 9066, '2024-07-13 17:10:10', '2024-07-13 17:10:10'),
+(512, 33, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 4820, '2024-07-13 17:10:17', '2024-07-13 17:10:17'),
+(513, 33, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 2498, '2024-07-13 17:10:20', '2024-07-13 17:10:20'),
+(514, 40, 81, 'https://bikebros.net/product-details/testing-3', 3142, '2024-07-13 23:10:40', '2024-07-13 23:10:40'),
+(515, 40, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 2017, '2024-07-13 23:10:42', '2024-07-13 23:10:42'),
+(516, 40, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 743, '2024-07-13 23:10:43', '2024-07-13 23:10:43'),
+(517, 40, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 1191, '2024-07-13 23:10:45', '2024-07-13 23:10:45'),
+(518, 40, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 1598, '2024-07-13 23:10:46', '2024-07-13 23:10:46'),
+(519, 40, 80, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados', 2194, '2024-07-13 23:15:09', '2024-07-13 23:15:09'),
+(520, 40, 80, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados', 2906, '2024-07-13 23:15:17', '2024-07-13 23:15:17'),
+(521, 40, 81, 'https://bikebros.net/product-details/testing-3', 1960, '2024-07-13 23:15:28', '2024-07-13 23:15:28'),
+(522, 40, 81, 'https://bikebros.net/product-details/testing-3', 2645, '2024-07-13 23:15:30', '2024-07-13 23:15:30'),
+(523, 40, 81, 'https://bikebros.net/product-details/testing-3', 1892, '2024-07-13 23:17:36', '2024-07-13 23:17:36'),
+(524, 40, 81, 'https://bikebros.net/product-details/testing-3', 1817, '2024-07-13 23:17:38', '2024-07-13 23:17:38'),
+(525, 44, 81, 'https://bikebros.net/product-details/testing-3', 4205, '2024-07-13 23:41:10', '2024-07-13 23:41:10'),
+(526, 44, 81, 'https://bikebros.net/product-details/testing-3', 5115, '2024-07-13 23:41:16', '2024-07-13 23:41:16'),
+(527, 44, 80, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados', 9486, '2024-07-13 23:42:36', '2024-07-13 23:42:36'),
+(528, 44, 80, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados', 10648, '2024-07-13 23:42:51', '2024-07-13 23:42:51'),
+(529, 44, 80, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados', 9165, '2024-07-13 23:43:05', '2024-07-13 23:43:05'),
+(530, 44, 76, 'https://bikebros.net/product-details/testing', 4425, '2024-07-13 23:43:18', '2024-07-13 23:43:18'),
+(531, 44, 76, 'https://bikebros.net/product-details/testing-WHITE', 7307, '2024-07-13 23:43:26', '2024-07-13 23:43:26'),
+(532, 44, 76, 'https://bikebros.net/product-details/testing-WHITE', 3563, '2024-07-13 23:43:31', '2024-07-13 23:43:31'),
+(533, 44, 76, 'https://bikebros.net/product-details/testing-YELLOW', 6103, '2024-07-13 23:43:37', '2024-07-13 23:43:37'),
+(534, 44, 76, 'https://bikebros.net/product-details/testing-YELLOW', 4391, '2024-07-13 23:43:42', '2024-07-13 23:43:42'),
+(535, 44, 81, 'https://bikebros.net/product-details/testing-3', 4675, '2024-07-13 23:50:46', '2024-07-13 23:50:46'),
+(536, 34, 81, 'https://bikebros.net/product-details/testing-3', 13695, '2024-07-14 03:28:02', '2024-07-14 03:28:02'),
+(537, 34, 76, 'https://bikebros.net/product-details/testing', 19566, '2024-07-14 05:17:52', '2024-07-14 05:17:52'),
+(538, 34, 81, 'https://bikebros.net/product-details/testing-3', 3908, '2024-07-14 05:43:00', '2024-07-14 05:43:00'),
+(539, 34, 81, 'https://bikebros.net/product-details/testing-3', 3302, '2024-07-14 06:46:43', '2024-07-14 06:46:43'),
+(540, 34, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 2769, '2024-07-14 06:46:47', '2024-07-14 06:46:47'),
+(541, 44, 80, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados', 5285, '2024-07-14 07:02:40', '2024-07-14 07:02:40'),
+(542, 44, 80, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados', 5851, '2024-07-14 07:02:54', '2024-07-14 07:02:54'),
+(543, 44, 80, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados', 4700, '2024-07-14 07:03:57', '2024-07-14 07:03:57'),
+(544, 34, 80, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados', 2030, '2024-07-14 07:08:01', '2024-07-14 07:08:01'),
+(545, 34, 80, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados', 3247, '2024-07-14 07:09:59', '2024-07-14 07:09:59'),
+(546, 34, 80, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados', 2728, '2024-07-14 07:10:10', '2024-07-14 07:10:10'),
+(547, 44, 84, 'https://bikebros.net/product-details/PRUEBA', 4577, '2024-07-14 07:14:07', '2024-07-14 07:14:07'),
+(548, 44, 84, 'https://bikebros.net/product-details/PRUEBA-VERDE', 7489, '2024-07-14 07:14:15', '2024-07-14 07:14:15'),
+(549, 44, 81, 'https://bikebros.net/product-details/testing-3', 11765, '2024-07-14 07:18:55', '2024-07-14 07:18:55'),
+(550, 44, 81, 'https://bikebros.net/product-details/testing-3', 4064, '2024-07-14 07:19:00', '2024-07-14 07:19:00'),
+(551, 44, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 8490, '2024-07-14 07:19:09', '2024-07-14 07:19:09'),
+(552, 44, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 7194, '2024-07-14 07:19:17', '2024-07-14 07:19:17'),
+(553, 44, 81, 'https://bikebros.net/product-details/testing-3', 4375, '2024-07-14 07:20:41', '2024-07-14 07:20:41'),
+(554, 44, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 17066, '2024-07-14 07:20:58', '2024-07-14 07:20:58'),
+(555, 44, 81, 'https://bikebros.net/product-details/testing-3', 3499, '2024-07-14 08:09:59', '2024-07-14 08:09:59'),
+(556, 44, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 3647, '2024-07-14 08:10:04', '2024-07-14 08:10:04'),
+(557, 44, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 6904, '2024-07-14 08:10:11', '2024-07-14 08:10:11'),
+(558, 34, 81, 'https://bikebros.net/product-details/testing-3', 13057, '2024-07-15 03:22:00', '2024-07-15 03:22:00'),
+(559, 34, 80, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados', 2366, '2024-07-15 04:06:02', '2024-07-15 04:06:02'),
+(560, 34, 81, 'https://bikebros.net/product-details/testing-3', 4330, '2024-07-15 04:22:20', '2024-07-15 04:22:20'),
+(561, 34, 81, 'https://bikebros.net/product-details/testing-3', 2752, '2024-07-15 04:22:26', '2024-07-15 04:22:26'),
+(562, 34, 76, 'https://bikebros.net/product-details/testing', 8698, '2024-07-15 04:22:43', '2024-07-15 04:22:43'),
+(563, 34, 76, 'https://bikebros.net/product-details/testing', 2477, '2024-07-15 04:22:48', '2024-07-15 04:22:48'),
+(564, 44, 80, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados', 4180, '2024-07-15 04:41:30', '2024-07-15 04:41:30'),
+(565, 44, 80, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados', 4891, '2024-07-15 04:41:35', '2024-07-15 04:41:35'),
+(566, 34, 84, 'https://bikebros.net/product-details/PRUEBA', 1835, '2024-07-15 09:04:12', '2024-07-15 09:04:12'),
+(567, 44, 81, 'https://bikebros.net/product-details/testing-3', 5614, '2024-07-15 14:07:40', '2024-07-15 14:07:40'),
+(568, 44, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 6034, '2024-07-15 14:07:46', '2024-07-15 14:07:46'),
+(569, 44, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 3608, '2024-07-15 14:07:51', '2024-07-15 14:07:51'),
+(570, 33, 81, 'https://bikebros.net/product-details/testing-3', 3091, '2024-07-16 15:23:02', '2024-07-16 15:23:02'),
+(571, 33, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 4789, '2024-07-16 15:23:08', '2024-07-16 15:23:08'),
+(572, 33, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 2967, '2024-07-16 15:23:14', '2024-07-16 15:23:14'),
+(573, 33, 81, 'https://bikebros.net/product-details/testing-3', 11425, '2024-07-16 21:54:47', '2024-07-16 21:54:47'),
+(574, 33, 81, 'https://bikebros.net/product-details/testing-3', 4506, '2024-07-16 21:54:53', '2024-07-16 21:54:53'),
+(575, 33, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 5164, '2024-07-16 21:54:59', '2024-07-16 21:54:59'),
+(576, 33, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 3727, '2024-07-16 21:55:05', '2024-07-16 21:55:05'),
+(577, 33, 76, 'https://bikebros.net/product-details/testing', 10880, '2024-07-16 21:56:34', '2024-07-16 21:56:34'),
+(578, 40, 81, 'https://bikebros.net/product-details/testing-3', 2204, '2024-07-16 21:57:41', '2024-07-16 21:57:41'),
+(579, 40, 84, 'https://bikebros.net/product-details/PRUEBA', 1714, '2024-07-16 21:58:27', '2024-07-16 21:58:27'),
+(580, 40, 84, 'https://bikebros.net/product-details/PRUEBA', 2093, '2024-07-16 21:58:30', '2024-07-16 21:58:30'),
+(581, 44, 76, 'https://bikebros.net/product-details/testing', 11771, '2024-07-16 22:45:43', '2024-07-16 22:45:43'),
+(582, 44, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros', 10889, '2024-07-16 22:46:02', '2024-07-16 22:46:02'),
+(583, 44, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-NEGRO', 14220, '2024-07-16 22:46:17', '2024-07-16 22:46:17');
 
 -- --------------------------------------------------------
 
@@ -2444,10 +2876,10 @@ CREATE TABLE `subcategories` (
 --
 
 INSERT INTO `subcategories` (`id`, `uuid`, `parent_category_id`, `category_id`, `name`, `slug`, `meta_title`, `meta_description`, `meta_keywords`, `og_image`, `created_at`, `updated_at`) VALUES
-(1, 'f9ec5844-335b-4b4e-b47e-cdfcec086803', 7, 0, 'Llanta', 'Llanta', 'Llanta', 'Llanta', 'Llanta', NULL, '2024-06-25 01:50:30', '2024-06-28 01:08:32'),
-(2, 'f76206e5-8d59-4cd7-bb29-1e3e022fda6a', 7, 0, 'Accesorios', 'Accesorios', 'Accesorios', 'Accesorios', 'Accesorios', NULL, '2024-06-25 01:51:19', '2024-06-28 01:07:46'),
-(3, 'e0fb190e-2bad-4b44-8a2b-fffb564baeef', 7, 0, 'Partes', 'Partes', 'Partes', 'Partes', 'Partes', NULL, '2024-06-25 01:51:39', '2024-06-28 01:07:02'),
-(4, 'ecb485c6-5c94-4a35-af58-0e0e8ce78995', 7, 0, 'Bicicletas Enteras', 'Bicicletas-Enteras', 'Bicicletas Enteras', 'Bicicletas Enteras', 'Bicicletas Enteras', NULL, '2024-06-25 01:51:58', '2024-06-28 01:06:48'),
+(1, 'f9ec5844-335b-4b4e-b47e-cdfcec086803', 7, 0, 'Llanta', 'Llanta', 'Llanta', 'Llanta', 'Llanta', 'uploads/meta/1721181135-1ocai5Zwwr.svg', '2024-06-25 01:50:30', '2024-07-17 01:52:15'),
+(2, 'f76206e5-8d59-4cd7-bb29-1e3e022fda6a', 7, 0, 'Accesorios', 'Accesorios', 'Accesorios', 'Accesorios', 'Accesorios', 'uploads/meta/1721181017-wDnXZ9y8Fm.svg', '2024-06-25 01:51:19', '2024-07-17 01:50:17'),
+(3, 'e0fb190e-2bad-4b44-8a2b-fffb564baeef', 7, 0, 'Partes', 'Partes', 'Partes', 'Partes', 'Partes', 'uploads/meta/1721181231-txeymEvZLe.svg', '2024-06-25 01:51:39', '2024-07-17 01:53:51'),
+(4, 'ecb485c6-5c94-4a35-af58-0e0e8ce78995', 7, 0, 'Bicicletas Enteras', 'Bicicletas-Enteras', 'Bicicletas Enteras', 'Bicicletas Enteras', 'Bicicletas Enteras', 'uploads/meta/1721181343-sfTU6xX6yp.svg', '2024-06-25 01:51:58', '2024-07-17 01:55:43'),
 (5, '8e926200-b8ab-4064-bab9-9aa7719a61bf', 7, 4, 'GT', 'GT', 'GT', 'GT', 'GT', NULL, '2024-06-28 01:33:13', '2024-06-28 01:33:13'),
 (6, 'cb1f26c7-e929-4f96-8650-47c123b4681a', 7, 4, 'Viking X', 'Viking-X', 'Viking X', 'Viking X', 'Viking X', NULL, '2024-06-28 11:41:13', '2024-06-28 11:41:13'),
 (7, '5dda2d9c-5c5f-4985-b2fc-8f2fcddba2e6', 7, 4, 'Gary Fisher', 'Gary-Fisher', 'Gary Fisher', 'Gary Fisher', 'Gary Fisher', NULL, '2024-06-28 11:41:42', '2024-06-28 11:41:42'),
@@ -2484,12 +2916,12 @@ INSERT INTO `subcategories` (`id`, `uuid`, `parent_category_id`, `category_id`, 
 (38, '94bee6d8-2d15-462b-9a52-1f19f7661cd2', 7, 2, 'Ciclocomputador', 'Ciclocomputador', 'Ciclocomputador', 'Ciclocomputador', 'Ciclocomputador', NULL, '2024-06-28 12:01:33', '2024-06-28 12:01:33'),
 (39, '3016d480-7a29-43a2-af64-6b7ed5bf3228', 7, 2, 'Grip', 'Grip', 'Grip', 'Grip', 'Grip', NULL, '2024-06-28 12:02:01', '2024-06-28 12:02:01'),
 (40, '5c3650c2-e548-42b4-bb5d-6a32438573f9', 7, 2, 'Cinta protectora', 'Cinta-protectora', 'Cinta protectora', 'Cinta protectora', 'Cinta protectora', NULL, '2024-06-28 12:02:33', '2024-06-28 12:02:33'),
-(41, '511612c2-23c0-4fd0-9457-7c6a42ac644c', 7, 1, 'Llanta', 'Llanta', 'Llanta', 'Llanta', 'Llanta', NULL, '2024-06-28 12:03:21', '2024-06-28 12:03:21'),
+(41, '511612c2-23c0-4fd0-9457-7c6a42ac644c', 7, 1, 'Llanta', 'Llanta', 'Llanta', 'Llanta', 'Llanta', '', '2024-06-28 12:03:21', '2024-07-17 00:48:17'),
 (42, '92e50482-28a5-4375-bbcc-4ce0b2d0abbe', 7, 1, 'Camara', 'Camara', 'Camara', 'Camara', 'Camara', NULL, '2024-06-28 12:03:50', '2024-06-28 12:03:50'),
 (43, 'a9aa8d82-193a-4d77-8fa5-5ce1e2988845', 14, 3, 'Deore', 'Deore', 'Deore1', 'Deore2', 'Shimano Deore', 'uploads/meta/1719595475-SmOd8ptFuK.jpg', '2024-06-28 17:24:35', '2024-06-28 17:24:35'),
 (44, 'ecf4cc39-3639-49c4-99bd-9994668c41f9', 9, 3, 'freno mt200', 'freno-mt200', 'freno mt200', 'mt200', 'mt200', 'uploads/meta/1719596399-6qvFp0pEZU.jpg', '2024-06-28 17:39:59', '2024-06-28 17:50:38'),
 (45, '9ef52d5b-d258-4303-8793-83d2ad0fa642', 14, 3, 'Frenos', 'Frenos', 'Frenos', 'Frenos', 'Frenos', 'uploads/meta/1719620619-7KqYRZyIro.jpg', '2024-06-29 00:23:39', '2024-06-29 00:23:39'),
-(46, '0ef37769-49fd-4d79-8eed-c1d7dce6ef4d', 14, 0, 'xzx', 'xzx', 'xzx', 'xzx', 'xzx', 'uploads/meta/1719635852-F9ZkeCNFlK.png', '2024-06-29 04:37:32', '2024-06-29 04:37:32');
+(46, '0ef37769-49fd-4d79-8eed-c1d7dce6ef4d', 14, 1, 'xzx', 'xzx', 'xzx', 'xzx', 'xzx', 'uploads/meta/1719635852-F9ZkeCNFlK.png', '2024-06-29 04:37:32', '2024-07-14 07:15:31');
 
 -- --------------------------------------------------------
 
@@ -2707,9 +3139,72 @@ CREATE TABLE `time_logs` (
 --
 
 INSERT INTO `time_logs` (`id`, `user_id`, `start_time`, `end_time`, `created_at`, `updated_at`) VALUES
-(1, 32, '2024-07-07 07:31:42', NULL, '2024-07-07 02:01:42', '2024-07-07 02:01:42'),
-(2, 32, '2024-07-07 09:09:03', NULL, '2024-07-07 03:39:03', '2024-07-07 03:39:03'),
-(3, 32, '2024-07-07 12:04:06', NULL, '2024-07-07 06:34:06', '2024-07-07 06:34:06');
+(1, 33, '2024-07-06 09:31:31', '2024-07-06 15:34:14', '2024-07-06 09:31:31', '2024-07-06 09:31:31'),
+(2, 32, '2024-07-06 10:12:13', '2024-07-06 10:25:27', '2024-07-06 10:12:13', '2024-07-06 10:25:27'),
+(3, 33, '2024-07-07 06:23:22', '2024-07-07 06:24:19', '2024-07-07 06:23:22', '2024-07-07 06:24:19'),
+(4, 33, '2024-07-07 06:27:24', '2024-07-07 06:34:39', '2024-07-07 06:27:24', '2024-07-07 06:34:39'),
+(5, 33, '2024-07-07 06:38:22', NULL, '2024-07-07 06:38:22', '2024-07-07 06:38:22'),
+(6, 33, '2024-07-07 06:51:57', '2024-07-07 07:26:31', '2024-07-07 06:51:57', '2024-07-07 07:26:31'),
+(7, 32, '2024-07-07 07:29:05', '2024-07-07 08:09:37', '2024-07-07 07:29:05', '2024-07-07 08:09:37'),
+(8, 33, '2024-07-07 07:33:45', '2024-07-07 07:36:02', '2024-07-07 07:33:45', '2024-07-07 07:36:02'),
+(9, 33, '2024-07-07 07:44:58', '2024-07-07 07:48:09', '2024-07-07 07:44:58', '2024-07-07 07:48:09'),
+(10, 33, '2024-07-07 08:09:27', NULL, '2024-07-07 08:09:27', '2024-07-07 08:09:27'),
+(11, 33, '2024-07-07 08:09:52', NULL, '2024-07-07 08:09:52', '2024-07-07 08:09:52'),
+(12, 33, '2024-07-07 09:07:12', '2024-07-07 13:09:21', '2024-07-07 09:07:12', '2024-07-07 13:09:21'),
+(13, 33, '2024-07-07 15:13:00', '2024-07-07 15:14:29', '2024-07-07 15:13:00', '2024-07-07 15:14:29'),
+(14, 33, '2024-07-07 15:28:51', NULL, '2024-07-07 15:28:51', '2024-07-07 15:28:51'),
+(15, 33, '2024-07-07 16:06:19', NULL, '2024-07-07 16:06:19', '2024-07-07 16:06:19'),
+(16, 32, '2024-07-07 16:10:12', NULL, '2024-07-07 16:10:12', '2024-07-07 16:10:12'),
+(17, 33, '2024-07-08 03:56:27', NULL, '2024-07-08 03:56:27', '2024-07-08 03:56:27'),
+(18, 33, '2024-07-08 04:53:15', '2024-07-08 04:56:45', '2024-07-08 04:53:15', '2024-07-08 04:56:45'),
+(19, 33, '2024-07-08 05:01:39', NULL, '2024-07-08 05:01:39', '2024-07-08 05:01:39'),
+(20, 33, '2024-07-08 07:57:51', NULL, '2024-07-08 07:57:51', '2024-07-08 07:57:51'),
+(21, 40, '2024-07-08 12:02:51', NULL, '2024-07-08 12:02:51', '2024-07-08 12:02:51'),
+(22, 33, '2024-07-08 16:56:36', NULL, '2024-07-08 16:56:36', '2024-07-08 16:56:36'),
+(23, 40, '2024-07-08 17:44:31', '2024-07-08 17:52:04', '2024-07-08 17:44:31', '2024-07-08 17:52:04'),
+(24, 33, '2024-07-09 01:35:56', NULL, '2024-07-09 01:35:56', '2024-07-09 01:35:56'),
+(25, 33, '2024-07-09 05:41:21', NULL, '2024-07-09 05:41:21', '2024-07-09 05:41:21'),
+(26, 33, '2024-07-09 15:19:51', NULL, '2024-07-09 15:19:51', '2024-07-09 15:19:51'),
+(27, 33, '2024-07-09 20:42:28', NULL, '2024-07-09 20:42:28', '2024-07-09 20:42:28'),
+(28, 33, '2024-07-10 04:03:30', NULL, '2024-07-10 04:03:30', '2024-07-10 04:03:30'),
+(29, 33, '2024-07-10 07:38:50', '2024-07-10 07:41:54', '2024-07-10 07:38:50', '2024-07-10 07:41:54'),
+(30, 44, '2024-07-10 07:59:46', NULL, '2024-07-10 07:59:46', '2024-07-10 07:59:46'),
+(31, 33, '2024-07-10 09:24:30', NULL, '2024-07-10 09:24:30', '2024-07-10 09:24:30'),
+(32, 40, '2024-07-10 13:28:14', NULL, '2024-07-10 13:28:14', '2024-07-10 13:28:14'),
+(33, 44, '2024-07-10 14:24:03', NULL, '2024-07-10 14:24:03', '2024-07-10 14:24:03'),
+(34, 40, '2024-07-10 15:02:07', NULL, '2024-07-10 15:02:07', '2024-07-10 15:02:07'),
+(35, 40, '2024-07-10 17:39:35', NULL, '2024-07-10 17:39:35', '2024-07-10 17:39:35'),
+(36, 44, '2024-07-11 00:37:43', NULL, '2024-07-11 00:37:43', '2024-07-11 00:37:43'),
+(37, 33, '2024-07-11 05:01:07', '2024-07-11 06:13:18', '2024-07-11 05:01:07', '2024-07-11 06:13:18'),
+(38, 34, '2024-07-11 06:15:36', NULL, '2024-07-11 06:15:36', '2024-07-11 06:15:36'),
+(39, 33, '2024-07-11 15:42:40', NULL, '2024-07-11 15:42:40', '2024-07-11 15:42:40'),
+(40, 44, '2024-07-11 20:30:30', NULL, '2024-07-11 20:30:30', '2024-07-11 20:30:30'),
+(41, 33, '2024-07-11 22:21:11', NULL, '2024-07-11 22:21:11', '2024-07-11 22:21:11'),
+(42, 44, '2024-07-12 02:13:40', NULL, '2024-07-12 02:13:40', '2024-07-12 02:13:40'),
+(43, 33, '2024-07-12 03:00:42', '2024-07-12 03:01:19', '2024-07-12 03:00:42', '2024-07-12 03:01:19'),
+(44, 34, '2024-07-12 03:02:38', NULL, '2024-07-12 03:02:38', '2024-07-12 03:02:38'),
+(45, 33, '2024-07-13 01:42:37', NULL, '2024-07-13 01:42:37', '2024-07-13 01:42:37'),
+(46, 34, '2024-07-13 11:28:22', '2024-07-13 13:03:05', '2024-07-13 11:28:22', '2024-07-13 13:03:05'),
+(47, 33, '2024-07-13 13:03:17', NULL, '2024-07-13 13:03:17', '2024-07-13 13:03:17'),
+(48, 33, '2024-07-13 17:09:18', NULL, '2024-07-13 17:09:18', '2024-07-13 17:09:18'),
+(49, 40, '2024-07-13 23:09:49', NULL, '2024-07-13 23:09:49', '2024-07-13 23:09:49'),
+(50, 44, '2024-07-13 23:29:10', NULL, '2024-07-13 23:29:10', '2024-07-13 23:29:10'),
+(51, 34, '2024-07-14 03:27:22', NULL, '2024-07-14 03:27:22', '2024-07-14 03:27:22'),
+(52, 44, '2024-07-14 07:02:27', NULL, '2024-07-14 07:02:27', '2024-07-14 07:02:27'),
+(53, 34, '2024-07-15 03:05:01', '2024-07-15 04:58:58', '2024-07-15 03:05:01', '2024-07-15 04:58:58'),
+(54, 40, '2024-07-15 04:24:48', NULL, '2024-07-15 04:24:48', '2024-07-15 04:24:48'),
+(55, 44, '2024-07-15 04:41:12', NULL, '2024-07-15 04:41:12', '2024-07-15 04:41:12'),
+(56, 34, '2024-07-15 06:15:22', NULL, '2024-07-15 06:15:22', '2024-07-15 06:15:22'),
+(57, 34, '2024-07-15 09:03:49', NULL, '2024-07-15 09:03:49', '2024-07-15 09:03:49'),
+(58, 44, '2024-07-15 13:23:17', '2024-07-15 14:09:44', '2024-07-15 13:23:17', '2024-07-15 14:09:44'),
+(59, 34, '2024-07-16 09:09:53', NULL, '2024-07-16 09:09:53', '2024-07-16 09:09:53'),
+(60, 33, '2024-07-16 15:22:44', NULL, '2024-07-16 15:22:44', '2024-07-16 15:22:44'),
+(61, 33, '2024-07-16 15:22:44', NULL, '2024-07-16 15:22:44', '2024-07-16 15:22:44'),
+(62, 33, '2024-07-16 21:54:22', '2024-07-16 22:33:22', '2024-07-16 21:54:22', '2024-07-16 22:33:22'),
+(63, 40, '2024-07-16 21:56:53', NULL, '2024-07-16 21:56:53', '2024-07-16 21:56:53'),
+(64, 44, '2024-07-16 22:42:31', NULL, '2024-07-16 22:42:31', '2024-07-16 22:42:31'),
+(65, 34, '2024-07-17 00:11:30', NULL, '2024-07-17 00:11:30', '2024-07-17 00:11:30'),
+(66, 40, '2024-07-17 00:58:25', NULL, '2024-07-17 00:58:25', '2024-07-17 00:58:25');
 
 -- --------------------------------------------------------
 
@@ -2762,10 +3257,18 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `account_type`, `price`, `role`, `permissions`, `name`, `email`, `email_verified_at`, `password`, `custom_password`, `mobile_number`, `city`, `categories`, `alter_mobile_number`, `location`, `department`, `store`, `last_seen`, `is_online`, `is_active`, `status`, `about`, `photo_url`, `profile_photo`, `remember_token`, `ip_address`, `balance`, `is_system`, `is_subscribed`, `privacy`, `gender`, `created_by`, `deleted_at`, `language`, `is_super_admin`, `created_at`, `updated_at`) VALUES
-(1, 'admin', NULL, 1, NULL, 'SUPER ADMINISTRADOR', 'admin@gmail.com', '2023-03-23 07:45:02', '$2y$10$9SbqzcUtyfeaf4019gajcOGQ4/k.XfIpeMXZp/ZERKUP0Z9GA02MK', NULL, '8878326802', 'india', NULL, NULL, NULL, NULL, NULL, '2024-07-07 05:44:41', 1, 1, 1, NULL, NULL, '149071.png', NULL, NULL, NULL, 1, 0, 1, 1, NULL, NULL, 'es', 1, '2023-03-23 07:45:02', '2024-07-07 05:44:41'),
-(30, NULL, 'price3', 2, NULL, 'sdfsdfsf', 'subadmdfsfain@gmail.com', '2023-03-23 07:45:02', 'vbcvbhfghd', NULL, NULL, NULL, NULL, '987765546213132', NULL, 'it', 'arstexch', '2024-06-29 03:50:42', 1, 1, 1, NULL, NULL, NULL, NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:49:44', '2024-06-29 03:50:42'),
-(31, NULL, 'price2', 2, NULL, 'sofia', 'hhfghfhhffhfhfhrnatrajinfotech@gmail.com', NULL, 'sdfsfsfdsfsfsfsfsfs', NULL, NULL, 'ghfdgdfg', NULL, '465464df65g54d', 'ghjhgjgjg', 'erewr', 'asdsdfdsf', NULL, 0, 1, 1, NULL, NULL, NULL, NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:51:51', '2024-06-22 01:51:51'),
-(32, NULL, 'price3', 2, NULL, 'eve', 'arstech2a@gmail.com', '2023-03-23 07:45:02', 'eve@3sss', NULL, '9589642080', 'bolivia', '7,14', '65465464879787', 'bolivia', 'Software', 'everytech', '2024-07-07 06:34:06', 1, 1, 1, NULL, NULL, 'IMG_4416_vo4r1a_1712164410.jpg', NULL, '127.0.0.1', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-22 01:56:11', '2024-07-07 06:34:06');
+(1, 'admin', NULL, 1, NULL, 'SUPER ADMINISTRADOR', 'brosbikebros@gmail.com', '2023-03-23 07:45:02', '$2y$10$JwWeMW9Bor7BOTT32MwwFOOKvFV8kqqk99PbHQtezyrl1Ky3KCp.2', NULL, '8878326802', 'bolivia', NULL, NULL, NULL, NULL, NULL, '2024-07-17 00:49:48', 1, 1, 1, NULL, NULL, '149071.png', NULL, NULL, NULL, 1, 0, 1, 1, NULL, NULL, 'es', 1, '2023-03-23 07:45:02', '2024-07-17 00:49:48'),
+(33, NULL, 'price2', 2, NULL, 'Juan', 'adminer@gmail.com', '2023-03-23 07:45:02', 'citas.social12323', NULL, '4353535353', 'ythgfh', '7,9,14', '45677890', 'dfgfdghdf', 'Oruro', 'xiu', '2024-07-16 21:54:22', 1, 1, 1, NULL, NULL, 'Screenshot (18).png', NULL, '189.28.76.199', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-27 05:18:44', '2024-07-16 21:54:22'),
+(34, NULL, 'price4', 2, NULL, 'Aasif Ahmed', 'arstech2a@gmail.com', '2023-03-23 07:45:02', 'Berlin@3sss', NULL, NULL, 'Indore', '7,9,14,15', '987643210', 'Indore', 'medical', 'arsmedicap', '2024-07-17 00:11:30', 1, 1, 1, NULL, NULL, NULL, NULL, '2409:40c4:16f:29ec:9964:56de:485b:29c0', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-27 05:47:33', '2024-07-17 00:11:30'),
+(35, NULL, 'price5', 2, NULL, 'Aasif Ahmed', 'sdafsfsdafsdafsdf@cfgdf.cvo', NULL, 'sdafsdfsdfsdfdsfsdaf', NULL, NULL, 'Indore', 'motorcycle', 'sadfsdfsdfdsafdsf', 'sdffsadfsdfa', 'sdafdsafsaf', 'sdfssdf', NULL, 0, 1, 1, NULL, NULL, NULL, NULL, '2409:40c4:16f:29ec:9964:56de:485b:29c0', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-27 05:54:00', '2024-06-27 05:54:00'),
+(36, NULL, 'price2', 2, NULL, 'sdfsfs', 'ccfgdfgdgd@sdfs', NULL, 'dfgfdgdfgfdgfgfdg', NULL, NULL, 'fdggfdgdgd', 'loadline', 'dfgdgdgg', 'gdgdgfdgfdgfd', 'dfdsfsfs', 'dsfsfsfsdfd', NULL, 0, 1, 1, NULL, NULL, NULL, NULL, '2409:40c4:16f:29ec:9964:56de:485b:29c0', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-27 07:35:58', '2024-06-27 07:35:58'),
+(38, NULL, 'price5', 2, NULL, 'sdf', 'dsfdssdf@dfsfftgdr', '2024-06-27 15:36:10', 'dfgdgdfgdgdgd', NULL, NULL, 'sdfsfsfd', 'motorcycle', 'dfgdgdfgdfgfdgf', 'sdfsffsff', 'sdsf', 'sdfsfsd', NULL, 0, 1, 1, NULL, NULL, '', NULL, '2409:40c4:16f:29ec:9964:56de:485b:29c0', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-27 15:36:10', '2024-06-27 15:36:10'),
+(39, NULL, 'price1', 2, NULL, 'Usuario Prueba', 'userprueba@gmail.com', '2024-06-28 16:55:29', 'user.prueba123', NULL, '4353535353sda', 'La PAz', '7,14', '54567865', 'La Paz', 'LA PAz', 'Tienda1', '2024-07-05 18:20:15', 1, 1, 1, NULL, NULL, '', NULL, '2409:40c4:11cc:430f:3512:e55f:2aa4:26b0', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-28 16:55:29', '2024-07-05 18:20:15'),
+(40, NULL, 'price5', 2, NULL, 'Maribel Prueba', 'ml.urquizo@gmail.com', '2024-06-28 17:11:50', 'Mari12345', NULL, '888999', 'La Paz', '7,9,14,15', '7889999', 'Plaza Scout', 'La Paz', 'Bk', '2024-07-17 00:58:25', 1, 1, 1, NULL, NULL, '', NULL, '190.129.166.100', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-28 17:11:50', '2024-07-17 00:58:25'),
+(41, NULL, 'price1', 2, NULL, 'Ivan prueba precio 1 BICICLETA', '1iayalaq1@gmail.com', '2024-06-28 23:20:52', '9207111', NULL, '7655', 'LA PAZ', '7,14', '2841594', 'RIO SECEO #100, FRENTE AL HOSPITAL DEL NORTE', 'EL ALTO', 'BIKECENTER', '2024-07-03 03:32:00', 1, 1, 1, NULL, NULL, '', NULL, '189.28.92.132', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-28 23:20:52', '2024-07-03 03:32:00'),
+(42, NULL, 'price4', 2, NULL, 'dsfdsfdsfsdfsdfsd', 'ddsfsdf@sfsdfsdfsefsdfs', '2024-06-29 05:09:22', 'fsdfsdfdsdfgfdgdfgfdgd', NULL, '9589642080', 'fsdfsddsfdsfsddsfsdfsdsdsd', '7,9', 'sdfsdfererwesererwe', 'sdsdfsddssdsdfdxdffg', 'vxcfvsdfsdfsdfsdfsdfsdfsd', 'fsfdsfsdfsdfsdfsddsfdfsdd', '2024-06-30 04:56:44', 1, 1, 1, NULL, NULL, '', NULL, '2409:40c4:11cc:430f:3512:e55f:2aa4:26b0', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-29 05:09:22', '2024-06-30 04:56:44'),
+(43, NULL, 'price4', 2, NULL, 'das', 'brosbikebros23@gmail.com', '2024-06-29 11:28:15', 'bike.bros12323', NULL, NULL, 'dsfdsf', '9,14,15', '43534567', 'iewwui', 'ssfs', 'das', '2024-06-30 05:21:40', 1, 1, 1, NULL, NULL, '', NULL, '2800:cd0:4252:de00:917e:5d66:f6b:79f7', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-29 11:28:15', '2024-06-30 05:21:40'),
+(44, NULL, 'price5', 2, NULL, 'Ivan', 'jago1410@gmail.com', '2024-07-10 07:57:15', 'bike.bros123', NULL, NULL, 'La Paz', '7,9,14,15', '78999098', 'La Paz', 'La Paz', 'Nose', '2024-07-16 22:42:31', 1, 1, 1, NULL, NULL, '', NULL, '189.28.76.199', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-07-10 07:57:15', '2024-07-16 22:42:31');
 
 -- --------------------------------------------------------
 
@@ -2788,10 +3291,8 @@ CREATE TABLE `wishlists` (
 --
 
 INSERT INTO `wishlists` (`id`, `user_id`, `product_id`, `price`, `is_stock`, `created_at`, `updated_at`) VALUES
-(3, 32, 33, 100.00, 1, '2024-06-30 02:01:56', '2024-06-30 02:01:56'),
-(4, 32, 33, 100.00, 1, '2024-07-03 23:13:23', '2024-07-03 23:13:23'),
-(5, 32, 10, 1250.00, 1, '2024-07-03 23:41:07', '2024-07-03 23:41:07'),
-(6, 32, 47, 100.00, 1, '2024-07-04 01:27:43', '2024-07-04 01:27:43');
+(6, 33, 76, 20.00, 1, '2024-07-10 07:39:27', '2024-07-10 07:39:27'),
+(7, 44, 81, 98.00, 1, '2024-07-10 08:31:24', '2024-07-10 08:31:24');
 
 --
 -- Indexes for dumped tables
@@ -3273,7 +3774,7 @@ ALTER TABLE `blog_tags`
 -- AUTO_INCREMENT for table `brands`
 --
 ALTER TABLE `brands`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `campaigns`
@@ -3285,7 +3786,7 @@ ALTER TABLE `campaigns`
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -3381,7 +3882,7 @@ ALTER TABLE `metas`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `notifications`
@@ -3393,13 +3894,13 @@ ALTER TABLE `notifications`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT for table `our_histories`
@@ -3423,7 +3924,7 @@ ALTER TABLE `password_resets`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `payment_gateway`
@@ -3441,7 +3942,7 @@ ALTER TABLE `permissions`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 
 --
 -- AUTO_INCREMENT for table `product_reviews`
@@ -3453,7 +3954,7 @@ ALTER TABLE `product_reviews`
 -- AUTO_INCREMENT for table `product_variations`
 --
 ALTER TABLE `product_variations`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT for table `pro_categories`
@@ -3465,13 +3966,13 @@ ALTER TABLE `pro_categories`
 -- AUTO_INCREMENT for table `pro_images`
 --
 ALTER TABLE `pro_images`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `related_products`
 --
 ALTER TABLE `related_products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -3483,7 +3984,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `screen_times`
 --
 ALTER TABLE `screen_times`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=584;
 
 --
 -- AUTO_INCREMENT for table `settings`
@@ -3561,19 +4062,19 @@ ALTER TABLE `ticket_related_services`
 -- AUTO_INCREMENT for table `time_logs`
 --
 ALTER TABLE `time_logs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `wishlists`
 --
 ALTER TABLE `wishlists`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
