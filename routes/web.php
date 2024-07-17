@@ -140,7 +140,11 @@ Route::group(['middleware' => 'prevent-back-history', SetLocale::class], functio
     Route::get('/news', [UserController::class, 'news'])->name('news');
     Route::get('/Details', [UserController::class, 'Details'])->name('Details')->middleware('isLoggedIn');
     Route::get('/product-details/{slug}', [UserController::class, 'ProductDetail'])->name('ProductDetail')->middleware('isLoggedIn');
+    Route::get('/productbybrand/{id}', [UserController::class, 'productbybrand'])->name('productbybrand')->middleware('isLoggedIn');
     Route::get('/productbyCategory/{id}', [UserController::class, 'productbyCategory'])->name('productbyCategory')->middleware('isLoggedIn');
+    Route::get('/productbySubCategory/{category}/{subcategory}', [UserController::class, 'productbySubCategory'])->name('productbySubCategory')->middleware('isLoggedIn');
+    Route::get('/productbyChildCategory/{category}/{subcategory}/{childcategory}', [UserController::class, 'productbyChildCategory'])->name('productbyChildCategory')->middleware('isLoggedIn');
+
     Route::get('/CreateProject', [UserController::class, 'CreateProject'])->name('CreateProject')->middleware('isLoggedIn');
     Route::get('/signup', [UserController::class, 'signup'])->name('signup')->middleware('alreadyLoggedIn');
 

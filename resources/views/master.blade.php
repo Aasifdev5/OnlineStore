@@ -118,8 +118,7 @@
 </head>
 
 <body>
-
-    @if (Request::path() !== 'cart')
+@if (Request::path() !== 'cart')
     <!-- Start preloader -->
     <div id="preloader">
         <div id="ctn-preloader" class="ctn-preloader">
@@ -566,7 +565,7 @@
                                 @endphp
                                 @foreach ($categories as $parentCategory)
                                     <li class="categories__menu--items {{ $parentCategory->id }}">
-                                        <a class="categories__menu--link" href="{{ url('shop') }}">
+                                        <a class="categories__menu--link" href="{{ url('productbyCategory') }}/{{ $parentCategory->id }}">
                                             <svg class="categories__menu--svgicon" xmlns="http://www.w3.org/2000/svg"
                                                 width="24" height="24" viewBox="0 0 24 24" fill="none"
                                                 stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -590,17 +589,27 @@
                                         <ul
                                             class="categories__submenu border-radius-10 d-flex justify-content-between">
                                             @php
-                                                $subcategories = \App\Models\Subcategory::where(
+                                            if($parentCategory->id==7){
+                                     $subcategories = \App\Models\Subcategory::where(
                                                     'parent_category_id',
                                                     $parentCategory->id,
                                                 )
                                                     ->where('category_id', '0')
                                                     ->get();
+                                    }else{
+                                      $subcategories = \App\Models\Subcategory::where(
+                                                    'parent_category_id',
+                                                    $parentCategory->id,
+                                                )
+
+                                                    ->get();
+                                    }
+
                                             @endphp
                                             @foreach ($subcategories as $subcategory)
                                                 <li class="categories__submenu--items">
                                                     <a class="categories__submenu--items__text"
-                                                        href="{{ url('shop') }}"><strong>{{ $subcategory->name }}
+                                                        href="{{ url('productbySubCategory') }}/{{ $parentCategory->id }}/{{ $subcategory->id }}"><strong>{{ $subcategory->name }}
                                                         </strong></a>
                                                     <ul class="categories__submenu--child">
                                                         @php
@@ -612,7 +621,7 @@
                                                         @foreach ($childcategories as $childcategory)
                                                             <li class="categories__submenu--child__items"><a
                                                                     class="categories__submenu--child__items--link"
-                                                                    href="{{ url('shop') }}">{{ $childcategory->name }}
+                                                                    href="{{ url('productbyChildCategory') }}/{{ $parentCategory->id }}/{{ $subcategory->id }}/{{ $childcategory->id }}">{{ $childcategory->name }}
                                                                 </a></li>
                                                             <!-- Add more subcategory items here if needed -->
                                                         @endforeach
@@ -662,7 +671,7 @@
                                     @endphp
                                     @foreach ($categories as $parentCategory)
                                         <li class="categories__menu--items">
-                                            <a class="categories__menu--link" href="{{ url('shop') }}">
+                                            <a class="categories__menu--link" href="{{ url('productbyCategory') }}/{{ $parentCategory->id }}">
                                                 <svg class="categories__menu--svgicon"
                                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -676,17 +685,26 @@
                                             </a>
                                             <ul class="category__sub--menu">
                                                 @php
-                                                    $subcategories = \App\Models\Subcategory::where(
-                                                        'parent_category_id',
-                                                        $parentCategory->id,
-                                                    )
-                                                        ->where('category_id', '0')
-                                                        ->get();
+                                                  if($parentCategory->id==7){
+                                     $subcategories = \App\Models\Subcategory::where(
+                                                    'parent_category_id',
+                                                    $parentCategory->id,
+                                                )
+                                                    ->where('category_id', '0')
+                                                    ->get();
+                                    }else{
+                                      $subcategories = \App\Models\Subcategory::where(
+                                                    'parent_category_id',
+                                                    $parentCategory->id,
+                                                )
+
+                                                    ->get();
+                                    }
                                                 @endphp
                                                 @foreach ($subcategories as $subcategory)
                                                     <li class="categories__submenu--items"><a
                                                             class="categories__submenu--items__text"
-                                                            href="{{ url('shop') }}">{{ $subcategory->name }}</a>
+                                                            href="{{ url('productbySubCategory') }}/{{ $parentCategory->id }}/{{ $subcategory->id }}">{{ $subcategory->name }}</a>
                                                         <ul class="category__sub--menu">
                                                             @php
                                                                 $childcategories = \App\Models\Subcategory::where(
@@ -697,7 +715,7 @@
                                                             @foreach ($childcategories as $childcategory)
                                                                 <li class="categories__submenu--child__items"><a
                                                                         class="categories__submenu--child__items--link"
-                                                                        href="{{ url('shop') }}">{{ $childcategory->name }}
+                                                                        href="{{ url('productbyChildCategory') }}/{{ $parentCategory->id }}/{{ $subcategory->id }}/{{ $childcategory->id }}">{{ $childcategory->name }}
                                                                     </a></li>
                                                             @endforeach
 

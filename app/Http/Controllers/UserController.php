@@ -741,14 +741,13 @@ foreach ($filteredProducts as $product) {
 
 return response()->json(['products' => $products]);
 }
-
-    public function productbyCategory($id)
+public function productbybrand($id)
     {
         if (Session::has('LoggedIn')) {
             $pages = Page::all();
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
             $userCategories = !empty($user_session->categories) ? explode(',', $user_session->categories) : [];
-           $products = Product::whereIn('category', $userCategories)
+           $products = Product::whereIn('category', $userCategories)->where('brand_id', $id)
     ->whereNotIn('sku', function($query) {
         $query->select('sku')
               ->from('product_variations');
@@ -756,9 +755,73 @@ return response()->json(['products' => $products]);
     ->orderBy('id', 'desc')
     ->paginate(9);
 
-
+            $category =$id;
             $general_setting = GeneralSetting::find('1');
-            return view('productbyCategory', compact('products', 'user_session',  'general_setting', 'pages'));
+            return view('productbybrand', compact('products', 'user_session',  'general_setting', 'pages','category'));
+        } else {
+            return Redirect()->with('fail', 'You have to login first');
+        }
+    }
+    public function productbyCategory($id)
+    {
+        if (Session::has('LoggedIn')) {
+            $pages = Page::all();
+            $user_session = User::where('id', Session::get('LoggedIn'))->first();
+            $userCategories = !empty($user_session->categories) ? explode(',', $user_session->categories) : [];
+           $products = Product::whereIn('category', $userCategories)->where('category', $id)
+    ->whereNotIn('sku', function($query) {
+        $query->select('sku')
+              ->from('product_variations');
+    })
+    ->orderBy('id', 'desc')
+    ->paginate(9);
+
+            $category =$id;
+            $general_setting = GeneralSetting::find('1');
+            return view('productbyCategory', compact('products', 'user_session',  'general_setting', 'pages','category'));
+        } else {
+            return Redirect()->with('fail', 'You have to login first');
+        }
+    }
+    public function productbySubCategory($category,$subcategory)
+    {
+        if (Session::has('LoggedIn')) {
+            $pages = Page::all();
+            $user_session = User::where('id', Session::get('LoggedIn'))->first();
+            $userCategories = !empty($user_session->categories) ? explode(',', $user_session->categories) : [];
+           $products = Product::whereIn('category', $userCategories)->where('category', $category)->where('subcategory_id', $subcategory)
+    ->whereNotIn('sku', function($query) {
+        $query->select('sku')
+              ->from('product_variations');
+    })
+    ->orderBy('id', 'desc')
+    ->paginate(9);
+
+            $subcategory =$subcategory;
+            $category =$category;
+            $general_setting = GeneralSetting::find('1');
+            return view('productbySubCategory', compact('products', 'user_session',  'general_setting', 'pages','subcategory','category'));
+        } else {
+            return Redirect()->with('fail', 'You have to login first');
+        }
+    }
+     public function productbyChildCategory($category,$subcategory,$childcategory)
+    {
+        if (Session::has('LoggedIn')) {
+            $pages = Page::all();
+            $user_session = User::where('id', Session::get('LoggedIn'))->first();
+            $userCategories = !empty($user_session->categories) ? explode(',', $user_session->categories) : [];
+           $products = Product::whereIn('category', $userCategories)->where('category', $category)->where('subcategory_id', $subcategory)->where('childcategory', $childcategory)
+    ->whereNotIn('sku', function($query) {
+        $query->select('sku')
+              ->from('product_variations');
+    })
+    ->orderBy('id', 'desc')
+    ->paginate(9);
+
+            $childcategory =$childcategory;
+            $general_setting = GeneralSetting::find('1');
+            return view('productbyChildCategory', compact('products', 'user_session',  'general_setting', 'pages','childcategory'));
         } else {
             return Redirect()->with('fail', 'You have to login first');
         }

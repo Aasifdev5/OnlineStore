@@ -55,7 +55,7 @@ Tienda
                 $brands = \App\Models\Brand::all();
                 @endphp
                 @foreach($brands as $row)
-                <li class="widget__tagcloud--list"><a class="widget__tagcloud--link" href="shop"> {{$row->name}}
+                <li class="widget__tagcloud--list"><a class="widget__tagcloud--link" href="{{ url('productbybrand') }}/{{ $row->id }}"> {{$row->name}}
                     </a></li>
                 @endforeach
             </ul>
