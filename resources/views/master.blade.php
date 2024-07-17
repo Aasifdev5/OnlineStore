@@ -783,14 +783,14 @@
                 <nav class="offcanvas__menu">
                     <ul class="offcanvas__menu_ul">
                         <li class="header__menu--items">
-                            <a class="header__menu--link text-white {{ Request::is('home') ? 'active' : '' }}"
+                            <a class="header__menu--link  {{ Request::is('home') ? 'active' : '' }}"
                                 href="{{ url('home') }}">Inicio
 
                             </a>
 
                         </li>
                         <li class="header__menu--items">
-                            <a class="header__menu--link text-white {{ Request::is('shop') ? 'active' : '' }}"
+                            <a class="header__menu--link  {{ Request::is('shop') ? 'active' : '' }}"
                                 href="{{ url('shop') }}">Tienda
 
                             </a>
@@ -851,7 +851,7 @@
         <div class="offcanvas__stikcy--toolbar">
             <ul class="d-flex justify-content-between">
                 <li class="offcanvas__stikcy--toolbar__list">
-                    <a class="offcanvas__stikcy--toolbar__btn" href="{{ url('shop') }}">
+                    <a class="offcanvas__stikcy--toolbar__btn" href="{{ url('home') }}">
                         <span class="offcanvas__stikcy--toolbar__icon">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="21.51" height="21.443"
                                 viewBox="0 0 22 17">
@@ -864,19 +864,12 @@
                     </a>
                 </li>
 
-                <li class="offcanvas__stikcy--toolbar__list ">
-                    <a class="offcanvas__stikcy--toolbar__btn search__open--btn" href="javascript:void(0)"
-                        data-offcanvas>
-                        <span class="offcanvas__stikcy--toolbar__icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="22.51" height="20.443"
-                                viewBox="0 0 512 512">
-                                <path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z"
-                                    fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" />
-                                <path fill="none" stroke="currentColor" stroke-linecap="round"
-                                    stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448" />
-                            </svg>
+                <li class="offcanvas__stikcy--toolbar__list">
+                    <a class="offcanvas__stikcy--toolbar__btn" href="{{url('shop')}}">
+                    <span class="offcanvas__stikcy--toolbar__icon">
+                        <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" width="18.51" height="17.443" viewBox="0 0 448 512"><path d="M416 32H32A32 32 0 0 0 0 64v384a32 32 0 0 0 32 32h384a32 32 0 0 0 32-32V64a32 32 0 0 0-32-32zm-16 48v152H248V80zm-200 0v152H48V80zM48 432V280h152v152zm200 0V280h152v152z"></path></svg>
                         </span>
-                        <span class="offcanvas__stikcy--toolbar__label">Search</span>
+                    <span class="offcanvas__stikcy--toolbar__label">Tienda</span>
                     </a>
                 </li>
                 @if (!empty($user_session))

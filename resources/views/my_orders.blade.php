@@ -98,8 +98,8 @@
                 <div class="account__wrapper">
                     <div class="account__content">
                         <h2 class="account__content--title h3 mb-20">Orders</h2>
-                        <div class="account__table--area">
-                         <table class="account__table">
+                        <div class="table-responsive">
+                         <table class="account__table table">
     <thead class="account__table--header">
         <tr class="account__table--header__row">
             <th class="account__table--header__cell">Order</th>
@@ -112,29 +112,31 @@
     </thead>
     <tbody class="account__table--body">
         @foreach ($orders as $order)
-            @php
-                $first = true;
-            @endphp
-            @foreach ($order->orderItems as $orderItem)
-                <tr class="account__table--body__row">
-                    @if ($first)
-                        <td class="account__table--body__cell" rowspan="{{ count($order->orderItems) }}">{{ $order->id }}</td>
-                        <td class="account__table--body__cell" rowspan="{{ count($order->orderItems) }}">{{ $order->created_at->format('F j, Y') }}</td>
+    @php
+        $first = true;
+    @endphp
+    @foreach ($order->orderItems as $orderItem)
+        @if ($orderItem->product) {{-- Ensure the product is not null --}}
+            <tr class="account__table--body__row">
+                @if ($first)
+                    <td class="account__table--body__cell" rowspan="{{ count($order->orderItems) }}">{{ $order->id }}</td>
+                    <td class="account__table--body__cell" rowspan="{{ count($order->orderItems) }}">{{ $order->created_at->format('F j, Y') }}</td>
+                @endif
+                <td class="account__table--body__cell">{{ $orderItem->product->title }}</td>
+                <td class="account__table--body__cell">BS{{ number_format($orderItem->price * $orderItem->quantity, 2) }}</td>
+                @if ($first)
+                    <td class="account__table--body__cell" rowspan="{{ count($order->orderItems) }}">
+                        <a href="{{ route('invoice.generate', ['id' => $order->id]) }}" class="btn btn-primary">Descargar factura</a>
+                    </td>
+                    @php
+                        $first = false;
+                    @endphp
+                @endif
+            </tr>
+        @endif
+    @endforeach
+@endforeach
 
-                    @endif
-                    <td class="account__table--body__cell">{{ $orderItem->product->title }}</td>
-                    <td class="account__table--body__cell">BS{{ number_format($orderItem->price * $orderItem->quantity, 2) }}</td>
-                    @if ($first)
-                        <td class="account__table--body__cell" rowspan="{{ count($order->orderItems) }}">
-                            <a href="{{ route('invoice.generate', ['id' => $order->id]) }}" class="btn btn-primary">Download Invoice</a>
-                        </td>
-                        @php
-                            $first = false;
-                        @endphp
-                    @endif
-                </tr>
-            @endforeach
-        @endforeach
     </tbody>
 </table>
 
