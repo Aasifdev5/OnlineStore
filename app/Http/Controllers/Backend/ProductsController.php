@@ -27,7 +27,7 @@ class ProductsController extends Controller
     {
         if (Session::has('LoggedIn')) {
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
-            $brandlist = Brand::where('is_publish', 1)->orderBy('name', 'asc')->get();
+            $brandlist = Brand::orderBy('name', 'asc')->get();
             $storeList = DB::table('users')
                 ->select('users.id', 'users.store')
                 ->where('users.role', '=', 2)
@@ -209,7 +209,7 @@ class ProductsController extends Controller
         // dd($id);
         if (Session::has('LoggedIn')) {
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
-            $brandlist = Brand::where('is_publish', 1)->orderBy('name', 'asc')->get();
+            $brandlist = Brand::orderBy('name', 'asc')->get();
             $categorylist = Pro_category::where('is_publish', 1)->orderBy('name', 'asc')->get();
             $subcategorylist = Subcategory::all();
             $childcategory = Subcategory::where('parent_category_id', '!=', 0)

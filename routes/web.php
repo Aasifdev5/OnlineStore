@@ -10,11 +10,13 @@ use App\Http\Controllers\Admin\BlogCategoryController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\ContactUsController;
 use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\Admin\HomeSettingController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\LocationController;
+
 use App\Http\Controllers\Admin\RoleController;
 
 use App\Http\Controllers\Admin\SettingController;
@@ -28,15 +30,14 @@ use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\TaxController;
 
 use App\Http\Controllers\Backend\ProductsController;
-
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\EmailAppController;
 use App\Http\Controllers\FacebookSocialiteController;
 use App\Http\Controllers\FundController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\InvoiceController;
-use App\Http\Controllers\MailTemplateController;
 
+use App\Http\Controllers\MailTemplateController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Pages;
 use App\Http\Controllers\QRCodeController;
@@ -50,6 +51,7 @@ use App\Models\Language;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
+
 
 
 
@@ -408,6 +410,14 @@ Route::group(['prefix' => 'admin'], function () {
             Route::get('edit/{uuid}', [BrandController::class, 'edit'])->name('brands.edit')->middleware('AdminIsLoggedIn');
             Route::post('update/{uuid}', [BrandController::class, 'update'])->name('brands.update');
             Route::get('delete/{uuid}', [BrandController::class, 'delete'])->name('brands.delete');
+        });
+        Route::prefix('colors')->group(function () {
+            Route::get('/', [ColorController::class, 'index'])->name('colors.index')->middleware('AdminIsLoggedIn');
+            Route::get('create', [ColorController::class, 'create'])->name('colors.create')->middleware('AdminIsLoggedIn');
+            Route::post('store', [ColorController::class, 'store'])->name('colors.store');
+            Route::get('edit/{uuid}', [ColorController::class, 'edit'])->name('colors.edit')->middleware('AdminIsLoggedIn');
+            Route::post('update/{uuid}', [ColorController::class, 'update'])->name('colors.update');
+            Route::get('delete/{uuid}', [ColorController::class, 'delete'])->name('colors.delete');
         });
 
         Route::prefix('tax')->group(function () {

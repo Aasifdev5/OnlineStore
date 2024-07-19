@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 17, 2024 at 09:33 AM
+-- Generation Time: Jul 19, 2024 at 08:35 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -681,6 +681,37 @@ INSERT INTO `client_logos` (`id`, `name`, `logo`, `created_at`, `updated_at`) VA
 (3, 'Betribe', 'uploads_demo/client-logo/3.png', '2022-12-04 17:05:33', '2024-06-09 00:01:52'),
 (4, 'Parsit', 'uploads_demo/client-logo/4.png', '2022-12-04 17:05:33', '2024-06-09 00:01:52'),
 (6, 'sp', 'uploads/client_logo/1717911112-J06X6bqrjB.png', '2024-06-09 00:01:52', '2024-06-09 00:01:52');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `colors`
+--
+
+CREATE TABLE `colors` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `colors`
+--
+
+INSERT INTO `colors` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'rojo', '2024-07-19 06:11:19', '2024-07-19 06:11:19'),
+(2, 'verde', '2024-07-19 06:12:15', '2024-07-19 06:12:15'),
+(3, 'azul', '2024-07-19 06:12:46', '2024-07-19 06:12:46'),
+(4, 'negro', '2024-07-19 06:13:05', '2024-07-19 06:13:05'),
+(5, 'blanco', '2024-07-19 06:13:20', '2024-07-19 06:13:20'),
+(6, 'amarillo', '2024-07-19 06:13:34', '2024-07-19 06:13:34'),
+(7, 'morado', '2024-07-19 06:13:51', '2024-07-19 06:13:51'),
+(8, 'naranja', '2024-07-19 06:14:04', '2024-07-19 06:14:04'),
+(9, 'rosa', '2024-07-19 06:14:19', '2024-07-19 06:14:19'),
+(10, 'marrón', '2024-07-19 06:14:33', '2024-07-19 06:14:33'),
+(11, 'gris', '2024-07-19 06:14:48', '2024-07-19 06:14:48'),
+(12, 'asdad dfgdgdg', '2024-07-19 06:16:44', '2024-07-19 06:16:57');
 
 -- --------------------------------------------------------
 
@@ -3416,6 +3447,12 @@ ALTER TABLE `client_logos`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `colors`
+--
+ALTER TABLE `colors`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `contact_us`
 --
 ALTER TABLE `contact_us`
@@ -3817,6 +3854,12 @@ ALTER TABLE `cities`
 --
 ALTER TABLE `client_logos`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `colors`
+--
+ALTER TABLE `colors`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `contact_us`

@@ -518,6 +518,12 @@
                                         </a>
                                     </li>
                                     <li>
+                                        <a href="{{ route('colors.index') }}">
+                                            <i class="fa fa-circle"></i>
+                                            <span>{{ __('Colors') }}</span>
+                                        </a>
+                                    </li>
+                                    <li>
                                         <a href="{{ route('tax.index') }}">
                                             <i class="fa fa-circle"></i>
                                             <span>{{ __('Tax') }}</span>

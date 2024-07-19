@@ -3,14 +3,14 @@
         <thead>
             <tr>
                 <th class="text-center" style="width:3%">#</th>
-                <th class="text-left" style="width:21%">{{ __('Product Name') }}</th>
-                <th class="text-left" style="width:15%">{{ __('Category') }}</th>
-                {{-- <th class="text-left" style="width:15%">{{ __('Brand') }}</th> --}}
-                <th class="text-center" style="width:10%">{{ __('Store') }}</th>
+                <th class="text-center" style="width:8%">{{ __('Acción') }}</th>
+                <th class="text-left" style="width:21%">{{ __('Titulo del producto') }}</th>
+                <th class="text-left" style="width:15%">{{ __('Categoría') }}</th>
 
-                <th class="text-center" style="width:8%">{{ __('Image') }} </th>
+
+                <th class="text-center" style="width:8%">{{ __('Imagen') }} </th>
                 <th class="text-center" style="width:8%">{{ __('SKU') }}</th>
-                <th class="text-center" style="width:8%">{{ __('Action') }}</th>
+
             </tr>
         </thead>
         <tbody>
@@ -35,6 +35,20 @@
                 @endphp
                 <tr>
                     <td class="text-center">{{ $loop->iteration }}</td>
+                     <td class="text-center">
+                         <a href="{{ route('backend.product', [$row->id]) }}" class="btn btn-icon waves-effect waves-light btn-success m-b-5 m-r-5"
+                                                                data-toggle="tooltip"> <i class="fa fa-edit"></i></a>
+                        <a href="#" class="btn btn-icon waves-effect waves-light btn-danger m-b-5 delete-link"
+                            data-id="{{ $row->id }}" data-toggle="tooltip" title="{{ trans('remove') }}">
+                            <i class="fa fa-remove"></i>
+                        </a>
+                        <form id="delete-form-{{ $row->id }}"
+                            action="{{ route('backend.deleteProducts', $row->id) }}" method="POST"
+                            style="display: none;">
+                            @csrf
+                            @method('DELETE') <!-- Use DELETE method for RESTful deletion -->
+                        </form>
+                    </td>
                     <td class="text-left">
                         <a href="{{ route('backend.product', [$row->id]) }}"
                             title="{{ __('Edit') }}">{{ $row->title }}</a>
@@ -42,11 +56,7 @@
                     <td class="text-left"> @if (!empty($category))
                             {{ $categoryName }}
                         @endif</td>
-                    <td class="text-center">
-                        @if (!empty($storeName))
-                            {{ $storeName }}
-                        @endif
-                    </td>
+
                     @if ($row->f_thumbnail != '')
                         <td class="text-center">
                             <div class="table_col_image">
@@ -65,20 +75,9 @@
                     @if (!empty($row->sku))
                         <td class="text-center">{{ $row->sku }}</td>
                     @else
-                        <td>no available now but you can add it</td>
+                        <td>no está disponible ahora pero puedes agregarlo</td>
                     @endif
-                    <td class="text-center">
-                        <a href="#" class="btn btn-icon waves-effect waves-light btn-danger m-b-5 delete-link"
-                            data-id="{{ $row->id }}" data-toggle="tooltip" title="{{ trans('remove') }}">
-                            <i class="fa fa-remove"></i>
-                        </a>
-                        <form id="delete-form-{{ $row->id }}"
-                            action="{{ route('backend.deleteProducts', $row->id) }}" method="POST"
-                            style="display: none;">
-                            @csrf
-                            @method('DELETE') <!-- Use DELETE method for RESTful deletion -->
-                        </form>
-                    </td>
+
                 </tr>
             @endforeach
 

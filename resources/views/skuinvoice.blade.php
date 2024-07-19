@@ -96,32 +96,48 @@
     <table class="table invoice-table">
         <thead class="thead-light">
             <tr>
+                <th>Imagen</th>
                 <th>Producto</th>
                 <th>SKU</th>
-                <th>Descripción</th>
                 <th>Cantidad</th>
                 <th>Precio unitario</th>
-                <th>Total</th>
+                <th>Subtotal</th>
             </tr>
         </thead>
         <tbody>
+            @php
+                $total = 0;
+            @endphp
             @foreach($items as $item)
-            <tr>
-                <td>{{ $item->product->title }}</td>
-                <td>{{$item->product->sku}}</td>
-                <td>{!! $item->product->short_desc !!}</td>
-                <td>{{ $item->quantity }}</td>
-                <td>{{ number_format($item->price, 2) }}</td>
-                <td>{{ number_format($item->price * $item->quantity, 2) }}</td>
-            </tr>
+                @php
+                    $subtotal = $item->price * $item->quantity;
+                    $total += $subtotal;
+
+                @endphp
+                <tr>
+                    <td>
+                        @if($item->product && $item->product->f_thumbnail)
+
+                            <img src="https://bikebros.net/product_images/{{  $item->product->f_thumbnail }}" alt="{{ $item->product->title }}" style="width: 50px; height: 50px;">
+                        @else
+                            N/A
+                        @endif
+                    </td>
+                    <td>{{ $item->product ? $item->product->title : 'N/A' }}</td>
+                    <td>{{ $item->product ? $item->product->sku : 'N/A' }}</td>
+                    <td>{{ $item->quantity }}</td>
+                    <td>{{ number_format($item->price, 2) }}</td>
+                    <td>{{ number_format($subtotal, 2) }}</td>
+                </tr>
             @endforeach
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="5">Gran total:</td>
-                <td>{{ number_format($order->total_amount, 2) }}</td>
+                <td colspan="5" class="text-right"><strong>Total</strong></td>
+                <td><strong>{{ number_format($total, 2) }}</strong></td>
             </tr>
         </tfoot>
+
     </table>
     <div class="invoice-footer">
         <p>¡Gracias por hacer negocios!</p>
