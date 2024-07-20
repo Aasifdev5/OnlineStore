@@ -157,20 +157,7 @@
 
 
 
-        <!-- Start discount banner section -->
-        <section class="discount__banner--section section--padding pt-0">
-            <div class="container">
-                <div class="discount__banner--thumbnail">
-                    <a class="display-block position-relative" href="#"><img
-                            class="discount__banner--thumbnail__img" src="assets/img/banner/discount-bg.webp"
-                            alt="banner-img">
-                        <span class="discount__banner--text "><span class="text__secondary">10%</span> Free Shipping On
-                            All Order Over <span class="text__secondary">BS99</span></span>
-                    </a>
-                </div>
-            </div>
-        </section>
-        <!-- End discount banner section -->
+
 
         <!-- Start product section -->
         <section class="product__section section--padding  pt-0">

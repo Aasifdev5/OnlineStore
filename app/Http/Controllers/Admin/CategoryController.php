@@ -48,47 +48,49 @@ class CategoryController extends Controller
         }
     }
 
-    public function store(CategoryRequest $request)
+    public function store(Request $request)
     {
-        if ($request->hasFile('image')) {
-
-            // Handle new image upload
-            $attribute = $request->file('image');
-            $destination = 'category';
-
-            // Generate unique filename
-            $file_name = time() . '-' . Str::random(10) . '.' . $attribute->getClientOriginalExtension();
-            // Move uploaded file to the destination directory
-            $attribute->move(public_path('uploads/' . $destination), $file_name);
-            // Update image path
-            $image = 'uploads/' . $destination . '/' . $file_name;
-        }
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:png,jpg,jpeg|max:1024',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string|max:255',
+            'meta_keywords' => 'nullable|string|max:255',
+            'og_image' => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
+        ]);
 
         $data = [
             'name' => $request->name,
             'is_feature' => $request->has('is_feature') ? 'yes' : 'no',
-            'slug' => getSlug($request->name),
-            'image' => $image,
+            'slug' => Str::slug($request->name),
             'meta_title' => $request->meta_title,
             'meta_description' => $request->meta_description,
             'meta_keywords' => $request->meta_keywords,
         ];
 
-        // Handle OG image upload
+        if ($request->hasFile('image')) {
+            $attribute = $request->file('image');
+            $destination = 'category';
+            $file_name = time() . '-' . Str::random(10) . '.' . $attribute->getClientOriginalExtension();
+            $attribute->move(public_path('uploads/' . $destination), $file_name);
+            $data['image'] = 'uploads/' . $destination . '/' . $file_name;
+        }
+
         if ($request->hasFile('og_image')) {
             $attribute = $request->file('og_image');
             $destination = 'meta';
-
-            // Generate unique filename
             $file_name = time() . '-' . Str::random(10) . '.' . $attribute->getClientOriginalExtension();
-            // Move uploaded file to the destination directory
             $attribute->move(public_path('uploads/' . $destination), $file_name);
-            // Update og_image path
             $data['og_image'] = 'uploads/' . $destination . '/' . $file_name;
         }
 
-        $this->model->create($data); // create new category
-        return response()->json(['success' => true]);
+        try {
+            $this->model->create($data);
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            Log::error('Error creating category: ' . $e->getMessage());
+            return response()->json(['success' => false, 'message' => 'Error creating category.'], 500);
+        }
     }
 
     public function edit($uuid)

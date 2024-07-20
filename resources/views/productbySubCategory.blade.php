@@ -160,7 +160,27 @@
                     </div>
                     <div class="col-xl-9 col-lg-8 shop-col-width-lg-8">
                         <div class="shop__right--sidebar">
+                                               <!-- Start categories section -->
 
+
+   <ul class="categories__shop--inner">
+    @php
+        $userCategories = !empty($user_session->categories) ? explode(',', $user_session->categories) : [];
+        $categories = \App\Models\Subcategory::where('category_id', $subcategory)->select('id','category_id', 'name','slug')->get();
+    @endphp
+    @foreach ($categories as $parentCategory)
+        <li class="categories__shop mb-2" style="margin-right:10px;">
+            <a class="primary__btn price__filter--btn" href="{{ url('productbyChildCategory') }}/{{$category}}/{{$parentCategory->category_id}}/{{ $parentCategory->id }}">
+                {{$parentCategory->name}}
+            </a>
+        </li>
+    @endforeach
+</ul>
+
+
+
+
+                        <!-- End categories section -->
                             <div class="shop__product--wrapper">
                                 <div class="shop__header d-flex align-items-right justify-content-between mb-30">
                                     <div class="product__view--mode d-flex align-items-right">

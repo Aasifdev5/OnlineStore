@@ -1,6 +1,6 @@
 @extends('admin.Master')
 @section('title')
-    {{ $title }}
+    Añadir nueva categoria
 @endsection
 @section('content')
     <!-- Page content area start -->
@@ -12,14 +12,14 @@
                     muted="" loop="">
                     <source src="{{ asset('admin/video/auth-bg.mp4') }}" type="video/mp4">
                 </video>
-                <div class="authentication-box" style="width: 1080px;">
+                <div class="authentication-box">
                     <div class="text-center"><img src="assets/images/endless-logo.png" alt=""></div>
                     <div class="card mt-4 p-4">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-vertical__item bg-style">
                                     <div class="item-top mb-30">
-                                        <h2>{{ __('Add New Category') }}</h2>
+                                        <h2>{{ __('Añadir nueva categoria') }}</h2>
                                     </div>
                                     <form id="Form">
                                         @csrf
@@ -129,36 +129,39 @@
         </div>
     </div>
     <!-- Page content area end -->
-
+<!-- jQuery (required) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+         $(document).ready(function() {
         $('#Form').submit(function(e) {
             e.preventDefault();
 
-            let formData = new FormData(this); // Create FormData object
+            let formData = new FormData(this);
 
             $.ajax({
                 type: "POST",
                 url: "{{ route('category.store') }}",
                 data: formData,
                 dataType: "json",
-                contentType: false, // Set contentType to false for file uploads
-                processData: false, // Set processData to false to prevent jQuery from automatically transforming the data
+                contentType: false,
+                processData: false,
                 success: function(response) {
                     if (response.success) {
-                        toastr.success("Category successfully created.", "", {
+                        toastr.success("Categoría creada exitosamente.", "", {
                             onHidden: function() {
                                 window.location.href = "{{ route('category.index') }}";
                             }
                         });
                     } else {
-                        toastr.error("Failed to create category.");
+                        toastr.error(response.message || "No se pudo crear la categoría.");
                     }
                 },
                 error: function(xhr, status, error) {
                     console.error(xhr.responseText);
-                    toastr.error("Failed to create category. Please try again later.");
+                    toastr.error("No se pudo crear la categoría. Por favor, inténtelo de nuevo más tarde.");
                 }
             });
         });
+    });
     </script>
 @endsection

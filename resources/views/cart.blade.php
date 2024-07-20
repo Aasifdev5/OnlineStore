@@ -34,59 +34,77 @@
                                             </tr>
                                         </thead>
                                         <tbody class="cart__table--body">
-                                            @foreach ($carts as $item)
-                                            @php
-                                                $total = $item->price * $item->quantity;
-                                                $product_details = \App\Models\Product::find($item->product_id);
-                                            @endphp
-                                            @if ($product_details)
-                                                <tr class="cart__table--body__items">
-                                                    <td class="cart__table--body__list">
-                                                        <div class="cart__product d-flex align-items-center">
-                                                            <a href="{{ route('remove.cart', $item->id) }}" class="cart__remove--btn" aria-label="remove button" type="button">
-                                                                <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16px" height="16px">
-                                                                    <path d="M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z" />
-                                                                </svg>
-                                                            </a>
-                                                            <div class="cart__thumbnail">
-                                                                <a href="{{ url('product-details/' . $product_details->slug) }}">
-                                                                    <img class="border-radius-5" src="{{ asset('product_images/' . $product_details->f_thumbnail) }}" alt="cart-product">
-                                                                </a>
-                                                            </div>
-                                                            <div class="cart__content">
-                                                                <h3 class="cart__content--title h4">
-                                                                    <a href="{{ url('product-details/' . $product_details->slug) }}">{{ $product_details->title }}@if(!empty($item->color)) {{$item->color}} @endif</a>
-                                                                </h3>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td class="cart__table--body__list">
-                                                        <span class="cart__price">{{ 'BS ' . $item->price }}</span>
-                                                    </td>
-                                                    <td class="cart__table--body__list">
-                                                        <div class="quantity__box">
-                                                            <button type="button" class="quantity__value quickview__value--quantity decrease" aria-label="quantity value" value="Decrease Value">-</button>
-                                                            <label>
-                                                                <input type="number" class="quantity__number quickview__value--number" value="{{ $item->quantity }}" data-product-id="{{ $item->product_id }}" />
-                                                            </label>
-                                                            <button type="button" class="quantity__value quickview__value--quantity increase" aria-label="quantity value" value="Increase Value">+</button>
-                                                        </div>
-                                                    </td>
-                                                    <td class="cart__table--body__list">
-                                                        <span class="cart__price end">{{ 'BS ' . $total }}</span>
-                                                    </td>
-                                                </tr>
+                                           @php
+    // Aggregate the cart items by product_id
+    $aggregatedCarts = [];
+    foreach ($carts as $item) {
+        if (!isset($aggregatedCarts[$item->product_id])) {
+            $aggregatedCarts[$item->product_id] = [
+                'item' => $item,
+                'totalQuantity' => 0,
+                'totalPrice' => 0,
+            ];
+        }
+        $aggregatedCarts[$item->product_id]['totalQuantity'] += $item->quantity;
+        $aggregatedCarts[$item->product_id]['totalPrice'] += $item->price * $item->quantity;
+    }
+@endphp
 
-                                            @else
-                                                <tr class="cart__table--body__items">
-                                                    <td colspan="4" class="cart__table--body__list">
-                                                        <div class="alert alert-danger" role="alert">
-                                                            Product not found for cart item with ID: {{ $item->id }}
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            @endif
-                                        @endforeach
+@foreach ($aggregatedCarts as $product_id => $cartGroup)
+    @php
+        $item = $cartGroup['item'];
+        $totalQuantity = $cartGroup['totalQuantity'];
+        $totalPrice = $cartGroup['totalPrice'];
+        $product_details = \App\Models\Product::find($product_id);
+    @endphp
+    @if ($product_details)
+        <tr class="cart__table--body__items">
+            <td class="cart__table--body__list">
+                <div class="cart__product d-flex align-items-center">
+                    <a href="{{ route('remove.cart', $item->id) }}" class="cart__remove--btn" aria-label="remove button" type="button">
+                        <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16px" height="16px">
+                            <path d="M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z" />
+                        </svg>
+                    </a>
+                    <div class="cart__thumbnail">
+                        <a href="{{ url('product-details/' . $product_details->slug) }}">
+                            <img class="border-radius-5" src="{{ asset('product_images/' . $product_details->f_thumbnail) }}" alt="cart-product">
+                        </a>
+                    </div>
+                    <div class="cart__content">
+                        <h3 class="cart__content--title h4">
+                            <a href="{{ url('product-details/' . $product_details->slug) }}">{{ $product_details->title }}@if(!empty($item->color)) {{$item->color}} @endif</a>
+                        </h3>
+                    </div>
+                </div>
+            </td>
+            <td class="cart__table--body__list">
+                <span class="cart__price">{{ 'BS ' . $item->price }}</span>
+            </td>
+            <td class="cart__table--body__list">
+                <div class="quantity__box">
+                    <button type="button" class="quantity__value quickview__value--quantity decrease" aria-label="quantity value" value="Decrease Value">-</button>
+                    <label>
+                        <input type="number" class="quantity__number quickview__value--number" value="{{ $totalQuantity }}" data-product-id="{{ $product_id }}" />
+                    </label>
+                    <button type="button" class="quantity__value quickview__value--quantity increase" aria-label="quantity value" value="Increase Value">+</button>
+                </div>
+            </td>
+            <td class="cart__table--body__list">
+                <span class="cart__price end">{{ 'BS ' . $totalPrice }}</span>
+            </td>
+        </tr>
+    @else
+        <tr class="cart__table--body__items">
+            <td colspan="4" class="cart__table--body__list">
+                <div class="alert alert-danger" role="alert">
+                    Product not found for cart item with ID: {{ $item->id }}
+                </div>
+            </td>
+        </tr>
+    @endif
+@endforeach
+
                                          @foreach ($carts as $row)
                                     <input type="hidden" name="cart_products[{{ $loop->index }}][product_id]"
                                         value="{{ $row->product_id }}">
@@ -108,7 +126,9 @@
                                                                     ->first();
                                             $formattedTotal = $total ? 'BS' . number_format($total, 2) : 'BS0.00';
                                         @endphp
-                                        {{ $formattedTotal }}</td>
+                                        {{ $formattedTotal }}
+
+                                        </td>
                                                 </tr>
                                             </tbody>
                                         </table>
