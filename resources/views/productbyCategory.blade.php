@@ -167,7 +167,7 @@ Productos según categoría
                                     <a class="categories__shop--card__link" href="{{ url('productbySubCategory') }}/{{ $category }}/{{ $parentCategory->id }}">
                                         <div class="categories__thumbnail mb-15">
 
-                                            <img class="categories__thumbnail--img" src="{{ asset($parentCategory->og_image) }}" alt="categories-img">
+                                            <img class="categories__thumbnail--img" src="{{ asset($parentCategory->og_image) }}" style="height:50px;width:50px" alt="categories-img">
                                         </div>
                                         <div class="categories__content">
                                             <h2 class="categories__content--title">{{$parentCategory->name}}</h2>
