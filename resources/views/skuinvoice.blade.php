@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invoice</title>
+    <title>Factura</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -85,7 +85,7 @@
 <div class="invoice-container">
     <div class="invoice-header">
         <h2>Factura</h2>
-        <img src="https://bikebros.net/site_logo/Logo bikebros oficial color amarillo.png" alt="Company Logo">
+        <img src="https://bikebros.net/logos bikebros.png" alt="Company Logo">
     </div>
     <div class="invoice-details">
         <p><strong>Número de factura:</strong> #INV-00{{ $order->id }}</p>
@@ -95,53 +95,74 @@
     </div>
     <table class="table invoice-table">
         <thead class="thead-light">
-            <tr>
-                <th>Imagen</th>
-                <th>Producto</th>
-                <th>SKU</th>
-                <th>Cantidad</th>
-                <th>Precio unitario</th>
-                <th>Subtotal</th>
-            </tr>
-        </thead>
-        <tbody>
-            @php
-                $total = 0;
-            @endphp
-            @foreach($items as $item)
-                @php
-                    $subtotal = $item->price * $item->quantity;
-                    $total += $subtotal;
+    <tr>
+        <th>Imagen</th>
+        <th>Producto</th>
+        <th>SKU</th>
+        <th>Cantidad</th>
+        <th>Precio unitario</th>
+        <th>Subtotal</th>
+    </tr>
+</thead>
+<tbody>
+  @php
+    $total = 0;
+    $groupedItems = [];
+@endphp
 
-                @endphp
-                <tr>
-                    <td>
-                        @if($item->product && $item->product->f_thumbnail)
+@foreach($items as $item)
+    @php
+        if (!isset($groupedItems[$item->product_id])) {
+            $groupedItems[$item->product_id] = [
+                'product' => $item->product,
+                'quantity' => 0,
+                'subtotal' => 0,
+                'price' => $item->price,
+            ];
+        }
 
-                            <img src="https://bikebros.net/product_images/{{  $item->product->f_thumbnail }}" alt="{{ $item->product->title }}" style="width: 50px; height: 50px;">
-                        @else
-                            N/A
-                        @endif
-                    </td>
-                    <td>{{ $item->product ? $item->product->title : 'N/A' }}</td>
-                    <td>{{ $item->product ? $item->product->sku : 'N/A' }}</td>
-                    <td>{{ $item->quantity }}</td>
-                    <td>{{ number_format($item->price, 2) }}</td>
-                    <td>{{ number_format($subtotal, 2) }}</td>
-                </tr>
-            @endforeach
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="5" class="text-right"><strong>Total</strong></td>
-                <td><strong>{{ number_format($total, 2) }}</strong></td>
-            </tr>
-        </tfoot>
+        $groupedItems[$item->product_id]['quantity'] += $item->quantity;
+        $groupedItems[$item->product_id]['subtotal'] += $item->price * $item->quantity;
+    @endphp
+@endforeach
+
+@foreach($groupedItems as $group)
+    @php
+        $total += $group['subtotal'];
+    @endphp
+    <tr>
+        <td>
+            @if($group['product'] && $group['product']->f_thumbnail)
+                <img src="https://bikebros.net/product_images/{{ $group['product']->f_thumbnail }}" alt="{{ $group['product']->title }}" style="width: 50px; height: 50px;">
+            @else
+                N/A
+            @endif
+        </td>
+        <td>{{ $group['product'] ? $group['product']->title : 'N/A' }}</td>
+        <td>{{ $group['product'] ? $group['product']->sku : 'N/A' }}</td>
+        <td>{{ $group['quantity'] }}</td>
+        <td>{{ number_format($group['price'], 2) }}</td>
+        <td>{{ number_format($group['subtotal'], 2) }}</td>
+    </tr>
+@endforeach
+
+<tr>
+    <td colspan="5">Total</td>
+    <td>{{ number_format($total, 2) }}</td>
+</tr>
+
+</tbody>
+<tfoot>
+    <tr>
+        <td colspan="5" class="text-right"><strong>Total</strong></td>
+        <td><strong>{{ number_format($total, 2) }}</strong></td>
+    </tr>
+</tfoot>
 
     </table>
     <div class="invoice-footer">
-        <p>¡Gracias por hacer negocios!</p>
-        <p>Si tiene alguna pregunta, contáctenos en admin@bikebros.net</p>
+        <p>¡Gracias por tu pedido!</p>
+        <p>Si tiene alguna pregunta, contáctenos por Whatsapp al 62476645 ó 65197437</p>
     </div>
 </div>
 </body>

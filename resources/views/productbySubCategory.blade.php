@@ -166,7 +166,7 @@
    <ul class="categories__shop--inner">
     @php
         $userCategories = !empty($user_session->categories) ? explode(',', $user_session->categories) : [];
-        $categories = \App\Models\Subcategory::where('category_id', $subcategory)->select('id','category_id', 'name','slug')->get();
+        $categories = \App\Models\Subcategory::where('parent_category_id', $category)->where('category_id', $subcategory)->select('id','category_id', 'name','slug')->get();
     @endphp
     @foreach ($categories as $parentCategory)
         <li class="categories__shop mb-2" style="margin-right:10px;">

@@ -639,7 +639,7 @@ class Admin extends Controller
             ];
 
 
-                        return view('admin.dashboard', compact('user_session', 'total_users', 'usersData','chartData2'));
+            return view('admin.dashboard', compact('user_session', 'total_users', 'usersData', 'chartData2'));
         }
     }
     public function getPaymentData(Request $request)
@@ -860,7 +860,7 @@ class Admin extends Controller
             $image = $request->file('profile_photo')->getClientOriginalName();
             $final =  $request->profile_photo->move(public_path('profile_photo'), $image);
             $profile = $_FILES['profile_photo']['name'];
-        }else{
+        } else {
             $profile = '';
         }
 
@@ -870,14 +870,14 @@ class Admin extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'email_verified_at'=>date('Y-m-d H:i:s'),
+            'email_verified_at' => date('Y-m-d H:i:s'),
             'password' => $request->password,
             'city' => ($request->city),
             'store' => $request->store,
             'department' => $request->department,
             'location' => $request->location,
             'price' =>  $request->price,
-            'categories' =>implode(',',$request->categories),
+            'categories' => implode(',', $request->categories),
             'alter_mobile_number' => $request->alter_mobile_number,
             'profile_photo' => $profile,
             'status' => $request->status,
@@ -991,7 +991,7 @@ class Admin extends Controller
         }
         $data = User::find(Session::get('LoggedIn'));
         $data = User::where('id', '=', $request->user_id)->update([
-           'name' => $request->name,
+            'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password,
             'city' => ($request->city),
@@ -1876,15 +1876,21 @@ class Admin extends Controller
         if (!$order) {
             return response()->json(['error' => 'Order not found'], 404);
         }
-        $transaction = Payment::where('order_id',$orderId)->first();
+
+        $transaction = Payment::where('order_id', $orderId)->first();
+
         // Assuming `product_details` field contains JSON data of products
         $products = json_decode($transaction->product_details, true);
 
         // Prepare an array to store detailed product information
-        $detailedProducts = [];
+        $aggregatedProducts = [];
 
+        // Aggregate quantities and prices
         foreach ($products as $product) {
-            $productDetails = Product::find($product['product_id']);
+            $productId = $product['product_id'];
+
+            // Fetch product details
+            $productDetails = Product::find($productId);
 
             // Skip if product details not found
             if (!$productDetails) {
@@ -1893,23 +1899,31 @@ class Admin extends Controller
 
             // Fetch order item to get color
             $orderItem = OrderItem::where('order_id', $orderId)
-                                  ->where('product_id', $product['product_id'])
-                                  ->first();
+                ->where('product_id', $productId)
+                ->first();
 
             $productColor = $orderItem ? $orderItem->color : 'N/A';
             $productSku = $productDetails->sku ?? 'N/A';
 
-            // Build the detailed product information array
-            $detailedProducts[] = [
-                'id' => $productDetails->id,
-                'title' => $productDetails->title,
-                'sku' => $productSku,
-                'price' => $product['price'],
-                'quantity' => $product['quantity'],
-                'color' => $productColor,
-                'image' => asset('product_images/' . $productDetails->f_thumbnail),
-            ];
+            // Aggregate product details by product_id
+            if (!isset($aggregatedProducts[$productId])) {
+                $aggregatedProducts[$productId] = [
+                    'title' => $productDetails->title,
+                    'sku' => $productSku,
+                    'price' => $product['price'],
+                    'quantity' => 0,
+                    'color' => $productColor,
+                    'image' => asset('product_images/' . $productDetails->f_thumbnail),
+                ];
+            }
+
+            // Combine quantities and calculate total price
+            $aggregatedProducts[$productId]['quantity'] += $product['quantity'];
+            $aggregatedProducts[$productId]['total'] = $aggregatedProducts[$productId]['price'] * $aggregatedProducts[$productId]['quantity'];
         }
+
+        // Convert aggregated products to a simple array
+        $detailedProducts = array_values($aggregatedProducts);
 
         // Return order details as JSON response with detailed products
         return response()->json(['products' => $detailedProducts]);
