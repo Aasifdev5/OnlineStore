@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,7 +15,7 @@
 
     <meta name="description" content="{{ $general_setting->site_description }}" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
- <!-- Ensure jQuery is loaded first -->
+    <!-- Ensure jQuery is loaded first -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- template styles -->
     <link rel="stylesheet" href="{{ asset('admin/css/custom/image-preview.css') }}">
@@ -39,23 +40,33 @@
     <!-- Custom Style CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <style>
-      body {
-        -webkit-touch-callout: none; /* Disable callouts (iOS Safari) */
-        -webkit-user-select: none; /* Disable text selection (iOS Safari, Chrome etc.) */
-        -moz-user-select: none; /* Disable text selection (Firefox) */
-        -ms-user-select: none; /* Disable text selection (Edge) */
-        user-select: none; /* Disable text selection (standard) */
-    }
-     #overlay {
+        body {
+            -webkit-touch-callout: none;
+            /* Disable callouts (iOS Safari) */
+            -webkit-user-select: none;
+            /* Disable text selection (iOS Safari, Chrome etc.) */
+            -moz-user-select: none;
+            /* Disable text selection (Firefox) */
+            -ms-user-select: none;
+            /* Disable text selection (Edge) */
+            user-select: none;
+            /* Disable text selection (standard) */
+        }
+
+        #overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0); /* Transparent background */
-            pointer-events: none; /* Allow pointer events to pass through */
-            z-index: 9999; /* Ensure it's above other content */
+            background-color: rgba(0, 0, 0, 0);
+            /* Transparent background */
+            pointer-events: none;
+            /* Allow pointer events to pass through */
+            z-index: 9999;
+            /* Ensure it's above other content */
         }
+
         /* Modal Styling */
         .modal-header {
             background-color: #fadc00;
@@ -113,53 +124,56 @@
             font-weight: bold;
             text-align: center;
         }
-        </style>
+    </style>
 
 </head>
 
 <body>
-@if (Request::path() !== 'cart')
-    <!-- Start preloader -->
-    <div id="preloader">
-        <div id="ctn-preloader" class="ctn-preloader">
-            <div class="animation-preloader">
-                <div class="spinner"></div>
-                <div class="txt-loading">
-                    <span data-text-preloader="L" class="letters-loading">
-                        L
-                    </span>
+    @if (Request::path() !== 'cart')
+        <!-- Start preloader -->
+        <div id="preloader">
+            <div id="ctn-preloader" class="ctn-preloader">
+                <div class="animation-preloader">
+                    <div class="spinner"></div>
+                    <div class="txt-loading">
+                        <span data-text-preloader="B" class="letters-loading">
+                            B
+                        </span>
 
-                    <span data-text-preloader="O" class="letters-loading">
-                        O
-                    </span>
+                        <span data-text-preloader="I" class="letters-loading">
+                            I
+                        </span>
 
-                    <span data-text-preloader="A" class="letters-loading">
-                        A
-                    </span>
+                        <span data-text-preloader="K" class="letters-loading">
+                            K
+                        </span>
 
-                    <span data-text-preloader="D" class="letters-loading">
-                        D
-                    </span>
+                        <span data-text-preloader="E" class="letters-loading">
+                            E
+                        </span>
 
-                    <span data-text-preloader="I" class="letters-loading">
-                        I
-                    </span>
+                        <span data-text-preloader="B" class="letters-loading">
+                            B
+                        </span>
 
-                    <span data-text-preloader="N" class="letters-loading">
-                        N
-                    </span>
+                        <span data-text-preloader="R" class="letters-loading">
+                            R
+                        </span>
 
-                    <span data-text-preloader="G" class="letters-loading">
-                        G
-                    </span>
+                        <span data-text-preloader="O" class="letters-loading">
+                            O
+                        </span>
+                         <span data-text-preloader="S" class="letters-loading">
+                            S
+                        </span>
+                    </div>
                 </div>
+                <div class="loader-section section-left"></div>
+                <div class="loader-section section-right"></div>
             </div>
-            <div class="loader-section section-left"></div>
-            <div class="loader-section section-right"></div>
         </div>
-    </div>
-    <!-- End preloader -->
-@endif
+        <!-- End preloader -->
+    @endif
 
 
     <!-- Start header area -->
@@ -192,11 +206,11 @@
                                     <option selected value="1">Todas las categorías</option>
                                     @php
                                         $userCategories = !empty($user_session->categories)
-                                        ? explode(',', $user_session->categories)
-                                        : [];
-                                    $categories = \App\Models\Category::whereIn('id', $userCategories)
-                                        ->select('id', 'name')
-                                        ->get();
+                                            ? explode(',', $user_session->categories)
+                                            : [];
+                                        $categories = \App\Models\Category::whereIn('id', $userCategories)
+                                            ->select('id', 'name')
+                                            ->get();
                                     @endphp
                                     @foreach ($categories as $parentCategory)
                                         <option value="{{ $parentCategory->id }}">{{ $parentCategory->name }}</option>
@@ -205,10 +219,13 @@
                             </div>
                             <div class="header__search--box">
                                 <label>
-                                    <input id="search_term" class="header__search--input" placeholder="Buscar productos..." type="text">
+                                    <input id="search_term" class="header__search--input"
+                                        placeholder="Buscar productos..." type="text">
                                 </label>
-                                <button class="header__search--button bg__primary text-white" aria-label="search button" type="submit">
-                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <button class="header__search--button bg__primary text-white" aria-label="search button"
+                                    type="submit">
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
                                         <path
                                             d="M15.6952 14.4991L11.7663 10.5588C12.7765 9.4008 13.33 7.94381 13.33 6.42703C13.33 2.88322 10.34 0 6.66499 0C2.98997 0 0 2.88322 0 6.42703C0 9.97085 2.98997 12.8541 6.66499 12.8541C8.04464 12.8541 9.35938 12.4528 10.4834 11.6911L14.4422 15.6613C14.6076 15.827 14.8302 15.9184 15.0687 15.9184C15.2944 15.9184 15.5086 15.8354 15.6711 15.6845C16.0166 15.364 16.0276 14.8325 15.6952 14.4991ZM6.66499 1.67662C9.38141 1.67662 11.5913 3.8076 11.5913 6.42703C11.5913 9.04647 9.38141 11.1775 6.66499 11.1775C3.94857 11.1775 1.73869 9.04647 1.73869 6.42703C1.73869 3.8076 3.94857 1.67662 6.66499 1.67662Z"
                                             fill="currentColor" />
@@ -223,23 +240,26 @@
                         <nav class="header__menu--navigation">
                             <ul class="header__menu--wrapper d-flex">
                                 <li class="header__menu--items">
-                                    <a class="header__menu--link  {{ Request::is('home') ? 'active' : '' }}" href="{{ url('home') }}">Inicio</a>
+                                    <a class="header__menu--link  {{ Request::is('home') ? 'active' : '' }}"
+                                        href="{{ url('home') }}">Inicio</a>
                                 </li>
                                 <li class="header__menu--items">
-                                    <a class="header__menu--link  {{ Request::is('shop') ? 'active' : '' }}" href="{{ url('shop') }}">Tienda</a>
+                                    <a class="header__menu--link  {{ Request::is('shop') ? 'active' : '' }}"
+                                        href="{{ url('shop') }}">Tienda</a>
                                 </li>
 
 
 
-                      @foreach ($pages as $page)
-    @if ($page->page_title == "Sobre nosotros" || $page->page_title == "Contact")
-        <li class="header__menu--items">
-            <a class="header__menu--link {{ Request::is('page/' . $page->page_slug) ? 'active' : '' }}" href="{{ url('page/' . $page->page_slug) }}">
-                Contacto
-            </a>
-        </li>
-    @endif
-@endforeach
+                                @foreach ($pages as $page)
+                                    @if ($page->page_title == 'Sobre nosotros' || $page->page_title == 'Contact')
+                                        <li class="header__menu--items">
+                                            <a class="header__menu--link {{ Request::is('page/' . $page->page_slug) ? 'active' : '' }}"
+                                                href="{{ url('page/' . $page->page_slug) }}">
+                                                Contacto
+                                            </a>
+                                        </li>
+                                    @endif
+                                @endforeach
 
 
                             </ul>
@@ -289,107 +309,121 @@
                                 </a>
                             </li>
                             @if (!empty($user_session))
-                            <li class="header__account--items d-none d-lg-block">
-                                <a class="header__account--btn" href="{{ url('wishlist') }}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round" class=" -heart">
-                                        <path
-                                            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
-                                        </path>
-                                    </svg>
-                                    <span class="items__count">@php
-                                        $count = \App\Models\Wishlist::where('user_id', Session::get('LoggedIn'))->count();
-                                       @endphp
-                                       @if ($count)
-                                           {{ $count }}
-                                       @else
-                                           0
-                                       @endif</span>
-                                </a>
-                            </li>
+                                <li class="header__account--items d-none d-lg-block">
+                                    <a class="header__account--btn" href="{{ url('wishlist') }}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                            class=" -heart">
+                                            <path
+                                                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                            </path>
+                                        </svg>
+                                        <span class="items__count">@php
+                                            $count = \App\Models\Wishlist::where(
+                                                'user_id',
+                                                Session::get('LoggedIn'),
+                                            )->count();
+                                        @endphp
+                                            @if ($count)
+                                                {{ $count }}
+                                            @else
+                                                0
+                                            @endif
+                                        </span>
+                                    </a>
+                                </li>
                             @else
-                            <li class="header__account--items d-none d-lg-block">
-                                <a class="header__account--btn" href="{{ url('Userlogin') }}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round" class=" -heart">
-                                        <path
-                                            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
-                                        </path>
-                                    </svg>
-                                    <span class="items__count">0</span>
-                                </a>
-                            </li>
+                                <li class="header__account--items d-none d-lg-block">
+                                    <a class="header__account--btn" href="{{ url('Userlogin') }}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                            class=" -heart">
+                                            <path
+                                                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                            </path>
+                                        </svg>
+                                        <span class="items__count">0</span>
+                                    </a>
+                                </li>
                             @endif
                             @if (!empty($user_session))
-                            <li class="header__account--items header__minicart--items">
-                                <a class="header__account--btn minicart__open--btn" href="{{ url('cart') }}"
-                                    data-offcanvas>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="22.706" height="22.534"
-                                        viewBox="0 0 14.706 13.534">
-                                        <g transform="translate(0 0)">
-                                            <g>
-                                                <path data-name="Path 16787"
-                                                    d="M4.738,472.271h7.814a.434.434,0,0,0,.414-.328l1.723-6.316a.466.466,0,0,0-.071-.4.424.424,0,0,0-.344-.179H3.745L3.437,463.6a.435.435,0,0,0-.421-.353H.431a.451.451,0,0,0,0,.9h2.24c.054.257,1.474,6.946,1.555,7.33a1.36,1.36,0,0,0-.779,1.242,1.326,1.326,0,0,0,1.293,1.354h7.812a.452.452,0,0,0,0-.9H4.74a.451.451,0,0,1,0-.9Zm8.966-6.317-1.477,5.414H5.085l-1.149-5.414Z"
-                                                    transform="translate(0 -463.248)" fill="currentColor" />
-                                                <path data-name="Path 16788"
-                                                    d="M5.5,478.8a1.294,1.294,0,1,0,1.293-1.353A1.325,1.325,0,0,0,5.5,478.8Zm1.293-.451a.452.452,0,1,1-.431.451A.442.442,0,0,1,6.793,478.352Z"
-                                                    transform="translate(-1.191 -466.622)" fill="currentColor" />
-                                                <path data-name="Path 16789"
-                                                    d="M13.273,478.8a1.294,1.294,0,1,0,1.293-1.353A1.325,1.325,0,0,0,13.273,478.8Zm1.293-.451a.452.452,0,1,1-.431.451A.442.442,0,0,1,14.566,478.352Z"
-                                                    transform="translate(-2.875 -466.622)" fill="currentColor" />
+                                <li class="header__account--items header__minicart--items">
+                                    <a class="header__account--btn minicart__open--btn" href="{{ url('cart') }}"
+                                        data-offcanvas>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="22.706" height="22.534"
+                                            viewBox="0 0 14.706 13.534">
+                                            <g transform="translate(0 0)">
+                                                <g>
+                                                    <path data-name="Path 16787"
+                                                        d="M4.738,472.271h7.814a.434.434,0,0,0,.414-.328l1.723-6.316a.466.466,0,0,0-.071-.4.424.424,0,0,0-.344-.179H3.745L3.437,463.6a.435.435,0,0,0-.421-.353H.431a.451.451,0,0,0,0,.9h2.24c.054.257,1.474,6.946,1.555,7.33a1.36,1.36,0,0,0-.779,1.242,1.326,1.326,0,0,0,1.293,1.354h7.812a.452.452,0,0,0,0-.9H4.74a.451.451,0,0,1,0-.9Zm8.966-6.317-1.477,5.414H5.085l-1.149-5.414Z"
+                                                        transform="translate(0 -463.248)" fill="currentColor" />
+                                                    <path data-name="Path 16788"
+                                                        d="M5.5,478.8a1.294,1.294,0,1,0,1.293-1.353A1.325,1.325,0,0,0,5.5,478.8Zm1.293-.451a.452.452,0,1,1-.431.451A.442.442,0,0,1,6.793,478.352Z"
+                                                        transform="translate(-1.191 -466.622)" fill="currentColor" />
+                                                    <path data-name="Path 16789"
+                                                        d="M13.273,478.8a1.294,1.294,0,1,0,1.293-1.353A1.325,1.325,0,0,0,13.273,478.8Zm1.293-.451a.452.452,0,1,1-.431.451A.442.442,0,0,1,14.566,478.352Z"
+                                                        transform="translate(-2.875 -466.622)" fill="currentColor" />
+                                                </g>
                                             </g>
-                                        </g>
-                                    </svg>
-                                    <span class="items__count">
-                                        @php
-                                         $count = \App\Models\Cart::where('user_id', Session::get('LoggedIn'))->count();
-                                        @endphp
-                                        @if ($count)
-                                            {{ $count }}
-                                        @else
-                                            0
-                                        @endif
-                                    </span>
-                                    <span class="minicart__btn--text">Mi carrito <br> <span
-                                            class="minicart__btn--text__price">@php
-                                            $total = \App\Models\Cart::where('user_id', Session::get('LoggedIn'))
-                                                                    ->selectRaw('SUM(price * quantity) as total')
-                                                                    ->pluck('total')
-                                                                    ->first();
-                                            $formattedTotal = $total ? 'BS' . number_format($total, 2) : 'BS0.00';
-                                        @endphp
-                                        {{ $formattedTotal }}
+                                        </svg>
+                                        <span class="items__count">
+                                            @php
+                                                $count = \App\Models\Cart::where(
+                                                    'user_id',
+                                                    Session::get('LoggedIn'),
+                                                )->count();
+                                            @endphp
+                                            @if ($count)
+                                                {{ $count }}
+                                            @else
+                                                0
+                                            @endif
+                                        </span>
+                                        <span class="minicart__btn--text">Mi carrito <br> <span
+                                                class="minicart__btn--text__price">@php
+                                                    $total = \App\Models\Cart::where(
+                                                        'user_id',
+                                                        Session::get('LoggedIn'),
+                                                    )
+                                                        ->selectRaw('SUM(price * quantity) as total')
+                                                        ->pluck('total')
+                                                        ->first();
+                                                    $formattedTotal = $total
+                                                        ? 'BS' . number_format($total, 2)
+                                                        : 'BS0.00';
+                                                @endphp
+                                                {{ $formattedTotal }}
 
-                                        </span></span>
-                                </a>
-                            </li>
+                                            </span></span>
+                                    </a>
+                                </li>
                             @else
-                            <li class="header__account--items header__minicart--items">
-                                <a class="header__account--btn minicart__open--btn" href="{{ url('Userlogin') }}"
-                                    data-offcanvas>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="22.706" height="22.534"
-                                        viewBox="0 0 14.706 13.534">
-                                        <g transform="translate(0 0)">
-                                            <g>
-                                                <path data-name="Path 16787"
-                                                    d="M4.738,472.271h7.814a.434.434,0,0,0,.414-.328l1.723-6.316a.466.466,0,0,0-.071-.4.424.424,0,0,0-.344-.179H3.745L3.437,463.6a.435.435,0,0,0-.421-.353H.431a.451.451,0,0,0,0,.9h2.24c.054.257,1.474,6.946,1.555,7.33a1.36,1.36,0,0,0-.779,1.242,1.326,1.326,0,0,0,1.293,1.354h7.812a.452.452,0,0,0,0-.9H4.74a.451.451,0,0,1,0-.9Zm8.966-6.317-1.477,5.414H5.085l-1.149-5.414Z"
-                                                    transform="translate(0 -463.248)" fill="currentColor" />
-                                                <path data-name="Path 16788"
-                                                    d="M5.5,478.8a1.294,1.294,0,1,0,1.293-1.353A1.325,1.325,0,0,0,5.5,478.8Zm1.293-.451a.452.452,0,1,1-.431.451A.442.442,0,0,1,6.793,478.352Z"
-                                                    transform="translate(-1.191 -466.622)" fill="currentColor" />
-                                                <path data-name="Path 16789"
-                                                    d="M13.273,478.8a1.294,1.294,0,1,0,1.293-1.353A1.325,1.325,0,0,0,13.273,478.8Zm1.293-.451a.452.452,0,1,1-.431.451A.442.442,0,0,1,14.566,478.352Z"
-                                                    transform="translate(-2.875 -466.622)" fill="currentColor" />
+                                <li class="header__account--items header__minicart--items">
+                                    <a class="header__account--btn minicart__open--btn" href="{{ url('Userlogin') }}"
+                                        data-offcanvas>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="22.706" height="22.534"
+                                            viewBox="0 0 14.706 13.534">
+                                            <g transform="translate(0 0)">
+                                                <g>
+                                                    <path data-name="Path 16787"
+                                                        d="M4.738,472.271h7.814a.434.434,0,0,0,.414-.328l1.723-6.316a.466.466,0,0,0-.071-.4.424.424,0,0,0-.344-.179H3.745L3.437,463.6a.435.435,0,0,0-.421-.353H.431a.451.451,0,0,0,0,.9h2.24c.054.257,1.474,6.946,1.555,7.33a1.36,1.36,0,0,0-.779,1.242,1.326,1.326,0,0,0,1.293,1.354h7.812a.452.452,0,0,0,0-.9H4.74a.451.451,0,0,1,0-.9Zm8.966-6.317-1.477,5.414H5.085l-1.149-5.414Z"
+                                                        transform="translate(0 -463.248)" fill="currentColor" />
+                                                    <path data-name="Path 16788"
+                                                        d="M5.5,478.8a1.294,1.294,0,1,0,1.293-1.353A1.325,1.325,0,0,0,5.5,478.8Zm1.293-.451a.452.452,0,1,1-.431.451A.442.442,0,0,1,6.793,478.352Z"
+                                                        transform="translate(-1.191 -466.622)" fill="currentColor" />
+                                                    <path data-name="Path 16789"
+                                                        d="M13.273,478.8a1.294,1.294,0,1,0,1.293-1.353A1.325,1.325,0,0,0,13.273,478.8Zm1.293-.451a.452.452,0,1,1-.431.451A.442.442,0,0,1,14.566,478.352Z"
+                                                        transform="translate(-2.875 -466.622)" fill="currentColor" />
+                                                </g>
                                             </g>
-                                        </g>
-                                    </svg>
-                                    <span class="items__count">0</span>
-                                    <span class="minicart__btn--text"> carrito <br> <span
-                                            class="minicart__btn--text__price">BS0.00</span></span>
-                                </a>
-                            </li>
+                                        </svg>
+                                        <span class="items__count">0</span>
+                                        <span class="minicart__btn--text"> carrito <br> <span
+                                                class="minicart__btn--text__price">BS0.00</span></span>
+                                    </a>
+                                </li>
                             @endif
 
                         </ul>
@@ -436,94 +470,104 @@
                                 @endif
                             </li>
                             @if (!empty($user_session))
-                            <li class="header__account--items d-none d-lg-block">
-                                <a class="header__account--btn" href="{{ url('wishlist') }}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round" class=" -heart">
-                                        <path
-                                            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
-                                        </path>
-                                    </svg>
-                                    <span class="items__count">@php
-                                        $count = \App\Models\Wishlist::where('user_id', Session::get('LoggedIn'))->count();
-                                       @endphp
-                                       @if ($count)
-                                           {{ $count }}
-                                       @else
-                                           0
-                                       @endif</span>
-                                </a>
-                            </li>
+                                <li class="header__account--items d-none d-lg-block">
+                                    <a class="header__account--btn" href="{{ url('wishlist') }}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                            class=" -heart">
+                                            <path
+                                                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                            </path>
+                                        </svg>
+                                        <span class="items__count">@php
+                                            $count = \App\Models\Wishlist::where(
+                                                'user_id',
+                                                Session::get('LoggedIn'),
+                                            )->count();
+                                        @endphp
+                                            @if ($count)
+                                                {{ $count }}
+                                            @else
+                                                0
+                                            @endif
+                                        </span>
+                                    </a>
+                                </li>
                             @else
-                            <li class="header__account--items d-none d-lg-block">
-                                <a class="header__account--btn" href="{{ url('Userlogin') }}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round" class=" -heart">
-                                        <path
-                                            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
-                                        </path>
-                                    </svg>
-                                    <span class="items__count">
-                                           0
-                                       </span>
-                                </a>
-                            </li>
+                                <li class="header__account--items d-none d-lg-block">
+                                    <a class="header__account--btn" href="{{ url('Userlogin') }}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                            class=" -heart">
+                                            <path
+                                                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                            </path>
+                                        </svg>
+                                        <span class="items__count">
+                                            0
+                                        </span>
+                                    </a>
+                                </li>
                             @endif
                             @if (!empty($user_session))
-                            <li class="header__account--items header__minicart--items">
-                                <a class="header__account--btn minicart__open--btn" href="javascript:void(0)"
-                                    data-offcanvas>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="22.706" height="22.534"
-                                        viewBox="0 0 14.706 13.534">
-                                        <g transform="translate(0 0)">
-                                            <g>
-                                                <path data-name="Path 16787"
-                                                    d="M4.738,472.271h7.814a.434.434,0,0,0,.414-.328l1.723-6.316a.466.466,0,0,0-.071-.4.424.424,0,0,0-.344-.179H3.745L3.437,463.6a.435.435,0,0,0-.421-.353H.431a.451.451,0,0,0,0,.9h2.24c.054.257,1.474,6.946,1.555,7.33a1.36,1.36,0,0,0-.779,1.242,1.326,1.326,0,0,0,1.293,1.354h7.812a.452.452,0,0,0,0-.9H4.74a.451.451,0,0,1,0-.9Zm8.966-6.317-1.477,5.414H5.085l-1.149-5.414Z"
-                                                    transform="translate(0 -463.248)" fill="currentColor" />
-                                                <path data-name="Path 16788"
-                                                    d="M5.5,478.8a1.294,1.294,0,1,0,1.293-1.353A1.325,1.325,0,0,0,5.5,478.8Zm1.293-.451a.452.452,0,1,1-.431.451A.442.442,0,0,1,6.793,478.352Z"
-                                                    transform="translate(-1.191 -466.622)" fill="currentColor" />
-                                                <path data-name="Path 16789"
-                                                    d="M13.273,478.8a1.294,1.294,0,1,0,1.293-1.353A1.325,1.325,0,0,0,13.273,478.8Zm1.293-.451a.452.452,0,1,1-.431.451A.442.442,0,0,1,14.566,478.352Z"
-                                                    transform="translate(-2.875 -466.622)" fill="currentColor" />
+                                <li class="header__account--items header__minicart--items">
+                                    <a class="header__account--btn minicart__open--btn" href="javascript:void(0)"
+                                        data-offcanvas>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="22.706" height="22.534"
+                                            viewBox="0 0 14.706 13.534">
+                                            <g transform="translate(0 0)">
+                                                <g>
+                                                    <path data-name="Path 16787"
+                                                        d="M4.738,472.271h7.814a.434.434,0,0,0,.414-.328l1.723-6.316a.466.466,0,0,0-.071-.4.424.424,0,0,0-.344-.179H3.745L3.437,463.6a.435.435,0,0,0-.421-.353H.431a.451.451,0,0,0,0,.9h2.24c.054.257,1.474,6.946,1.555,7.33a1.36,1.36,0,0,0-.779,1.242,1.326,1.326,0,0,0,1.293,1.354h7.812a.452.452,0,0,0,0-.9H4.74a.451.451,0,0,1,0-.9Zm8.966-6.317-1.477,5.414H5.085l-1.149-5.414Z"
+                                                        transform="translate(0 -463.248)" fill="currentColor" />
+                                                    <path data-name="Path 16788"
+                                                        d="M5.5,478.8a1.294,1.294,0,1,0,1.293-1.353A1.325,1.325,0,0,0,5.5,478.8Zm1.293-.451a.452.452,0,1,1-.431.451A.442.442,0,0,1,6.793,478.352Z"
+                                                        transform="translate(-1.191 -466.622)" fill="currentColor" />
+                                                    <path data-name="Path 16789"
+                                                        d="M13.273,478.8a1.294,1.294,0,1,0,1.293-1.353A1.325,1.325,0,0,0,13.273,478.8Zm1.293-.451a.452.452,0,1,1-.431.451A.442.442,0,0,1,14.566,478.352Z"
+                                                        transform="translate(-2.875 -466.622)" fill="currentColor" />
+                                                </g>
                                             </g>
-                                        </g>
-                                    </svg>
-                                    <span class="items__count"> @php
-                                        $count = \App\Models\Cart::where('user_id', Session::get('LoggedIn'))->count();
-                                       @endphp
-                                       @if ($count)
-                                           {{ $count }}
-                                       @else
-                                           0
-                                       @endif</span>
-                                </a>
-                            </li>
+                                        </svg>
+                                        <span class="items__count"> @php
+                                            $count = \App\Models\Cart::where(
+                                                'user_id',
+                                                Session::get('LoggedIn'),
+                                            )->count();
+                                        @endphp
+                                            @if ($count)
+                                                {{ $count }}
+                                            @else
+                                                0
+                                            @endif
+                                        </span>
+                                    </a>
+                                </li>
                             @else
-                            <li class="header__account--items header__minicart--items">
-                                <a class="header__account--btn minicart__open--btn" href="{{ url('Userlogin') }}"
-                                    data-offcanvas>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="22.706" height="22.534"
-                                        viewBox="0 0 14.706 13.534">
-                                        <g transform="translate(0 0)">
-                                            <g>
-                                                <path data-name="Path 16787"
-                                                    d="M4.738,472.271h7.814a.434.434,0,0,0,.414-.328l1.723-6.316a.466.466,0,0,0-.071-.4.424.424,0,0,0-.344-.179H3.745L3.437,463.6a.435.435,0,0,0-.421-.353H.431a.451.451,0,0,0,0,.9h2.24c.054.257,1.474,6.946,1.555,7.33a1.36,1.36,0,0,0-.779,1.242,1.326,1.326,0,0,0,1.293,1.354h7.812a.452.452,0,0,0,0-.9H4.74a.451.451,0,0,1,0-.9Zm8.966-6.317-1.477,5.414H5.085l-1.149-5.414Z"
-                                                    transform="translate(0 -463.248)" fill="currentColor" />
-                                                <path data-name="Path 16788"
-                                                    d="M5.5,478.8a1.294,1.294,0,1,0,1.293-1.353A1.325,1.325,0,0,0,5.5,478.8Zm1.293-.451a.452.452,0,1,1-.431.451A.442.442,0,0,1,6.793,478.352Z"
-                                                    transform="translate(-1.191 -466.622)" fill="currentColor" />
-                                                <path data-name="Path 16789"
-                                                    d="M13.273,478.8a1.294,1.294,0,1,0,1.293-1.353A1.325,1.325,0,0,0,13.273,478.8Zm1.293-.451a.452.452,0,1,1-.431.451A.442.442,0,0,1,14.566,478.352Z"
-                                                    transform="translate(-2.875 -466.622)" fill="currentColor" />
+                                <li class="header__account--items header__minicart--items">
+                                    <a class="header__account--btn minicart__open--btn" href="{{ url('Userlogin') }}"
+                                        data-offcanvas>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="22.706" height="22.534"
+                                            viewBox="0 0 14.706 13.534">
+                                            <g transform="translate(0 0)">
+                                                <g>
+                                                    <path data-name="Path 16787"
+                                                        d="M4.738,472.271h7.814a.434.434,0,0,0,.414-.328l1.723-6.316a.466.466,0,0,0-.071-.4.424.424,0,0,0-.344-.179H3.745L3.437,463.6a.435.435,0,0,0-.421-.353H.431a.451.451,0,0,0,0,.9h2.24c.054.257,1.474,6.946,1.555,7.33a1.36,1.36,0,0,0-.779,1.242,1.326,1.326,0,0,0,1.293,1.354h7.812a.452.452,0,0,0,0-.9H4.74a.451.451,0,0,1,0-.9Zm8.966-6.317-1.477,5.414H5.085l-1.149-5.414Z"
+                                                        transform="translate(0 -463.248)" fill="currentColor" />
+                                                    <path data-name="Path 16788"
+                                                        d="M5.5,478.8a1.294,1.294,0,1,0,1.293-1.353A1.325,1.325,0,0,0,5.5,478.8Zm1.293-.451a.452.452,0,1,1-.431.451A.442.442,0,0,1,6.793,478.352Z"
+                                                        transform="translate(-1.191 -466.622)" fill="currentColor" />
+                                                    <path data-name="Path 16789"
+                                                        d="M13.273,478.8a1.294,1.294,0,1,0,1.293-1.353A1.325,1.325,0,0,0,13.273,478.8Zm1.293-.451a.452.452,0,1,1-.431.451A.442.442,0,0,1,14.566,478.352Z"
+                                                        transform="translate(-2.875 -466.622)" fill="currentColor" />
+                                                </g>
                                             </g>
-                                        </g>
-                                    </svg>
-                                    <span class="items__count">0</span>
-                                </a>
-                            </li>
+                                        </svg>
+                                        <span class="items__count">0</span>
+                                    </a>
+                                </li>
                             @endif
                         </ul>
                     </div>
@@ -565,7 +609,8 @@
                                 @endphp
                                 @foreach ($categories as $parentCategory)
                                     <li class="categories__menu--items {{ $parentCategory->id }}">
-                                        <a class="categories__menu--link" href="{{ url('productbyCategory') }}/{{ $parentCategory->id }}">
+                                        <a class="categories__menu--link"
+                                            href="{{ url('productbyCategory') }}/{{ $parentCategory->id }}">
                                             <svg class="categories__menu--svgicon" xmlns="http://www.w3.org/2000/svg"
                                                 width="24" height="24" viewBox="0 0 24 24" fill="none"
                                                 stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -589,21 +634,19 @@
                                         <ul
                                             class="categories__submenu border-radius-10 d-flex justify-content-between">
                                             @php
-                                            if($parentCategory->id==7){
-                                     $subcategories = \App\Models\Subcategory::where(
-                                                    'parent_category_id',
-                                                    $parentCategory->id,
-                                                )
-                                                    ->where('category_id', '0')
-                                                    ->get();
-                                    }else{
-                                      $subcategories = \App\Models\Subcategory::where(
-                                                    'parent_category_id',
-                                                    $parentCategory->id,
-                                                )
-
-                                                    ->get();
-                                    }
+                                                if ($parentCategory->id == 7) {
+                                                    $subcategories = \App\Models\Subcategory::where(
+                                                        'parent_category_id',
+                                                        $parentCategory->id,
+                                                    )
+                                                        ->where('category_id', '0')
+                                                        ->get();
+                                                } else {
+                                                    $subcategories = \App\Models\Subcategory::where(
+                                                        'parent_category_id',
+                                                        $parentCategory->id,
+                                                    )->get();
+                                                }
 
                                             @endphp
                                             @foreach ($subcategories as $subcategory)
@@ -671,7 +714,8 @@
                                     @endphp
                                     @foreach ($categories as $parentCategory)
                                         <li class="categories__menu--items">
-                                            <a class="categories__menu--link" href="{{ url('productbyCategory') }}/{{ $parentCategory->id }}">
+                                            <a class="categories__menu--link"
+                                                href="{{ url('productbyCategory') }}/{{ $parentCategory->id }}">
                                                 <svg class="categories__menu--svgicon"
                                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -685,21 +729,19 @@
                                             </a>
                                             <ul class="category__sub--menu">
                                                 @php
-                                                  if($parentCategory->id==7){
-                                     $subcategories = \App\Models\Subcategory::where(
-                                                    'parent_category_id',
-                                                    $parentCategory->id,
-                                                )
-                                                    ->where('category_id', '0')
-                                                    ->get();
-                                    }else{
-                                      $subcategories = \App\Models\Subcategory::where(
-                                                    'parent_category_id',
-                                                    $parentCategory->id,
-                                                )
-
-                                                    ->get();
-                                    }
+                                                    if ($parentCategory->id == 7) {
+                                                        $subcategories = \App\Models\Subcategory::where(
+                                                            'parent_category_id',
+                                                            $parentCategory->id,
+                                                        )
+                                                            ->where('category_id', '0')
+                                                            ->get();
+                                                    } else {
+                                                        $subcategories = \App\Models\Subcategory::where(
+                                                            'parent_category_id',
+                                                            $parentCategory->id,
+                                                        )->get();
+                                                    }
                                                 @endphp
                                                 @foreach ($subcategories as $subcategory)
                                                     <li class="categories__submenu--items"><a
@@ -749,15 +791,16 @@
 
                                     </li>
 
-@foreach ($pages as $page)
-    @if ($page->page_title == "Sobre nosotros" || $page->page_title == "Contact")
-        <li class="header__menu--items">
-            <a class="header__menu--link text-white {{ Request::is('page/' . $page->page_slug) ? 'active' : '' }}" href="{{ url('page/' . $page->page_slug) }}">
-                Contacto
-            </a>
-        </li>
-    @endif
-@endforeach
+                                    @foreach ($pages as $page)
+                                        @if ($page->page_title == 'Sobre nosotros' || $page->page_title == 'Contact')
+                                            <li class="header__menu--items">
+                                                <a class="header__menu--link text-white {{ Request::is('page/' . $page->page_slug) ? 'active' : '' }}"
+                                                    href="{{ url('page/' . $page->page_slug) }}">
+                                                    Contacto
+                                                </a>
+                                            </li>
+                                        @endif
+                                    @endforeach
 
 
 
@@ -797,14 +840,15 @@
 
                         </li>
                         @foreach ($pages as $page)
-    @if ($page->page_title == "Sobre nosotros" || $page->page_title == "Contact")
-        <li class="offcanvas__menu_li">
-            <a class="offcanvas__menu_item {{ Request::is('page/' . $page->page_slug) ? 'active' : '' }}" href="{{ url('page/' . $page->page_slug) }}">
-                Contacto
-            </a>
-        </li>
-    @endif
-@endforeach
+                            @if ($page->page_title == 'Sobre nosotros' || $page->page_title == 'Contact')
+                                <li class="offcanvas__menu_li">
+                                    <a class="offcanvas__menu_item {{ Request::is('page/' . $page->page_slug) ? 'active' : '' }}"
+                                        href="{{ url('page/' . $page->page_slug) }}">
+                                        Contacto
+                                    </a>
+                                </li>
+                            @endif
+                        @endforeach
 
 
 
@@ -865,116 +909,123 @@
                 </li>
 
                 <li class="offcanvas__stikcy--toolbar__list">
-                    <a class="offcanvas__stikcy--toolbar__btn" href="{{url('shop')}}">
-                    <span class="offcanvas__stikcy--toolbar__icon">
-                        <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" width="18.51" height="17.443" viewBox="0 0 448 512"><path d="M416 32H32A32 32 0 0 0 0 64v384a32 32 0 0 0 32 32h384a32 32 0 0 0 32-32V64a32 32 0 0 0-32-32zm-16 48v152H248V80zm-200 0v152H48V80zM48 432V280h152v152zm200 0V280h152v152z"></path></svg>
+                    <a class="offcanvas__stikcy--toolbar__btn" href="{{ url('shop') }}">
+                        <span class="offcanvas__stikcy--toolbar__icon">
+                            <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" width="18.51"
+                                height="17.443" viewBox="0 0 448 512">
+                                <path
+                                    d="M416 32H32A32 32 0 0 0 0 64v384a32 32 0 0 0 32 32h384a32 32 0 0 0 32-32V64a32 32 0 0 0-32-32zm-16 48v152H248V80zm-200 0v152H48V80zM48 432V280h152v152zm200 0V280h152v152z">
+                                </path>
+                            </svg>
                         </span>
-                    <span class="offcanvas__stikcy--toolbar__label">Tienda</span>
+                        <span class="offcanvas__stikcy--toolbar__label">Tienda</span>
                     </a>
                 </li>
                 @if (!empty($user_session))
-                <li class="offcanvas__stikcy--toolbar__list">
-                    <a class="offcanvas__stikcy--toolbar__btn minicart__open--btn" href="{{ url('cart') }}"
-                        data-offcanvas>
-                        <span class="offcanvas__stikcy--toolbar__icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="22.706" height="22.534"
-                                viewBox="0 0 14.706 13.534">
-                                <g transform="translate(0 0)">
-                                    <g>
-                                        <path data-name="Path 16787"
-                                            d="M4.738,472.271h7.814a.434.434,0,0,0,.414-.328l1.723-6.316a.466.466,0,0,0-.071-.4.424.424,0,0,0-.344-.179H3.745L3.437,463.6a.435.435,0,0,0-.421-.353H.431a.451.451,0,0,0,0,.9h2.24c.054.257,1.474,6.946,1.555,7.33a1.36,1.36,0,0,0-.779,1.242,1.326,1.326,0,0,0,1.293,1.354h7.812a.452.452,0,0,0,0-.9H4.74a.451.451,0,0,1,0-.9Zm8.966-6.317-1.477,5.414H5.085l-1.149-5.414Z"
-                                            transform="translate(0 -463.248)" fill="currentColor" />
-                                        <path data-name="Path 16788"
-                                            d="M5.5,478.8a1.294,1.294,0,1,0,1.293-1.353A1.325,1.325,0,0,0,5.5,478.8Zm1.293-.451a.452.452,0,1,1-.431.451A.442.442,0,0,1,6.793,478.352Z"
-                                            transform="translate(-1.191 -466.622)" fill="currentColor" />
-                                        <path data-name="Path 16789"
-                                            d="M13.273,478.8a1.294,1.294,0,1,0,1.293-1.353A1.325,1.325,0,0,0,13.273,478.8Zm1.293-.451a.452.452,0,1,1-.431.451A.442.442,0,0,1,14.566,478.352Z"
-                                            transform="translate(-2.875 -466.622)" fill="currentColor" />
+                    <li class="offcanvas__stikcy--toolbar__list">
+                        <a class="offcanvas__stikcy--toolbar__btn minicart__open--btn" href="{{ url('cart') }}"
+                            data-offcanvas>
+                            <span class="offcanvas__stikcy--toolbar__icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22.706" height="22.534"
+                                    viewBox="0 0 14.706 13.534">
+                                    <g transform="translate(0 0)">
+                                        <g>
+                                            <path data-name="Path 16787"
+                                                d="M4.738,472.271h7.814a.434.434,0,0,0,.414-.328l1.723-6.316a.466.466,0,0,0-.071-.4.424.424,0,0,0-.344-.179H3.745L3.437,463.6a.435.435,0,0,0-.421-.353H.431a.451.451,0,0,0,0,.9h2.24c.054.257,1.474,6.946,1.555,7.33a1.36,1.36,0,0,0-.779,1.242,1.326,1.326,0,0,0,1.293,1.354h7.812a.452.452,0,0,0,0-.9H4.74a.451.451,0,0,1,0-.9Zm8.966-6.317-1.477,5.414H5.085l-1.149-5.414Z"
+                                                transform="translate(0 -463.248)" fill="currentColor" />
+                                            <path data-name="Path 16788"
+                                                d="M5.5,478.8a1.294,1.294,0,1,0,1.293-1.353A1.325,1.325,0,0,0,5.5,478.8Zm1.293-.451a.452.452,0,1,1-.431.451A.442.442,0,0,1,6.793,478.352Z"
+                                                transform="translate(-1.191 -466.622)" fill="currentColor" />
+                                            <path data-name="Path 16789"
+                                                d="M13.273,478.8a1.294,1.294,0,1,0,1.293-1.353A1.325,1.325,0,0,0,13.273,478.8Zm1.293-.451a.452.452,0,1,1-.431.451A.442.442,0,0,1,14.566,478.352Z"
+                                                transform="translate(-2.875 -466.622)" fill="currentColor" />
+                                        </g>
                                     </g>
-                                </g>
-                            </svg>
-                        </span>
-                        <span class="offcanvas__stikcy--toolbar__label">carrito</span>
-                        <span class="items__count">@php
-                            $count = \App\Models\Cart::where('user_id', Session::get('LoggedIn'))->count();
-                           @endphp
-                           @if ($count)
-                               {{ $count }}
-                           @else
-                               0
-                           @endif</span>
-                    </a>
-                </li>
+                                </svg>
+                            </span>
+                            <span class="offcanvas__stikcy--toolbar__label">carrito</span>
+                            <span class="items__count">@php
+                                $count = \App\Models\Cart::where('user_id', Session::get('LoggedIn'))->count();
+                            @endphp
+                                @if ($count)
+                                    {{ $count }}
+                                @else
+                                    0
+                                @endif
+                            </span>
+                        </a>
+                    </li>
                 @else
-                <li class="offcanvas__stikcy--toolbar__list">
-                    <a class="offcanvas__stikcy--toolbar__btn minicart__open--btn" href="{{ url('Userlogin') }}"
-                        data-offcanvas>
-                        <span class="offcanvas__stikcy--toolbar__icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="22.706" height="22.534"
-                                viewBox="0 0 14.706 13.534">
-                                <g transform="translate(0 0)">
-                                    <g>
-                                        <path data-name="Path 16787"
-                                            d="M4.738,472.271h7.814a.434.434,0,0,0,.414-.328l1.723-6.316a.466.466,0,0,0-.071-.4.424.424,0,0,0-.344-.179H3.745L3.437,463.6a.435.435,0,0,0-.421-.353H.431a.451.451,0,0,0,0,.9h2.24c.054.257,1.474,6.946,1.555,7.33a1.36,1.36,0,0,0-.779,1.242,1.326,1.326,0,0,0,1.293,1.354h7.812a.452.452,0,0,0,0-.9H4.74a.451.451,0,0,1,0-.9Zm8.966-6.317-1.477,5.414H5.085l-1.149-5.414Z"
-                                            transform="translate(0 -463.248)" fill="currentColor" />
-                                        <path data-name="Path 16788"
-                                            d="M5.5,478.8a1.294,1.294,0,1,0,1.293-1.353A1.325,1.325,0,0,0,5.5,478.8Zm1.293-.451a.452.452,0,1,1-.431.451A.442.442,0,0,1,6.793,478.352Z"
-                                            transform="translate(-1.191 -466.622)" fill="currentColor" />
-                                        <path data-name="Path 16789"
-                                            d="M13.273,478.8a1.294,1.294,0,1,0,1.293-1.353A1.325,1.325,0,0,0,13.273,478.8Zm1.293-.451a.452.452,0,1,1-.431.451A.442.442,0,0,1,14.566,478.352Z"
-                                            transform="translate(-2.875 -466.622)" fill="currentColor" />
+                    <li class="offcanvas__stikcy--toolbar__list">
+                        <a class="offcanvas__stikcy--toolbar__btn minicart__open--btn" href="{{ url('Userlogin') }}"
+                            data-offcanvas>
+                            <span class="offcanvas__stikcy--toolbar__icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22.706" height="22.534"
+                                    viewBox="0 0 14.706 13.534">
+                                    <g transform="translate(0 0)">
+                                        <g>
+                                            <path data-name="Path 16787"
+                                                d="M4.738,472.271h7.814a.434.434,0,0,0,.414-.328l1.723-6.316a.466.466,0,0,0-.071-.4.424.424,0,0,0-.344-.179H3.745L3.437,463.6a.435.435,0,0,0-.421-.353H.431a.451.451,0,0,0,0,.9h2.24c.054.257,1.474,6.946,1.555,7.33a1.36,1.36,0,0,0-.779,1.242,1.326,1.326,0,0,0,1.293,1.354h7.812a.452.452,0,0,0,0-.9H4.74a.451.451,0,0,1,0-.9Zm8.966-6.317-1.477,5.414H5.085l-1.149-5.414Z"
+                                                transform="translate(0 -463.248)" fill="currentColor" />
+                                            <path data-name="Path 16788"
+                                                d="M5.5,478.8a1.294,1.294,0,1,0,1.293-1.353A1.325,1.325,0,0,0,5.5,478.8Zm1.293-.451a.452.452,0,1,1-.431.451A.442.442,0,0,1,6.793,478.352Z"
+                                                transform="translate(-1.191 -466.622)" fill="currentColor" />
+                                            <path data-name="Path 16789"
+                                                d="M13.273,478.8a1.294,1.294,0,1,0,1.293-1.353A1.325,1.325,0,0,0,13.273,478.8Zm1.293-.451a.452.452,0,1,1-.431.451A.442.442,0,0,1,14.566,478.352Z"
+                                                transform="translate(-2.875 -466.622)" fill="currentColor" />
+                                        </g>
                                     </g>
-                                </g>
-                            </svg>
-                        </span>
-                        <span class="offcanvas__stikcy--toolbar__label">carrito</span>
-                        <span class="items__count">
-                               0
-                           </span>
-                    </a>
-                </li>
+                                </svg>
+                            </span>
+                            <span class="offcanvas__stikcy--toolbar__label">carrito</span>
+                            <span class="items__count">
+                                0
+                            </span>
+                        </a>
+                    </li>
                 @endif
                 @if (!empty($user_session))
-                <li class="offcanvas__stikcy--toolbar__list">
-                    <a class="offcanvas__stikcy--toolbar__btn" href="{{ url('wishlist') }}">
-                        <span class="offcanvas__stikcy--toolbar__icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" class=" -heart">
-                                <path
-                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
-                                </path>
-                            </svg>
-                        </span>
-                        <span class="offcanvas__stikcy--toolbar__label">Lista de deseos</span>
-                        <span class="items__count">@php
-                            $count = \App\Models\Wishlist::where('user_id', Session::get('LoggedIn'))->count();
-                           @endphp
-                           @if ($count)
-                               {{ $count }}
-                           @else
-                               0
-                           @endif</span>
-                    </a>
-                </li>
+                    <li class="offcanvas__stikcy--toolbar__list">
+                        <a class="offcanvas__stikcy--toolbar__btn" href="{{ url('wishlist') }}">
+                            <span class="offcanvas__stikcy--toolbar__icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" class=" -heart">
+                                    <path
+                                        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                    </path>
+                                </svg>
+                            </span>
+                            <span class="offcanvas__stikcy--toolbar__label">Lista de deseos</span>
+                            <span class="items__count">@php
+                                $count = \App\Models\Wishlist::where('user_id', Session::get('LoggedIn'))->count();
+                            @endphp
+                                @if ($count)
+                                    {{ $count }}
+                                @else
+                                    0
+                                @endif
+                            </span>
+                        </a>
+                    </li>
                 @else
-                <li class="offcanvas__stikcy--toolbar__list">
-                    <a class="offcanvas__stikcy--toolbar__btn" href="{{ url('Userlogin') }}">
-                        <span class="offcanvas__stikcy--toolbar__icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" class=" -heart">
-                                <path
-                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
-                                </path>
-                            </svg>
-                        </span>
-                        <span class="offcanvas__stikcy--toolbar__label">Lista de deseos</span>
-                        <span class="items__count">
-                               0
-                           </span>
-                    </a>
-                </li>
+                    <li class="offcanvas__stikcy--toolbar__list">
+                        <a class="offcanvas__stikcy--toolbar__btn" href="{{ url('Userlogin') }}">
+                            <span class="offcanvas__stikcy--toolbar__icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" class=" -heart">
+                                    <path
+                                        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                    </path>
+                                </svg>
+                            </span>
+                            <span class="offcanvas__stikcy--toolbar__label">Lista de deseos</span>
+                            <span class="items__count">
+                                0
+                            </span>
+                        </a>
+                    </li>
                 @endif
             </ul>
         </div>
@@ -1011,25 +1062,26 @@
 
     </header>
     <!-- End header area -->
-  <!-- Enhanced Modal Structure -->
-<div class="modal fade" id="searchResultsModal" tabindex="-1" role="dialog" aria-labelledby="searchResultsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="searchResultsModalLabel">Resultados de la búsqueda</h5>
+    <!-- Enhanced Modal Structure -->
+    <div class="modal fade" id="searchResultsModal" tabindex="-1" role="dialog"
+        aria-labelledby="searchResultsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="searchResultsModalLabel">Resultados de la búsqueda</h5>
 
-            </div>
-            <div class="modal-body">
-                <div id="search_results"></div>
+                </div>
+                <div class="modal-body">
+                    <div id="search_results"></div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
 
     @yield('content')
- <!-- Transparent overlay -->
+    <!-- Transparent overlay -->
     <div id="overlay"></div>
 
     <!-- Start footer section -->
@@ -1143,14 +1195,15 @@
                             </h2>
                             <ul class="footer__widget--menu footer__widget--inner">
                                 @foreach ($pages as $page)
-    @if ($page->page_title == "Sobre nosotros" || $page->page_title == "contact")
-        <li class="footer__widget--menu__list">
-            <a class="footer__widget--menu__text {{ Request::is('page/' . $page->page_slug) ? 'active' : '' }}" href="{{ url('page/' . $page->page_slug) }}">
-                Contacto
-            </a>
-        </li>
-    @endif
-@endforeach
+                                    @if ($page->page_title == 'Sobre nosotros' || $page->page_title == 'contact')
+                                        <li class="footer__widget--menu__list">
+                                            <a class="footer__widget--menu__text {{ Request::is('page/' . $page->page_slug) ? 'active' : '' }}"
+                                                href="{{ url('page/' . $page->page_slug) }}">
+                                                Contacto
+                                            </a>
+                                        </li>
+                                    @endif
+                                @endforeach
 
 
                                 <li class="footer__widget--menu__list"><a class="footer__widget--menu__text"
@@ -1303,7 +1356,8 @@
 
                 <div class="footer__bottom--inenr ">
                     <center>
-                      <p class="copyright__content"><span class="text__secondary">© {{ date('Y') }}</span> Todos los derechos reservados.</p>
+                        <p class="copyright__content"><span class="text__secondary">© {{ date('Y') }}</span>
+                            Todos los derechos reservados.</p>
 
                     </center>
                     {{-- <div class="footer__logo">
@@ -1332,43 +1386,43 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
-    document.addEventListener('contextmenu', function(e) {
+        document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
         });
-$(document).ready(function() {
-    $('#product_search_form').submit(function(event) {
-        event.preventDefault(); // Prevent form submission
-        performSearch();
-    });
+        $(document).ready(function() {
+            $('#product_search_form').submit(function(event) {
+                event.preventDefault(); // Prevent form submission
+                performSearch();
+            });
 
-    $('#search_term').keyup(function() {
-        const searchTerm = $(this).val();
-        if (searchTerm.length >= 2) {
-            performSearch();
-        } else {
-            $('#search_results').empty(); // Clear results if search term is less than 2 characters
-        }
-    });
+            $('#search_term').keyup(function() {
+                const searchTerm = $(this).val();
+                if (searchTerm.length >= 2) {
+                    performSearch();
+                } else {
+                    $('#search_results').empty(); // Clear results if search term is less than 2 characters
+                }
+            });
 
-    function performSearch() {
-        const searchTerm = $('#search_term').val();
-        const categoryId = $('select[name="category_id"]').val();
+            function performSearch() {
+                const searchTerm = $('#search_term').val();
+                const categoryId = $('select[name="category_id"]').val();
 
-        $.ajax({
-            url: "{{ url('getProducts') }}", // Replace with your actual route
-            method: 'GET',
-            data: {
-                search: searchTerm,
-                category_id: categoryId
-            },
-            dataType: 'json',
-            success: function(response) {
-                $('#search_results').empty(); // Clear previous results
-                if (response.length > 0) {
-                    const resultList = $('<div class="product-grid"></div>');
+                $.ajax({
+                    url: "{{ url('getProducts') }}", // Replace with your actual route
+                    method: 'GET',
+                    data: {
+                        search: searchTerm,
+                        category_id: categoryId
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        $('#search_results').empty(); // Clear previous results
+                        if (response.length > 0) {
+                            const resultList = $('<div class="product-grid"></div>');
 
-                    $.each(response, function(index, product) {
-                        const listItem = `
+                            $.each(response, function(index, product) {
+                                const listItem = `
                             <div class="product-card">
                                 <a href="{{ url('product-details') }}/${product.slug}" class="product-link">
                                     <img src="{{ asset('product_images') }}/${product.f_thumbnail}" alt="${product.title}" class="product-image">
@@ -1377,25 +1431,78 @@ $(document).ready(function() {
                                     </div>
                                 </a>
                             </div>`;
-                        resultList.append(listItem);
-                    });
+                                resultList.append(listItem);
+                            });
 
-                    $('#search_results').append(resultList);
-                } else {
-                    $('#search_results').append('<p class="no-results">No products found.</p>');
-                }
+                            $('#search_results').append(resultList);
+                        } else {
+                            $('#search_results').append('<p class="no-results">No products found.</p>');
+                        }
 
-                $('#searchResultsModal').modal('show'); // Show the modal
-            },
-            error: function(xhr, status, error) {
-                console.error(error);
-                $('#search_results').empty().append('<p>Error fetching products.</p>');
+                        $('#searchResultsModal').modal('show'); // Show the modal
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                        $('#search_results').empty().append('<p>Error fetching products.</p>');
+                    }
+                });
             }
         });
-    }
-});
-
     </script>
+    <!-- Hidden Logout Form -->
+    <form id="logout-form" action="{{ url('logout') }}" method="POST" style="display: none;">
+        @csrf
+    </form>
+
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Auto Logout Script -->
+    <script>
+        let lastActivityTime = Date.now();
+        const sessionLifetime = {{ config('session.lifetime') }} * 60000; // Convert minutes to milliseconds
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+        function resetActivityTimer() {
+            lastActivityTime = Date.now();
+            console.log('Activity detected');
+        }
+
+        document.addEventListener('mousemove', resetActivityTimer);
+        document.addEventListener('keydown', resetActivityTimer);
+
+        function updateLogoutTime() {
+            $.ajax({
+                url: '{{ route("update.logout.time") }}',
+                method: 'POST',
+                data: {
+                    _token: csrfToken
+                },
+                success: function(response) {
+                    console.log('Logout time updated:', response.status);
+                    if (response.status === 'updated') {
+                        window.location.href = '{{ url('logout') }}'; // Redirect to logout
+                    }
+                },
+                error: function(xhr) {
+                    console.log('Error updating logout time:', xhr.responseText);
+                }
+            });
+        }
+
+        setInterval(() => {
+            const timeElapsed = Date.now() - lastActivityTime;
+            console.log('Time elapsed since last activity:', timeElapsed);
+
+            if (timeElapsed > sessionLifetime) {
+                console.log('Session expired, submitting logout form');
+                document.getElementById('logout-form').submit();
+            } else {
+                updateLogoutTime();
+            }
+        }, 60000); // Check every minute
+    </script>
+
     <!-- All Script JS Plugins here  -->
     <script src="{{ asset('assets/js/vendor/popper.js') }}" defer="defer"></script>
     <script src="{{ asset('assets/js/vendor/bootstrap.min.js') }}" defer="defer"></script>

@@ -46,21 +46,12 @@ use App\Http\Controllers\ScreenTimeController;
 use App\Http\Controllers\SubscriptionPlanController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VerificationController;
+use App\Http\Middleware\InactivityTimeout;
 use App\Http\Middleware\SetLocale;
 use App\Models\Language;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -86,7 +77,7 @@ Route::post('/ResetPassword', [UserController::class, 'ResetPassword'])->name('R
 
 
 
-Route::group(['middleware' => 'prevent-back-history', SetLocale::class], function () {
+Route::group(['middleware' => ['prevent-back-history', SetLocale::class]], function () {
 
     Route::get('/index', [UserController::class, 'Userlogin'])->name('Userlogin');
     Route::get('/local/{ln}', function ($ln) {
@@ -146,6 +137,8 @@ Route::group(['middleware' => 'prevent-back-history', SetLocale::class], functio
     Route::get('/productbyCategory/{id}', [UserController::class, 'productbyCategory'])->name('productbyCategory')->middleware('isLoggedIn');
     Route::get('/productbySubCategory/{category}/{subcategory}', [UserController::class, 'productbySubCategory'])->name('productbySubCategory')->middleware('isLoggedIn');
     Route::get('/productbyChildCategory/{category}/{subcategory}/{childcategory}', [UserController::class, 'productbyChildCategory'])->name('productbyChildCategory')->middleware('isLoggedIn');
+    Route::post('/update-logout-time', [UserController::class, 'updateLogoutTime'])->name('update.logout.time');
+
 
     Route::get('/CreateProject', [UserController::class, 'CreateProject'])->name('CreateProject')->middleware('isLoggedIn');
     Route::get('/signup', [UserController::class, 'signup'])->name('signup')->middleware('alreadyLoggedIn');
@@ -590,7 +583,7 @@ Route::group(['prefix' => 'admin'], function () {
     });
     Route::get('/forget_password', [Admin::class, 'forget_password'])->name('forget_password');
     Route::post('/log', [Admin::class, 'login'])->name('login');
-    Route::get('/logout', [Admin::class, 'logout'])->name('logout');
+    Route::get('/signout', [Admin::class, 'logout'])->name('logout');
 });
 Route::get('facebook', [FacebookSocialiteController::class, 'facebookRedirect']);
 Route::get('callback/facebook', [FacebookSocialiteController::class, 'loginWithFacebook']);

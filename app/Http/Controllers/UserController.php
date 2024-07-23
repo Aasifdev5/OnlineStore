@@ -1205,22 +1205,43 @@ $products = $query->get();
         return back()->with('success', 'Successfully Updated');
     }
 
+    public function updateLogoutTime(Request $request)
+    {
+        $userId = Session::get('LoggedIn');
 
+        if ($userId) {
+            $lastTimeLog = TimeLog::where('user_id', $userId)->latest()->first();
+            if ($lastTimeLog) {
+                $lastTimeLog->end_time = Carbon::now();
+                $lastTimeLog->save();
+            }
 
+            Session::forget('LoggedIn');
+            return response()->json(['status' => 'updated']);
+        }
+
+        return response()->json(['status' => 'error'], 400);
+    }
     public function logout(Request $request)
     {
         if (Session::has('LoggedIn')) {
-            $data = User::find(Session::has('LoggedIn'));
-            $data->update(['is_online' => 0, 'last_seen' => Carbon::now()]);
-            // Log the logout time
-            $lastTimeLog = TimeLog::where('user_id', Session::get('LoggedIn'))->latest()->first();
-            if ($lastTimeLog) {
-                $lastTimeLog->update(['end_time' => Carbon::now()]);
+            $data = User::find(Session::get('LoggedIn'));
+            if ($data) {
+                $data->update(['is_online' => 0, 'last_seen' => Carbon::now()]);
+
+                // Log the logout time
+                $lastTimeLog = TimeLog::where('user_id', Session::get('LoggedIn'))->latest()->first();
+                if ($lastTimeLog) {
+                    $lastTimeLog->update(['end_time' => Carbon::now()]);
+                }
             }
+
             Session::forget('LoggedIn');
             $request->session()->invalidate();
             return redirect('/');
         }
+
+        return redirect('/'); // In case session is not set
     }
 
     public function edit_profile()
