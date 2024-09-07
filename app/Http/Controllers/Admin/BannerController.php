@@ -7,13 +7,13 @@ use App\Models\Banner;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 class BannerController extends Controller
 {
     public function index()
     {
         if (Session::has('LoggedIn')) {
-
 
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
             $banners = Banner::all();
@@ -25,7 +25,6 @@ class BannerController extends Controller
     {
         if (Session::has('LoggedIn')) {
 
-
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
             return view('admin.banners.create', compact('user_session'));
         }
@@ -34,24 +33,44 @@ class BannerController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string',
+            'title1' => 'required|string',
+            'title2' => 'required|string',
+            'title3' => 'required|string',
+            'button' => 'required|string',
+            'link' => 'required|string',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $imageName = time() . '.' . $request->image->extension();
-        $request->image->move(public_path('images/banners'), $imageName);
+       
+        if ($request->hasFile('image')) {
+
+            // Handle new image upload
+            $attribute = $request->file('image');
+            $destination = 'banners';
+
+            // Generate unique filename
+            $file_name = time() . '-' . Str::random(10) . '.' . $attribute->getClientOriginalExtension();
+            // Move uploaded file to the destination directory
+            $attribute->move(public_path('uploads/' . $destination), $file_name);
+            // Update image path
+            $image = 'uploads/' . $destination . '/' . $file_name;
+        }
 
         Banner::create([
-            'title' => $request->title,
-            'image' => $imageName,
+            'title1' => $request->title1,
+            'title2' => $request->title2,
+            'title3' => $request->title3,
+            'button' => $request->button,
+            'link' => $request->link,
+            'image' => $image,
         ]);
 
-        return redirect()->route('admin.banners.index')->with('success', 'Banner created successfully');
+        return redirect()->route('admin.banners.index')->with('success', 'Banner creado exitosamente');
     }
+
     public function edit($id)
     {
         if (Session::has('LoggedIn')) {
-
 
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
             $banner = Banner::findOrFail($id);
@@ -62,44 +81,59 @@ class BannerController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'title' => 'required|string',
+            'title1' => 'required|string',
+            'title2' => 'required|string',
+            'title3' => 'required|string',
+            'button' => 'required|string',
+            'link' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $banner = Banner::findOrFail($id);
 
-        $banner->title = $request->title;
-
+        $banner->title1 = $request->title1;
+        $banner->title2 = $request->title2;
+        $banner->title3 = $request->title3;
+ $banner->button = $request->button;
+        $banner->link = $request->link;
         if ($request->hasFile('image')) {
-            // Delete old image
-            $oldImagePath = public_path('images/banners/' . $banner->image);
+            // Eliminar imagen antigua
+            $oldImagePath = public_path($banner->image);
             if (file_exists($oldImagePath)) {
                 unlink($oldImagePath);
             }
+ // Handle new image upload
+            $attribute = $request->file('image');
+            $destination = 'banners';
 
-            // Upload new image
-            $imageName = time() . '.' . $request->image->extension();
-            $request->image->move(public_path('images/banners'), $imageName);
-            $banner->image = $imageName;
+            // Generate unique filename
+            $file_name = time() . '-' . Str::random(10) . '.' . $attribute->getClientOriginalExtension();
+            // Move uploaded file to the destination directory
+            $attribute->move(public_path('uploads/' . $destination), $file_name);
+            // Update image path
+            $image = 'uploads/' . $destination . '/' . $file_name;
+           
+            $banner->image = $image;
         }
 
         $banner->save();
 
-        return redirect()->route('admin.banners.index')->with('success', 'Banner updated successfully');
+        return redirect()->route('admin.banners.index')->with('success', 'Banner actualizado exitosamente');
     }
+
     public function destroy($id)
     {
         $banner = Banner::findOrFail($id);
 
-        // Delete the associated image file
-        $imagePath = public_path('images/banners/' . $banner->image);
+        // Eliminar archivo de imagen asociado
+        $imagePath = public_path('uploads/banners/' . $banner->image);
         if (file_exists($imagePath)) {
             unlink($imagePath);
         }
 
-        // Delete the banner from the database
+        // Eliminar el banner de la base de datos
         $banner->delete();
 
-        return redirect()->route('admin.banners.index')->with('success', 'Banner deleted successfully');
+        return redirect()->route('admin.banners.index')->with('success', 'Banner eliminado exitosamente');
     }
 }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Factura</title>
+    <title>PROFORMA</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -84,30 +84,33 @@
 <body>
 <div class="invoice-container">
     <div class="invoice-header">
-        <h2>Factura</h2>
+        <h2>PROFORMA</h2>
         <img src="https://bikebros.net/logos bikebros.png" alt="Company Logo">
     </div>
     <div class="invoice-details">
         <p><strong>Número de factura:</strong> #INV-00{{ $order->id }}</p>
-        <p><strong>Fecha:</strong> {{ $order->created_at->format('F j, Y') }}</p>
+        <p><strong>Fecha:</strong> {{ $order->created_at->format('F j, Y H:i:s') }}</p>
         <p><strong>Nombre del cliente:</strong> {{ $order->customer->name }}</p>
         <p><strong>Dirección del cliente:</strong> {{ $order->customer->address }}, {{ $order->customer->city }}, {{ $order->customer->country }}</p>
     </div>
     <table class="table invoice-table">
-       <thead class="thead-light">
+      <thead class="thead-light">
     <tr>
         <th>Imagen</th>
         <th>Producto</th>
-
+        <th>Color</th>
+        <th>Tamaño</th> <!-- Added Size Column -->
         <th>Cantidad</th>
         <th>Precio unitario</th>
         <th>Subtotal</th>
     </tr>
 </thead>
 <tbody>
-  @php
-    // Group items by product_id and calculate combined quantity and total price
-    $groupedItems = $items->groupBy('product_id')->map(function ($group) {
+   @php
+    // Group items by product_id, color, and size
+    $groupedItems = $items->groupBy(function ($item) {
+        return $item->product_id . '-' . $item->color . '-' . $item->size;
+    })->map(function ($group) {
         $quantity = $group->sum('quantity');
         $subtotal = $group->sum(function ($item) {
             return $item->price * $item->quantity;
@@ -116,7 +119,9 @@
             'product' => $group->first()->product,
             'quantity' => $quantity,
             'subtotal' => $subtotal,
-            'price' => $group->first()->price, // assuming price is the same for all items with the same product_id
+            'price' => $group->first()->price, // assuming price is the same for all items with the same product_id, color, and size
+            'color' => $group->first()->color,
+            'size' => $group->first()->size,
         ];
     });
 
@@ -124,15 +129,43 @@
 @endphp
 
 @foreach($groupedItems as $group)
+    @php
+        $product = $group['product'];
+        $vcolor = $product ? \App\Models\ProductVariations::where('sku', $product->sku)->first() : null;
+       
+        // Count the number of images for the given product and color 'm'
+        $productImagesCount = \App\Models\Pro_image::where('product_id', $product->id)
+                                                ->where('color', 'm')
+                                                ->count();
+
+        // Use the count to decide how to fetch the images
+        if ($productImagesCount > 1) {
+            // If there are multiple images with color 'm', fetch one
+            $productImages = \App\Models\Pro_image::where('product_id', $product->id)
+                                                  ->where('color', 'm')
+                                                  ->orderBy('id', 'asc')
+                                                  ->first();
+        } else {
+            // Otherwise, fetch the image based on the vcolor
+            $productImages = $vcolor ? \App\Models\Pro_image::where('product_id', $vcolor->product_id)
+                                                  ->where('color', $vcolor->color)
+                                                  ->orderBy('id', 'asc')
+                                                  ->first() : null;
+        }
+    @endphp
     <tr>
         <td>
-            @if($group['product'] && $group['product']->f_thumbnail)
-                <img src="https://bikebros.net/product_images/{{ $group['product']->f_thumbnail }}" alt="{{ $group['product']->title }}" style="width: 50px; height: 50px;">
+            @if($productImages)
+                <img src="{{ asset($productImages->thumbnail) }}" alt="{{ $product->title }}" style="width: 50px; height: 50px;">
+            @elseif($product && $product->f_thumbnail)
+                <img src="https://bikebros.net/product_images/{{ $product->f_thumbnail }}" alt="{{ $product->title }}" style="width: 50px; height: 50px;">
             @else
                 N/A
             @endif
         </td>
-        <td>{{ $group['product'] ? $group['product']->title : 'N/A' }}</td>
+        <td>{{ $product ? $product->title : 'N/A' }}</td>
+        <td>{{ $group['color'] ?? 'N/A' }}</td>
+        <td>{{ $group['size'] ?? 'N/A' }}</td> <!-- Display Size -->
         <td>{{ $group['quantity'] }}</td>
         <td>{{ number_format($group['price'], 2) }}</td>
         <td>{{ number_format($group['subtotal'], 2) }}</td>
@@ -142,10 +175,12 @@
 </tbody>
 <tfoot>
     <tr>
-        <td colspan="5" class="text-right"><strong>Total</strong></td>
+        <td colspan="6" class="text-right"><strong>Total</strong></td>
         <td><strong>{{ number_format($total, 2) }}</strong></td>
     </tr>
 </tfoot>
+
+
 
     </table>
     <div class="invoice-footer">

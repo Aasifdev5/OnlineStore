@@ -1,129 +1,241 @@
 <?php
-
 namespace App\Imports;
 
 use App\Models\Product;
-use App\Models\Pro_image;
 use App\Models\ProductVariations;
-use Maatwebsite\Excel\Concerns\ToModel;
+use App\Models\Pro_image;
+use App\Models\Related_product; // Ensure you include this
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Concerns\ToCollection;
+use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithBatchInserts;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 
-class ProductsImport implements ToModel, WithHeadingRow
+class ProductsImport implements ToCollection, WithHeadingRow, WithBatchInserts, WithChunkReading
 {
-    public function model(array $row)
+    use Importable;
+
+    protected $skuList;
+
+    public function collection(Collection $rows)
     {
-        // Create a new Product instance
-        $product = new Product([
-            'title' => $row['title'],
-            'slug' => getSlug($row['title']), // Generate slug from title
-            'description' => $row['description'],
-            'f_thumbnail' => $row['f_thumbnail'],
-            'category' => $row['category'],
-            'subcategory_id' => $row['subcategory_id'],
-            'childcategory' => $row['childcategory'],
-            'short_desc' => $row['short_desc'],
-            'brand_id' => $row['brand_id'],
-            'store_id' => $row['store_id'],
-            'price1' => $row['price1'],
-            'price2' => $row['price2'],
-            'price3' => $row['price3'],
-            'price4' => $row['price4'],
-            'price5' => $row['price5'],
-            'is_publish' => $row['is_publish'],
-            'cost_price' => $row['cost_price'],
-            'sale_price' => $row['sale_price'],
-            'old_price' => $row['old_price'],
-            'start_date' => $row['start_date'],
-            'end_date' => $row['end_date'],
-            'is_discount' => $row['is_discount'],
-            'is_stock' => $row['is_stock'],
-            'stock_status_id' => $row['stock_status_id'],
-            'sku' => $row['sku'],
+       
+        foreach ($rows as $row) {
+            // Sanitize and decode JSON fields
+            $colorImages = $this->parseJsonField($row['color_images'] ?? '[]');
+            $variationSkus = $this->parseJsonField($row['variation_skus'] ?? '[]');
 
-            'stock_qty' => $row['stock_qty'],
-            'variation_color' => $row['variation_color'],
-            'variation_size' => $row['variation_size'],
+            // Process sizes and colors
+            $sizes = array_filter(array_map('trim', explode(',', $row['variation_size'] ?? '')));
+            $colors = array_filter(array_map('trim', explode(',', $row['variation_color'] ?? '')));
 
-            'og_title' => $row['og_title'],
-            'og_description' => $row['og_description'],
-            'og_keywords' => $row['og_keywords'],
-        ]);
+            // Convert empty arrays to null
+            $sizes = !empty($sizes) ? json_encode($sizes) : null;
+            $colors = !empty($colors) ? json_encode($colors) : null;
 
-        // Save the product
-        $product->save();
+            $productData = [
+                'title' => $row['title'] ?? null,
+                'slug' => $this->generateUniqueSlug($row['title']),
+                'description' => $row['description'] ?? null,
+                'f_thumbnail' => $row['f_thumbnail'] ?? null,
+                'category' => $row['category'] ?? null,
+                'subcategory_id' => $row['subcategory_id'] ?? null,
+                'childcategory' => $row['childcategory'] ?? null,
+                'short_desc' => $row['short_desc'] ?? null,
+                'brand_id' => $row['brand_id'] ?? null,
+                'price1' => $row['price1'] ?? null,
+                'price2' => $row['price2'] ?? null,
+                'price3' => $row['price3'] ?? null,
+                'price4' => $row['price4'] ?? null,
+                'price5' => $row['price5'] ?? null,
+                'is_publish' => $row['is_publish'] ?? null,
+                'is_stock' => $row['is_stock'] ?? null,
+                'stock_status_id' => $row['stock_status_id'] ?? null,
+                'sku' => $row['sku'],
+                'stock_qty' => $row['stock_qty'] ?? null,
+                'variation_color' => $colors, // Null if empty
+                'variation_size' => $sizes, // Null if empty
+                'og_title' => $row['og_title'] ?? null,
+                'og_description' => $row['og_description'] ?? null,
+                'og_keywords' => $row['og_keywords'] ?? null,
+                'color_images' => json_encode($colorImages), // Encode as JSON
+                'variation_skus' => json_encode($variationSkus), // Encode as JSON
+            ];
 
+            // Fetch or create the product
+            $product = Product::updateOrCreate(
+                ['sku' => $productData['sku']],
+                $productData
+            );
 
+            // Process variations
+            $this->processVariations($product, $sizes, $colors, $variationSkus);
 
-        // Clear previous variations for the product
-        ProductVariations::where('product_id', $product->id)->delete();
+            // Handle color images upload if color is present
+            foreach (json_decode($colors, true) ?? [] as $color) {
+                if (isset($colorImages[$color])) {
+                    $imagePath = $colorImages[$color];
+                    $imageName = basename($imagePath);
+                    $destinationPath = public_path('product_images');
 
-        // Assuming you have a Pro_image and ProductVariations model
-        for ($i = 1; $i <= 5; $i++) {
-            // Process product images
-            if (isset($row['image_' . $i])) {
-                $imageName = $row['image_' . $i];
-                $imagePath = 'product_images/' . $imageName; // Adjust this based on your directory structure
+                    if (!file_exists($destinationPath . '/' . $imageName)) {
+                        if (Storage::exists($imagePath)) {
+                            Storage::copy($imagePath, $destinationPath . '/' . $imageName);
+                        }
+                    }
 
-                Pro_image::create([
-                    'thumbnail' => $imagePath,
-                    'product_id' => $product->id,
-                ]);
-            }
-
-            // Process product variations (assuming there are max 5 variations)
-            if ($i <= 5) {
-                if (isset($row['size_' . $i]) && isset($row['color_' . $i])) {
-                    $size = $row['size_' . $i];
-                    $color = $row['color_' . $i];
-                    $mainSku = $row['sku'];
-
-                    $sku = $mainSku . '-' . $size . '-' . $color;
-                    $product->updateOrCreate(
+                    Pro_image::updateOrCreate(
                         [
-                            'title' => $product->title,
-                            'slug' => getSlug($product->slug . '-' . strtoupper($color)),
+                            'product_id' => $product->id,
+                            'color' => $color,
                         ],
                         [
-                            'description' => $product->description,
-                            'f_thumbnail' => $imageName,
-                            'sku' => $sku,
-                            'category' => $product->category,
-                            'subcategory_id' => $product->subcategory_id,
-                            'childcategory' => $product->childcategory,
-                            'short_desc' => $product->short_desc,
-                            'brand_id' => $product->brand_id,
-                            'store_id' => $product->store_id,
-                            'price1' => $product->price1,
-                            'price2' => $product->price2,
-                            'price3' => $product->price3,
-                            'price4' => $product->price4,
-                            'price5' => $product->price5,
-                            'is_publish' => $product->is_publish,
-                            'cost_price' => $product->cost_price,
-                            'sale_price' => $product->sale_price,
-                            'old_price' => $product->old_price,
-                            'start_date' => $product->start_date,
-                            'end_date' => $product->end_date,
-                            'is_discount' => $product->is_discount,
-                            'is_stock' => $product->is_stock,
-                            'stock_status_id' => $product->stock_status_id,
-                            'stock_qty' => $product->stock_qty,
-                            'variation_color' => $row['variation_color'],
-                            'variation_size' => $row['variation_size'],
+                            'thumbnail' => 'product_images/' . $imageName,
                         ]
                     );
-                    ProductVariations::create([
-                        'product_id' => $product->id,
-                        'size' => $size,
-                        'color' => $color,
-                        'sku' => $sku,
-                        // Add other variation fields here if necessary
-                    ]);
                 }
             }
+
+            // Handle related items
+            $relatedItemIds = $row['related_item_ids'] ? explode(',', $row['related_item_ids']) : [];
+            foreach ($relatedItemIds as $relatedItemId) {
+                Related_product::updateOrCreate(
+                    [
+                        'product_id' => $product->id,
+                        'related_item_id' => trim($relatedItemId),
+                    ]
+                );
+            }
+        }
+    }
+
+    private function parseJsonField($jsonField)
+    {
+        $decoded = json_decode($jsonField, true);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            \Log::error('Invalid JSON data:', ['data' => $jsonField, 'error' => json_last_error_msg()]);
+            return [];
+        }
+        return is_array($decoded) ? $decoded : [];
+    }
+
+    private function processVariations($product, $sizes, $colors, $skus)
+    {
+        // Clear previous variations
+        ProductVariations::where('product_id', $product->id)->delete();
+
+        if (!empty($sizes) && !empty($colors)) {
+            // Both sizes and colors selected
+            foreach (json_decode($sizes, true) as $size) {
+                foreach (json_decode($colors, true) as $color) {
+                    $this->processSkuAndCreateVariation($product, $size, $color, $skus);
+                }
+            }
+        } elseif (!empty($sizes)) {
+            // Only sizes selected
+            foreach (json_decode($sizes, true) as $size) {
+                $this->processSkuAndCreateVariation($product, $size, null, $skus);
+            }
+        } elseif (!empty($colors)) {
+            // Only colors selected
+            foreach (json_decode($colors, true) as $color) {
+                $this->processSkuAndCreateVariation($product, null, $color, $skus);
+            }
+        }
+    }
+
+    private function processSkuAndCreateVariation($product, $size, $color, $skus)
+    {
+        $variationSku = $this->getVariationSku($size, $color, $skus);
+
+        if (!$variationSku) {
+            \Log::error('SKU not provided for:', ['size' => $size, 'color' => $color]);
+            return;
         }
 
+        // Create the variation
+        ProductVariations::create([
+            'product_id' => $product->id,
+            'size' => $size,
+            'color' => $color,
+            'sku' => $variationSku,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
 
-        return $product;
+        // Create or update product for each SKU variation
+        Product::updateOrCreate(
+            ['sku' => $variationSku],
+            $this->getProductDataForVariation($product, $size, $color)
+        );
+    }
+
+    private function getVariationSku($size, $color, $skus)
+    {
+        if ($size && $color && isset($skus[$color][$size])) {
+            return $skus[$color][$size];
+        } elseif ($size && isset($skus[$size])) {
+            return $skus[$size];
+        } elseif ($color && isset($skus[$color])) {
+            return $skus[$color];
+        }
+        return null;
+    }
+
+    private function getProductDataForVariation($product, $size, $color)
+    {
+        return [
+            'title' => $product->title,
+            'slug' => $this->generateUniqueSlug($product->title . '-' . strtoupper($color ?? $size)),
+            'description' => $product->description,
+            'f_thumbnail' => $product->f_thumbnail,
+            'category' => $product->category,
+            'subcategory_id' => $product->subcategory_id,
+            'childcategory' => $product->childcategory,
+            'short_desc' => $product->short_desc,
+            'brand_id' => $product->brand_id,
+            'store_id' => $product->store_id,
+            'price1' => $product->price1,
+            'price2' => $product->price2,
+            'price3' => $product->price3,
+            'price4' => $product->price4,
+            'price5' => $product->price5,
+            'is_publish' => $product->is_publish,
+            'is_stock' => $product->is_stock,
+            'stock_status_id' => $product->stock_status_id,
+            'stock_qty' => $product->stock_qty,
+            'variation_size' => $size ? json_encode([$size]) : null, // Null if empty
+            'variation_color' => $color ? json_encode([$color]) : null, // Null if empty
+        ];
+    }
+
+    private function generateUniqueSlug($title, $id = null)
+    {
+        $slug = \Str::slug($title);
+        $originalSlug = $slug;
+
+        $query = Product::where('slug', $slug);
+        if ($id) {
+            $query->where('id', '!=', $id);
+        }
+
+        $count = $query->count();
+        if ($count > 0) {
+            $slug = $originalSlug . '-' . ($count + 1);
+        }
+
+        return $slug;
+    }
+
+    public function batchSize(): int
+    {
+        return 1000;
+    }
+
+    public function chunkSize(): int
+    {
+        return 1000;
     }
 }

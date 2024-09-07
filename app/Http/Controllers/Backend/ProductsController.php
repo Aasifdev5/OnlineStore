@@ -82,7 +82,7 @@ class ProductsController extends Controller
             'f_thumbnail' => $thumbnail,
             'category' => $category,
             'subcategory_id' => $subcategory_id,
-            'childcategory' => $childcategory,
+            'childcategory' => $request->childcategory,
             'short_desc' => $short_desc,
             'description' => $description,
             'brand_id' => $brand_id,
@@ -182,7 +182,7 @@ class ProductsController extends Controller
 
         Excel::import(new ProductsImport(), $request->file('file'));
 
-        return redirect()->back()->with('success', 'Products imported successfully.');
+        return redirect()->back()->with('success', 'Productos importados exitosamente.');
     }
 
 
@@ -441,126 +441,241 @@ public function getSubcategories($categoryId)
             return view('admin.backend.variations', compact('user_session', 'RecordId', 'datalist'));
         }
     }
+public function saveVariationsData(Request $request)
+{
+    $res = array();
 
-    //Save data for Variations
-    public function saveVariationsData(Request $request)
-    {
-        $res = array();
+    $id = $request->input('RecordId');
+    $sizes = $request->input('variation_size');
+    $colors = $request->input('variation_color');
+    $skus = $request->input('skus');
 
-        $id = $request->input('RecordId');
-        $sizes = $request->input('variation_size');
-        $colors = $request->input('variation_color');
-
-        $product = Product::find($id);
-        if (!$product) {
-            $res['msgType'] = 'error';
-            $res['msg'] = __('Product not found');
-            return redirect()->route('backend.product-seo', $id)->with($res);
-        }
-
-        $mainSku = $product->sku;
-
-        // Clear previous variations
-        ProductVariations::where('product_id', $id)->delete();
-
-        $variations = [];
-        if (!empty($sizes) && !empty($colors)) {
-            foreach ($sizes as $size) {
-                foreach ($colors as $color) {
-                    $sku = $mainSku . '-' . strtoupper($size) . '-' . strtoupper($color);
-                    $variations[] = [
-                        'product_id' => $id,
-                        'size' => $size,
-                        'color' => $color,
-                        'sku' => $sku,
-                        'created_at' => now(),
-                        'updated_at' => now(),
-                    ];
-
-                    // Handle color images upload
-                    if ($request->hasFile('color_images') && isset($request->file('color_images')[$color])) {
-                        $image = $request->file('color_images')[$color];
-                        $imageName = $image->getClientOriginalName();
-                        $imagePath = 'product_images/' . $imageName;
-
-                        // Move and store the image
-                        $image->move(public_path('product_images'), $imageName);
-
-                        // Create or update the product with color-specific details
-                        $product->updateOrCreate(
-                            [
-                                'title' => $product->title,
-                                'slug' => getSlug($product->slug . '-' . strtoupper($color)),
-                            ],
-                            [
-                                'description' => $product->description,
-                                'f_thumbnail' => $imageName,
-                                'sku' => $sku,
-                                'category' => $product->category,
-                                'subcategory_id' => $product->subcategory_id,
-                                'childcategory' => $product->childcategory,
-                                'short_desc' => $product->short_desc,
-                                'brand_id' => $product->brand_id,
-                                'store_id' => $product->store_id,
-                                'price1' => $product->price1,
-                                'price2' => $product->price2,
-                                'price3' => $product->price3,
-                                'price4' => $product->price4,
-                                'price5' => $product->price5,
-                                'is_publish' => $product->is_publish,
-                                'cost_price' => $product->cost_price,
-                                'sale_price' => $product->sale_price,
-                                'old_price' => $product->old_price,
-                                'start_date' => $product->start_date,
-                                'end_date' => $product->end_date,
-                                'is_discount' => $product->is_discount,
-                                'is_stock' => $product->is_stock,
-                                'stock_status_id' => $product->stock_status_id,
-                                'stock_qty' => $product->stock_qty,
-                                'variation_size' => implode(',', $sizes),
-                                'variation_color' => implode(',', $colors),
-                            ]
-                        );
-
-                        // Save the product image path
-                        Pro_image::create([
-                            'product_id' => $product->id,
-                            'color' => $color,
-                            'thumbnail' => $imagePath,
-                        ]);
-                    }
-                }
-            }
-        }
-
-
-
-        // Insert all variations into ProductVariations table
-        if (!empty($variations)) {
-            ProductVariations::insert($variations);
-
-        }
-
-        // Update the product with variations data
-        $data = [
-            'variation_size' => implode(',', $sizes),
-            'variation_color' => implode(',', $colors),
-        ];
-
-        $response = $product->update($data);
-
-
-        if ($response) {
-            $res['msgType'] = 'success';
-            $res['msg'] = __('Data Updated Successfully');
-        } else {
-            $res['msgType'] = 'error';
-            $res['msg'] = __('Data update failed');
-        }
-
+    // Validate that at least one of sizes or colors is provided, along with SKUs
+    if (empty($sizes) && empty($colors)) {
+        $res['msgType'] = 'error';
+        $res['msg'] = __('At least one of sizes or colors must be selected.');
         return redirect()->route('backend.product-seo', $id)->with($res);
     }
 
+    if (empty($skus)) {
+        $res['msgType'] = 'error';
+        $res['msg'] = __('SKUs are missing.');
+        return redirect()->route('backend.product-seo', $id)->with($res);
+    }
+
+    // Ensure $sizes and $colors are arrays, or default to empty arrays
+    $sizes = is_array($sizes) ? $sizes : [];
+    $colors = is_array($colors) ? $colors : [];
+
+    // Fetch the product
+    $product = Product::find($id);
+    if (!$product) {
+        $res['msgType'] = 'error';
+        $res['msg'] = __('Product not found');
+        return redirect()->route('backend.product-seo', $id)->with($res);
+    }
+
+    // Update the product with variations data
+    $data = [
+        'variation_size' => $sizes ? implode(',', array_filter($sizes)) : null,
+        'variation_color' => $colors ? implode(',', array_filter($colors)) : null,
+    ];
+    $product->update($data);
+
+    // Clear previous variations
+    ProductVariations::where('product_id', $id)->delete();
+
+    // Initialize array to hold SKU generation logs
+    $skuLogs = [];
+
+    // Generate SKUs for each combination of sizes and colors
+    if (!empty($sizes) && !empty($colors)) {
+        // Both sizes and colors selected
+        foreach ($sizes as $size) {
+            foreach ($colors as $color) {
+                $this->processSkuAndCreateVariation($product, $id, $size, $color, $skus, $skuLogs);
+            }
+        }
+    } elseif (!empty($sizes)) {
+        // Only sizes selected
+        foreach ($sizes as $size) {
+            $this->processSkuAndCreateVariation($product, $id, $size, null, $skus, $skuLogs);
+        }
+    } elseif (!empty($colors)) {
+        // Only colors selected
+        foreach ($colors as $color) {
+            $this->processSkuAndCreateVariation($product, $id, null, $color, $skus, $skuLogs);
+        }
+    }
+
+    // Handle color images upload if color is present
+    foreach ($colors as $color) {
+        if ($request->hasFile("color_images.{$color}")) {
+            $this->handleColorImageUpload($request, $product, $color, $res, $id);
+        }
+    }
+
+    $res['msgType'] = 'success';
+    $res['msg'] = __('Data Updated Successfully');
+    $res['skus'] = $skuLogs; // Add generated SKUs to response for debugging
+
+    return redirect()->route('backend.product-seo', $id)->with($res);
+}
+
+
+private function processSkuAndCreateVariation($product, $id, $size, $color, $skus, &$skuLogs)
+{
+    // Initialize $variationSku
+    $variationSku = null;
+
+    // Handle the case where both size and color are provided
+    if ($size && $color && isset($skus[$size][$color])) {
+        $variationSku = $skus[$size][$color];
+    } 
+    // Handle size-only variations
+    elseif ($size && !$color && isset($skus[$size]) && !is_array($skus[$size])) {
+        $variationSku = $skus[$size];
+    } 
+    // Handle color-only variations
+    elseif ($color && !$size && isset($skus[$color]) && !is_array($skus[$color])) {
+        $variationSku = $skus[$color];
+    } 
+    // Log an error if SKU is not provided
+    else {
+        \Log::error('SKU not provided for:', ['size' => $size, 'color' => $color]);
+        return;
+    }
+
+    // Create the variation
+    ProductVariations::create([
+        'product_id' => $id,
+        'size' => $size,
+        'color' => $color,
+        'sku' => $variationSku,
+        'created_at' => now(),
+        'updated_at' => now(),
+    ]);
+
+    // Create or update the product for each SKU variation
+    Product::updateOrCreate(
+        [
+            'sku' => $variationSku,
+        ],
+        [
+            'title' => $product->title,
+            'slug' => getSlug($product->slug . '-' . strtoupper($color ?? $size)),
+            'description' => $product->description,
+            'f_thumbnail' => $product->f_thumbnail,
+            'category' => $product->category,
+            'subcategory_id' => $product->subcategory_id,
+            'childcategory' => $product->childcategory,
+            'short_desc' => $product->short_desc,
+            'brand_id' => $product->brand_id,
+            'store_id' => $product->store_id,
+            'price1' => $product->price1,
+            'price2' => $product->price2,
+            'price3' => $product->price3,
+            'price4' => $product->price4,
+            'price5' => $product->price5,
+            'is_publish' => $product->is_publish,
+            'is_stock' => $product->is_stock,
+            'stock_status_id' => $product->stock_status_id,
+            'stock_qty' => $product->stock_qty,
+            'variation_size' => $size,
+            'variation_color' => $color,
+        ]
+    );
+
+    // Log the generated SKU for debugging
+    $skuLogs[] = $variationSku;
+}
+
+
+private function handleColorImageUpload($request, $product, $color, &$res, $id)
+{
+    $image = $request->file("color_images.{$color}");
+    if ($image->isValid()) {
+        $imageName = $image->getClientOriginalName();
+        $imagePath = 'product_images/' . $imageName;
+
+        // Move and store the image
+        try {
+            $image->move(public_path('product_images'), $imageName);
+        } catch (\Exception $e) {
+            \Log::error('File move error:', ['error' => $e->getMessage()]);
+            $res['msgType'] = 'error';
+            $res['msg'] = __('File could not be moved.');
+            return redirect()->route('backend.product-seo', $id)->with($res);
+        }
+
+        // Save the product image path in the Pro_image model
+        Pro_image::updateOrCreate(
+            [
+                'product_id' => $product->id,
+                'color' => $color,
+            ],
+            [
+                'thumbnail' => $imagePath,
+            ]
+        );
+    } else {
+        \Log::error('File upload validation error:', ['error' => $image->getErrorMessage()]);
+        $res['msgType'] = 'error';
+        $res['msg'] = __('File upload error.');
+        return redirect()->route('backend.product-seo', $id)->with($res);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+    public function getSizeDetails(Request $request)
+{
+    $productId = $request->input('product_id');
+    $size = $request->input('size');
+
+    // Fetch size-specific details, like SKU
+    $sizeDetails = ProductVariations::where('product_id', $productId)
+                    ->where('size', $size)
+                    ->first(['sku']);
+
+    if ($sizeDetails) {
+        return response()->json([
+            'sku' => $sizeDetails->sku
+        ]);
+    } else {
+        return response()->json([
+            'sku' => ''
+        ]);
+    }
+}
+
+public function getColorDetails(Request $request)
+{
+    $productId = $request->input('product_id');
+    $color = $request->input('color');
+
+    // Fetch the SKU from the ProductVariations model
+    $productVariation = \App\Models\ProductVariations::where('product_id', $productId)
+                        ->where('color', $color)
+                        ->first();
+
+    // Fetch the image from the Pro_image model
+    $productImage = \App\Models\Pro_image::where('product_id', $productId)
+                     ->where('color', $color)
+                     ->first();
+
+    return response()->json([
+        'sku' => $productVariation ? $productVariation->sku : '',
+        'image' => $productImage ? asset($productImage->thumbnail) : ''
+    ]);
+}
 
     //get Product SEO
     public function getProductSEOPageData($id)

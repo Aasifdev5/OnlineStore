@@ -109,7 +109,7 @@ class UserController extends Controller
             $general_setting = GeneralSetting::find('1');
             return view('index', compact('categories', 'user_session',  'general_setting', 'pages','products'));
         } else {
-            return Redirect()->with('fail', 'You have to login first');
+            return Redirect()->with('fail', 'Tienes que iniciar sesión primero');
         }
     }
 
@@ -237,12 +237,15 @@ class UserController extends Controller
                     return back()->with('fail', 'Your account is not verified. Please verify your email.');
                 }
 
-                $user->update(['is_online' => 1, 'last_seen' => Carbon::now()]);
+                $user->update(['is_online' => 1, 'last_seen' => Carbon::now('UTC')]);
                 $request->session()->put('LoggedIn', $user->id);
-                TimeLog::create([
-                    'user_id' => $user->id,
-                    'start_time' => Carbon::now(),
-                ]);
+                $userId = Session::get('LoggedIn');
+                 // Create a new time log entry with UTC timestamp
+    TimeLog::create([
+        'user_id' => $userId,
+        'start_time' => Carbon::now('America/La_Paz'),
+
+    ]);
                 return redirect('home');
             } else {
                 return back()->with('fail', 'Password does not match');
@@ -288,7 +291,7 @@ $latestProductId = $product->id;
             // Fetch orders with related order items, products, and payment status
           $orders = Order::where('orders.user_id', Session::get('LoggedIn'))
     ->leftJoin('payments', 'orders.id', '=', 'payments.order_id')
-
+    
     ->with(['orderItems' => function ($query) {
         $query->with('product');
     }])
@@ -300,7 +303,7 @@ $latestProductId = $product->id;
             $general_setting = GeneralSetting::find('1');
             return view('my_orders', compact('user_session',  'general_setting', 'pages', 'orders'));
         } else {
-            return Redirect()->with('fail', 'You have to login first');
+            return Redirect()->with('fail', 'Tienes que iniciar sesión primero');
         }
     }
     function userNotifications()
@@ -323,8 +326,40 @@ $latestProductId = $product->id;
             $general_setting = GeneralSetting::find('1');
             return view('checkout', compact('user_session',  'general_setting', 'pages', 'carts', 'qrcode'));
         } else {
-            return Redirect()->with('fail', 'You have to login first');
+            return Redirect()->with('fail', 'Tienes que iniciar sesión primero');
         }
+    }
+    public function OrderSuccess($id)
+{
+    if (Session::has('LoggedIn')) {
+        // Retrieve necessary data for the success page
+        $pages = Page::all();
+        $user_session = User::where('id', Session::get('LoggedIn'))->first();
+        $qrcode = BankDetails::orderby('id', 'desc')->first();
+        $carts = Cart::where('user_id', Session::get('LoggedIn'))->get();
+        $general_setting = GeneralSetting::find(1);
+
+        // Pass the order ID to the success view for triggering the PDF download
+        return view('success', compact('user_session', 'general_setting', 'pages', 'carts', 'qrcode', 'id'));
+    } else {
+        return Redirect()->route('login')->with('fail', 'Tienes que iniciar sesión primero');
+    }
+}
+
+
+    public function clearCart()
+    {
+        $userId = Session::get('LoggedIn');
+        Cart::where('user_id', $userId)->delete();
+
+        return redirect()->back()->with('success', '¡El carrito ha sido vaciado con éxito!');
+    }
+    public function clearWishlist()
+    {
+        $userId = Session::get('LoggedIn');
+        Wishlist::where('user_id', $userId)->delete();
+
+        return redirect()->back()->with('success', '¡Lista de deseos vaciada con éxito!');
     }
     public function Billingstore(Request $request)
     {
@@ -368,7 +403,7 @@ $latestProductId = $product->id;
             $general_setting = GeneralSetting::find('1');
             return view('wishlist', compact('products', 'user_session',  'general_setting', 'pages', 'latest_products', 'wishlist'));
         } else {
-            return Redirect()->with('fail', 'You have to login first');
+            return Redirect()->with('fail', 'Tienes que iniciar sesión primero');
         }
     }
     public function edit_project(Request $request)
@@ -385,7 +420,7 @@ $latestProductId = $product->id;
             // dd($request->id);
             return view('edit_courses', compact('countries', 'user_session', 'project_detail', 'category', 'general_setting', 'pages'));
         } else {
-            return Redirect()->with('fail', 'You have to login first');
+            return Redirect()->with('fail', 'Tienes que iniciar sesión primero');
         }
     }
     public function storeLikes(Request $request)
@@ -689,13 +724,13 @@ $latestProductId = $product->id;
             $general_setting = GeneralSetting::find('1');
             return view('shop', compact('products', 'user_session',  'general_setting', 'pages'));
         } else {
-            return Redirect()->with('fail', 'You have to login first');
+            return Redirect()->with('fail', 'Tienes que iniciar sesión primero');
         }
     }
     public function filterProducts(Request $request)
 {
-
-
+    
+  
 $user_session = User::where('id', Session::get('LoggedIn'))->first();
     // Assuming $user_session is defined to access user's price field
     $userPriceField = $user_session->price;
@@ -759,7 +794,7 @@ public function productbybrand($id)
             $general_setting = GeneralSetting::find('1');
             return view('productbybrand', compact('products', 'user_session',  'general_setting', 'pages','category'));
         } else {
-            return Redirect()->with('fail', 'You have to login first');
+            return Redirect()->with('fail', 'Tienes que iniciar sesión primero');
         }
     }
     public function productbyCategory($id)
@@ -780,10 +815,10 @@ public function productbybrand($id)
             $general_setting = GeneralSetting::find('1');
             return view('productbyCategory', compact('products', 'user_session',  'general_setting', 'pages','category'));
         } else {
-            return Redirect()->with('fail', 'You have to login first');
+            return Redirect()->with('fail', 'Tienes que iniciar sesión primero');
         }
     }
-    public function productbySubCategory($category,$subcategory)
+     public function productbySubCategory($category,$subcategory)
     {
         if (Session::has('LoggedIn')) {
             $pages = Page::all();
@@ -802,7 +837,7 @@ public function productbybrand($id)
             $general_setting = GeneralSetting::find('1');
             return view('productbySubCategory', compact('products', 'user_session',  'general_setting', 'pages','subcategory','category'));
         } else {
-            return Redirect()->with('fail', 'You have to login first');
+            return Redirect()->with('fail', 'Tienes que iniciar sesión primero');
         }
     }
      public function productbyChildCategory($category,$subcategory,$childcategory)
@@ -823,7 +858,7 @@ public function productbybrand($id)
             $general_setting = GeneralSetting::find('1');
             return view('productbyChildCategory', compact('products', 'user_session',  'general_setting', 'pages','childcategory'));
         } else {
-            return Redirect()->with('fail', 'You have to login first');
+            return Redirect()->with('fail', 'Tienes que iniciar sesión primero');
         }
     }
     public function getProducts(Request $request)
@@ -860,7 +895,7 @@ $products = $query->get();
         // Return JSON response with a 200 status code (assuming success)
         return response()->json($products, 200);
     }
-    public function addToCart($price, $id, $quantity)
+    public function addToCart($price, $id, $quantity, $chooseSize)
 {
     $productSku = Product::where('id', $id)->first();
 
@@ -868,7 +903,22 @@ $products = $query->get();
         return back()->with('error', 'Product not found.');
     }
 
-    $variation = ProductVariations::where('sku', $productSku->sku)->first();
+     $variation = ProductVariations::where('sku', $productSku->sku)->first();
+    if (!empty($variation)) {
+    $skuvariation = ProductVariations::where('product_id', $variation->product_id)
+                                      ->where('size', $chooseSize)
+                                      ->where('color', $variation->color)
+                                      ->first();
+    // Check if the result is null before accessing the sku property
+    if ($skuvariation) {
+        $skuvariation = $skuvariation->sku;
+    } else {
+        // Handle the case where no matching variation is found
+        $skuvariation = $productSku->sku;
+    }
+} else {
+    $skuvariation = $productSku->sku;
+}
 
     // Check if a variation exists
     if ($variation) {
@@ -884,9 +934,65 @@ $products = $query->get();
         'color' => $color,
         'price' => $price,
         'quantity' => $quantity,
+        'size' => $chooseSize,
+        'sku' => $skuvariation
     ]);
 
-    return back()->with('success', 'Product is added to cart');
+    return back()->with('success', 'El producto se añade al carrito.');
+}
+
+public function vBuyaddToCart($price, $id, $quantity,$chooseSize)
+{
+    
+    $productSku = Product::where('id', $id)->first();
+
+    if (!$productSku) {
+        return back()->with('error', 'Product not found.');
+    }
+
+    $variation = ProductVariations::where('sku', $productSku->sku)->first();
+
+if (!empty($variation)) {
+    $skuvariation = ProductVariations::where('product_id', $variation->product_id)
+                                      ->where('size', $chooseSize)
+                                      ->where('color', $variation->color)
+                                      ->first();
+
+    if (!empty($skuvariation)) {
+        $skuvariation = $skuvariation->sku;
+    } else {
+        $skuvariation = ProductVariations::where('product_id', $variation->product_id)
+                                         ->where('color', $variation->color)
+                                         ->first();
+        
+        $skuvariation = $skuvariation ? $skuvariation->sku : null;
+    }
+} else {
+    $skuvariation = $productSku->sku;
+}
+
+    
+
+    // Check if a variation exists
+    if ($variation) {
+        $color = $variation->color;
+    } else {
+        $color = ''; // Handle the case where no variation is found
+    }
+   
+
+    // Save into cart
+    $saveIntoCart = Cart::create([
+        'user_id' => Session::get('LoggedIn'),
+        'product_id' => $id,
+        'color' => $color,
+        'price' => $price,
+        'quantity' => $quantity,
+        'size' => $chooseSize,
+        'sku'=>$skuvariation
+    ]);
+
+    return redirect()->route('cart');
 }
 
      public function BuyaddToCart($price, $id, $quantity)
@@ -954,7 +1060,7 @@ $products = $query->get();
             'price' => $price,
             'is_stock' => $stockcheck,
         ]);
-        return back()->with('success','Product is added to wishlist');
+        return back()->with('success','El producto se añade a la lista de deseos.');
     }
     public function RemoveWish($id)
     {
@@ -962,12 +1068,12 @@ $products = $query->get();
             $wishItem = Wishlist::find($id);
             if ($wishItem) {
                 $wishItem->delete();
-                return redirect()->route('wishlist')->with('success', 'Item removed from wishlist');
+                return redirect()->route('wishlist')->with('success', 'Artículo eliminado de la lista de deseos');
             } else {
                 return redirect()->route('wishlist')->with('fail', 'Item not found in wishlist');
             }
         } else {
-            return redirect()->route('login')->with('fail', 'You have to login first');
+            return redirect()->route('login')->with('fail', 'Tienes que iniciar sesión primero');
         }
     }
     public function removeCart($id)
@@ -976,12 +1082,12 @@ $products = $query->get();
             $cartItem = Cart::find($id);
             if ($cartItem) {
                 $cartItem->delete();
-                return redirect()->route('cart')->with('success', 'Item removed from cart');
+                return redirect()->route('cart')->with('success', 'Artículo eliminado del carrito');
             } else {
                 return redirect()->route('cart')->with('fail', 'Item not found in cart');
             }
         } else {
-            return redirect()->route('login')->with('fail', 'You have to login first');
+            return redirect()->route('login')->with('fail', 'Tienes que iniciar sesión primero');
         }
     }
 
@@ -1005,7 +1111,7 @@ $products = $query->get();
             $general_setting = GeneralSetting::find('1');
             return view('cart', compact('products', 'user_session',  'general_setting', 'pages', 'latest_products', 'carts'));
         } else {
-            return Redirect()->with('fail', 'You have to login first');
+            return Redirect()->with('fail', 'Tienes que iniciar sesión primero');
         }
     }
     public function ProjectStore(Request $request)
@@ -1205,44 +1311,58 @@ $products = $query->get();
         return back()->with('success', 'Successfully Updated');
     }
 
-    public function updateLogoutTime(Request $request)
-    {
-        $userId = Session::get('LoggedIn');
+ public function updateLogoutTime(Request $request)
+{
+    $userId = Session::get('LoggedIn');
 
-        if ($userId) {
-            $lastTimeLog = TimeLog::where('user_id', $userId)->latest()->first();
-            if ($lastTimeLog) {
-                $lastTimeLog->end_time = Carbon::now();
-                $lastTimeLog->save();
-            }
+    if ($userId) {
+        $lastTimeLog = TimeLog::where('user_id', $userId)->latest()->first();
+        if ($lastTimeLog) {
+            // Use UTC for consistency
+            $lastTimeLog->end_time = Carbon::now('America/La_Paz');
+            $lastTimeLog->save();
+        }
+$data = User::find(Session::get('LoggedIn'));
+$data->update(['is_online' => 0, 'last_seen' => Carbon::now('America/La_Paz')]);
+        // Clear the session
+        Session::forget('LoggedIn');
 
-            Session::forget('LoggedIn');
+        // Check if the request expects JSON
+        if ($request->wantsJson()) {
             return response()->json(['status' => 'updated']);
         }
 
-        return response()->json(['status' => 'error'], 400);
+        // Redirect as a fallback
+        return redirect('/');
     }
-    public function logout(Request $request)
-    {
-        if (Session::has('LoggedIn')) {
-            $data = User::find(Session::get('LoggedIn'));
-            if ($data) {
-                $data->update(['is_online' => 0, 'last_seen' => Carbon::now()]);
 
-                // Log the logout time
-                $lastTimeLog = TimeLog::where('user_id', Session::get('LoggedIn'))->latest()->first();
-                if ($lastTimeLog) {
-                    $lastTimeLog->update(['end_time' => Carbon::now()]);
-                }
-            }
+    // Redirect if the user is not logged in
+    return redirect('/');
+}
 
-            Session::forget('LoggedIn');
-            $request->session()->invalidate();
-            return redirect('/');
+   public function logout(Request $request)
+{
+    if (Session::has('LoggedIn')) {
+        $data = User::find(Session::get('LoggedIn'));
+        if ($data) {
+            $data->update(['is_online' => 0, 'last_seen' => Carbon::now('America/La_Paz')]);
+            
+            // Log the logout time
+            $lastTimeLog = TimeLog::where('user_id', Session::get('LoggedIn'))->latest()->first();
+            if ($lastTimeLog) {
+            // Update the end_time with the current UTC time
+            $lastTimeLog->update(['end_time' => Carbon::now('America/La_Paz')]);
+        }
         }
 
-        return redirect('/'); // In case session is not set
+        Session::forget('LoggedIn');
+        $request->session()->invalidate();
+        return redirect('/');
     }
+
+    return redirect('/'); // In case session is not set
+}
+
 
     public function edit_profile()
     {

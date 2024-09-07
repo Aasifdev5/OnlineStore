@@ -10,7 +10,7 @@ class InvoiceController extends Controller
 {
     public function generateInvoice($id)
     {
-        $order = Order::with(['customer'])->findOrFail($id);
+       $order = Order::with(['customer'])->findOrFail($id);
 
         // Assuming you have 'orderItems' relationship on Order model
         $orderItems = $order->orderItems()->with('product')->get();
@@ -20,9 +20,28 @@ class InvoiceController extends Controller
             'order' => $order,
             'items' => $orderItems,
         ];
-
+        // dd($orderItems);
         // Load view and pass the data
         $pdf = PDF::loadView('invoice', $data);
+
+        // Download PDF file
+        return $pdf->download('invoice-' . $order->id . '.pdf');
+    }
+     public function SkugenerateInvoice($id)
+    {
+       $order = Order::with(['customer'])->findOrFail($id);
+
+        // Assuming you have 'orderItems' relationship on Order model
+        $orderItems = $order->orderItems()->with('product')->get();
+
+        // Share data to view
+        $data = [
+            'order' => $order,
+            'items' => $orderItems,
+        ];
+        // dd($orderItems);
+        // Load view and pass the data
+        $pdf = PDF::loadView('skuinvoice', $data);
 
         // Download PDF file
         return $pdf->download('invoice-' . $order->id . '.pdf');

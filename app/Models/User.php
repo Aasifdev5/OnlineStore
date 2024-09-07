@@ -66,10 +66,10 @@ class User extends Authenticatable
 
         return $userinfo;
     }
-    public function screenTimes()
-    {
-        return $this->hasMany(ScreenTime::class, 'user_id');
-    }
+public function screenTimes()
+{
+    return $this->hasMany(ScreenTime::class, 'user_id');
+}
 
     public static function getUserFullname($id)
     {

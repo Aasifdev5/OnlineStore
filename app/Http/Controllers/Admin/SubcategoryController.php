@@ -34,8 +34,19 @@ class SubcategoryController extends Controller
 
             $data['user_session'] = User::where('id', Session::get('LoggedIn'))->first();
             $data['title'] = 'Manage Subcategory';
-            $data['subcategories'] = $this->model->getOrderById('DESC', 25);
+            $data['subcategories'] = Subcategory::where('category_id','!=', '0')->get();
             return view('admin.subcategory.index', $data);
+        }
+    }
+    public function childcategory()
+    {
+
+        if (Session::has('LoggedIn')) {
+
+            $data['user_session'] = User::where('id', Session::get('LoggedIn'))->first();
+            $data['title'] = 'Manage Subcategory';
+            $data['subcategories'] = Subcategory::where('category_id','!=', '0')->get();
+            return view('admin.childcategory', $data);
         }
     }
 
@@ -93,13 +104,17 @@ if(!empty($request->category_id)){
         }
     }
 
-    public function update(SubcategoryRequest $request, $uuid)
+    public function update(Request $request, $uuid)
     {
 
-
+if(!empty($request->category_id)){
+    $category = $request->category_id;
+}else{
+    $category = 0;
+}
         $data = [
             'parent_category_id' => $request->parent_category_id,
-            'category_id' => $request->category_id,
+            'category_id' => $category,
             'name' => $request->name,
             'slug' => getSlug($request->name),
             'meta_title' => $request->meta_title,

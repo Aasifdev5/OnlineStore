@@ -87,45 +87,49 @@
                             <div class="table-responsive">
                       <table id="advance-1" class="table table-striped table-bordered table-hover">
     <thead class="thead-dark">
-        <tr>
-            <th>#</th>
-            <th>Usuario</th>
-            <th>Número de pedido</th>
-            <th>Monto</th>
-            <th>Factura</th>
-        </tr>
-    </thead>
-    <tbody>
+    <tr>
+        <th>#</th>
+        <th>Usuario</th>
+        <th>Número de pedido</th>
+        <th>Monto</th>
+        <th>Fecha y hora</th>
+        <th>Factura</th>
+    </tr>
+</thead>
+<tbody>
+    @php
+        $previousOrderId = null; // To keep track of the previous order ID
+    @endphp
+
+    @foreach ($transaction as $transaction)
         @php
-            $previousOrderId = null; // To keep track of the previous order ID
+            $products = json_decode($transaction->product_details, true);
+            $orderAmount = $transaction->amount;
+            $user = \App\Models\User::find($transaction->user_id); // Fetch user information
         @endphp
 
-        @foreach ($transaction as $transaction)
-            @php
-                $products = json_decode($transaction->product_details, true);
-                $orderAmount = $transaction->amount;
-                $user = \App\Models\User::find($transaction->user_id); // Fetch user information
-            @endphp
+        @if ($transaction->order_id !== $previousOrderId)
+            <tr>
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ $user ? $user->name : 'Usuario desconocido' }}</td>
+                <td>
+                    <!-- Order ID button that triggers modal -->
+                    <button type="button" class="btn btn-link order-modal-trigger" data-toggle="modal" data-target="#orderModal" data-order-id="{{ $transaction->order_id }}">{{ $transaction->order_id }}</button>
+                </td>
+                <td>{{ 'Total : BS' . number_format($orderAmount, 2) }}</td>
+               <td>{{ $transaction->created_at->setTimezone('America/La_Paz')->format('d/m/Y H:i:s') }}</td>
 
-            @if ($transaction->order_id !== $previousOrderId)
-                <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $user ? $user->name : 'Usuario desconocido' }}</td>
-                    <td>
-                        <!-- Order ID button that triggers modal -->
-                        <button type="button" class="btn btn-link order-modal-trigger" data-toggle="modal" data-target="#orderModal" data-order-id="{{ $transaction->order_id }}">{{ $transaction->order_id }}</button>
-                    </td>
-                    <td>{{ 'Total : BS' . number_format($orderAmount, 2) }}</td>
-                    <td class="account__table--body__cell">
-                        <a href="{{ route('SkugenerateInvoice', ['id' => $transaction->order_id]) }}" class="btn btn-primary">Descargar factura</a>
-                    </td>
-                </tr>
-                @php
-                    $previousOrderId = $transaction->order_id;
-                @endphp
-            @endif
-        @endforeach
-    </tbody>
+                <td class="account__table--body__cell">
+                    <a href="{{ route('SkugenerateInvoice', ['id' => $transaction->order_id]) }}" class="btn btn-primary">Descargar factura</a>
+                </td>
+            </tr>
+            @php
+                $previousOrderId = $transaction->order_id;
+            @endphp
+        @endif
+    @endforeach
+</tbody>
+
 </table>
 
 <!-- Modal Structure -->
@@ -134,7 +138,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="orderModalLabel">Detalles del Pedido</h5>
-
+                
             </div>
             <div class="modal-body">
                 <table class="table table-striped">
@@ -156,7 +160,7 @@
             </div>
             <div class="modal-footer">
                 <a href="#" id="invoiceDownloadLink" class="btn btn-primary">Descargar factura</a>
-
+                
             </div>
         </div>
     </div>

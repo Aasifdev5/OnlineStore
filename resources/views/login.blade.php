@@ -61,7 +61,7 @@
     <div class="login__section section--padding">
         <div class="container-fluid p-0">
             <div class="text-center">
-                <h1 style="font-weight: 100;"><a href="{{ url('/') }}"><img src="{{ asset('site_logo/') }}<?php echo '/' . $general_setting->site_logo; ?>" width="200"  alt=""></a></h1>
+                <h1 style="font-weight: 100;"><a href="{{ url('/') }}"><img src="{{ asset('site_logo/') }}<?php echo '/' . $general_setting->site_logo; ?>" width="300"  alt=""></a></h1>
             </div>
             <form action="{{ url('log') }}" method="post" >
                 @if (Session::has('success'))
@@ -82,12 +82,12 @@
                         <div class="col-sm-12">
                             <div class="card-body">
                                 <div class="account__login--header mb-25">
-                                    <h2 class="account__login--header__title mb-10">Login</h2>
-                                    <p class="account__login--header__desc">Login if you area a returning customer.</p>
+                                    <h2 class="account__login--header__title mb-10">Iniciar sesión</h2>
+                                    <p class="account__login--header__desc">Inicia sesión si eres un cliente recurrente.</p>
                                 </div>
                                 <div class="account__login--inner">
                                     <label>
-                                        <input class="account__login--input" placeholder="Email Addres" name="email" type="email">
+                                        <input class="account__login--input" placeholder="Correo electrónico" name="email" type="email">
                                         <span class="text-danger">
                                             @error('email')
                                                 {{ $message }}
@@ -95,7 +95,7 @@
                                         </span>
                                     </label>
                                     <label>
-                                        <input class="account__login--input" placeholder="Password" name="password" type="password">
+                                        <input class="account__login--input" placeholder="Contraseña" name="password" type="password">
                                         <span class="text-danger" style="color:red;">
                                             @error('password')
                                                 {{ $message }}
@@ -107,11 +107,11 @@
                                             <input class="checkout__checkbox--input" id="check1" type="checkbox">
                                             <span class="checkout__checkbox--checkmark"></span>
                                             <label class="checkout__checkbox--label login__remember--label" for="check1">
-                                                Remember me</label>
+                                               Recuérdame</label>
                                         </div>
-                                        <button class="account__login--forgot"  type="submit">Forgot Your Password?</button>
+                                        <button class="account__login--forgot"  type="submit">¿Olvidaste tu contraseña?</button>
                                     </div>
-                                    <button class="account__login--btn primary__btn" type="submit">Login</button>
+                                    <button class="account__login--btn primary__btn" type="submit">Iniciar sesión</button>
 
 
                                 </div>
@@ -135,8 +135,8 @@
                         <img src="{{ asset('assets/img/other/shipping1.webp') }}" alt="icon-img">
                     </div>
                     <div class="shipping__content">
-                        <h2 class="shipping__content--title h3">Free Shipping</h2>
-                        <p class="shipping__content--desc">Free shipping over $100</p>
+                        <h2 class="shipping__content--title h3">Envios a todo Bolivia</h2>
+                        <p class="shipping__content--desc">Envios garantizados</p>
                     </div>
                 </div>
                 <div class="shipping__items style2 d-flex align-items-center">
@@ -144,8 +144,8 @@
                         <img src="{{ asset('assets/img/other/shipping2.webp') }}" alt="icon-img">
                     </div>
                     <div class="shipping__content">
-                        <h2 class="shipping__content--title h3">Support 24/7</h2>
-                        <p class="shipping__content--desc">Contact us 24 hours a day</p>
+                        <h2 class="shipping__content--title h3">Contactanos libremente</h2>
+                        <p class="shipping__content--desc">las 24 horas del dia</p>
                     </div>
                 </div>
                 <div class="shipping__items style2 d-flex align-items-center">
@@ -153,8 +153,8 @@
                         <img src="{{ asset('assets/img/other/shipping3.webp') }}" alt="icon-img">
                     </div>
                     <div class="shipping__content">
-                        <h2 class="shipping__content--title h3">100% Money Back</h2>
-                        <p class="shipping__content--desc">You have 30 days to Return</p>
+                        <h2 class="shipping__content--title h3">Productos originales</h2>
+                        <p class="shipping__content--desc">Calidad garantizada</p>
                     </div>
                 </div>
                 <div class="shipping__items style2 d-flex align-items-center">
@@ -162,8 +162,8 @@
                         <img src="{{ asset('assets/img/other/shipping4.webp') }}" alt="icon-img">
                     </div>
                     <div class="shipping__content">
-                        <h2 class="shipping__content--title h3">Payment Secure</h2>
-                        <p class="shipping__content--desc">We ensure secure payment</p>
+                        <h2 class="shipping__content--title h3">Pago en efectivo</h2>
+                        <p class="shipping__content--desc">O deposito bancario</p>
                     </div>
                 </div>
             </div>

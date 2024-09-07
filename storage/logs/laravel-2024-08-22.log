@@ -1,0 +1,45 @@
+[2024-08-22 06:04:18] local.INFO: Processing combination: {"size":"Pequeño","color":"verde"} 
+[2024-08-22 06:04:18] local.INFO: Using provided SKU: {"sku":"sadada"} 
+[2024-08-22 06:04:18] local.INFO: SKU saved: {"sku":"sadada","size":"Pequeño","color":"verde"} 
+[2024-08-22 06:04:18] local.INFO: Processing combination: {"size":"Pequeño","color":"azul"} 
+[2024-08-22 06:04:18] local.INFO: Using provided SKU: {"sku":"asdad"} 
+[2024-08-22 06:04:18] local.INFO: SKU saved: {"sku":"asdad","size":"Pequeño","color":"azul"} 
+[2024-08-22 06:09:18] local.INFO: Processing combination: {"size":"Mediano","color":"verde"} 
+[2024-08-22 06:09:18] local.INFO: Using provided SKU: {"sku":"dsfsfdsfdsfwe"} 
+[2024-08-22 06:09:18] local.INFO: SKU saved: {"sku":"dsfsfdsfdsfwe","size":"Mediano","color":"verde"} 
+[2024-08-22 06:09:18] local.INFO: Processing combination: {"size":"Mediano","color":"blanco"} 
+[2024-08-22 06:09:18] local.INFO: Using provided SKU: {"sku":"fgdfgdrter"} 
+[2024-08-22 06:09:18] local.INFO: SKU saved: {"sku":"fgdfgdrter","size":"Mediano","color":"blanco"} 
+[2024-08-22 06:09:18] local.INFO: Processing combination: {"size":"Grande","color":"verde"} 
+[2024-08-22 06:09:18] local.INFO: Using provided SKU: {"sku":"yitiytytret"} 
+[2024-08-22 06:09:18] local.INFO: SKU saved: {"sku":"yitiytytret","size":"Grande","color":"verde"} 
+[2024-08-22 06:09:18] local.INFO: Processing combination: {"size":"Grande","color":"blanco"} 
+[2024-08-22 06:09:18] local.INFO: Using provided SKU: {"sku":"swqgggrreertrtr"} 
+[2024-08-22 06:09:18] local.INFO: SKU saved: {"sku":"swqgggrreertrtr","size":"Grande","color":"blanco"} 
+[2024-08-22 16:22:49] local.INFO: Processing combination: {"size":"Grande","color":"Cromado"} 
+[2024-08-22 16:22:49] local.INFO: Using provided SKU: {"sku":"grcro"} 
+[2024-08-22 16:22:49] local.INFO: SKU saved: {"sku":"grcro","size":"Grande","color":"Cromado"} 
+[2024-08-22 16:22:49] local.INFO: Processing combination: {"size":"Extra Small","color":"Cromado"} 
+[2024-08-22 16:22:49] local.INFO: Using provided SKU: {"sku":"xscro"} 
+[2024-08-22 16:22:49] local.INFO: SKU saved: {"sku":"xscro","size":"Extra Small","color":"Cromado"} 
+[2024-08-22 16:23:22] local.INFO: Processing combination: {"size":"Grande","color":"Cromado"} 
+[2024-08-22 16:23:22] local.INFO: Using provided SKU: {"sku":"grcro"} 
+[2024-08-22 16:23:22] local.INFO: SKU saved: {"sku":"grcro","size":"Grande","color":"Cromado"} 
+[2024-08-22 16:23:22] local.INFO: Processing combination: {"size":"Extra Small","color":"Cromado"} 
+[2024-08-22 16:23:22] local.INFO: Using provided SKU: {"sku":"xscro"} 
+[2024-08-22 16:23:22] local.INFO: SKU saved: {"sku":"xscro","size":"Extra Small","color":"Cromado"} 
+[2024-08-22 16:37:02] local.INFO: Processing combination: {"size":"Grande","color":"Cromado"} 
+[2024-08-22 16:37:02] local.INFO: Using provided SKU: {"sku":"grcro"} 
+[2024-08-22 16:37:02] local.INFO: SKU saved: {"sku":"grcro","size":"Grande","color":"Cromado"} 
+[2024-08-22 16:37:02] local.INFO: Processing combination: {"size":"Extra Small","color":"Cromado"} 
+[2024-08-22 16:37:02] local.INFO: Using provided SKU: {"sku":"xscro"} 
+[2024-08-22 16:37:02] local.INFO: SKU saved: {"sku":"xscro","size":"Extra Small","color":"Cromado"} 
+[2024-08-22 16:46:23] local.INFO: Processing combination: {"size":"Extra Small","color":"verde"} 
+[2024-08-22 16:46:23] local.INFO: Using provided SKU: {"sku":"xsgree"} 
+[2024-08-22 16:46:23] local.INFO: SKU saved: {"sku":"xsgree","size":"Extra Small","color":"verde"} 
+[2024-08-22 16:46:23] local.INFO: Processing combination: {"size":"Extra Small","color":"amarillo"} 
+[2024-08-22 16:46:23] local.INFO: Using provided SKU: {"sku":"xsyell"} 
+[2024-08-22 16:46:23] local.INFO: SKU saved: {"sku":"xsyell","size":"Extra Small","color":"amarillo"} 
+[2024-08-22 19:32:38] local.INFO: Processing combination: {"size":"Pequeño","color":"verde"} 
+[2024-08-22 19:32:38] local.INFO: Using provided SKU: {"sku":"1233"} 
+[2024-08-22 19:32:38] local.INFO: SKU saved: {"sku":"1233","size":"Pequeño","color":"verde"} 

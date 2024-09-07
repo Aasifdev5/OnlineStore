@@ -1,6 +1,6 @@
 @extends('admin.Master')
 @section('title')
-    Products
+    Productos
 @endsection
 @section('content')
     <div class="page-body">
@@ -15,21 +15,17 @@
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        <span>{{ __('Products') }}</span>
+                                        <span>{{ __('Productos') }}</span>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="float-right">
                                             <a id="show-form-btn" class="btn btn-primary btn-form pull-right"><i
-                                                    class="fa fa-plus"></i> {{ __('Add New') }}</a>
-                                                    <center>
-                                                        <a href="{{ route('export.products') }}" class="btn btn-success ">
-                                                            {{ __('Export Products') }}
-                                                        </a>
-                                                    </center>
+                                                    class="fa fa-plus"></i> {{ __('Agregar nuevo') }}</a>
+                                                   
 
 
                                                     <a href="{{ url('admin\import') }}" class="btn btn-primary btn-form pull-left"><i
-                                                        class="fa fa-plus"></i> {{ __('Import Products') }}</a>
+                                                        class="fa fa-plus"></i> {{ __('Importar productos') }}</a>
                                         </div>
                                     </div>
                                 </div>
@@ -45,13 +41,13 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="form-group">
-                                                    <label for="title">{{ __('Product Name') }}<span
+                                                    <label for="title">{{ __('Titulo del producto') }}<span
                                                             class="red">*</span></label>
                                                     <input type="text" name="title" id="title"
                                                         class="form-control parsley-validated" data-required="true">
                                                 </div>
                                             </div>
-
+                                        
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label for="slug">{{ __('Slug') }}<span
@@ -61,10 +57,10 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
-                                                <label class="col-form-label"> Category<span
+                                                <label class="col-form-label"> Categoría<span
                                                             class="red">*</span></label>
                                                 <select name="categories"  class="select2 form-control">
-                                                    <option value="">Please Category</option>
+                                                    <option value="">Por favor categoría</option>
                                         @php
                                         $categories = \App\Models\Category::all();
                                         @endphp
@@ -74,35 +70,35 @@
                                     </select>
                                             </div>
                                             <div class="col-sm-6">
-
-                                                    <label for="brand_id">{{ __('Brand') }}<span
+                                               
+                                                    <label for="brand_id">{{ __('Marca') }}<span
                                                             class="red">*</span></label>
                                                     <select name="brand_id" id="brand_id"
                                                         class="select2 chosen-select form-control">
-                                                        <option value="0">No Brand</option>
+                                                        <option value="0">No Marca</option>
                                                         @foreach ($brandlist as $row)
                                                             <option value="{{ $row->id }}">
                                                                 {{ $row->name }}
                                                             </option>
                                                         @endforeach
                                                     </select>
-
+                                                
                                             </div>
                                         </div>
+                                        
 
 
 
-
-
-
-
+                                            
+                                            
+                                       
 
                                         <input type="hidden" name="RecordId" id="RecordId">
                                         <br>
                                         <div class="row tabs-footer mt-15">
                                             <div class="col-lg-12">
                                                 <button type="submit"
-                                                    class="btn btn-primary mr-10">{{ __('Save') }}</button>
+                                                    class="btn btn-primary mr-10">{{ __('Ahorrar') }}</button>
 
                                             </div>
                                         </div>

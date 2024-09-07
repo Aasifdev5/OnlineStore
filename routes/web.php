@@ -10,15 +10,14 @@ use App\Http\Controllers\Admin\BlogCategoryController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\ContactUsController;
 use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\Admin\HomeSettingController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\LocationController;
-
 use App\Http\Controllers\Admin\RoleController;
-
+use App\Http\Controllers\Admin\ColorController;
+use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\SettingController;
 
 use App\Http\Controllers\Admin\SubcategoryController;
@@ -27,17 +26,18 @@ use App\Http\Controllers\Admin\SupportTicketController;
 
 use App\Http\Controllers\Admin\TagController;
 
-use App\Http\Controllers\Admin\TaxController;
+use App\Http\Controllers\Admin\MediaController;
 
 use App\Http\Controllers\Backend\ProductsController;
+
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\EmailAppController;
 use App\Http\Controllers\FacebookSocialiteController;
 use App\Http\Controllers\FundController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\InvoiceController;
-
 use App\Http\Controllers\MailTemplateController;
+
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Pages;
 use App\Http\Controllers\QRCodeController;
@@ -46,14 +46,12 @@ use App\Http\Controllers\ScreenTimeController;
 use App\Http\Controllers\SubscriptionPlanController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VerificationController;
-use App\Http\Middleware\InactivityTimeout;
 use App\Http\Middleware\SetLocale;
+use App\Http\Middleware\InactivityTimeout;
 use App\Models\Language;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
-
-
 
 /*
 |--------------------------------------------------------------------------
@@ -84,6 +82,9 @@ Route::group(['middleware' => ['prevent-back-history', SetLocale::class]], funct
         return redirect()->back()->with('local', $ln);
     });
 
+
+Route::get('/filter-products',[UserController::class, 'filterProducts']);
+
     Route::get('/', [UserController::class, 'Userlogin'])->name('Userlogin');
     Route::get('getProducts', [UserController::class, 'getProducts'])->name('getProducts');
     Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard')->middleware('isLoggedIn');
@@ -98,11 +99,15 @@ Route::group(['middleware' => ['prevent-back-history', SetLocale::class]], funct
     Route::post('/update_password', [UserController::class, 'update_password'])->name('update_password');
     Route::get('/edit_profile', [UserController::class, 'edit_profile'])->middleware('isLoggedIn');
     Route::post('update_profile', [UserController::class, 'update_profile']);
-    Route::get('addToCart/{price}/{id}/{quantity}', [UserController::class, 'addToCart'])->name('addToCart');
+    Route::get('addToCart/{price}/{id}/{quantity}/{chooseSize}', [UserController::class, 'addToCart'])->name('addToCart');
     Route::get('BuyaddToCart/{price}/{id}/{quantity}', [UserController::class, 'BuyaddToCart'])->name('BuyaddToCart');
+    Route::get('vBuyaddToCart/{price}/{id}/{quantity}/{chooseSize}', [UserController::class, 'vBuyaddToCart'])->name('vBuyaddToCart');
     Route::post('/update-quantity', [UserController::class, 'updateQuantity']);
     Route::get('RemoveCart/{id}', [UserController::class, 'removeCart'])->name('remove.cart');
-    Route::get('cart', [UserController::class, 'cart'])->name('cart');
+    Route::get('cart', [UserController::class, 'cart'])->name('cart')->middleware('isLoggedIn');
+    Route::get('/clear-cart', [UserController::class, 'clearCart'])->name('clear.cart');
+Route::get('/clear-wishlist', [UserController::class, 'clearWishlist'])->name('clear.wishlist');
+
     Route::get('/finish', [UserController::class, 'finish'])->name('finish')->middleware('isLoggedIn');
     Route::get('/userNotifications', [UserController::class, 'userNotifications'])->name('userNotifications');
     Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
@@ -113,19 +118,17 @@ Route::group(['middleware' => ['prevent-back-history', SetLocale::class]], funct
     Route::get('checkout', [UserController::class, 'checkout'])->name('checkout');
     Route::post('/billing', [UserController::class, 'Billingstore'])->name('billing.store');
     Route::post('/order', [OrderController::class, 'store'])->name('order.store');
-    Route::get('/order/success', function () {
-        return view('success');
-    })->name('order.success');
+    Route::get('/OrderSuccess/{id}', [UserController::class, 'OrderSuccess'])->name('OrderSuccess');
     Route::get('/invoice/{id}', [InvoiceController::class,'generateInvoice'])->name('invoice.generate');
 
     Route::get('/news-category/{id}', [UserController::class, 'news_category'])->name('news_category');
-    Route::get('/wishlist', [UserController::class, 'wishlist'])->name('wishlist');
-    Route::get('/home', [UserController::class, 'home'])->name('home');
+    Route::get('/wishlist', [UserController::class, 'wishlist'])->name('wishlist')->middleware('isLoggedIn');
+    Route::get('/home', [UserController::class, 'home'])->name('home')->middleware('isLoggedIn');
     Route::get('addToWishlist/{price}/{id}', [UserController::class, 'addToWishlist'])->name('addToWishlist');
     Route::get('RemoveWish/{id}', [UserController::class, 'RemoveWish'])->name('remove.wish');
     Route::get('/MyOrders', [UserController::class, 'MyOrders'])->name('MyOrders')->middleware('isLoggedIn');
     Route::post('pay_credit/{id}', [UserController::class, 'pay_credit'])->name('pay_credit')->middleware('isLoggedIn');
-    Route::get('page/{slug}', [Pages::class, 'get_page']);
+    Route::get('page/{slug}', [Pages::class, 'get_page'])->middleware('isLoggedIn');
     Route::post('contact_send', [Pages::class, 'contact_send']);
     Route::get('/edit_project/{id}', [UserController::class, 'edit_project'])->name('edit_project')->middleware('isLoggedIn');
     Route::post('/update_project', [UserController::class, 'update_project'])->name('update_project');
@@ -137,15 +140,12 @@ Route::group(['middleware' => ['prevent-back-history', SetLocale::class]], funct
     Route::get('/productbyCategory/{id}', [UserController::class, 'productbyCategory'])->name('productbyCategory')->middleware('isLoggedIn');
     Route::get('/productbySubCategory/{category}/{subcategory}', [UserController::class, 'productbySubCategory'])->name('productbySubCategory')->middleware('isLoggedIn');
     Route::get('/productbyChildCategory/{category}/{subcategory}/{childcategory}', [UserController::class, 'productbyChildCategory'])->name('productbyChildCategory')->middleware('isLoggedIn');
-    Route::post('/update-logout-time', [UserController::class, 'updateLogoutTime'])->name('update.logout.time');
-
-
     Route::get('/CreateProject', [UserController::class, 'CreateProject'])->name('CreateProject')->middleware('isLoggedIn');
     Route::get('/signup', [UserController::class, 'signup'])->name('signup')->middleware('alreadyLoggedIn');
 
     Route::get('/Userlogin', [UserController::class, 'Userlogin'])->name('Userlogin')->middleware('alreadyLoggedIn');
 });
-
+Route::post('/update-logout-time', [UserController::class, 'updateLogoutTime'])->name('update.logout.time');
 Route::post('/reg', [UserController::class, 'registration']);
 
 Route::post('/log', [UserController::class, 'login'])->name('login');
@@ -163,11 +163,10 @@ Route::get('/project_category/{category}', [UserController::class, 'project_cate
 Route::get('/verify-email/{id}/{hash}', [VerificationController::class, 'verifyEmail'])->name('verification.verify');
 
 
-
+Route::get('/SkugenerateInvoice/{id}', [InvoiceController::class,'SkugenerateInvoice'])->name('SkugenerateInvoice');
 Route::get('/get-states', [UserController::class, 'getStates'])->name('get-states');
 Route::get('/get-cities', [UserController::class, 'getCities'])->name('get-cities');
 
-// routes/web.php
 Route::get('/payments/data', [Admin::class, 'getPaymentData'])->name('payments.data');
 Route::group(['prefix' => 'admin'], function () {
 
@@ -188,18 +187,19 @@ Route::group(['prefix' => 'admin'], function () {
             App::setLocale($ln);
             return redirect()->back();
         });
-        Route::get('/getOrderDetails/{orderId}', [Admin::class, 'getOrderDetails'])->name('getOrderDetails');
-        Route::get('/filter-products',[UserController::class, 'filterProducts']);
+        // routes/web.php
+
+     Route::get('/getOrderDetails/{orderId}', [Admin::class, 'getOrderDetails'])->name('getOrderDetails');
+
         Route::get('permissions/index', [Admin::class, 'Plist'])->name('permissions.index');
         Route::get('permissions/create', [Admin::class, 'Pcreate'])->name('permissions.create');
         Route::post('permissions', [Admin::class, 'Pstore'])->name('permissions.store');
         Route::get('permissions/{id}/edit', [Admin::class, 'Pedit'])->name('permissions.edit');
         Route::put('permissions/{id}', [Admin::class, 'Pupdate'])->name('permissions.update');
         Route::delete('/permission/{id}', [Admin::class, 'pdestroy'])->name('permissions.delete');
-        Route::get('/tracked-times', [ScreenTimeController::class, 'index'])->name('tracked.times');
-
-
-        Route::get('/qrcode', [QRCodeController::class, 'index'])->name('qrcode.index');
+Route::get('/tracked-times', [ScreenTimeController::class, 'index'])->name('tracked.times');
+Route::get('showAllUsersTimeSpent', [ScreenTimeController::class, 'showAllUsersTimeSpent'])->name('showAllUsersTimeSpent');
+        Route::get('/qrcode', [QRCodeController::class, 'index'])->name('qrcode.index')->middleware('AdminIsLoggedIn');
         Route::get('/destroy_qrcode/{id}', [QRCodeController::class, 'destroy'])->name('destroy');
         Route::post('/qrcode/generate', [QRCodeController::class, 'generateQrCode'])->name('qrcode.generate');
         Route::get('/qrcode/download/{data}', [QRCodeController::class, 'downloadQrCode'])->name('qrcode.download');
@@ -404,7 +404,7 @@ Route::group(['prefix' => 'admin'], function () {
             Route::post('update/{uuid}', [BrandController::class, 'update'])->name('brands.update');
             Route::get('delete/{uuid}', [BrandController::class, 'delete'])->name('brands.delete');
         });
-        Route::prefix('colors')->group(function () {
+Route::prefix('colors')->group(function () {
             Route::get('/', [ColorController::class, 'index'])->name('colors.index')->middleware('AdminIsLoggedIn');
             Route::get('create', [ColorController::class, 'create'])->name('colors.create')->middleware('AdminIsLoggedIn');
             Route::post('store', [ColorController::class, 'store'])->name('colors.store');
@@ -412,25 +412,37 @@ Route::group(['prefix' => 'admin'], function () {
             Route::post('update/{uuid}', [ColorController::class, 'update'])->name('colors.update');
             Route::get('delete/{uuid}', [ColorController::class, 'delete'])->name('colors.delete');
         });
-
-        Route::prefix('tax')->group(function () {
-            Route::get('/', [TaxController::class, 'index'])->name('tax.index')->middleware('AdminIsLoggedIn');
-            Route::get('create', [TaxController::class, 'create'])->name('tax.create')->middleware('AdminIsLoggedIn');
-            Route::post('store', [TaxController::class, 'store'])->name('tax.store');
-            Route::get('edit/{uuid}', [TaxController::class, 'edit'])->name('tax.edit')->middleware('AdminIsLoggedIn');
-            Route::post('update/{uuid}', [TaxController::class, 'update'])->name('tax.update');
-            Route::get('delete/{uuid}', [TaxController::class, 'delete'])->name('tax.delete');
+        Route::prefix('size')->group(function () {
+            Route::get('/', [SizeController::class, 'index'])->name('size.index')->middleware('AdminIsLoggedIn');
+            Route::get('create', [SizeController::class, 'create'])->name('size.create')->middleware('AdminIsLoggedIn');
+            Route::post('store', [SizeController::class, 'store'])->name('size.store');
+            Route::get('edit/{uuid}', [SizeController::class, 'edit'])->name('size.edit')->middleware('AdminIsLoggedIn');
+            Route::post('update/{uuid}', [SizeController::class, 'update'])->name('size.update');
+            Route::get('delete/{uuid}', [SizeController::class, 'delete'])->name('size.delete');
+        });
+        Route::get('childcategory', [SubcategoryController::class, 'childcategory'])->name('childcategory')->middleware('AdminIsLoggedIn');
+        Route::prefix('gallery')->group(function () {
+            Route::get('/', [MediaController::class, 'index'])->name('gallery.index')->middleware('AdminIsLoggedIn');
+            Route::get('create', [MediaController::class, 'create'])->name('gallery.create')->middleware('AdminIsLoggedIn');
+            Route::post('store', [MediaController::class, 'store'])->name('gallery.store');
+            Route::get('edit/{id}', [MediaController::class, 'edit'])->name('gallery.edit')->middleware('AdminIsLoggedIn');
+            Route::post('update/{id}', [MediaController::class, 'update'])->name('gallery.update');
+            Route::get('delete/{id}', [MediaController::class, 'delete'])->name('gallery.delete');
         });
         //Products
-        Route::get('/products', [ProductsController::class, 'getProductsPageLoad'])->name('backend.products');
-        Route::get('/getProductsTableData', [ProductsController::class, 'getProductsTableData'])->name('backend.getProductsTableData');
+        Route::get('/products', [ProductsController::class, 'getProductsPageLoad'])->name('backend.products')->middleware('AdminIsLoggedIn');
+        Route::get('/get-size-details', [ProductsController::class, 'getSizeDetails']);
+        Route::get('/get-color-details', [ProductsController::class, 'getColorDetails']);
+
+        Route::get('/getProductsTableData', [ProductsController::class, 'getProductsTableData'])->name('backend.getProductsTableData')->middleware('AdminIsLoggedIn');
         Route::post('saveProductsData', [ProductsController::class, 'saveProductsData'])->name('saveProductsData');
         Route::delete('/deleteProducts/{id}', [ProductsController::class, 'deleteProducts'])->name('backend.deleteProducts');
-        Route::get('/get-subcategories/{categoryId}', [ProductsController::class, 'getSubcategories']);
-        Route::get('/get-childcategories/{subcategoryId}', [ProductsController::class, 'getChildcategories']);
+Route::get('/get-subcategories/{categoryId}', [ProductsController::class, 'getSubcategories']);
+Route::get('/get-childcategories/{subcategoryId}', [ProductsController::class, 'getChildcategories']);
+
         Route::post('/hasProductSlug', [ProductsController::class, 'hasProductSlug'])->name('backend.hasProductSlug');
         //Update
-        Route::get('/product/{id}', [ProductsController::class, 'getProductPageData'])->name('backend.product');
+        Route::get('/product/{id}', [ProductsController::class, 'getProductPageData'])->name('backend.product')->middleware('AdminIsLoggedIn');
         Route::post('/updateProductsData', [ProductsController::class, 'updateProductsData'])->name('backend.updateProductsData');
 
         //Import
@@ -448,7 +460,7 @@ Route::group(['prefix' => 'admin'], function () {
             return response()->download($file, $fileName, $headers);
         })->name('download.sample.file');
 
-        Route::post('track-time', [ScreenTimeController::class, 'trackTime'])->name('track.time');
+        Route::post('track-time', [ScreenTimeController::class, 'trackTime'])->name('track.time')->middleware('AdminIsLoggedIn');
 
         //Export
         Route::get('/export-products', function () {
@@ -458,30 +470,30 @@ Route::group(['prefix' => 'admin'], function () {
 
 
         //Price
-        Route::get('/price/{id}', [ProductsController::class, 'getPricePageData'])->name('backend.price');
+        Route::get('/price/{id}', [ProductsController::class, 'getPricePageData'])->name('backend.price')->middleware('AdminIsLoggedIn');
         Route::post('/savePriceData', [ProductsController::class, 'savePriceData'])->name('backend.savePriceData');
 
         //Inventory
-        Route::get('/inventory/{id}', [ProductsController::class, 'getInventoryPageData'])->name('backend.inventory');
+        Route::get('/inventory/{id}', [ProductsController::class, 'getInventoryPageData'])->name('backend.inventory')->middleware('AdminIsLoggedIn');
         Route::post('/saveInventoryData', [ProductsController::class, 'saveInventoryData'])->name('backend.saveInventoryData');
 
         //Product Images
-        Route::get('/product-images/{id}', [ProductsController::class, 'getProductImagesPageData'])->name('backend.product-images');
-        Route::get('/getProductImagesTableData', [ProductsController::class, 'getProductImagesTableData'])->name('backend.getProductImagesTableData');
+        Route::get('/product-images/{id}', [ProductsController::class, 'getProductImagesPageData'])->name('backend.product-images')->middleware('AdminIsLoggedIn');
+        Route::get('/getProductImagesTableData', [ProductsController::class, 'getProductImagesTableData'])->name('backend.getProductImagesTableData')->middleware('AdminIsLoggedIn');
         Route::post('/saveProductImagesData', [ProductsController::class, 'saveProductImagesData'])->name('backend.saveProductImagesData');
         Route::post('/deleteProductImages', [ProductsController::class, 'deleteProductImages'])->name('backend.deleteProductImages');
 
         //Variations
-        Route::get('/variations/{id}', [ProductsController::class, 'getVariationsPageData'])->name('backend.variations');
+        Route::get('/variations/{id}', [ProductsController::class, 'getVariationsPageData'])->name('backend.variations')->middleware('AdminIsLoggedIn');
         Route::post('/saveVariationsData', [ProductsController::class, 'saveVariationsData'])->name('backend.saveVariationsData');
 
         //Product SEO
-        Route::get('/product-seo/{id}', [ProductsController::class, 'getProductSEOPageData'])->name('backend.product-seo');
+        Route::get('/product-seo/{id}', [ProductsController::class, 'getProductSEOPageData'])->name('backend.product-seo')->middleware('AdminIsLoggedIn');
         Route::post('/saveProductSEOData', [ProductsController::class, 'saveProductSEOData'])->name('backend.saveProductSEOData');
 
         //Related Products
-        Route::get('/related-products/{id}', [ProductsController::class, 'getRelatedProductsPageData'])->name('backend.related-products');
-        Route::get('/getProductListForRelatedTableData', [ProductsController::class, 'getProductListForRelatedTableData'])->name('backend.getProductListForRelatedTableData');
+        Route::get('/related-products/{id}', [ProductsController::class, 'getRelatedProductsPageData'])->name('backend.related-products')->middleware('AdminIsLoggedIn');
+        Route::get('/getProductListForRelatedTableData', [ProductsController::class, 'getProductListForRelatedTableData'])->name('backend.getProductListForRelatedTableData')->middleware('AdminIsLoggedIn');
         Route::get('/getRelatedProductTableData', [ProductsController::class, 'getRelatedProductTableData'])->name('backend.getRelatedProductTableData');
         Route::post('/saveRelatedProductsData', [ProductsController::class, 'saveRelatedProductsData'])->name('backend.saveRelatedProductsData');
         Route::post('/deleteRelatedProduct', [ProductsController::class, 'deleteRelatedProduct'])->name('backend.deleteRelatedProduct');

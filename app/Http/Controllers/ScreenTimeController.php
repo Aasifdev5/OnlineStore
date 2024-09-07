@@ -14,111 +14,89 @@ use Illuminate\Support\Facades\Session;
 
 class ScreenTimeController extends Controller
 {
-    public function showAllUsersTimeSpent(Request $request)
-    {
-        if (Session::has('LoggedIn')) {
+   public function showAllUsersTimeSpent(Request $request)
+{
+    if (Session::has('LoggedIn')) {
+        $user_session = User::where('id', Session::get('LoggedIn'))->first();
 
-            $user_session = User::where('id', Session::get('LoggedIn'))->first();
-            // Fetch users where is_super_admin is 0
-            $users = User::where('is_super_admin', 0)->get();
+        // Fetch users where is_super_admin is 0
+        $users = User::where('is_super_admin', 0)->get();
 
-            // Initialize an empty array to store user time spent data
-            $usersTimeSpent = new Collection();
+        // Initialize an empty array to store user time spent data
+        $usersTimeSpent = new Collection();
 
-            // Iterate through each user to calculate time spent per day and week
-            foreach ($users as $user) {
-                $userId = $user->id;
+        // Iterate through each user to calculate time spent per day, week, and total
+        foreach ($users as $user) {
+            $userId = $user->id;
 
-                // Calculate time spent per day and week for the current user
-                $timeSpentToday = $this->timeSpentPerDay($userId);
-                $timeSpentThisWeek = $this->timeSpentPerWeek($userId);
+            // Calculate time spent per day, week, and total for the current user
+            $timeSpentToday = $this->timeSpentPerDay($userId);
+            $timeSpentThisWeek = $this->timeSpentPerWeek($userId);
+            $timeSpentTotal = $this->timeSpentTotal($userId);
 
-                // Add user data to the collection
-                $usersTimeSpent->push([
-                    'user' => $user,
-                    'timeSpentToday' => gmdate('H:i:s', $timeSpentToday),
-                    'timeSpentThisWeek' => gmdate('H:i:s', $timeSpentThisWeek),
-                ]);
-            }
+            // Parse last_seen as Carbon instance
+            $lastSeen = $user->last_seen ? Carbon::parse($user->last_seen)->format('d-m-Y H:i:s') : 'Never';
 
-
-            // Pass data to the view
-            return view('admin.backend.all-users-time-spent', [
-                'usersTimeSpent' => $usersTimeSpent,
-            ], compact('user_session'));
-        } else {
-            return Redirect()->with('fail', 'You have to login first');
+            // Add user data to the collection
+            $usersTimeSpent->push([
+                'user' => $user,
+                'timeSpentToday' => gmdate('H:i:s', $timeSpentToday),
+                'timeSpentThisWeek' => gmdate('H:i:s', $timeSpentThisWeek),
+                'timeSpentTotal' => gmdate('H:i:s', $timeSpentTotal),
+                'lastSeen' => $lastSeen
+            ]);
         }
+
+        // Pass data to the view
+        return view('admin.backend.all-users-time-spent', [
+            'usersTimeSpent' => $usersTimeSpent,
+        ], compact('user_session')); 
+
+    } else {
+        return Redirect()->with('fail', 'You have to login first');
     }
+}
 
-    private function timeSpentPerDay($userId)
-    {
-        // Calculate time spent today
-        $today = Carbon::today();
-        $timeLogsToday = TimeLog::where('user_id', $userId)
-            ->whereDate('start_time', $today)
-            ->get();
+private function timeSpentPerDay($userId)
+{
+    // Calculate time spent today using UTC
+    $today = Carbon::today('UTC');
+    $timeLogsToday = TimeLog::where('user_id', $userId)
+        ->whereDate('start_time', $today)
+        ->get();
 
-        $totalTimeToday = $timeLogsToday->sum(function ($log) {
-            return $log->end_time ? $log->start_time->diffInSeconds($log->end_time) : 0;
-        });
+    $totalTimeToday = $timeLogsToday->sum(function ($log) {
+        return $log->end_time ? $log->start_time->diffInSeconds($log->end_time) : 0;
+    });
 
-        return $totalTimeToday; // Return total time spent in seconds for today
-    }
+    return $totalTimeToday; // Return total time spent in seconds for today
+}
 
-    private function timeSpentPerWeek($userId)
-    {
-        // Calculate time spent this week
-        $startOfWeek = Carbon::now()->startOfWeek();
-        $endOfWeek = Carbon::now()->endOfWeek();
-        $timeLogsWeek = TimeLog::where('user_id', $userId)
-            ->whereBetween('start_time', [$startOfWeek, $endOfWeek])
-            ->get();
+private function timeSpentPerWeek($userId)
+{
+    // Calculate time spent this week using UTC
+    $startOfWeek = Carbon::now('UTC')->startOfWeek();
+    $endOfWeek = Carbon::now('UTC')->endOfWeek();
+    $timeLogsWeek = TimeLog::where('user_id', $userId)
+        ->whereBetween('start_time', [$startOfWeek, $endOfWeek])
+        ->get();
 
-        $totalTimeWeek = $timeLogsWeek->sum(function ($log) {
-            return $log->end_time ? $log->start_time->diffInSeconds($log->end_time) : 0;
-        });
+    $totalTimeWeek = $timeLogsWeek->sum(function ($log) {
+        return $log->end_time ? $log->start_time->diffInSeconds($log->end_time) : 0;
+    });
 
-        return $totalTimeWeek; // Return total time spent in seconds for this week
-    }
-    public function trackTime(Request $request)
-    {
-        // dd($request->json()->all());
-        $data = $request->json()->all();
+    return $totalTimeWeek; // Return total time spent in seconds for this week
+}
 
-        // Assuming you have a ScreenTime model to save the data
-        ScreenTime::create([
-            'user_id' => Session::get('LoggedIn'), // Assuming you have authentication
-            'url' => $data['url'],
-            'product_id' => $data['productId'], // Corrected to match the sent data
-            'time_spent' => $data['timeSpent']
-        ]);
+private function timeSpentTotal($userId)
+{
+    // Calculate total time spent using UTC
+    $timeLogsTotal = TimeLog::where('user_id', $userId)->get();
 
-        return response()->json(['status' => 'success']);
-    }
-    public function index()
-    {
-        if (Session::has('LoggedIn')) {
+    $totalTime = $timeLogsTotal->sum(function ($log) {
+        return $log->end_time ? $log->start_time->diffInSeconds($log->end_time) : 0;
+    });
 
-            $user_session = User::where('id', Session::get('LoggedIn'))->first();
-
-            $trackedTimes = ScreenTime::with(['product', 'user'])
-                ->join('users', 'screen_times.user_id', '=', 'users.id')
-                ->select(
-                    'screen_times.product_id',
-                    'screen_times.user_id',
-                    DB::raw('SUM(screen_times.time_spent) as total_time_spent'),
-                    'screen_times.url' // Include the 'url' field
-                )
-                ->where('users.is_super_admin', 0)
-                ->groupBy('screen_times.product_id', 'screen_times.user_id', 'screen_times.url') // Group by 'url' if necessary
-                ->orderBy('screen_times.created_at', 'desc')
-                ->get();
-
-            $title = 'Track Time Of Products';
-            return view('admin.backend.index', compact('trackedTimes', 'title', 'user_session'));
-        } else {
-            return Redirect()->with('fail', 'You have to login first');
-        }
-    }
+    return $totalTime; // Return total time spent in seconds
+}
 }

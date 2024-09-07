@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Exports\TransactionsExport;
 use App\Http\helper;
 use App\Mail\SendMailreset;
-use App\Models\Ad;
-use App\Models\Campaign;
+use App\Models\OrderItem;
+use App\Models\Product;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Country;
@@ -611,121 +611,128 @@ class Admin extends Controller
                 ->get();
 
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
-            $labels2 = [];
-            $data2 = [];
+ $labels2 = [];
+$data2 = [];
 
-            // Get the start and end of the current week
-            $startDate = Carbon::now()->startOfWeek();
-            $endDate = Carbon::now()->endOfWeek();
+// Get the start and end of the current week
+$startDate = Carbon::now()->startOfWeek();
+$endDate = Carbon::now()->endOfWeek();
 
-            // Generate labels and fetch data for each day of the current week
-            for ($date = $startDate; $date <= $endDate; $date->addDay()) {
-                // Append day to labels array
-                $labels2[] = $date->format('D, M j');
+// Generate labels and fetch data for each day of the current week
+for ($date = $startDate; $date <= $endDate; $date->addDay()) {
+    // Append day to labels array
+    $labels2[] = $date->format('D, M j');
 
-                // Fetch payments for the current day with 'accepted' = 1
-                $totalSale = DB::table('payments')
-                    ->where('accepted', 1)
-                    ->whereDate('created_at', $date->format('Y-m-d'))
-                    ->sum('amount');
+    // Fetch payments for the current day with 'accepted' = 1
+    $totalSale = DB::table('payments')
+        
+        ->whereDate('created_at', $date->format('Y-m-d'))
+        ->sum('amount');
 
-                // Append total sale to data array
-                $data2[] = $totalSale;
-            }
+    // Append total sale to data array
+    $data2[] = $totalSale;
+}
 
-            $chartData2 = [
-                'labels2' => $labels2, // Labels in order from start to end of week
-                'data2' => $data2, // Data matches the order of labels
-            ];
+$chartData2 = [
+    'labels2' => $labels2, // Labels in order from start to end of week
+    'data2' => $data2, // Data matches the order of labels
+];
 
 
-            return view('admin.dashboard', compact('user_session', 'total_users', 'usersData', 'chartData2'));
+            return view('admin.dashboard', compact('user_session', 'total_users', 'usersData','chartData2'));
         }
     }
-    public function getPaymentData(Request $request)
-    {
-        $type = $request->input('type', 'week'); // Default to week if not provided
-        $data = [];
+public function getPaymentData(Request $request)
+{
+    $type = $request->input('type', 'week'); // Default to week if not provided
+    $data = [];
 
-        switch ($type) {
-            case 'week':
-                $data = $this->calculateWeeklyData();
-                break;
-            case 'month':
-                $data = $this->calculateMonthlyData();
-                break;
-            case 'year':
-                $data = $this->calculateYearlyData();
-                break;
-            default:
-                return response()->json(['error' => 'Invalid type provided'], 400);
-        }
-
-        return response()->json($data);
+    switch ($type) {
+        case 'week':
+            $data = $this->calculateWeeklyData();
+            break;
+        case 'month':
+            $data = $this->calculateMonthlyData();
+            break;
+        case 'year':
+            $data = $this->calculateYearlyData();
+            break;
+        default:
+            return response()->json(['error' => 'Invalid type provided'], 400);
     }
 
-    protected function calculateWeeklyData()
-    {
-        $startDate = Carbon::now()->startOfWeek();
-        $endDate = Carbon::now()->endOfWeek();
+    return response()->json($data);
+}
 
-        $labels2 = [];
-        $data2 = [];
+protected function calculateWeeklyData()
+{
+    Carbon::setLocale('es'); // Set locale to Spanish
 
-        for ($date = $startDate; $date <= $endDate; $date->addDay()) {
-            $labels2[] = $date->format('D, M j');
-            $totalSale = DB::table('payments')
+    $startDate = Carbon::now()->startOfWeek();
+    $endDate = Carbon::now()->endOfWeek();
 
-                ->whereDate('created_at', $date->format('Y-m-d'))
-                ->sum('amount');
-            $data2[] = $totalSale;
-        }
+    $labels2 = [];
+    $data2 = [];
 
-        return ['labels2' => $labels2, 'data2' => $data2];
+    for ($date = $startDate; $date <= $endDate; $date->addDay()) {
+        $labels2[] = $date->isoFormat('ddd, D MMM'); // Format as 'Day, Date Month' in Spanish
+        $totalSale = DB::table('payments')
+            
+            ->whereDate('created_at', $date->format('Y-m-d'))
+            ->sum('amount');
+        $data2[] = $totalSale;
     }
 
-    protected function calculateMonthlyData()
-    {
-        $labels2 = [];
-        $data2 = [];
+    return ['labels2' => $labels2, 'data2' => $data2];
+}
 
-        $currentMonth = date('m');
-        $currentYear = date('Y');
-        $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $currentMonth, $currentYear);
+protected function calculateMonthlyData()
+{
+    Carbon::setLocale('es'); // Set locale to Spanish
 
-        for ($day = 1; $day <= $daysInMonth; $day++) {
-            $date = sprintf('%04d-%02d-%02d', $currentYear, $currentMonth, $day);
-            $labels2[] = date('d M', strtotime($date)); // Format as 'day Month'
-            $totalSale = DB::table('payments')
+    $labels2 = [];
+    $data2 = [];
 
-                ->whereDate('created_at', $date)
-                ->sum('amount');
-            $data2[] = $totalSale;
-        }
+    $currentMonth = date('m');
+    $currentYear = date('Y');
+    $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $currentMonth, $currentYear);
 
-        return ['labels2' => $labels2, 'data2' => $data2];
+    for ($day = 1; $day <= $daysInMonth; $day++) {
+        $date = sprintf('%04d-%02d-%02d', $currentYear, $currentMonth, $day);
+        $labels2[] = Carbon::parse($date)->isoFormat('D MMM'); // Format as 'Date Month' in Spanish
+        $totalSale = DB::table('payments')
+            
+            ->whereDate('created_at', $date)
+            ->sum('amount');
+        $data2[] = $totalSale;
     }
 
-    protected function calculateYearlyData()
-    {
-        $labels2 = [];
-        $data2 = [];
+    return ['labels2' => $labels2, 'data2' => $data2];
+}
 
-        $currentYear = date('Y');
+protected function calculateYearlyData()
+{
+    Carbon::setLocale('es'); // Set locale to Spanish
 
-        for ($month = 1; $month <= 12; $month++) {
-            $monthStart = sprintf('%04d-%02d-01', $currentYear, $month);
-            $monthEnd = date('Y-m-t', strtotime($monthStart));
-            $labels2[] = date('M', strtotime($monthStart)); // Format as 'Month'
-            $totalSale = DB::table('payments')
+    $labels2 = [];
+    $data2 = [];
 
-                ->whereBetween('created_at', [$monthStart, $monthEnd])
-                ->sum('amount');
-            $data2[] = $totalSale;
-        }
+    $currentYear = date('Y');
 
-        return ['labels2' => $labels2, 'data2' => $data2];
+    for ($month = 1; $month <= 12; $month++) {
+        $monthStart = sprintf('%04d-%02d-01', $currentYear, $month);
+        $monthEnd = date('Y-m-t', strtotime($monthStart));
+        $labels2[] = Carbon::parse($monthStart)->isoFormat('MMMM'); // Format as 'Month' in Spanish
+        $totalSale = DB::table('payments')
+            
+            ->whereBetween('created_at', [$monthStart, $monthEnd])
+            ->sum('amount');
+        $data2[] = $totalSale;
     }
+
+    return ['labels2' => $labels2, 'data2' => $data2];
+}
+
 
     public function users(Request $request)
     {
@@ -860,7 +867,7 @@ class Admin extends Controller
             $image = $request->file('profile_photo')->getClientOriginalName();
             $final =  $request->profile_photo->move(public_path('profile_photo'), $image);
             $profile = $_FILES['profile_photo']['name'];
-        } else {
+        }else{
             $profile = '';
         }
 
@@ -870,14 +877,14 @@ class Admin extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'email_verified_at' => date('Y-m-d H:i:s'),
+            'email_verified_at'=>date('Y-m-d H:i:s'),
             'password' => $request->password,
             'city' => ($request->city),
             'store' => $request->store,
             'department' => $request->department,
             'location' => $request->location,
             'price' =>  $request->price,
-            'categories' => implode(',', $request->categories),
+            'categories' =>implode(',',$request->categories),
             'alter_mobile_number' => $request->alter_mobile_number,
             'profile_photo' => $profile,
             'status' => $request->status,
@@ -991,7 +998,7 @@ class Admin extends Controller
         }
         $data = User::find(Session::get('LoggedIn'));
         $data = User::where('id', '=', $request->user_id)->update([
-            'name' => $request->name,
+           'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password,
             'city' => ($request->city),
@@ -1862,72 +1869,115 @@ class Admin extends Controller
 
         if (Session::has('LoggedIn')) {
 
-            $transaction = Payment::all();
+            // Fetch all transactions ordered by ID in descending order
+    $transaction = Payment::orderBy('id', 'desc')->get();
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
 
             return view('admin.balance', compact('user_session', 'transaction'));
         }
     }
-    public function getOrderDetails($orderId)
-    {
-        // Fetch order details from your database
-        $order = Order::where('id', $orderId)->first();
+ public function getOrderDetails($orderId)
+{
+    // Fetch order details from your database
+    $order = Order::where('id', $orderId)->first();
 
-        if (!$order) {
-            return response()->json(['error' => 'Order not found'], 404);
-        }
-
-        $transaction = Payment::where('order_id', $orderId)->first();
-
-        // Assuming `product_details` field contains JSON data of products
-        $products = json_decode($transaction->product_details, true);
-
-        // Prepare an array to store detailed product information
-        $aggregatedProducts = [];
-
-        // Aggregate quantities and prices
-        foreach ($products as $product) {
-            $productId = $product['product_id'];
-
-            // Fetch product details
-            $productDetails = Product::find($productId);
-
-            // Skip if product details not found
-            if (!$productDetails) {
-                continue;
-            }
-
-            // Fetch order item to get color
-            $orderItem = OrderItem::where('order_id', $orderId)
-                ->where('product_id', $productId)
-                ->first();
-
-            $productColor = $orderItem ? $orderItem->color : 'N/A';
-            $productSku = $productDetails->sku ?? 'N/A';
-
-            // Aggregate product details by product_id
-            if (!isset($aggregatedProducts[$productId])) {
-                $aggregatedProducts[$productId] = [
-                    'title' => $productDetails->title,
-                    'sku' => $productSku,
-                    'price' => $product['price'],
-                    'quantity' => 0,
-                    'color' => $productColor,
-                    'image' => asset('product_images/' . $productDetails->f_thumbnail),
-                ];
-            }
-
-            // Combine quantities and calculate total price
-            $aggregatedProducts[$productId]['quantity'] += $product['quantity'];
-            $aggregatedProducts[$productId]['total'] = $aggregatedProducts[$productId]['price'] * $aggregatedProducts[$productId]['quantity'];
-        }
-
-        // Convert aggregated products to a simple array
-        $detailedProducts = array_values($aggregatedProducts);
-
-        // Return order details as JSON response with detailed products
-        return response()->json(['products' => $detailedProducts]);
+    if (!$order) {
+        return response()->json(['error' => 'Order not found'], 404);
     }
+
+    $transaction = Payment::where('order_id', $orderId)->first();
+
+    // Assuming `product_details` field contains JSON data of products
+    $products = json_decode($transaction->product_details, true);
+
+    // Prepare an array to store detailed product information
+    $aggregatedProducts = [];
+
+    // Aggregate quantities and prices
+    foreach ($products as $product) {
+        $productId = $product['product_id'];
+        $productSku = $product['sku'];
+
+        // Fetch product details
+        $productDetails = Product::find($productId);
+
+        // Skip if product details not found
+        if (!$productDetails) {
+            continue;
+        }
+
+        // Fetch order item to get color and size
+        $orderItem = OrderItem::where('order_id', $orderId)
+                              ->where('product_id', $productId)
+                              ->where('size', $product['size'])  // Ensure that size is also considered
+                              ->first();
+        
+        $productColor = $orderItem ? $orderItem->color : 'N/A';
+        $productSize = $orderItem ? $orderItem->size : 'N/A';
+
+       // Fetch product variation based on SKU
+// Fetch product variation based on SKU
+$vcolor = \App\Models\ProductVariations::where('sku', $productSku)->first();
+
+ // Initialize the variable
+        $productImages = null;
+
+        // Count the number of images for the given product and color 'm'
+        $productImagesCount = \App\Models\Pro_image::where('product_id', $productId)
+                                                ->where('color', 'm')
+                                                ->count();
+
+        // Use the count to decide how to fetch the images
+        if ($productImagesCount > 1) {
+            // If there are multiple images with color 'm', fetch one
+            $productImages = \App\Models\Pro_image::where('product_id', $productId)
+                                                  ->where('color', 'm')
+                                                  ->orderBy('id', 'asc')
+                                                  ->first();
+        } else {
+            // Otherwise, fetch the image based on the vcolor
+            $productImages = $vcolor ? \App\Models\Pro_image::where('product_id', $vcolor->product_id)
+                                                  ->where('color', $vcolor->color)
+                                                  ->orderBy('id', 'asc')
+                                                  ->first() : null;
+        }
+// Set image URL based on availability of product images
+$imageUrl = $productImages 
+    ? asset($productImages->thumbnail) 
+    : (isset($productDetails->f_thumbnail) 
+        ? asset('product_images/' . $productDetails->f_thumbnail) 
+        : 'N/A');
+
+        // Unique key based on product_id, color, and size
+        $uniqueKey = $productId . '_' . $productColor . '_' . $productSize;
+
+        // Aggregate product details by the unique key
+        if (!isset($aggregatedProducts[$uniqueKey])) {
+            $aggregatedProducts[$uniqueKey] = [
+                'title' => $productDetails->title,
+                'sku' => $productSku,
+                'price' => $product['price'],
+                'quantity' => 0,
+                'color' => $productColor,
+                'size' => $productSize,
+                'image' => $imageUrl,
+            ];
+        }
+        
+        // Combine quantities and calculate total price
+        $aggregatedProducts[$uniqueKey]['quantity'] += $product['quantity'];
+        $aggregatedProducts[$uniqueKey]['total'] = $aggregatedProducts[$uniqueKey]['price'] * $aggregatedProducts[$uniqueKey]['quantity'];
+    }
+
+    // Convert aggregated products to a simple array
+    $detailedProducts = array_values($aggregatedProducts);
+
+    // Return order details as JSON response with detailed products
+    return response()->json(['products' => $detailedProducts]);
+}
+
+
+
     public function accept($id)
     {
         // Accept credit reload request

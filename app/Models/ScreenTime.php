@@ -10,12 +10,12 @@ class ScreenTime extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
+         'user_id',
         'product_id',
         'url',
         'time_spent'
     ];
-    public function product()
+     public function product()
     {
         return $this->belongsTo(Product::class, 'product_id');
     }

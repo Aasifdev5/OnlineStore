@@ -30,7 +30,7 @@ class Product extends Model
         'subcategory_id',
         'category',
         'brand_id',
-
+        'childcategory',
         'variation_color',
         'variation_size',
         'tax_id',
@@ -57,4 +57,6 @@ public function orders()
 {
     return $this->belongsToMany(Order::class)->withPivot('quantity', 'price');
 }
+
+
 }

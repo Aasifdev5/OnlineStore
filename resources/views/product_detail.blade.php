@@ -21,91 +21,159 @@
                 <div class="row row-cols-lg-2 row-cols-md-2">
                      @if(!empty($IsVariationProductDetails))
                     <div class="col">
-
-
-
+                       
+                        
+                        
                         <div class="product__details--media">
                             <div class="single__product--preview swiper mb-25">
-                                @php
+                              @php
+    
+          
+          // Fetch product images for the default color 'm'
+    $productImages = \App\Models\Pro_image::where('product_id', $product->id)
+        ->orderBy('id', 'asc')
+        ->first();
+         
+            
+@endphp
 
+<div class="swiper-wrapper" id="productMediaSlider">
+    @if ($productImages)
+        
+             @php
                                     // Fetch product images for the default color 'm'
-                                    $productImages = \App\Models\Pro_image::where('product_id', $product->id)
+                                    $productImages = \App\Models\Pro_image::where('product_id', $IsVariationProductDetails->id)
+                                        ->where('color', 'm')
+                                        ->orderBy('id', 'asc')
+                                        ->get();
 
+                                @endphp
+                                
+                                    @if (!empty($productImages) && count($productImages) > 1)
+                                        @foreach ($productImages as $row)
+                                            <div class="swiper-slide" style="height: 400px;">
+    <div class="product__media--preview__items">
+        <a class="product__media--preview__items--link glightbox" data-gallery="product-media-preview" href="{{ asset($row->thumbnail) }}">
+            <img class="product__media--preview__items--img" src="{{ asset($row->thumbnail) }}" alt="product-media-img" style="height: 582px;">
+        </a>
+        <div class="product__media--view__icon">
+            <a class="product__media--view__icon--link glightbox" href="{{ asset($row->thumbnail) }}" data-gallery="product-media-zoom">
+                <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" width="22.51" height="22.443" viewBox="0 0 512 512">
+                    <path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"></path>
+                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448"></path>
+                </svg>
+                <span class="visually-hidden">product view</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+                                        @endforeach
+                                        @else
+                                         @php
+                                    // Fetch product images for the default color 'm'
+                                    $productImage = \App\Models\Pro_image::where('product_id', $product->id)
+                                        
                                         ->orderBy('id', 'asc')
                                         ->first();
 
-
                                 @endphp
-                                <div class="swiper-wrapper" id="productMediaSlider">
-
-                                        <div class="swiper-slide">
-                                            <div class="product__media--preview__items">
-                                                <a class="product__media--preview__items--link glightbox"
-                                                    data-gallery="product-media-preview"
-                                                    href="{{ asset( $productImages->thumbnail) }}">
-                                                    <img class="product__media--preview__items--img"
-                                                        src="{{ asset($productImages->thumbnail) }}"
-                                                        alt="product-media-img">
-                                                </a>
-                                                <div class="product__media--view__icon">
-                                                    <a class="product__media--view__icon--link glightbox"
-                                                        href="{{ asset($productImages->thumbnail) }}"
-                                                        data-gallery="product-media-zoom">
-                                                        <svg class="product__items--action__btn--svg"
-                                                            xmlns="http://www.w3.org/2000/svg" width="22.51"
-                                                            height="22.443" viewBox="0 0 512 512">
-                                                            <path
-                                                                d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z"
-                                                                fill="none" stroke="currentColor" stroke-miterlimit="10"
-                                                                stroke-width="32"></path>
-                                                            <path fill="none" stroke="currentColor"
-                                                                stroke-linecap="round" stroke-miterlimit="10"
-                                                                stroke-width="32" d="M338.29 338.29L448 448"></path>
-                                                        </svg>
-                                                        <span class="visually-hidden">product view</span>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-
+                                        <div class="swiper-slide" style="height: 400px;">
+    <div class="product__media--preview__items">
+        <a class="product__media--preview__items--link glightbox" data-gallery="product-media-preview" href="{{ asset($productImage->thumbnail) }}">
+            <img class="product__media--preview__items--img" src="{{ asset($productImage->thumbnail) }}" alt="product-media-img" style="height: 582px;">
+        </a>
+        <div class="product__media--view__icon">
+            <a class="product__media--view__icon--link glightbox" href="{{ asset($productImage->thumbnail) }}" data-gallery="product-media-zoom">
+                <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" width="22.51" height="22.443" viewBox="0 0 512 512">
+                    <path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"></path>
+                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448"></path>
+                </svg>
+                <span class="visually-hidden">product view</span>
+            </a>
+        </div>
+    </div>
+</div>
+                                        @endif
+                                    
+                                    </div>
+            
+        </div>
+         <div class="single__product--nav swiper" id="productMediaNav">
+                                <div class="swiper-wrapper">
+                                  
+ @if (!empty($productImages) && count($productImages) > 1)
+@foreach ($productImages as $row)
+    <div class="swiper-slide" style="width: 100px; height: 100px;">
+        <div class="product__media--nav__items" style="width: 100px; height: 100px;">
+            <img class="product__media--nav__items--img"
+                src="{{ asset($row->thumbnail) }}" alt="product-nav-img" style="width: 100px; height: 100px; object-fit: cover;">
+        </div>
+    </div>
+@endforeach
+@endif
                                 </div>
+                                <div class="swiper__nav--btn swiper-button-next">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" class="-chevron-right">
+                                        <polyline points="9 18 15 12 9 6"></polyline>
+                                    </svg>
+                                </div>
+                                <div class="swiper__nav--btn swiper-button-prev">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" class="-chevron-left">
+                                        <polyline points="15 18 9 12 15 6"></polyline>
+                                    </svg>
+                                </div>
+                            </div>
+
+    @else
+   
+        <div class="swiper-slide">
+            <div class="product__media--preview__items">
+                <a class="product__media--preview__items--link glightbox"
+                    data-gallery="product-media-preview"
+                    href="{{ asset($product->f_thumbnail) }}">
+                    <img class="product__media--preview__items--img"
+                        src="{{ asset('product_images/' . $product->f_thumbnail) }}"
+                        alt="product-media-img">
+                </a>
+                <div class="product__media--view__icon">
+                    <a class="product__media--view__icon--link glightbox"
+                        href="{{ asset('product_images/' . $product->f_thumbnail) }}"
+                        data-gallery="product-media-zoom">
+                        <svg class="product__items--action__btn--svg"
+                            xmlns="http://www.w3.org/2000/svg" width="22.51"
+                            height="22.443" viewBox="0 0 512 512">
+                            <path
+                                d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z"
+                                fill="none" stroke="currentColor" stroke-miterlimit="10"
+                                stroke-width="32"></path>
+                            <path fill="none" stroke="currentColor"
+                                stroke-linecap="round" stroke-miterlimit="10"
+                                stroke-width="32" d="M338.29 338.29L448 448"></path>
+                        </svg>
+                        <span class="visually-hidden">product view</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+
+    @endif
+</div>
 
                             </div>
-                            <!--<div class="single__product--nav swiper" id="productMediaNav">-->
-                            <!--    <div class="swiper-wrapper">-->
-
-                            <!--            <div class="swiper-slide">-->
-                            <!--                <div class="product__media--nav__items">-->
-                            <!--                    <img class="product__media--nav__items--img"-->
-                            <!--                        src="{{ asset($productImages->thumbnail) }}" alt="product-nav-img">-->
-                            <!--                </div>-->
-                            <!--            </div>-->
-
-                            <!--    </div>-->
-                            <!--    <div class="swiper__nav--btn swiper-button-next">-->
-                            <!--        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"-->
-                            <!--            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"-->
-                            <!--            stroke-linecap="round" stroke-linejoin="round" class="-chevron-right">-->
-                            <!--            <polyline points="9 18 15 12 9 6"></polyline>-->
-                            <!--        </svg>-->
-                            <!--    </div>-->
-                            <!--    <div class="swiper__nav--btn swiper-button-prev">-->
-                            <!--        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"-->
-                            <!--            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"-->
-                            <!--            stroke-linecap="round" stroke-linejoin="round" class="-chevron-left">-->
-                            <!--            <polyline points="15 18 9 12 15 6"></polyline>-->
-                            <!--        </svg>-->
-                            <!--    </div>-->
-                            <!--</div>-->
-                        </div>
-
-                    </div>
+                          
+                       
                     <div class="col">
                         <div class="product__details--info">
                             <form action="#">
                                 <h2 class="product__details--info__title mb-15">{{ $IsVariationProductDetails->title }}</h2>
                                 <div class="product__details--info__price mb-12">
-                                    <span class="current__price">
+                                    <h2 class="current__price" style="color:grey">
                                         @if ($user_session->price == 'price1')
                                             @php
                                                 $price = $IsVariationProductDetails->price1;
@@ -131,131 +199,148 @@
                                                 $price = $IsVariationProductDetails->price5;
                                             @endphp
                                         @endif
-                                        {{ 'BS ' . $price }}
-                                    </span>
-                                    {{-- <span class="old__price">$68.00</span> --}}
+                                        {{ 'Bs ' . $price }}
+                                    </h2>
+                                    
                                 </div>
 
                                 <div class="product__variant">
                                     <div class="product__variant--list mb-10">
                                         <fieldset class="variant__input--fieldset">
-                                            <legend class="product__variant--title mb-8">Color :</legend>
-                                            <div class="variant__color d-flex">
-                                                @php
-                                                    // Fetch all product variations for the current product
-                                                    $variations = \App\Models\ProductVariations::where(
-                                                        'product_id',
-                                                        $product->id,
-                                                    )->get();
+                                           
+                                              @php
+    // Fetch all product variations for the current product
+    $variations = \App\Models\ProductVariations::where('product_id', $product->id)->get();
 
-                                                    // Initialize an empty collection for filtered images
-                                                    $filteredProductImages = collect();
+    // Initialize an empty collection for filtered images
+    $filteredProductImages = collect();
 
-                                                    // Fetch images for the main product (based on $product->id)
-                                                    $mainProductImages = \App\Models\Product::where('id', $product->id)
-                                                        ->orderBy('id', 'desc')
-                                                        ->get();
+    // Fetch images for the main product (based on $product->id)
+    $mainProductImages = \App\Models\Product::where('id', $product->id)
+        ->orderBy('id', 'desc')
+        ->get();
 
-                                                    // Merge main product images into the collection
-                                                    $filteredProductImages = $filteredProductImages->merge(
-                                                        $mainProductImages,
-                                                    );
+    // Merge main product images into the collection
+    $filteredProductImages = $filteredProductImages->merge($mainProductImages);
 
-                                                    // Loop through each variation to fetch variation-specific images
-                                                    foreach ($variations as $variation) {
-                                                        // Fetch product images where SKU matches the variation SKU
-                                                        $variationImages = \App\Models\Product::where(
-                                                            'sku',
-                                                            $variation->sku,
-                                                        )
-                                                            ->orderBy('id', 'desc')
-                                                            ->get();
+    // Loop through each variation to fetch variation-specific images
+    foreach ($variations as $variation) {
+        // Fetch product images where SKU matches the variation SKU
+        $variationImages = \App\Models\Product::where('sku', $variation->sku)
+            ->orderBy('id', 'desc')
+            ->get();
 
-                                                        // Merge variation-specific images into the collection
-                                                        $filteredProductImages = $filteredProductImages->merge(
-                                                            $variationImages,
-                                                        );
-                                                    }
+        // Merge variation-specific images into the collection
+        $filteredProductImages = $filteredProductImages->merge($variationImages);
+    }
 
-                                                    // Convert filtered product images collection to JSON for JavaScript
-                                                    $filteredProductImagesJson = $filteredProductImages->toJson();
-                                                @endphp
+    // Convert filtered product images collection to JSON for JavaScript
+    $filteredProductImagesJson = $filteredProductImages->toJson();
+@endphp
+
+
 <style>
     .variant__color--list:hover .color-tooltip {
         visibility: visible;
         opacity: 1;
     }
 
-    .variant__color--value {
-        display: block;
-        width: 60px;
-        height: 60px;
-        cursor: pointer;
-        border: 2px solid #ccc;
-        border-radius: 50%;
-        overflow: hidden;
-        transition: border-color 0.3s ease;
-        position: relative;
-    }
-
-    .variant__color--value:hover {
-        border-color: #000;
-    }
-
-    .color-tooltip {
-        position: absolute;
-        bottom: -25px;
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: rgba(0, 0, 0, 0.75);
-        color: black;
-        text-align: center;
-        border-radius: 5px;
-        padding: 2px 5px;
-        visibility: hidden;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        white-space: nowrap;
-        z-index: 10;
-    }
-    .selected {
-    border: 2px solid #000; /* Blue border to indicate selection */
-
-    border-radius: 50%;
+   .variant__color--value {
+    display: block;
+    width: 100px; /* Adjust the width as needed */
+    height: 60px; /* Adjust the height as needed */
+    cursor: pointer;
+    border: 0.7px solid #ccc;
+    border-radius: 0; /* Remove rounded corners */
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+    position: relative;
 }
+
+.variant__color--value:hover {
+    border-color: #fadc00;
+}
+
+.color-tooltip {
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.75);
+    color: black;
+    text-align: center;
+    border-radius: 5px;
+    padding: 2px 5px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+    z-index: 10;
+}
+
+.selected {
+    border: 0.7px solid #fadc00; /* Indicate selection */
+    color: #fadc00; /* Set selected text color */
+}
+
+.selected h3 {
+    color: #fadc00; /* Set text color of the selected variant */
+}
+
+
 </style>
-@foreach ($filteredProductImages as $row)
+@php
+    // Group filtered product images by color
+    $imagesGroupedByColor = $filteredProductImages->groupBy(function($item) {
+        // Fetch the color for each variation image
+        return \App\Models\ProductVariations::where('sku', $item->sku)->first()->color ?? 'Unknown Color';
+    });
 
-            @if ($row->id != $product->id)
-           @php
-    // Fetch the product variation by SKU
-    $color = \App\Models\ProductVariations::where('sku', $row->sku)->first()->color;
+    // Filter out the 'Unknown Color' group
+    $imagesGroupedByColor = $imagesGroupedByColor->filter(function($group, $color) {
+        return $color !== 'Unknown Color';
+    });
 
-
+    // Get a unique collection of colors
+    $uniqueColorImages = $imagesGroupedByColor->map(function($group) {
+        return $group->first(); // Get the first image in each color group
+    });
 @endphp
-@if($row->id == $IsVariationProductDetails->id)
-    <div class="variant__color--list selected" style="display: inline-block; margin: 10px; position: relative;">
-@else
-    <div class="variant__color--list" style="display: inline-block; margin: 10px; position: relative;">
-@endif
-            <a href="{{ url('product-details') }}/{{ $row->slug }}" class="variant__color--value" title="{{ $color }}" data-toggle="tooltip" data-placement="bottom">
-                <img class="variant__color--value__img"
-                     src="{{ asset('product_images/' . $row->f_thumbnail) }}"
-                     alt="variant-color-img"
-                     style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
-                <span class="color-tooltip">{{ $color }}</span>
-            </a>
-        </div>
 
-            @endif
-        @endforeach
+@if($uniqueColorImages->isNotEmpty())
+    <legend class="product__variant--title mb-8">Color  :</legend>
+@endif
+
+                                            <div class="variant__color d-flex">
+                                                 
+@foreach ($uniqueColorImages as $color => $row)
+    @if ($row->id != $product->id)
+        @php
+            // Check if this image belongs to the selected variation
+            $isSelected = $row->id == $IsVariationProductDetails->id;
+        @endphp
+
+        <div class="variant__size--list {{ $isSelected ? 'selected' : '' }}" style="display: inline-block; margin: 10px; position: relative;">
+    <li class="variant__size--list">
+        <a href="{{ url('product-details') }}/{{ $row->slug }}" class="variant__color--value {{ $isSelected ? 'selected' : '' }}" title="{{ $color }}" data-toggle="tooltip" data-placement="bottom">
+            <h3 class="text-center" style="margin-top:11px; color: {{ $isSelected ? '#fadc00' : 'inherit' }};">{{ $color }}</h3>
+            <span class="color-tooltip">{{ $color }}</span>
+        </a>
+    </li>
+</div>
+
+    @endif
+@endforeach
+
+
+        
 
 <!-- Ensure jQuery is loaded first -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+    
     <!-- Include any other scripts that depend on jQuery here -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-
+    
     <!-- Initialize tooltips after jQuery is loaded -->
     <script>
        $(document).ready(function () {
@@ -286,6 +371,40 @@
 
 
                                             </div>
+<div class="product__variant--list mb-20">
+   <fieldset class="variant__input--fieldset">
+   @php
+    // Get sizes from product variations and group by size
+    $sizes = \App\Models\ProductVariations::where('product_id', $product->id)
+                ->get()
+                ->groupBy('size');
+
+    // Filter out empty sizes
+    $sizes = $sizes->filter(function ($variations, $size) {
+        return !empty($size);
+    });
+@endphp
+
+@if ($sizes->isNotEmpty())
+    <legend class="product__variant--title mb-8">Tamaño :</legend>
+    <ul class="variant__size d-flex">
+        @foreach($sizes as $size => $variations)
+            <div class="variant__color--list" style="display: inline-block; margin: 10px; position: relative;">
+                <li class="variant__size--list">
+                    <input id="size_{{ $size }}" name="size" type="radio" value="{{ $size }}" {{ $loop->first ? 'checked' : '' }}>
+                    <label class="variant__color--value" for="size_{{ $size }}">
+                        <p style="margin-top:17px;margin-left: 11px;">{{ $size }}</p>
+                    </label>
+                </li>
+            </div>
+        @endforeach
+    </ul>
+@endif
+
+</fieldset>
+
+</div>
+
 
                                             <div class="variant__color d-flex">
 
@@ -323,18 +442,18 @@
 
     .variant__color--value {
         display: block;
-        width: 60px;
+        width: 100px;
         height: 60px;
         cursor: pointer;
-        border: 2px solid #ccc;
-        border-radius: 50%;
+        border: 1px solid #ccc;
+        border-radius: 0;
         overflow: hidden;
         transition: border-color 0.3s ease;
         position: relative;
     }
 
     .variant__color--value:hover {
-        border-color: #000;
+        border-color: #fadc00;
     }
 
     .color-tooltip {
@@ -361,13 +480,18 @@
         @endphp
 
         <div class="variant__color--list" style="display: inline-block; margin: 10px; position: relative;">
-            <a href="{{ url('product-details') }}/{{ $image->slug }}" class="variant__color--value" title="{{ $color }}" data-toggle="tooltip" data-placement="bottom">
-                 <img class="variant__color--value__img"
-                     src="{{ asset('product_images/' . $image->f_thumbnail) }}"
-                     alt="variant-color-img"
-                     style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
-                <span class="color-tooltip">{{ $color }}</span>
-            </a>
+            <!--<a href="{{ url('product-details') }}/{{ $image->slug }}" class="variant__color--value" title="{{ $color }}" data-toggle="tooltip" data-placement="bottom">-->
+            <!--     <img class="variant__color--value__img"-->
+            <!--         src="{{ asset('product_images/' . $image->f_thumbnail) }}"-->
+            <!--         alt="variant-color-img"-->
+            <!--         style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">-->
+            <!--    <span class="color-tooltip">{{ $color }}</span>-->
+            <!--</a>-->
+            
+            
+              
+            
+            
         </div>
     @endforeach
 @endforeach
@@ -419,47 +543,9 @@
     <button type="button" class="quantity__value quickview__value--quantity increase increase-btn" aria-label="quantity value" value="Increase Value">+</button>
 </div>
 
-<a class="primary__btn quickview__cart--btn" id="addToCartBtn-unique" href="{{ url('addToCart') }}/{{ $price }}/{{ $IsVariationProductDetails->id }}">Añadir al carrito</a>
+<a class="primary__btn quickview__cart--btn" id="addToCartBtn-unique" href="#">Añadir al carrito </a>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const decreaseButton = document.querySelector('.decrease-btn');
-        const increaseButton = document.querySelector('.increase-btn');
-        const quantityInput = document.querySelector('.quantity-input');
-        const addToCartBtn = document.getElementById('addToCartBtn-unique');
-        const baseUrl = '{{ url('addToCart') }}/{{ $price }}/{{ $IsVariationProductDetails->id }}';
 
-        const updateQuantity = () => {
-            let quantity = parseInt(quantityInput.value);
-            if (quantity < 1) {
-                quantity = 1;
-                quantityInput.value = 1;
-            }
-            addToCartBtn.setAttribute('href', `${baseUrl}/${quantity}`);
-        };
-
-        decreaseButton.addEventListener('click', () => {
-            let currentValue = parseInt(quantityInput.value);
-            if (currentValue > 1) {
-                quantityInput.value = currentValue - 1;
-                updateQuantity();
-            }
-        });
-
-        increaseButton.addEventListener('click', () => {
-            let currentValue = parseInt(quantityInput.value);
-            quantityInput.value = currentValue + 1;
-            updateQuantity();
-        });
-
-        quantityInput.addEventListener('change', () => {
-            updateQuantity();
-        });
-
-        // Initialize the href with the default quantity
-        updateQuantity();
-    });
-</script>
 
                                     </div>
                                     <div class="product__variant--list mb-15">
@@ -475,8 +561,56 @@
                                             </svg>
                                             Añadir a la lista de deseos
                                         </a>
-                                        <a class="text-center variant__buy--now__btn primary__btn"
-                                            href="{{ url('BuyaddToCart') }}/{{ $price }}/{{ $IsVariationProductDetails->id . '/1' }}">Comprar ahora</a>
+                                        <a class="text-center variant__buy--now__btn primary__btn" id="buyNowBtn-unique" href="#">Comprar ahora</a>
+                                            <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const decreaseButton = document.querySelector('.decrease-btn');
+        const increaseButton = document.querySelector('.increase-btn');
+        const quantityInput = document.querySelector('.quantity-input');
+        const sizeRadios = document.querySelectorAll('input[name="size"]');
+        const addToCartBtn = document.getElementById('addToCartBtn-unique');
+        const buyNowBtn = document.getElementById('buyNowBtn-unique');
+        const baseUrl = '{{ url('addToCart') }}/{{ $price }}/{{ $IsVariationProductDetails->id }}';
+        const buyNowBaseUrl = '{{ url('vBuyaddToCart') }}/{{ $price }}/{{ $IsVariationProductDetails->id }}';
+
+        function updateHref() {
+            const selectedSize = document.querySelector('input[name="size"]:checked').value;
+            let quantity = parseInt(quantityInput.value);
+            if (quantity < 1) {
+                quantity = 1;
+                quantityInput.value = 1;
+            }
+            // Update the href to include size and quantity
+            addToCartBtn.href = `${baseUrl}/${quantity}/${encodeURIComponent(selectedSize)}`;
+            buyNowBtn.href = `${buyNowBaseUrl}/${quantity}/${encodeURIComponent(selectedSize)}`;
+        }
+
+        // Event listeners for size selection
+        sizeRadios.forEach(radio => {
+            radio.addEventListener('change', updateHref);
+        });
+
+        // Event listeners for quantity buttons
+        decreaseButton.addEventListener('click', () => {
+            let currentValue = parseInt(quantityInput.value);
+            if (currentValue > 1) {
+                quantityInput.value = currentValue - 1;
+                updateHref();
+            }
+        });
+
+        increaseButton.addEventListener('click', () => {
+            let currentValue = parseInt(quantityInput.value);
+            quantityInput.value = currentValue + 1;
+            updateHref();
+        });
+
+        quantityInput.addEventListener('change', updateHref);
+
+        // Initialize the href with the default size and quantity
+        updateHref();
+    });
+</script>
                                     </div>
                                     <div class="product__variant--list mb-15">
                                         <div class="product__details--info__meta">
@@ -547,53 +681,106 @@
                     </div>
                     @else
                     <div class="col">
-
-
-
+                       
+                        
+                        
                         <div class="product__details--media">
                             <div class="single__product--preview swiper mb-25">
-                                @php
+                               @php
                                     // Fetch product images for the default color 'm'
                                     $productImages = \App\Models\Pro_image::where('product_id', $product->id)
                                         ->where('color', 'm')
-                                        ->orderBy('id', 'desc')
+                                        ->orderBy('id', 'asc')
                                         ->get();
 
                                 @endphp
                                 <div class="swiper-wrapper" id="productMediaSlider">
-                                    @if (!empty($productImages) && count($productImages) > 0)
+                                    @if (!empty($productImages) && count($productImages) > 1)
                                         @foreach ($productImages as $row)
-                                            <div class="swiper-slide">
-                                                <div class="product__media--preview__items">
-                                                    <a class="product__media--preview__items--link glightbox"
-                                                        data-gallery="product-media-preview"
-                                                        href="{{ asset($row->thumbnail) }}">
-                                                        <img class="product__media--preview__items--img"
-                                                            src="{{ asset($row->thumbnail) }}" alt="product-media-img">
-                                                    </a>
-                                                    <div class="product__media--view__icon">
-                                                        <a class="product__media--view__icon--link glightbox"
-                                                            href="{{ asset($row->thumbnail) }}"
-                                                            data-gallery="product-media-zoom">
-                                                            <svg class="product__items--action__btn--svg"
-                                                                xmlns="http://www.w3.org/2000/svg" width="22.51"
-                                                                height="22.443" viewBox="0 0 512 512">
-                                                                <path
-                                                                    d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z"
-                                                                    fill="none" stroke="currentColor"
-                                                                    stroke-miterlimit="10" stroke-width="32"></path>
-                                                                <path fill="none" stroke="currentColor"
-                                                                    stroke-linecap="round" stroke-miterlimit="10"
-                                                                    stroke-width="32" d="M338.29 338.29L448 448"></path>
-                                                            </svg>
-                                                            <span class="visually-hidden">product view</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <div class="swiper-slide" style="height: 440px;">
+    <div class="product__media--preview__items">
+        <a class="product__media--preview__items--link glightbox" data-gallery="product-media-preview" href="{{ asset($row->thumbnail) }}">
+            <img class="product__media--preview__items--img" src="{{ asset($row->thumbnail) }}" alt="product-media-img" style="height: 582px;">
+        </a>
+        <div class="product__media--view__icon">
+            <a class="product__media--view__icon--link glightbox" href="{{ asset($row->thumbnail) }}" data-gallery="product-media-zoom">
+                <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" width="22.51" height="22.443" viewBox="0 0 512 512">
+                    <path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"></path>
+                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448"></path>
+                </svg>
+                <span class="visually-hidden">product view</span>
+            </a>
+        </div>
+    </div>
+</div>
+
                                         @endforeach
                                     @else
-                                        <div class="swiper-slide">
+                                     @php
+                                     
+                                        
+$vcolor = \App\Models\ProductVariations::where('sku', $product->sku)->first();
+if (!empty($vcolor)) {
+    // Fetch product images for the default color 'm'
+    $productImages = \App\Models\Pro_image::where('product_id', $vcolor->product_id)
+        ->where('color', $vcolor->color)
+        ->orderBy('id', 'asc')
+        ->first();
+
+    if ($productImages) {
+        // Proceed if $productImages is not null
+        $thumbnailUrl = asset($productImages->thumbnail);
+    } else {
+        // Handle the case where no product images are found
+        $thumbnailUrl = ''; // Or provide a default image URL or placeholder
+    }
+@endphp
+
+<div class="swiper-slide">
+    <div class="product__media--preview__items">
+        <a class="product__media--preview__items--link glightbox"
+            data-gallery="product-media-preview"
+            href="{{ $thumbnailUrl }}">
+            <img class="product__media--preview__items--img"
+                src="{{ $thumbnailUrl }}"
+                alt="product-media-img">
+        </a>
+        <div class="product__media--view__icon">
+            <a class="product__media--view__icon--link glightbox"
+                href="{{ $thumbnailUrl }}"
+                data-gallery="product-media-zoom">
+                <svg class="product__items--action__btn--svg"
+                    xmlns="http://www.w3.org/2000/svg" width="22.51"
+                    height="22.443" viewBox="0 0 512 512">
+                    <path
+                        d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z"
+                        fill="none" stroke="currentColor" stroke-miterlimit="10"
+                        stroke-width="32"></path>
+                    <path fill="none" stroke="currentColor"
+                        stroke-linecap="round" stroke-miterlimit="10"
+                        stroke-width="32" d="M338.29 338.29L448 448"></path>
+                </svg>
+                <span class="visually-hidden">product view</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+                                        @php
+                                        }else{
+                                          // Fetch product images for the default color 'm'
+                                    $productImages = \App\Models\Pro_image::where('product_id', $product->id)
+                                        ->where('color', 'm')
+                                        ->orderBy('id', 'asc')
+                                        ->get();
+                                        }
+                                  
+                                    
+                                        
+
+                                @endphp
+                                        
+                                      <div class="swiper-slide">
                                             <div class="product__media--preview__items">
                                                 <a class="product__media--preview__items--link glightbox"
                                                     data-gallery="product-media-preview"
@@ -621,21 +808,31 @@
                                                     </a>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>   
                                     @endif
                                 </div>
 
                             </div>
-                            <div class="single__product--nav swiper" id="productMediaNav">
+                         <div class="single__product--nav swiper" id="productMediaNav">
                                 <div class="swiper-wrapper">
-                                    @foreach ($productImages as $row)
-                                        <div class="swiper-slide">
-                                            <div class="product__media--nav__items">
-                                                <img class="product__media--nav__items--img"
-                                                    src="{{ asset($row->thumbnail) }}" alt="product-nav-img">
-                                            </div>
-                                        </div>
-                                    @endforeach
+                                   @php
+    // Fetch product images for the default color 'm'
+    $productImages = \App\Models\Pro_image::where('product_id', $product->id)
+        ->where('color', 'm')
+        ->orderBy('id', 'asc')
+        ->get();
+@endphp
+ @if (!empty($productImages) && count($productImages) > 1)
+@foreach ($productImages as $row)
+    <div class="swiper-slide" style="width: 100px; height: 100px;">
+        <div class="product__media--nav__items" style="width: 100px; height: 100px;">
+            <img class="product__media--nav__items--img"
+                src="{{ asset($row->thumbnail) }}" alt="product-nav-img" style="width: 100px; height: 100px; object-fit: cover;">
+        </div>
+    </div>
+@endforeach
+@endif
+
                                 </div>
                                 <div class="swiper__nav--btn swiper-button-next">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -652,6 +849,7 @@
                                     </svg>
                                 </div>
                             </div>
+
                         </div>
 
                     </div>
@@ -660,7 +858,7 @@
                             <form action="#">
                                 <h2 class="product__details--info__title mb-15">{{ $product->title }}</h2>
                                 <div class="product__details--info__price mb-12">
-                                    <span class="current__price">
+                                    <h2 class="current__price" style="color:grey">
                                         @if ($user_session->price == 'price1')
                                             @php
                                                 $price = $product->price1;
@@ -686,16 +884,15 @@
                                                 $price = $product->price5;
                                             @endphp
                                         @endif
-                                        {{ 'BS ' . $price }}
-                                    </span>
-                                    {{-- <span class="old__price">$68.00</span> --}}
+                                        {{ 'Bs ' . $price }}
+                                    </h2>
+                                   
                                 </div>
 
                                 <div class="product__variant">
                                     <div class="product__variant--list mb-10">
                                         <fieldset class="variant__input--fieldset">
-                                            <legend class="product__variant--title mb-8">Color :</legend>
-                                            <div class="variant__color d-flex">
+                                           
                                                 @php
                                                     // Fetch all product variations for the current product
                                                     $variations = \App\Models\ProductVariations::where(
@@ -743,18 +940,18 @@
 
     .variant__color--value {
         display: block;
-        width: 60px;
+        width: 100px;
         height: 60px;
         cursor: pointer;
-        border: 2px solid #ccc;
-        border-radius: 50%;
+        border: 1px solid #ccc;
+        border-radius: 0;
         overflow: hidden;
         transition: border-color 0.3s ease;
         position: relative;
     }
 
     .variant__color--value:hover {
-        border-color: #000;
+        border-color: #fadc00;
     }
 
     .color-tooltip {
@@ -774,6 +971,10 @@
         z-index: 10;
     }
 </style>
+@if(!empty($product->variation_color))
+ <legend class="product__variant--title mb-8">Color :</legend>
+ @endif
+                                            <div class="variant__color d-flex">
 @foreach ($filteredProductImages as $row)
 
             @if ($row->id != $product->id)
@@ -781,7 +982,7 @@
     // Fetch the product variation by SKU
     $color = \App\Models\ProductVariations::where('sku', $row->sku)->first()->color;
 
-
+   
 @endphp
 
                 <div class="variant__color--list" style="display: inline-block; margin: 10px; position: relative;">
@@ -792,16 +993,17 @@
                      style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
                 <span class="color-tooltip">{{ $color }}</span>
             </a>
+            
         </div>
             @endif
         @endforeach
 
 <!-- Ensure jQuery is loaded first -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+    
     <!-- Include any other scripts that depend on jQuery here -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-
+    
     <!-- Initialize tooltips after jQuery is loaded -->
     <script>
        $(document).ready(function () {
@@ -824,11 +1026,6 @@
             });
         });
     </script>
-
-
-
-
-
 
 
                                             </div>
@@ -868,64 +1065,92 @@
     }
 
     .variant__color--value {
-        display: block;
-        width: 60px;
-        height: 60px;
-        cursor: pointer;
-        border: 2px solid #ccc;
-        border-radius: 50%;
-        overflow: hidden;
-        transition: border-color 0.3s ease;
-        position: relative;
-    }
-
-    .variant__color--value:hover {
-        border-color: #000;
-    }
-
-    .color-tooltip {
-        position: absolute;
-        bottom: -25px;
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: rgba(0, 0, 0, 0.75);
-        color: black;
-        text-align: center;
-        border-radius: 5px;
-        padding: 2px 5px;
-        visibility: hidden;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        white-space: nowrap;
-        z-index: 10;
-    }
-     .selected {
-    border: 2px solid #000; /* Blue border to indicate selection */
-
-    border-radius: 50%;
+    display: block;
+    width: 100px; /* Adjust the width as needed */
+    height: 60px; /* Adjust the height as needed */
+    cursor: pointer;
+    border: 0.7px solid #ccc;
+    border-radius: 0; /* Remove rounded corners */
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+    position: relative;
 }
-</style>
-            @foreach ($otherVariationImages as $sku => $images)
-    @foreach ($images as $image)
-        @php
-            $color = \App\Models\ProductVariations::where('sku', $image->sku)->first()->color;
-        @endphp
-@if($image->id == $latestProductId)
-    <div class="variant__color--list selected" style="display: inline-block; margin: 10px; position: relative;">
-@else
-    <div class="variant__color--list" style="display: inline-block; margin: 10px; position: relative;">
-@endif
 
-            <a href="{{ url('product-details') }}/{{ $image->slug }}" class="variant__color--value" title="{{ $color }}" data-toggle="tooltip" data-placement="bottom">
-                 <img class="variant__color--value__img"
-                     src="{{ asset('product_images/' . $image->f_thumbnail) }}"
-                     alt="variant-color-img"
-                     style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
-                <span class="color-tooltip">{{ $color }}</span>
-            </a>
-        </div>
-    @endforeach
+.variant__color--value:hover {
+    border-color: #fadc00;
+}
+
+.color-tooltip {
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.75);
+    color: black;
+    text-align: center;
+    border-radius: 5px;
+    padding: 2px 5px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+    z-index: 10;
+}
+
+.selected {
+    border: 0.7px solid #fadc00; /* Indicate selection */
+    color: #fadc00; /* Set selected text color */
+}
+
+.selected h3 {
+    color: #fadc00; /* Set text color of the selected variant */
+}
+
+.selected .variant__color--value {
+    color: #fadc00; /* Ensure text color is applied inside the link */
+}
+
+
+</style>
+           @php
+    // Initialize a collection to store the first image of each color
+    $uniqueColorImages = collect();
+
+    // Loop through otherVariationImages and filter out duplicate colors
+    foreach ($otherVariationImages as $sku => $images) {
+        foreach ($images as $image) {
+            $color = \App\Models\ProductVariations::where('sku', $image->sku)->first()->color;
+
+            // Check if this color has already been added
+            if (!$uniqueColorImages->has($color)) {
+                // Add the first image of this color to the collection
+                $uniqueColorImages->put($color, $image);
+            }
+        }
+    }
+@endphp
+
+@foreach ($uniqueColorImages as $color => $image)
+    @if ($image->id != $product->id)
+        @php
+            // Determine if this image is the selected variation
+            $isSelected = $image->id == $latestProductId;
+        @endphp
+        
+        @if($image->variation_color != null)
+       <div class="variant__color--list {{ $isSelected ? 'selected' : '' }}" style="display: inline-block; margin: 10px; position: relative;">
+    <a href="{{ url('product-details') }}/{{ $image->slug }}" class="variant__color--value {{ $isSelected ? 'selected' : '' }}" title="{{ $color }}" data-toggle="tooltip" data-placement="bottom">
+        <h3 class="text-center" style="margin-top:11px; color: {{ $isSelected ? '#fadc00' : 'inherit' }};">{{ $color }}</h3>
+        <span class="color-tooltip">{{ $color }}</span>
+    </a>
+</div>
+
+        @endif
+        
+    @endif
 @endforeach
+
+
 <script>
     $(document).ready(function () {
     // Initialize tooltips
@@ -963,7 +1188,37 @@
 
                                         </fieldset>
                                     </div>
+<div class="product__variant--list mb-20">
+    <fieldset class="variant__input--fieldset">
+   @php
+    // Get sizes from product variations and group by size
+    $sizes = \App\Models\ProductVariations::where('product_id', $product->id)
+                ->get()
+                ->groupBy('size');
 
+    // Filter out empty sizes
+    $sizes = $sizes->filter(function ($variations, $size) {
+        return !empty($size);
+    });
+@endphp
+
+@if ($sizes->isNotEmpty())
+    <legend class="product__variant--title mb-8">Tamaño :</legend>
+    <ul class="variant__size d-flex">
+        @foreach($sizes as $size => $variations)
+            <li class="variant__size--list" style="display: inline-block; margin: 10px; position: relative;">
+                <input id="size_{{ $size }}" name="size" type="radio" value="{{ $size }}" {{ $loop->first ? 'checked' : '' }}>
+                <label class="variant__color--value" for="size_{{ $size }}">
+                    <p style="margin-top:17px; margin-left: 11px;">{{ $size }}</p>
+                </label>
+            </li>
+        @endforeach
+    </ul>
+@endif
+
+</fieldset>
+
+</div>
 
                                     <div class="product__variant--list quantity d-flex align-items-center mb-20">
                                         <div class="quantity__box">
@@ -979,47 +1234,11 @@
                                                 aria-label="quantity value" value="Increase Value">+</button>
                                         </div>
 
-                                        <a class="primary__btn quickview__cart--btn" id="addToCartBtn"
-                                            href="{{ url('addToCart') }}/{{ $price }}/{{ $latestProductId }}">Añadir al carrito</a>
-                                        <script>
-                                            document.addEventListener('DOMContentLoaded', function() {
-                                                const decreaseButton = document.querySelector('.decrease');
-                                                const increaseButton = document.querySelector('.increase');
-                                                const quantityInput = document.querySelector('.quantity__number');
-                                                const addToCartBtn = document.getElementById('addToCartBtn');
-                                                const baseUrl = '{{ url('addToCart') }}/{{ $price }}/{{ $latestProductId }}';
+                                   <a class="primary__btn quickview__cart--btn" id="addToCartBtn" href="#">Añadir al carrito</a>
 
-                                                const updateQuantity = () => {
-                                                    let quantity = parseInt(quantityInput.value);
-                                                    if (quantity < 1) {
-                                                        quantity = 1;
-                                                        quantityInput.value = 1;
-                                                    }
-                                                    addToCartBtn.setAttribute('href', `${baseUrl}/${quantity}`);
-                                                };
 
-                                                decreaseButton.addEventListener('click', () => {
-                                                    let currentValue = parseInt(quantityInput.value);
-                                                    if (currentValue > 1) {
-                                                        quantityInput.value = currentValue - 1;
-                                                        updateQuantity();
-                                                    }
-                                                });
 
-                                                increaseButton.addEventListener('click', () => {
-                                                    let currentValue = parseInt(quantityInput.value);
-                                                    quantityInput.value = currentValue;
-                                                    updateQuantity();
-                                                });
 
-                                                quantityInput.addEventListener('change', () => {
-                                                    updateQuantity();
-                                                });
-
-                                                // Initialize the href with the default quantity
-                                                updateQuantity();
-                                            });
-                                        </script>
                                     </div>
                                     <div class="product__variant--list mb-15">
                                         <a class="variant__wishlist--icon mb-15"
@@ -1034,8 +1253,67 @@
                                             </svg>
                                             Añadir a la lista de deseos
                                         </a>
-                                        <a class="text-center variant__buy--now__btn primary__btn"
-                                            href="{{ url('BuyaddToCart') }}/{{ $price }}/{{ $latestProductId . '/1' }}">Comprar ahora</a>
+                                        <a class="text-center variant__buy--now__btn primary__btn" id="buyNowBtn" href="#">Comprar ahora</a>
+                                        <script>
+   document.addEventListener('DOMContentLoaded', function() {
+        const decreaseButton = document.querySelector('.decrease');
+        const increaseButton = document.querySelector('.increase');
+        const quantityInput = document.querySelector('.quantity__number');
+        const sizeRadios = document.querySelectorAll('input[name="size"]');
+        const addToCartBtn = document.getElementById('addToCartBtn');
+        const buyNowBtn = document.getElementById('buyNowBtn');
+        const baseUrl = "{{ url('addToCart') }}/{{ $price }}/{{ $latestProductId }}";
+        const buyNowBaseUrl = "{{ url('vBuyaddToCart') }}/{{ $price }}/{{ $latestProductId }}";
+
+        function updateHref() {
+            let quantity = parseInt(quantityInput.value);
+            if (quantity < 1) {
+                quantity = 1;
+                quantityInput.value = 1;
+            }
+
+            let sizeParameter = '';
+            if (sizeRadios.length > 0) {
+                const selectedSizeElement = document.querySelector('input[name="size"]:checked');
+                sizeParameter = selectedSizeElement ? `/${encodeURIComponent(selectedSizeElement.value)}` : '/default-size';
+            } else {
+                sizeParameter = '/default-size'; // or '/no-size' if size is not relevant
+            }
+
+            // Update the href to include price, product ID, quantity, and selected or default size
+            addToCartBtn.href = `${baseUrl}/${quantity}${sizeParameter}`;
+            buyNowBtn.href = `${buyNowBaseUrl}/${quantity}${sizeParameter}`;
+        }
+
+        // Event listeners for size selection (if available)
+        if (sizeRadios.length > 0) {
+            sizeRadios.forEach(radio => {
+                radio.addEventListener('change', updateHref);
+            });
+        }
+
+        // Event listeners for quantity buttons
+        decreaseButton.addEventListener('click', () => {
+            let currentValue = parseInt(quantityInput.value);
+            if (currentValue > 1) {
+                quantityInput.value = currentValue - 1;
+                updateHref();
+            }
+        });
+
+        increaseButton.addEventListener('click', () => {
+            let currentValue = parseInt(quantityInput.value);
+            quantityInput.value = currentValue + 1;
+            updateHref();
+        });
+
+        quantityInput.addEventListener('change', updateHref);
+
+        // Initialize the href with the default size and quantity
+        updateHref();
+    });
+</script>
+
                                     </div>
                                     <div class="product__variant--list mb-15">
                                         <div class="product__details--info__meta">
@@ -1220,11 +1498,11 @@
                                                     href="{{ url('product-details') }}{{ '/' . $row->slug }}">{{ $row->title }}
                                                 </a></h3>
                                             <div class="product__card--price">
-                                                <span class="current__price">
+                                                <h2 class="current__price" style="color:grey">
 
-                                                    {{ 'BS ' . $price }}
-                                                </span>
-                                                {{-- <span class="old__price"> $362.00</span> --}}
+                                                    {{ 'Bs ' . $price }}
+                                                </h2>
+                                                
                                             </div>
                                             <div class="product__card--footer">
                                                 <a class="product__card--btn primary__btn"
@@ -1267,7 +1545,7 @@
         </section>
         <!-- End product section -->
 
-        <!-- Start shipping section -->
+      <!-- Start shipping section -->
     <section class="shipping__section">
         <div class="container">
             <div class="shipping__inner style2 d-flex">
@@ -1276,8 +1554,8 @@
                         <img src="{{ asset('assets/img/other/shipping1.webp') }}" alt="icon-img">
                     </div>
                     <div class="shipping__content">
-                        <h2 class="shipping__content--title h3">Envíamos tus compras</h2>
-                        <p class="shipping__content--desc">La mejor gestiòn de envìo</p>
+                        <h2 class="shipping__content--title h3">Envios a todo Bolivia</h2>
+                        <p class="shipping__content--desc">Envios garantizados</p>
                     </div>
                 </div>
                 <div class="shipping__items style2 d-flex align-items-center">
@@ -1285,8 +1563,8 @@
                         <img src="{{ asset('assets/img/other/shipping2.webp') }}" alt="icon-img">
                     </div>
                     <div class="shipping__content">
-                        <h2 class="shipping__content--title h3">Soporte 24/7</h2>
-                        <p class="shipping__content--desc">Contáctanos las 24 horas del día</p>
+                        <h2 class="shipping__content--title h3">Contactanos libremente</h2>
+                        <p class="shipping__content--desc">las 24 horas del dia</p>
                     </div>
                 </div>
                 <div class="shipping__items style2 d-flex align-items-center">
@@ -1294,8 +1572,8 @@
                         <img src="{{ asset('assets/img/other/shipping3.webp') }}" alt="icon-img">
                     </div>
                     <div class="shipping__content">
-                        <h2 class="shipping__content--title h3">Sólo lo mejor</h2>
-                        <p class="shipping__content--desc">La mejor calidad garantizada</p>
+                        <h2 class="shipping__content--title h3">Productos originales</h2>
+                        <p class="shipping__content--desc">Calidad garantizada</p>
                     </div>
                 </div>
                 <div class="shipping__items style2 d-flex align-items-center">
@@ -1303,8 +1581,8 @@
                         <img src="{{ asset('assets/img/other/shipping4.webp') }}" alt="icon-img">
                     </div>
                     <div class="shipping__content">
-                        <h2 class="shipping__content--title h3">Pago seguro</h2>
-                        <p class="shipping__content--desc">Compra con seguridad y confianza</p>
+                        <h2 class="shipping__content--title h3">Pago en efectivo</h2>
+                        <p class="shipping__content--desc">O deposito bancario</p>
                     </div>
                 </div>
             </div>
@@ -1313,36 +1591,5 @@
     <!-- End shipping section -->
     </main>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            let startTime = performance.now(); // Record the start time when the page is loaded
-
-            // Capture time spent when the user leaves the page (clicks on a link)
-            $('a').on('click', function(event) {
-                let endTime = performance.now(); // Record the end time when the user clicks on a link
-                let timeSpent = endTime - startTime; // Calculate time spent on the page in milliseconds
-
-                // Send the data to the server using Ajax
-                $.ajax({
-                    url: '{{ route('track.time') }}', // Replace with your route to track time
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    contentType: 'application/json',
-                    data: JSON.stringify({
-                        timeSpent: timeSpent,
-                        url: window.location.href,
-                        productId: '{{ $product->id }}' // Assuming $product->id is available in your Blade template
-                    }),
-                    success: function(data) {
-                        console.log('Screen time tracked successfully:', data);
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error tracking screen time:', error);
-                    }
-                });
-            });
-        });
-    </script>
+   
 @endsection

@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html lang="en">
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,7 +11,9 @@
     @endphp
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
+<!-- Include necessary libraries -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+   
     <link rel="icon" href="{{ asset('site_favicon/') }}<?php echo '/' . $general_setting->site_favicon; ?>" type="image/x-icon">
     <link rel="shortcut icon" href="{{ asset('site_favicon/') }}<?php echo '/' . $general_setting->site_favicon; ?>" type="image/x-icon">
     <title>{{ $general_setting->site_name }} || @yield('title')</title>
@@ -140,7 +143,22 @@
                 </div>
                 <div class="nav-right col p-0">
                     <ul class="nav-menus">
-
+                        <li>
+                            <form class="form-inline search-form" action="#" method="get">
+                                <div class="form-group me-0">
+                                    <div class="Typeahead Typeahead--twitterUsers">
+                                        <div class="u-posRelative">
+                                            <input class="Typeahead-input form-control-plaintext" id="demo-input"
+                                                type="text" name="q" placeholder="Search...">
+                                            <div class="spinner-border Typeahead-spinner" role="status"><span
+                                                    class="sr-only">Loading...</span></div><span
+                                                class="d-sm-none mobile-search"><i data-feather="search"></i></span>
+                                        </div>
+                                        <div class="Typeahead-menu"></div>
+                                    </div>
+                                </div>
+                            </form>
+                        </li>
                         <li><a class="sidebar-header" href="{{ url('/') }}"><i
                                     data-feather="monitor"></i><span></span></a></li>
                         <li><a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()"><i
@@ -265,7 +283,7 @@
                                 <li><a href="{{ url('admin/change_password') }}"><i
                                             data-feather="lock"></i>{{ __('Cambiar Contraseña') }} </a></li>
                                 {{-- <li><a href="#"><i data-feather="settings"></i>{{ __('Settings') }} </a></li> --}}
-                                <li><a href="{{ url('admin/logout') }}"><i data-feather="log-out"></i>
+                                <li><a href="{{ url('admin/signout') }}"><i data-feather="log-out"></i>
                                         {{ __('Cerrar Sesión') }}</a>
                                 </li>
                             </ul>
@@ -419,55 +437,55 @@
                             </li> --}}
 
                             <li><a class="sidebar-header" href="{{ url('admin/banners') }}"><i
-                                        data-feather="monitor"></i><span>{{ __('Banner') }}
+                                        data-feather="monitor"></i><span>{{ __('Bandera') }}
                                     </span></a></li>
 
-                            <li class="">
-                                <a class="has-arrow sidebar-header" href="#">
-                                    <i class="icofont icofont-social-blogger"></i>
-                                    <span>{{ __('Administrar Blog') }}</span>
-                                </a>
-                                <ul class="sidebar-submenu">
-                                    <li>
-                                        <a href="{{ route('blog.create') }}">
-                                            <i class="fa fa-circle"></i>
-                                            <span>{{ __('Agregar Blog') }}</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('blog.index') }}">
-                                            <i class="fa fa-circle"></i>
-                                            <span>{{ __('Todo el Blog') }}</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('blog.blog-comment-list') }}">
-                                            <i class="fa fa-circle"></i>
-                                            <span>{{ __('Lista de Comentarios de Blog') }}</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('blog.blog-category.index') }}">
-                                            <i class="fa fa-circle"></i>
-                                            <span>{{ __('Categoría de Blog') }}</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li><a class="sidebar-header" href="{{ url('admin/qrcode') }}"><i
-                                        class="fa fa-empire"></i> CÓDIGO QR </a></li>
-                            <li>
-                                <a class="sidebar-header" href="{{ route('permissions.index') }}">
-                                    <i class="fa fa-key"></i>
-                                    <span>{{ __('Permissions') }}</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="sidebar-header" href="{{ route('role.index') }}">
-                                    <i class="fa fa-key"></i>
-                                    <span>{{ __('Roles') }}</span>
-                                </a>
-                            </li>
+                            <!--<li class="">-->
+                            <!--    <a class="has-arrow sidebar-header" href="#">-->
+                            <!--        <i class="icofont icofont-social-blogger"></i>-->
+                            <!--        <span>{{ __('Administrar Blog') }}</span>-->
+                            <!--    </a>-->
+                            <!--    <ul class="sidebar-submenu">-->
+                            <!--        <li>-->
+                            <!--            <a href="{{ route('blog.create') }}">-->
+                            <!--                <i class="fa fa-circle"></i>-->
+                            <!--                <span>{{ __('Agregar Blog') }}</span>-->
+                            <!--            </a>-->
+                            <!--        </li>-->
+                            <!--        <li>-->
+                            <!--            <a href="{{ route('blog.index') }}">-->
+                            <!--                <i class="fa fa-circle"></i>-->
+                            <!--                <span>{{ __('Todo el Blog') }}</span>-->
+                            <!--            </a>-->
+                            <!--        </li>-->
+                            <!--        <li>-->
+                            <!--            <a href="{{ route('blog.blog-comment-list') }}">-->
+                            <!--                <i class="fa fa-circle"></i>-->
+                            <!--                <span>{{ __('Lista de Comentarios de Blog') }}</span>-->
+                            <!--            </a>-->
+                            <!--        </li>-->
+                            <!--        <li>-->
+                            <!--            <a href="{{ route('blog.blog-category.index') }}">-->
+                            <!--                <i class="fa fa-circle"></i>-->
+                            <!--                <span>{{ __('Categoría de Blog') }}</span>-->
+                            <!--            </a>-->
+                            <!--        </li>-->
+                            <!--    </ul>-->
+                            <!--</li>-->
+                            <!--<li><a class="sidebar-header" href="{{ url('admin/qrcode') }}"><i-->
+                            <!--            class="fa fa-empire"></i> CÓDIGO QR </a></li>-->
+                            <!--            <li>-->
+                            <!--                <a class="sidebar-header" href="{{ route('permissions.index') }}">-->
+                            <!--                    <i class="fa fa-key"></i>-->
+                            <!--                    <span>{{ __('Permissions') }}</span>-->
+                            <!--                </a>-->
+                            <!--            </li>-->
+                            <!--<li>-->
+                            <!--    <a class="sidebar-header" href="{{ route('role.index') }}">-->
+                            <!--        <i class="fa fa-key"></i>-->
+                            <!--        <span>{{ __('Roles') }}</span>-->
+                            <!--    </a>-->
+                            <!--</li>-->
 
                             <li><a class="sidebar-header" href="{{ url('admin/pages') }}"><i
                                         data-feather="book"></i><span>{{ __('Pages') }} </span></a> </li>
@@ -476,26 +494,26 @@
                                     <i data-feather="mail"></i><span>{{ __('Plantillas de Correo') }} </span>
                                 </a>
                             </li>
-                            <li>
-                                <a class="sidebar-header" href="#">
-                                    <i class="fa fa-language"></i>
-                                    <span>{{ __('Administrar Idioma') }}</span>
-                                </a>
-                                <ul class="sidebar-submenu">
-                                    <li>
-                                        <a href="{{ url('admin/language') }}" class="sidebar-header">
-                                            <i class="fa fa-circle"></i>
-                                            <span>{{ __('Configuraciones de Idioma') }}</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
+                            <!--<li>-->
+                            <!--    <a class="sidebar-header" href="#">-->
+                            <!--        <i class="fa fa-language"></i>-->
+                            <!--        <span>{{ __('Administrar Idioma') }}</span>-->
+                            <!--    </a>-->
+                            <!--    <ul class="sidebar-submenu">-->
+                            <!--        <li>-->
+                            <!--            <a href="{{ url('admin/language') }}" class="sidebar-header">-->
+                            <!--                <i class="fa fa-circle"></i>-->
+                            <!--                <span>{{ __('Configuraciones de Idioma') }}</span>-->
+                            <!--            </a>-->
+                            <!--        </li>-->
+                            <!--    </ul>-->
+                            <!--</li>-->
                             <li><a class="sidebar-header" href="{{ url('admin/users') }}"><i
                                         data-feather="users"></i><span>{{ __('Gestión de Usuarios') }} </span></a>
                             </li>
 
                             <li><a class="sidebar-header" href="#"><i data-feather="layers"></i><span>
-                                        {{ __('Product Management') }} </span><i
+                                        {{ __('Gestión de productos') }} </span><i
                                         class="fa fa-angle-right pull-right"></i></a>
                                 <ul class="sidebar-submenu">
                                     <li>
@@ -506,15 +524,28 @@
                                     </li>
                                     <li>
 
-                                        <a href="{{ route('subcategory.index') }}">
+                                        <a href="{{route('subcategory.index')}}">
                                             <i class="fa fa-circle"></i>
-                                            <span>{{ __('Subcategory') }}</span>
+                                            <span>{{__('Subcategoría')}}</span>
+                                        </a>
+                                    </li>
+                                     <li>
+
+                                        <a href="{{url('admin\childcategory')}}">
+                                            <i class="fa fa-circle"></i>
+                                            <span>{{__('Childcategoría')}}</span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="{{ route('brands.index') }}">
                                             <i class="fa fa-circle"></i>
-                                            <span>{{ __('Brands') }}</span>
+                                            <span>{{ __('Marcas') }}</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('size.index') }}">
+                                            <i class="fa fa-circle"></i>
+                                            <span>{{ __('Size') }}</span>
                                         </a>
                                     </li>
                                     <li>
@@ -524,25 +555,23 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('tax.index') }}">
+                                        <a href="{{ route('gallery.index') }}">
                                             <i class="fa fa-circle"></i>
-                                            <span>{{ __('Tax') }}</span>
+                                            <span>{{ __('Galería media') }}</span>
                                         </a>
                                     </li>
-                                    <li><a href="{{ route('backend.products') }}"><i
-                                                class="fa fa-circle"></i>Product</a></li>
+                                    <li><a href="{{ route('backend.products') }}"><i class="fa fa-circle"></i>Producto</a></li>
 
 
                                 </ul>
                             </li>
 
                             <li><a class="sidebar-header" href="{{ url('admin/transactions_report') }}"><i
-                                        data-feather="dollar-sign"></i><span>{{ __('Recibir Fondos') }} </span></a>
+                                        data-feather="dollar-sign"></i><span>{{ __('Solicitudes de pedido') }} </span></a>
                             </li>
-                            <li><a class="sidebar-header" href="{{ route('tracked.times') }}"><i data-feather="clock"></i><span>{{ __('Track Time') }} </span></a>
+                            <li><a class="sidebar-header" href="{{ url('admin/showAllUsersTimeSpent') }}"><i data-feather="clock"></i><span>{{ __('El usuario dedica tiempo') }} </span></a>
                             </li>
-                            <li><a class="sidebar-header" href="{{ url('admin/showAllUsersTimeSpent') }}"><i data-feather="clock"></i><span>{{ __('User Spend Time') }} </span></a>
-                            </li>
+
                         </ul>
                     @endif
                     @if ($user_session->is_super_admin == 0 and $user_session->account_type == 'admin')
@@ -632,12 +661,33 @@
 
     <!-- Toastr JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-    <!-- JavaScript for screen time tracking -->
+<!-- Place the first <script> tag in your HTML's <head> -->
+<script src="https://cdn.tiny.cloud/1/v2asrll23z9wklt1y07v9m2yjxb18mqind9nmx8vtqicbxsz/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+
+<!-- Place the following <script> and <textarea> tags your HTML's <body> -->
+<script>
+  tinymce.init({
+    selector: 'textarea',
+    plugins: [
+      // Core editing features
+      'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
+      // Your account includes a free trial of TinyMCE premium features
+      // Try the most popular premium features until Sep 18, 2024:
+      'checklist', 'mediaembed', 'casechange', 'export', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate', 'ai', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown',
+    ],
+    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+    tinycomments_mode: 'embedded',
+    tinycomments_author: 'Author name',
+    mergetags_list: [
+      { value: 'First.Name', title: 'First Name' },
+      { value: 'Email', title: 'Email' },
+    ],
+    ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
+  });
+</script>
+
 
     <script>
-
-
-
         $(document).ready(function() {
             // Initialize Toastr with global options
             toastr.options = {

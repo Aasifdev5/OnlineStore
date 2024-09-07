@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jul 19, 2024 at 08:35 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Host: 127.0.0.1:3306
+-- Generation Time: Sep 05, 2024 at 12:48 PM
+-- Server version: 10.11.8-MariaDB-cll-lve
+-- PHP Version: 7.2.34
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `onlinestore`
+-- Database: `u253952917_bikebros`
 --
 
 -- --------------------------------------------------------
@@ -151,7 +151,11 @@ INSERT INTO `bank_details` (`id`, `user_id`, `bank_name`, `account_number`, `ifs
 
 CREATE TABLE `banners` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `title` varchar(191) NOT NULL,
+  `title1` varchar(255) DEFAULT NULL,
+  `title2` varchar(255) DEFAULT NULL,
+  `title3` varchar(255) DEFAULT NULL,
+  `button` varchar(255) DEFAULT NULL,
+  `link` text DEFAULT NULL,
   `image` varchar(191) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -161,10 +165,10 @@ CREATE TABLE `banners` (
 -- Dumping data for table `banners`
 --
 
-INSERT INTO `banners` (`id`, `title`, `image`, `created_at`, `updated_at`) VALUES
-(4, '1', '1711624950.jpg', '2024-03-06 20:56:22', '2024-03-28 05:52:30'),
-(5, '2', '1711624967.jpg', '2024-03-28 05:52:47', '2024-03-28 05:52:47'),
-(6, '3', '1711624985.jpg', '2024-03-28 05:53:05', '2024-03-28 05:53:05');
+INSERT INTO `banners` (`id`, `title1`, `title2`, `title3`, `button`, `link`, `image`, `created_at`, `updated_at`) VALUES
+(7, '2024 latest collection test', 'Wheel', 'Body Parts', 's', 'https://bikebros.net/productbyCategory/7', 'uploads/banners/1723702217-mTcMknHgSd.png', '2024-08-15 06:10:17', '2024-08-15 14:09:16'),
+(8, 'shanamo', 'accessories', 'lut', NULL, NULL, 'uploads/banners/1723703009-rFhKNqEMO7.png', '2024-08-15 06:19:06', '2024-08-15 06:23:29'),
+(11, 'Colección 2024', 'Ruedas', 'en oferta', NULL, NULL, 'uploads/banners/1723727116-W9v4hOAxHb.png', '2024-08-15 13:05:16', '2024-08-15 13:05:16');
 
 -- --------------------------------------------------------
 
@@ -341,7 +345,14 @@ INSERT INTO `brands` (`id`, `name`, `thumbnail`, `is_featured`, `is_publish`, `l
 (18, 'Taiwan', NULL, NULL, NULL, NULL, '2024-07-17 02:02:14', '2024-07-17 02:02:14'),
 (19, 'Pacific', NULL, NULL, NULL, NULL, '2024-07-17 02:02:38', '2024-07-17 02:02:38'),
 (20, 'Trupper', NULL, NULL, NULL, NULL, '2024-07-17 02:02:59', '2024-07-17 02:02:59'),
-(21, 'Uyustools', NULL, NULL, NULL, NULL, '2024-07-17 02:03:14', '2024-07-17 02:03:14');
+(21, 'Uyustools', NULL, NULL, NULL, NULL, '2024-07-17 02:03:14', '2024-07-17 02:03:14'),
+(22, 'Giyo', NULL, NULL, NULL, NULL, '2024-07-18 20:07:04', '2024-07-18 20:07:04'),
+(24, 'prueba', NULL, NULL, NULL, NULL, '2024-07-19 16:02:31', '2024-07-19 16:02:31'),
+(25, 'Shimano', NULL, NULL, NULL, NULL, '2024-08-13 23:03:56', '2024-08-13 23:03:56'),
+(26, 'cameo', NULL, NULL, NULL, NULL, '2024-08-16 13:10:32', '2024-08-16 13:10:32'),
+(27, 'neco.', NULL, NULL, NULL, NULL, '2024-08-22 16:12:18', '2024-08-22 16:12:18'),
+(28, 'Yolo', NULL, NULL, NULL, NULL, '2024-09-03 13:40:17', '2024-09-03 13:40:17'),
+(29, '2024', NULL, NULL, NULL, NULL, '2024-09-04 16:07:25', '2024-09-04 16:07:25');
 
 -- --------------------------------------------------------
 
@@ -408,6 +419,8 @@ CREATE TABLE `carts` (
   `color` varchar(255) DEFAULT NULL,
   `price` decimal(10,2) NOT NULL,
   `quantity` int(10) UNSIGNED NOT NULL DEFAULT 1,
+  `size` varchar(255) DEFAULT NULL,
+  `sku` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -416,9 +429,9 @@ CREATE TABLE `carts` (
 -- Dumping data for table `carts`
 --
 
-INSERT INTO `carts` (`id`, `user_id`, `product_id`, `color`, `price`, `quantity`, `created_at`, `updated_at`) VALUES
-(43, 33, 82, 'blanco', 40.00, 10, '2024-07-16 21:54:47', '2024-07-16 21:55:23'),
-(44, 33, 83, 'naranja', 40.00, 10, '2024-07-16 21:54:59', '2024-07-16 21:55:34');
+INSERT INTO `carts` (`id`, `user_id`, `product_id`, `color`, `price`, `quantity`, `size`, `sku`, `created_at`, `updated_at`) VALUES
+(365, 33, 112, '', 22.00, 1, 'default-size', 'psimple', '2024-09-02 22:05:17', '2024-09-02 22:05:17'),
+(412, 44, 321, 'verde', 50.00, 1, 'pequeño', 'guante2verdepe', '2024-09-05 11:46:28', '2024-09-05 11:46:28');
 
 -- --------------------------------------------------------
 
@@ -704,14 +717,16 @@ INSERT INTO `colors` (`id`, `name`, `created_at`, `updated_at`) VALUES
 (2, 'verde', '2024-07-19 06:12:15', '2024-07-19 06:12:15'),
 (3, 'azul', '2024-07-19 06:12:46', '2024-07-19 06:12:46'),
 (4, 'negro', '2024-07-19 06:13:05', '2024-07-19 06:13:05'),
-(5, 'blanco', '2024-07-19 06:13:20', '2024-07-19 06:13:20'),
 (6, 'amarillo', '2024-07-19 06:13:34', '2024-07-19 06:13:34'),
 (7, 'morado', '2024-07-19 06:13:51', '2024-07-19 06:13:51'),
 (8, 'naranja', '2024-07-19 06:14:04', '2024-07-19 06:14:04'),
 (9, 'rosa', '2024-07-19 06:14:19', '2024-07-19 06:14:19'),
 (10, 'marrón', '2024-07-19 06:14:33', '2024-07-19 06:14:33'),
 (11, 'gris', '2024-07-19 06:14:48', '2024-07-19 06:14:48'),
-(12, 'asdad dfgdgdg', '2024-07-19 06:16:44', '2024-07-19 06:16:57');
+(13, 'Metal', '2024-08-16 13:10:56', '2024-08-16 13:10:56'),
+(14, 'Cromado', '2024-08-22 16:18:43', '2024-08-22 16:18:43'),
+(15, 'Negro Cromado', '2024-09-03 13:41:05', '2024-09-03 13:41:05'),
+(16, 'Azul Cromado', '2024-09-04 16:13:48', '2024-09-04 16:13:48');
 
 -- --------------------------------------------------------
 
@@ -861,14 +876,14 @@ CREATE TABLE `general_settings` (
   `twitter_app_id` varchar(225) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 --
 -- Dumping data for table `general_settings`
 --
 
 INSERT INTO `general_settings` (`id`, `time_zone`, `default_language`, `styling`, `address`, `site_name`, `site_email`, `site_logo`, `site_favicon`, `site_description`, `site_keywords`, `site_header_code`, `site_footer_code`, `site_copyright`, `currency_code`, `footer_fb_link`, `footer_twitter_link`, `footer_instagram_link`, `footer_google_play_link`, `footer_apple_store_link`, `smtp_host`, `smtp_port`, `smtp_email`, `smtp_password`, `smtp_encryption`, `google_login`, `facebook_login`, `google_client_id`, `google_client_secret`, `google_redirect`, `facebook_app_id`, `facebook_client_secret`, `facebook_redirect`, `linkedin_login`, `linkedin_client_id`, `linkedin_app_id`, `Instagram_login`, `Instagram_client_id`, `instagram_app_id`, `git_login`, `git_client_id`, `git_app_id`, `twitter_login`, `twitter_client_id`, `twitter_app_id`, `created_at`, `updated_at`) VALUES
-(1, 'America/aracas', 'English', '5619876543210', '722 NY ,US', 'BIKEBROS', 'BIKEBROS@gmail.com', 'logos bikebros.png', 'WhatsApp_Image_2024-06-19_at_20.37.04-removebg-preview.png', '<p>BIKEBROS</p>', '<p>BIKEBROS</p>', '', '', '© Copyright by BIKEBROS 2024', 'Afghan Afghani', 'https://www.facebook.com/', 'https://twitter.com/?lang=en', 'https://www.instagram.com/', '', '', 'smtp.gmail.com', '465', 'ars3sssssss@gmail.com', 'aexvmzqihfdqmnno', 'TLS', 'yes', NULL, '8', '9876543210', 'http://127.0.0.1:8000/auth/git/callback', NULL, NULL, 'http://127.0.0.1:8000/auth/twitter/callback', 'yes', '6546544654', '512sd213sad1232df13sd2f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-07-11 22:20:41');
+(1, 'Pacific/Midway', 'English', '5619876543210', '722 NY ,US', 'BIKEBROS', 'BIKEBROS@gmail.com', 'Logo bikebros negativo (1).png', 'WhatsApp_Image_2024-06-19_at_20.37.04-removebg-preview.png', '<p>BIKEBROS</p>', '<p>BIKEBROS</p>', '', '', '© Copyright by BIKEBROS 2024', 'Afghan Afghani', 'https://www.facebook.com/', 'https://twitter.com/?lang=en', 'https://www.instagram.com/', '', '', 'smtp.gmail.com', '465', 'ars3sssssss@gmail.com', 'aexvmzqihfdqmnno', 'TLS', 'yes', NULL, '8', '9876543210', 'http://127.0.0.1:8000/auth/git/callback', NULL, NULL, 'http://127.0.0.1:8000/auth/twitter/callback', 'yes', '6546544654', '512sd213sad1232df13sd2f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-08-13 17:25:51');
 
 -- --------------------------------------------------------
 
@@ -989,6 +1004,77 @@ INSERT INTO `mail_templates` (`id`, `alias`, `name`, `subject`, `body`, `shortco
 (10, 'password_reset', 'Restablecer Contraseña', 'Notificación de Restablecimiento de Contraseña', '<p><strong>Reset Password Notification</strong></p><p><img src=\"../../../logo-removebg-preview.png\" alt=\"\"></p><h2><strong>Hello!</strong></h2><p>You are receiving this email because we received a password reset request for your account, please click on the link below to reset your password.</p><p><a href=\"{{link}}\">{{link}}</a></p><p>This password reset link will expire in <strong>15</strong> minutes. If you did not request a password reset, no further action is required.</p><p><strong>Best Regards</strong></p><p><strong>BIKEBROS Team</strong></p><p>&nbsp;<a href=\"https://www.instagram.com/skyforecasting/\"><img src=\"https://skyforecasting.net/help-center/media/images/ofBRYlvT1cu30VS_1700260141.png\"></a> <a href=\"https://twitter.com/skyforecasting\"><img src=\"https://skyforecasting.net/help-center/media/images/lSr0pUYldGRD46h_1700260215.png\"></a> <img src=\"https://skyforecasting.net/help-center/media/images/pk8iEq2c7f3mICO_1700260869.png\"> <img src=\"https://skyforecasting.net/help-center/media/images/krFVCzRVOornVih_1700260896.png\"></p><p>You received this email because you subscribed to our list.<br>&nbsp;<a href=\"https://skyforecasting.net/unsubscribepage/unsubscribe.html\">Unsubscribe</a> from future emails or update email preferences.<br>© 2024 BIKEBROS. All Rights Reserved.</p><p>&nbsp;</p><p><br>&nbsp;</p><p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</p><p>&nbsp;</p>', '{\n\"link\":\"Password reset link\",\n\"expiry_time\":\"Link expiry time\",\n\"website_name\":\"Your website name\"\n}', 1),
 (11, 'email_verification', 'Verificación de Correo Electrónico', 'Verificar Dirección de Correo Electrónico', '<p><strong>Verify Email Address</strong></p><p><img src=\"../../../logo-removebg-preview.png\" alt=\"\"></p><h2>Hello!</h2><p>Please click on the link below to verify your email address.</p><p><a href=\"{{link}}\">{{link}}</a></p><p>If you did not create an account, no further action is required.</p><p><br><strong>Best Regards</strong></p><p><strong>BIKEBROS&nbsp;Team</strong></p><p>&nbsp;<a href=\"https://www.instagram.com/skyforecasting/\"><img src=\"https://skyforecasting.net/help-center/media/images/ofBRYlvT1cu30VS_1700260141.png\"></a> <a href=\"https://twitter.com/skyforecasting\"><img src=\"https://skyforecasting.net/help-center/media/images/lSr0pUYldGRD46h_1700260215.png\"></a> <a href=\"https://www.facebook.com/profile.php?id=61553152322786\"><img src=\"https://skyforecasting.net/help-center/media/images/pk8iEq2c7f3mICO_1700260869.png\"></a> <a href=\"https://www.youtube.com/channel/UCscdHPJ4f79CAmiO2f9gJoA\"><img src=\"https://skyforecasting.net/help-center/media/images/krFVCzRVOornVih_1700260896.png\"></a></p><p>You received this email because you subscribed to our list.<br>&nbsp;<a href=\"https://skyforecasting.net/unsubscribepage/unsubscribe.html\">Unsubscribe</a> from future emails or update email preferences.<br>© 2024 BIKEBROS. All Rights Reserved.</p>', '{\"link\":\"Email verification link\",\"website_name\":\"Your website name\"}', 1),
 (18, 'welcome', 'Bienvenida', 'Bienvenido a BIKEBROS', '<h2><strong>Bienvenido a BikeBros</strong></h2><p><strong><img src=\"../../../logo-removebg-preview.png\" alt=\"\"></strong></p><p>Hola {{name}},&nbsp;</p><p>Welcome to &nbsp;<strong>ACELERA</strong>! We’re so excited to have you on board.</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Start Exploring</p><p>If you have any questions along the way, don’t hesitate to reach out to our customer success team. We’re always here to help.</p><p><br><strong>Best Regards</strong></p><p><strong>ACELERA&nbsp; Team</strong></p><p>&nbsp;<a href=\"https://www.instagram.com/skyforecasting/\"><img src=\"https://skyforecasting.net/help-center/media/images/ofBRYlvT1cu30VS_1700260141.png\"></a> <a href=\"https://twitter.com/skyforecasting\"><img src=\"https://skyforecasting.net/help-center/media/images/lSr0pUYldGRD46h_1700260215.png\"></a> <a href=\"https://www.facebook.com/profile.php?id=61553152322786\"><img src=\"https://skyforecasting.net/help-center/media/images/pk8iEq2c7f3mICO_1700260869.png\"></a> <a href=\"https://www.youtube.com/channel/UCscdHPJ4f79CAmiO2f9gJoA\"><img src=\"https://skyforecasting.net/help-center/media/images/krFVCzRVOornVih_1700260896.png\"></a></p><p>You received this email because you subscribed to our list.<br>&nbsp;<a href=\"https://skyforecasting.net/unsubscribepage/unsubscribe.html\">Unsubscribe</a> from future emails or update email preferences.<br>© 2024 &nbsp;ACELERA. All Rights Reserved.</p>', '{\"name\":\"name\",\"website_name\":\"Your website name\"}', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `media`
+--
+
+CREATE TABLE `media` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  `thumbnail` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `media`
+--
+
+INSERT INTO `media` (`id`, `title`, `url`, `thumbnail`, `created_at`, `updated_at`) VALUES
+(6, 'Lente sp216bk.png', NULL, '/product_images/1723123242.png', '2024-08-08 13:20:42', '2024-08-08 13:20:42'),
+(7, 'Lente sp216bk.png', NULL, '/product_images/1723258698.png', '2024-08-10 02:58:18', '2024-08-10 02:58:18'),
+(8, '10164.png', NULL, '/product_images/1723259082.png', '2024-08-10 03:04:42', '2024-08-10 03:04:42'),
+(9, 'sp216bl.png', NULL, '/product_images/1723259357.png', '2024-08-10 03:09:17', '2024-08-10 03:09:17'),
+(10, 'sp216az', NULL, '/product_images/1723259586.png', '2024-08-10 03:13:06', '2024-08-10 03:13:06'),
+(11, 'sp216ne', NULL, '/product_images/1723259685.png', '2024-08-10 03:14:45', '2024-08-10 03:14:45'),
+(12, 'dfsd', NULL, '/product_images/1723269252.png', '2024-08-10 05:54:12', '2024-08-10 05:54:12'),
+(13, '7. RD-TY500-SGS', NULL, '/product_images/1723588725.png', '2024-08-13 22:38:45', '2024-08-13 22:38:45'),
+(14, '1. MF-TZ500-7', NULL, '/product_images/1723588795.png', '2024-08-13 22:39:55', '2024-08-13 22:39:55'),
+(15, '2. MF-TZ500-7', NULL, '/product_images/1723588844.png', '2024-08-13 22:40:44', '2024-08-13 22:40:44'),
+(16, '2.1. MF-TZ500-7', NULL, '/product_images/1723588860.png', '2024-08-13 22:41:00', '2024-08-13 22:41:00'),
+(17, '3.RD-TZ500-GS', NULL, '/product_images/1723588876.png', '2024-08-13 22:41:16', '2024-08-13 22:41:16'),
+(18, '4. SL-TZ500-7R', NULL, '/product_images/1723588898.png', '2024-08-13 22:41:38', '2024-08-13 22:41:38'),
+(19, '4. SL-TZ500-7R', NULL, '/product_images/1723588903.png', '2024-08-13 22:41:43', '2024-08-13 22:41:43'),
+(20, '4.1. SL-TZ500-LN', NULL, '/product_images/1723588918.png', '2024-08-13 22:41:58', '2024-08-13 22:41:58'),
+(21, '4.1. SL-TZ500-LN', NULL, '/product_images/1723588923.png', '2024-08-13 22:42:03', '2024-08-13 22:42:03'),
+(22, '5. FD-TY601-L6', NULL, '/product_images/1723588939.png', '2024-08-13 22:42:19', '2024-08-13 22:42:19'),
+(23, '6. RD-TY200-GS', NULL, '/product_images/1723588971.png', '2024-08-13 22:42:51', '2024-08-13 22:42:51'),
+(24, '8. BR-TX805', NULL, '/product_images/1723588995.png', '2024-08-13 22:43:15', '2024-08-13 22:43:15'),
+(25, 'blue', NULL, '/product_images/1723782797.png', '2024-08-16 04:33:17', '2024-08-16 04:33:17'),
+(26, 'black', NULL, '/product_images/1723783123.png', '2024-08-16 04:38:43', '2024-08-16 04:38:43'),
+(27, 'black', NULL, '/product_images/1723783127.png', '2024-08-16 04:38:47', '2024-08-16 04:38:47'),
+(28, 'IMAGEN MOTO', NULL, '/product_images/1723783158.png', '2024-08-16 04:39:18', '2024-08-16 04:39:18'),
+(29, 'blue', NULL, '/product_images/1723783923.png', '2024-08-16 04:52:03', '2024-08-16 04:52:03'),
+(30, 'black', NULL, '/product_images/1723784365.png', '2024-08-16 04:59:25', '2024-08-16 04:59:25'),
+(31, 'caja', NULL, '/product_images/1723787010.png', '2024-08-16 05:43:30', '2024-08-16 05:43:30'),
+(32, 'moto', NULL, '/product_images/1723787146.png', '2024-08-16 05:45:46', '2024-08-16 05:45:46'),
+(33, 'dedo medio rojo.jpeg', NULL, '/product_images/1723998018.jpeg', '2024-08-18 16:20:18', '2024-08-18 16:20:18'),
+(34, 'dedo medio negro.jpeg', NULL, '/product_images/1723998046.jpeg', '2024-08-18 16:20:46', '2024-08-18 16:20:46'),
+(35, 'azul', NULL, '/product_images/1724144284.png', '2024-08-20 08:58:04', '2024-08-20 08:58:04'),
+(36, 'azul', NULL, '/product_images/1724144285.png', '2024-08-20 08:58:05', '2024-08-20 08:58:05'),
+(37, 'azul', NULL, '/product_images/1724144334.png', '2024-08-20 08:58:54', '2024-08-20 08:58:54'),
+(38, 'azul', NULL, '/product_images/1724144335.png', '2024-08-20 08:58:55', '2024-08-20 08:58:55'),
+(39, 'klklll', NULL, '/product_images/1724144485.png', '2024-08-20 09:01:25', '2024-08-20 09:01:25'),
+(40, 'jhkhjkjhkhj', NULL, '/product_images/1724144693.png', '2024-08-20 09:04:53', '2024-08-20 09:04:53'),
+(41, 'cfgdfgrd', NULL, '/product_images/1724145313.png', '2024-08-20 09:15:13', '2024-08-20 09:15:13'),
+(42, 'solocolor', NULL, '/product_images/1725315792.png', '2024-09-02 22:23:12', '2024-09-02 22:23:12'),
+(43, 'negro1', NULL, '/product_images/1725373800.jpg', '2024-09-03 14:30:00', '2024-09-03 14:30:00'),
+(44, 'negro2', NULL, '/product_images/1725373827.jpg', '2024-09-03 14:30:27', '2024-09-03 14:30:27'),
+(45, 'negro3', NULL, '/product_images/1725374027.jpg', '2024-09-03 14:33:47', '2024-09-03 14:33:47'),
+(46, 'verde1', NULL, '/product_images/1725374048.jpeg', '2024-09-03 14:34:08', '2024-09-03 14:34:08'),
+(47, 'verde2', NULL, '/product_images/1725374069.jpeg', '2024-09-03 14:34:29', '2024-09-03 14:34:29'),
+(48, 'verde3', NULL, '/product_images/1725374089.jpg', '2024-09-03 14:34:49', '2024-09-03 14:34:49'),
+(49, 'rojo1', NULL, '/product_images/1725374111.jpeg', '2024-09-03 14:35:11', '2024-09-03 14:35:11'),
+(50, 'rojo2', NULL, '/product_images/1725374131.png', '2024-09-03 14:35:31', '2024-09-03 14:35:31'),
+(51, 'rojo3', NULL, '/product_images/1725374152.jpg', '2024-09-03 14:35:52', '2024-09-03 14:35:52'),
+(52, 'calculadoraa', NULL, '/product_images/1725374328.jpg', '2024-09-03 14:38:48', '2024-09-03 14:38:48'),
+(53, 'Boligrafo', NULL, '/product_images/1725374348.jpeg', '2024-09-03 14:39:08', '2024-09-03 14:39:08'),
+(55, 'tx2', NULL, '/product_images/1725460469.png', '2024-09-04 14:34:29', '2024-09-04 14:34:29'),
+(56, 'tx1', NULL, '/product_images/1725464417.png', '2024-09-04 15:40:17', '2024-09-04 15:40:17');
 
 -- --------------------------------------------------------
 
@@ -1503,13 +1589,8 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `full_name`, `address`, `city`, `country`, `postal_code`, `total_amount`, `created_at`, `updated_at`) VALUES
-(23, 44, 'Ivan', 'La Paz', 'La Paz', 'La Paz', NULL, 6912.00, '2024-07-15 04:42:02', '2024-07-15 04:42:02'),
-(28, 34, 'Aasif Ahmed', 'Indore', 'Indore', 'Indore', NULL, 576.00, '2024-07-15 06:20:38', '2024-07-15 06:20:38'),
-(29, 34, 'Aasif Ahmed', 'Indore', 'Indore', 'Indore', NULL, 34.00, '2024-07-15 09:04:17', '2024-07-15 09:04:17'),
-(30, 44, 'Ivan', 'La Paz', 'La Paz', 'La Paz', NULL, 686.00, '2024-07-15 14:07:54', '2024-07-15 14:07:54'),
-(31, 33, 'Juan', 'dfgfdghdf', 'ythgfh', 'ythgfh', NULL, 240.00, '2024-07-16 15:23:20', '2024-07-16 15:23:20'),
-(32, 40, 'Maribel Prueba', 'Plaza Scout', 'La Paz', 'La Paz', NULL, 1533.00, '2024-07-16 21:59:10', '2024-07-16 21:59:10'),
-(33, 40, 'Maribel Prueba', 'Plaza Scout', 'La Paz', 'La Paz', NULL, 1533.00, '2024-07-16 21:59:19', '2024-07-16 21:59:19');
+(1, 40, 'Maribel Prueba', 'Plaza Scout', 'La Paz', 'La Paz', NULL, 135.00, '2024-09-04 16:36:44', '2024-09-04 16:36:44'),
+(2, 40, 'Maribel Prueba', 'Plaza Scout', 'La Paz', 'La Paz', NULL, 60.00, '2024-09-04 16:55:20', '2024-09-04 16:55:20');
 
 -- --------------------------------------------------------
 
@@ -1521,6 +1602,8 @@ CREATE TABLE `order_items` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `order_id` bigint(20) UNSIGNED NOT NULL,
   `product_id` bigint(20) UNSIGNED NOT NULL,
+  `size` varchar(255) DEFAULT NULL,
+  `sku` varchar(255) DEFAULT NULL,
   `color` varchar(255) DEFAULT NULL,
   `quantity` int(11) NOT NULL,
   `price` decimal(10,2) NOT NULL,
@@ -1532,34 +1615,17 @@ CREATE TABLE `order_items` (
 -- Dumping data for table `order_items`
 --
 
-INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `color`, `quantity`, `price`, `created_at`, `updated_at`) VALUES
-(39, 23, 82, 'blanco', 18, 98.00, '2024-07-15 04:42:02', '2024-07-15 04:42:02'),
-(40, 23, 78, 'blanco', 7, 70.00, '2024-07-15 04:42:02', '2024-07-15 04:42:02'),
-(41, 23, 79, 'amarillo', 18, 70.00, '2024-07-15 04:42:02', '2024-07-15 04:42:02'),
-(42, 23, 82, 'blanco', 21, 98.00, '2024-07-15 04:42:02', '2024-07-15 04:42:02'),
-(43, 23, 83, 'naranja', 12, 98.00, '2024-07-15 04:42:02', '2024-07-15 04:42:02'),
-(44, 23, 80, '', 1, 164.00, '2024-07-15 04:42:02', '2024-07-15 04:42:02'),
-(45, 24, 80, '', 4, 144.00, '2024-07-15 06:15:44', '2024-07-15 06:15:44'),
-(46, 25, 80, '', 4, 144.00, '2024-07-15 06:16:07', '2024-07-15 06:16:07'),
-(47, 26, 80, '', 4, 144.00, '2024-07-15 06:18:22', '2024-07-15 06:18:22'),
-(48, 27, 80, '', 4, 144.00, '2024-07-15 06:19:27', '2024-07-15 06:19:27'),
-(49, 28, 80, '', 4, 144.00, '2024-07-15 06:20:38', '2024-07-15 06:20:38'),
-(50, 29, 85, 'verde', 1, 34.00, '2024-07-15 09:04:17', '2024-07-15 09:04:17'),
-(51, 30, 83, 'naranja', 7, 98.00, '2024-07-15 14:07:54', '2024-07-15 14:07:54'),
-(52, 31, 83, 'naranja', 5, 40.00, '2024-07-16 15:23:20', '2024-07-16 15:23:20'),
-(53, 31, 83, 'naranja', 1, 40.00, '2024-07-16 15:23:20', '2024-07-16 15:23:20'),
-(54, 32, 83, 'naranja', 2, 98.00, '2024-07-16 21:59:10', '2024-07-16 21:59:10'),
-(55, 32, 83, 'naranja', 1, 98.00, '2024-07-16 21:59:10', '2024-07-16 21:59:10'),
-(56, 32, 82, 'blanco', 6, 98.00, '2024-07-16 21:59:10', '2024-07-16 21:59:10'),
-(57, 32, 82, 'blanco', 1, 98.00, '2024-07-16 21:59:10', '2024-07-16 21:59:10'),
-(58, 32, 82, 'blanco', 1, 98.00, '2024-07-16 21:59:10', '2024-07-16 21:59:10'),
-(59, 32, 85, 'verde', 7, 65.00, '2024-07-16 21:59:10', '2024-07-16 21:59:10'),
-(60, 33, 83, 'naranja', 2, 98.00, '2024-07-16 21:59:19', '2024-07-16 21:59:19'),
-(61, 33, 83, 'naranja', 1, 98.00, '2024-07-16 21:59:19', '2024-07-16 21:59:19'),
-(62, 33, 82, 'blanco', 6, 98.00, '2024-07-16 21:59:19', '2024-07-16 21:59:19'),
-(63, 33, 82, 'blanco', 1, 98.00, '2024-07-16 21:59:19', '2024-07-16 21:59:19'),
-(64, 33, 82, 'blanco', 1, 98.00, '2024-07-16 21:59:19', '2024-07-16 21:59:19'),
-(65, 33, 85, 'verde', 7, 65.00, '2024-07-16 21:59:19', '2024-07-16 21:59:19');
+INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `size`, `sku`, `color`, `quantity`, `price`, `created_at`, `updated_at`) VALUES
+(1, 1, 307, 'Estandar', 'FrutaEsta', NULL, 4, 15.00, '2024-09-04 16:36:44', '2024-09-04 16:36:44'),
+(2, 1, 307, 'Muy Pequeño', 'FrutaMuyPeq', NULL, 1, 15.00, '2024-09-04 16:36:44', '2024-09-04 16:36:44'),
+(3, 1, 307, 'Estandar', 'FrutaEsta', NULL, 1, 15.00, '2024-09-04 16:36:44', '2024-09-04 16:36:44'),
+(4, 1, 307, 'Muy Pequeño', 'FrutaMuyPeq', NULL, 1, 15.00, '2024-09-04 16:36:44', '2024-09-04 16:36:44'),
+(5, 1, 304, 'default-size', 'YoguetaRojo', 'rojo', 1, 15.00, '2024-09-04 16:36:44', '2024-09-04 16:36:44'),
+(6, 1, 305, 'default-size', 'YoguetaVerde', 'verde', 1, 15.00, '2024-09-04 16:36:44', '2024-09-04 16:36:44'),
+(7, 2, 310, 'Mediano', 'MixMedRed', 'rojo', 1, 15.00, '2024-09-04 16:55:20', '2024-09-04 16:55:20'),
+(8, 2, 311, 'Mediano', 'MixMedGreen', 'verde', 1, 15.00, '2024-09-04 16:55:20', '2024-09-04 16:55:20'),
+(9, 2, 310, 'XXL', 'MixXXLRed', 'rojo', 1, 15.00, '2024-09-04 16:55:20', '2024-09-04 16:55:20'),
+(10, 2, 311, 'XXL', 'MixXXLGreen', 'verde', 1, 15.00, '2024-09-04 16:55:20', '2024-09-04 16:55:20');
 
 -- --------------------------------------------------------
 
@@ -1599,7 +1665,7 @@ CREATE TABLE `pages` (
   `page_content` text NOT NULL,
   `page_order` int(3) DEFAULT NULL,
   `status` int(1) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `pages`
@@ -1665,13 +1731,8 @@ CREATE TABLE `payments` (
 --
 
 INSERT INTO `payments` (`id`, `order_id`, `name`, `email`, `product_details`, `user_id`, `reward_id`, `amount`, `payment_receipt`, `accepted`, `status`, `payer_email`, `created_at`, `updated_at`) VALUES
-(36, 23, 'Ivan', NULL, '[{\"product_id\":\"82\",\"quantity\":\"18\",\"price\":\"98.00\"},{\"product_id\":\"78\",\"quantity\":\"7\",\"price\":\"70.00\"},{\"product_id\":\"79\",\"quantity\":\"18\",\"price\":\"70.00\"},{\"product_id\":\"82\",\"quantity\":\"21\",\"price\":\"98.00\"},{\"product_id\":\"83\",\"quantity\":\"12\",\"price\":\"98.00\"},{\"product_id\":\"80\",\"quantity\":\"1\",\"price\":\"164.00\"}]', 44, NULL, 6912.00, NULL, 0, 'initial', 'jago1410@gmail.com', '2024-07-15 04:42:02', '2024-07-15 04:42:02'),
-(41, 28, 'Aasif Ahmed', NULL, '[{\"product_id\":\"80\",\"quantity\":\"4\",\"price\":\"144.00\"}]', 34, NULL, 576.00, NULL, 0, 'initial', 'arstech2a@gmail.com', '2024-07-15 06:20:38', '2024-07-15 06:20:38'),
-(42, 29, 'Aasif Ahmed', NULL, '[{\"product_id\":\"85\",\"quantity\":\"1\",\"price\":\"34.00\"}]', 34, NULL, 34.00, NULL, 0, 'initial', 'arstech2a@gmail.com', '2024-07-15 09:04:17', '2024-07-15 09:04:17'),
-(43, 30, 'Ivan', NULL, '[{\"product_id\":\"83\",\"quantity\":\"7\",\"price\":\"98.00\"}]', 44, NULL, 686.00, NULL, 0, 'initial', 'jago1410@gmail.com', '2024-07-15 14:07:54', '2024-07-15 14:07:54'),
-(44, 31, 'Juan', NULL, '[{\"product_id\":\"83\",\"quantity\":\"5\",\"price\":\"40.00\"},{\"product_id\":\"83\",\"quantity\":\"1\",\"price\":\"40.00\"}]', 33, NULL, 240.00, NULL, 0, 'initial', 'adminer@gmail.com', '2024-07-16 15:23:20', '2024-07-16 15:23:20'),
-(45, 32, 'Maribel Prueba', NULL, '[{\"product_id\":\"83\",\"quantity\":\"2\",\"price\":\"98.00\"},{\"product_id\":\"83\",\"quantity\":\"1\",\"price\":\"98.00\"},{\"product_id\":\"82\",\"quantity\":\"6\",\"price\":\"98.00\"},{\"product_id\":\"82\",\"quantity\":\"1\",\"price\":\"98.00\"},{\"product_id\":\"82\",\"quantity\":\"1\",\"price\":\"98.00\"},{\"product_id\":\"85\",\"quantity\":\"7\",\"price\":\"65.00\"}]', 40, NULL, 1533.00, NULL, 0, 'initial', 'ml.urquizo@gmail.com', '2024-07-16 21:59:10', '2024-07-16 21:59:10'),
-(46, 33, 'Maribel Prueba', NULL, '[{\"product_id\":\"83\",\"quantity\":\"2\",\"price\":\"98.00\"},{\"product_id\":\"83\",\"quantity\":\"1\",\"price\":\"98.00\"},{\"product_id\":\"82\",\"quantity\":\"6\",\"price\":\"98.00\"},{\"product_id\":\"82\",\"quantity\":\"1\",\"price\":\"98.00\"},{\"product_id\":\"82\",\"quantity\":\"1\",\"price\":\"98.00\"},{\"product_id\":\"85\",\"quantity\":\"7\",\"price\":\"65.00\"}]', 40, NULL, 1533.00, NULL, 0, 'initial', 'ml.urquizo@gmail.com', '2024-07-16 21:59:19', '2024-07-16 21:59:19');
+(1, 1, 'Maribel Prueba', NULL, '[{\"product_id\":\"307\",\"quantity\":\"4\",\"price\":\"15.00\",\"size\":\"Estandar\",\"sku\":\"FrutaEsta\"},{\"product_id\":\"307\",\"quantity\":\"1\",\"price\":\"15.00\",\"size\":\"Muy Peque\\u00f1o\",\"sku\":\"FrutaMuyPeq\"},{\"product_id\":\"307\",\"quantity\":\"1\",\"price\":\"15.00\",\"size\":\"Estandar\",\"sku\":\"FrutaEsta\"},{\"product_id\":\"307\",\"quantity\":\"1\",\"price\":\"15.00\",\"size\":\"Muy Peque\\u00f1o\",\"sku\":\"FrutaMuyPeq\"},{\"product_id\":\"304\",\"quantity\":\"1\",\"price\":\"15.00\",\"size\":\"default-size\",\"sku\":\"YoguetaRojo\"},{\"product_id\":\"305\",\"quantity\":\"1\",\"price\":\"15.00\",\"size\":\"default-size\",\"sku\":\"YoguetaVerde\"}]', 40, NULL, 135.00, NULL, 0, 'initial', 'ml.urquizo@gmail.com', '2024-09-04 16:36:44', '2024-09-04 16:36:44'),
+(2, 2, 'Maribel Prueba', NULL, '[{\"product_id\":\"310\",\"quantity\":\"1\",\"price\":\"15.00\",\"size\":\"Mediano\",\"sku\":\"MixMedRed\"},{\"product_id\":\"311\",\"quantity\":\"1\",\"price\":\"15.00\",\"size\":\"Mediano\",\"sku\":\"MixMedGreen\"},{\"product_id\":\"310\",\"quantity\":\"1\",\"price\":\"15.00\",\"size\":\"XXL\",\"sku\":\"MixXXLRed\"},{\"product_id\":\"311\",\"quantity\":\"1\",\"price\":\"15.00\",\"size\":\"XXL\",\"sku\":\"MixXXLGreen\"}]', 40, NULL, 60.00, NULL, 0, 'initial', 'ml.urquizo@gmail.com', '2024-09-04 16:55:20', '2024-09-04 16:55:20');
 
 -- --------------------------------------------------------
 
@@ -1744,6 +1805,8 @@ CREATE TABLE `products` (
   `category` varchar(255) DEFAULT NULL,
   `subcategory_id` int(11) DEFAULT NULL,
   `childcategory` int(11) DEFAULT NULL,
+  `variation_color` text DEFAULT NULL,
+  `variation_size` text DEFAULT NULL,
   `f_thumbnail` text DEFAULT NULL,
   `short_desc` text DEFAULT NULL,
   `description` text DEFAULT NULL,
@@ -1766,8 +1829,6 @@ CREATE TABLE `products` (
   `brand_id` int(11) DEFAULT NULL,
   `price` varchar(255) DEFAULT NULL,
   `store_id` varchar(255) DEFAULT NULL,
-  `variation_color` text DEFAULT NULL,
-  `variation_size` text DEFAULT NULL,
   `tax_id` int(11) DEFAULT NULL,
   `is_publish` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
@@ -1783,19 +1844,59 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `title`, `slug`, `sku`, `category`, `subcategory_id`, `childcategory`, `f_thumbnail`, `short_desc`, `description`, `price1`, `price2`, `price3`, `price4`, `price5`, `extra_desc`, `cost_price`, `sale_price`, `old_price`, `start_date`, `end_date`, `is_discount`, `is_stock`, `stock_status_id`, `stock_qty`, `u_stock_qty`, `brand_id`, `price`, `store_id`, `variation_color`, `variation_size`, `tax_id`, `is_publish`, `user_id`, `og_title`, `og_image`, `og_description`, `og_keywords`, `created_at`, `updated_at`) VALUES
-(76, 'testing', 'testing', 'sku001', '7', 1, 41, '10161.png', '<p>testing</p>', '<p>testing</p>', '10', '20', '30', '50', '70', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 10, NULL, 4, NULL, NULL, 'negro,blanco,amarillo', 'Mediano', NULL, 1, NULL, 'testing', NULL, 'testing', 'testing', '2024-07-08 04:05:17', '2024-07-16 10:24:28'),
-(77, 'testing', 'testing-BLACK', 'sku001-MEDIUM-BLACK', '7', 1, 41, 'sp216bl.png', 'testing', 'testing', '10', '20', '30', '50', '70', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, -3, NULL, 4, NULL, NULL, 'negro,blanco,amarillo', 'Mediano', NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-08 04:15:04', '2024-07-15 04:23:24'),
-(78, 'testing', 'testing-WHITE', 'sku001-MEDIUM-WHITE', '7', 1, 41, '14110006002.png', '<p>testing</p>', '<p>testing</p>', '10', '20', '30', '50', '70', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 2, NULL, 4, NULL, NULL, 'negro,blanco,amarillo', 'Mediano', NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-08 04:15:04', '2024-07-16 10:40:52'),
-(79, 'testing', 'testing-YELLOW', 'sku001-MEDIUM-YELLOW', '7', 2, NULL, '10164.png', 'testing', 'testing', '10', '20', '30', '50', '70', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, -14, NULL, 4, NULL, NULL, 'negro,blanco,amarillo', 'Mediano', NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-08 04:15:04', '2024-07-15 04:42:02'),
-(80, 'Lentes De Ciclismo Polarizados', 'Lentes-De-Ciclismo-Polarizados', 'sku002', '7', 2, 31, 'Lente sp216bk.png', '<p style=\"margin: 0cm 0cm 19.2pt; font-size: 12pt; font-family: \'Times New Roman\', serif;\"><span style=\"font-size: 11.5pt; font-family: Arial, sans-serif; color: #7a7a7a;\">Detalles del producto:</span></p>\r\n<p style=\"margin: 0cm 0cm 19.2pt; font-size: 12pt; font-family: \'Times New Roman\', serif;\"><span style=\"font-size: 11.5pt; font-family: Arial, sans-serif; color: #7a7a7a;\">Modelo: polarizadas<br>Peso: aprox. 29g<br>Material: Lente de PC + marco TR</span></p>', '<p style=\"margin: 0cm 0cm 19.2pt; font-size: 12pt; font-family: \'Times New Roman\', serif;\"><span style=\"font-size: 11.5pt; font-family: Arial, sans-serif; color: #7a7a7a;\">Modelo: polarizadas<br>Peso: aprox. 29g<br>Material: Lente de PC + marco TR</span></p>\r\n<p style=\"margin: 0cm 0cm 19.2pt; font-size: 12pt; font-family: \'Times New Roman\', serif;\"><span style=\"font-size: 11.5pt; font-family: Arial, sans-serif; color: #7a7a7a;\">Caracter&iacute;stica:</span></p>\r\n<ol style=\"margin-top: 0cm; margin-bottom: 19.2pt;\">\r\n<li style=\"margin: 0cm 0cm 19.2pt 0px; font-size: 12pt; font-family: \'Times New Roman\', serif;\"><span style=\"font-size: 11.5pt; font-family: Arial, sans-serif; color: #7a7a7a;\">Lente polarizada, filtra el resplandor<br>2. Protecci&oacute;n UV 400<br>3. Almohadillas nasales ajustables<br>4. Marco integrado para Miop&iacute;a<br>5. Ultraligero, suave y c&oacute;modo</span></li>\r\n</ol>', '194', '114', '94', '144', '164', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, -2, NULL, 4, NULL, NULL, NULL, NULL, NULL, 1, NULL, 'glass', NULL, 'glass', 'glass', '2024-07-08 05:31:04', '2024-07-16 09:55:27'),
-(81, 'testing 3', 'testing-3', 'sku003', '7', 2, NULL, '14110006003.png', 'testing 3', 'testing 3', '20', '40', '60', '88', '98', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 12, NULL, 4, NULL, NULL, 'blanco,naranja', 'Grande', NULL, 1, NULL, 'testing 3', NULL, 'testing 3', 'testing 3', '2024-07-08 07:02:46', '2024-07-10 08:46:55'),
-(82, 'testing 3', 'testing-3-WHITE', 'sku003-LARGE-WHITE', '7', 2, NULL, '14130001002.png', 'testing 3', 'testing 3', '20', '40', '60', '88', '98', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, -63, NULL, 4, NULL, NULL, 'blanco,naranja', 'Grande', NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-08 07:05:12', '2024-07-16 21:59:19'),
-(83, 'testing 3', 'testing-3-ORANGE', 'sku003-LARGE-ORANGE', '7', 2, NULL, '14110006005.png', 'testing 3', 'testing 3', '20', '40', '60', '88', '98', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, -32, NULL, 4, NULL, NULL, 'blanco,naranja', 'Grande', NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-08 07:05:12', '2024-07-16 21:59:19'),
-(86, 'Lentes De Ciclismo SP216 Fotocromáticos Rockbros', 'Lentes-De-Ciclismo-SP216-Fotocromáticos-Rockbros', 'SP216BK', '7', 2, 31, 'Lente sp216bk.png', '<p><span data-sheets-root=\"1\">Uso: Unisex<br>Peso: aproximadamente 30g (sin embalaje)<br>Color: negro/azul<br>Material: PC + TR<br>Tama&ntilde;o: aproximadamente 13,5*12,5*5,5 cm</span></p>', '<p><span data-sheets-root=\"1\">1. Marco completo, vista panor&aacute;mica<br>2. Cambio de Color inteligente<br>3 UV400 protecci&oacute;n<br>4. PROTECCI&Oacute;N suave para las orejas<br>5. Almohadilla nasal ajustable<br>6. Ultraligero</span></p>', '200', '120', '90', '140', '160', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, 16, NULL, 4, NULL, NULL, 'azul,negro', 'Mediano', NULL, 1, NULL, 'SP216BK', 'Lente sp216bk.png', '<p>Lentes De Ciclismo SP216 Fotocrom&aacute;ticos Rockbros</p>', 'Lentes De Ciclismo SP216 Fotocromáticos Rockbros', '2024-07-16 22:35:00', '2024-07-16 22:41:26'),
-(87, 'Lentes De Ciclismo SP216 Fotocromáticos Rockbros', 'Lentes-De-Ciclismo-SP216-Fotocromáticos-Rockbros-AZUL', 'SP216BK-MEDIANO-AZUL', '7', 2, 31, 'Lente sp216bk.png', '<p><span data-sheets-root=\"1\">Uso: Unisex<br>Peso: aproximadamente 30g (sin embalaje)<br>Color: negro/azul<br>Material: PC + TR<br>Tama&ntilde;o: aproximadamente 13,5*12,5*5,5 cm</span></p>', '<p><span data-sheets-root=\"1\">1. Marco completo, vista panor&aacute;mica<br>2. Cambio de Color inteligente<br>3 UV400 protecci&oacute;n<br>4. PROTECCI&Oacute;N suave para las orejas<br>5. Almohadilla nasal ajustable<br>6. Ultraligero</span></p>', '200', '120', '90', '140', '160', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, 16, NULL, 4, NULL, NULL, 'azul,negro', 'Mediano', NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-16 22:40:20', '2024-07-16 22:40:20'),
-(88, 'Lentes De Ciclismo SP216 Fotocromáticos Rockbros', 'Lentes-De-Ciclismo-SP216-Fotocromáticos-Rockbros-NEGRO', 'SP216BK-MEDIANO-NEGRO', '7', 2, 31, 'Lente sp216bk.png', '<p><span data-sheets-root=\"1\">Uso: Unisex<br>Peso: aproximadamente 30g (sin embalaje)<br>Color: negro/azul<br>Material: PC + TR<br>Tama&ntilde;o: aproximadamente 13,5*12,5*5,5 cm</span></p>', '<p><span data-sheets-root=\"1\">1. Marco completo, vista panor&aacute;mica<br>2. Cambio de Color inteligente<br>3 UV400 protecci&oacute;n<br>4. PROTECCI&Oacute;N suave para las orejas<br>5. Almohadilla nasal ajustable<br>6. Ultraligero</span></p>', '200', '120', '90', '140', '160', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, 16, NULL, 4, NULL, NULL, 'azul,negro', 'Mediano', NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-07-16 22:40:46', '2024-07-16 22:40:46'),
-(89, 'ttttt', 'rrrr', NULL, '7', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, NULL, NULL, 'negro', 'Grande', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-07-17 00:56:26', '2024-07-17 00:57:10');
+INSERT INTO `products` (`id`, `title`, `slug`, `sku`, `category`, `subcategory_id`, `childcategory`, `variation_color`, `variation_size`, `f_thumbnail`, `short_desc`, `description`, `price1`, `price2`, `price3`, `price4`, `price5`, `extra_desc`, `cost_price`, `sale_price`, `old_price`, `start_date`, `end_date`, `is_discount`, `is_stock`, `stock_status_id`, `stock_qty`, `u_stock_qty`, `brand_id`, `price`, `store_id`, `tax_id`, `is_publish`, `user_id`, `og_title`, `og_image`, `og_description`, `og_keywords`, `created_at`, `updated_at`) VALUES
+(282, 'Lentes De Ciclismo SP216', 'lentes-de-ciclismo-sp216', 'sprekhj', '7', 40, 0, NULL, NULL, '1723123242.png', '<p><img src=\"../../product_images/1725464417.png\" alt=\"\" width=\"300\" height=\"300\"></p>', '<p><strong>Lentes de ciclismo fotocrom&aacute;ticos&nbsp;Rockbros SP216</strong></p>\r\n<p>Excelentes para toda condici&oacute;n de luz, tanto en el d&iacute;a como en la noche.</p>\r\n<p><strong>Color:</strong>&nbsp;Azul, Negro</p>', '45', '65', '43', '32', '67', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 12, NULL, 4, NULL, NULL, NULL, 1, NULL, 'Lentes De Ciclismo SP216', NULL, 'Lentes De Ciclismo SP216', 'Lentes De Ciclismo SP216', '2024-09-04 15:32:26', '2024-09-04 15:44:34'),
+(283, 'Guante Rockbros dedo medio araña', 'guante-rockbros-dedo-medio-arana', 'pd210', '7', 2, NULL, '[\"rojo\",\"azul\"]', '[\"peque\\u00f1o\",\"mediano\"]', '1723259685.png', '...', '...', '34', '34', '34', '23', '23', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 34, NULL, 4, NULL, NULL, NULL, 1, NULL, 'Guante Rockbros dedo medio araña', NULL, 'Guante Rockbros dedo medio araña', 'Guante Rockbros dedo medio araña', '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(284, 'Guante Rockbros dedo medio araña', 'guante-rockbros-dedo-medio-arana-rojo', 'pd210pe', '7', 2, NULL, '[\"rojo\"]', '[\"peque\\u00f1o\"]', '1723259685.png', '...', '...', '34', '34', '34', '23', '23', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 34, NULL, 4, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(285, 'Guante Rockbros dedo medio araña', 'guante-rockbros-dedo-medio-arana-azul', 'pd21063pe', '7', 2, NULL, '[\"azul\"]', '[\"peque\\u00f1o\"]', '1723259685.png', '...', '...', '34', '34', '34', '23', '23', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 34, NULL, 4, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(286, 'Guante Rockbros dedo medio araña', 'guante-rockbros-dedo-medio-arana-rojo-2', 'pd210me', '7', 2, NULL, '[\"rojo\"]', '[\"mediano\"]', '1723259685.png', '...', '...', '34', '34', '34', '23', '23', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 34, NULL, 4, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(287, 'Guante Rockbros dedo medio araña', 'guante-rockbros-dedo-medio-arana-azul-2', 'pd21780me', '7', 2, NULL, '[\"azul\"]', '[\"mediano\"]', '1723259685.png', '...', '...', '34', '34', '34', '23', '23', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 34, NULL, 4, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(288, 'testingcolor', 'testingcolor', 'pd211', '7', 2, NULL, '[\"rojo\",\"azul\"]', NULL, '1723588795.png', '...', '...', '34', '34', '34', '23', '23', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 34, NULL, 4, NULL, NULL, NULL, 1, NULL, 'Guante Rockbros dedo medio araña', NULL, 'Guante Rockbros dedo medio araña', 'Guante Rockbros dedo medio araña', '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(289, 'testingcolor', 'testingcolor-rojo', 'asdasdaa2', '7', 2, NULL, '[\"rojo\"]', NULL, '1723588795.png', '...', '...', '34', '34', '34', '23', '23', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 34, NULL, 4, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(290, 'testingcolor', 'testingcolor-azul', 'dfgueritu9443', '7', 2, NULL, '[\"azul\"]', NULL, '1723588795.png', '...', '...', '34', '34', '34', '23', '23', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 34, NULL, 4, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(291, 'testingsize', 'testingsize', 'pd213', '7', 2, NULL, NULL, '[\"peque\\u00f1o\",\"mediano\"]', '1723588918.png', '...', '...', '34', '34', '34', '23', '23', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 34, NULL, 4, NULL, NULL, NULL, 1, NULL, 'Guante Rockbros dedo medio araña', NULL, 'Guante Rockbros dedo medio araña', 'Guante Rockbros dedo medio araña', '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(292, 'testingsize', 'testingsize-pequeno', 'pd210rojossss', '7', 2, NULL, NULL, '[\"peque\\u00f1o\"]', '1723588918.png', '...', '...', '34', '34', '34', '23', '23', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 34, NULL, 4, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(293, 'testingsize', 'testingsize-mediano', 'pd210azusssssl', '7', 2, NULL, NULL, '[\"mediano\"]', '1723588918.png', '...', '...', '34', '34', '34', '23', '23', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 34, NULL, 4, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(294, 'nuevo', 'nuevo', 'nuevo', '7', 2, NULL, '[\"gris\",\"negro\"]', '[\"peque\\u00f1o\",\"mediano\"]', '1723588971.png', '…', '…', '43', '22', '33', '44', '55', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 765, NULL, 4, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(295, 'nuevo', 'nuevo-gris', 'nuevogrispe', '7', 2, NULL, '[\"gris\"]', '[\"peque\\u00f1o\"]', '1723588971.png', '…', '…', '43', '22', '33', '44', '55', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 765, NULL, 4, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(296, 'nuevo', 'nuevo-negro', 'nuevonepe', '7', 2, NULL, '[\"negro\"]', '[\"peque\\u00f1o\"]', '1723588971.png', '…', '…', '43', '22', '33', '44', '55', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 765, NULL, 4, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(297, 'nuevo', 'nuevo-gris-2', 'nuevogrisme', '7', 2, NULL, '[\"gris\"]', '[\"mediano\"]', '1723588971.png', '…', '…', '43', '22', '33', '44', '55', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 765, NULL, 4, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(298, 'nuevo', 'nuevo-negro-2', 'nuevoneme', '7', 2, NULL, '[\"negro\"]', '[\"mediano\"]', '1723588971.png', '…', '…', '43', '22', '33', '44', '55', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 765, NULL, 4, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(299, 'simple', 'simple', 'psimple', '7', 2, NULL, NULL, NULL, '1723259082.png', '…', '…', '43', '22', '33', '44', '55', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 435, NULL, 4, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(300, 'solocolor', 'solocolor', 'solocolor', '7', 2, NULL, '[\"rojo\",\"negro\"]', NULL, '1725315792.png', '…', '…', '43', '22', '33', '44', '55', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 453, NULL, 4, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(301, 'solocolor', 'solocolor-rojo', 'solocolorr', '7', 2, NULL, '[\"rojo\"]', NULL, '1725315792.png', '…', '…', '43', '22', '33', '44', '55', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 453, NULL, 4, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(302, 'solocolor', 'solocolor-negro', 'solocolorne', '7', 2, NULL, '[\"negro\"]', NULL, '1725315792.png', '…', '…', '43', '22', '33', '44', '55', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 453, NULL, 4, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(303, 'Dulces', 'Dulces', 'DulcesSeptiembreYog', '26', 90, 91, 'rojo,verde', NULL, 'dulce.jpg', '<p><span style=\"font-size: 18pt;\"><strong>Dulces Acidos&nbsp;</strong></span></p>\r\n<ul>\r\n<li>Variedad de Sabores</li>\r\n<li>Azucarados</li>\r\n<li>100 gr&nbsp;</li>\r\n</ul>', '<p><span style=\"font-size: 18pt;\"><strong>Yogueta</strong></span></p>\r\n<ul>\r\n<li>Envios Gratis</li>\r\n<li>Envase de vidrio</li>\r\n<li>Con stickers de regalo </li>\r\n</ul>', '11', '12', '13', '14', '15', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 12, NULL, 29, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-04 16:14:53', '2024-09-04 16:20:26'),
+(304, 'Dulces', 'Dulces-ROJO', 'YoguetaRojo', '26', 90, 91, 'rojo', NULL, 'dulce.jpg', '<p><span style=\"font-size: 18pt;\"><strong>Dulces Acidos&nbsp;</strong></span></p>\r\n<ul>\r\n<li>Variedad de Sabores</li>\r\n<li>Azucarados</li>\r\n<li>100 gr&nbsp;</li>\r\n</ul>', '<p><span style=\"font-size: 18pt;\"><strong>Yogueta</strong></span></p>\r\n<ul>\r\n<li>Envios Gratis</li>\r\n<li>Envase de vidrio</li>\r\n<li>Con stickers de regalo </li>\r\n</ul>', '11', '12', '13', '14', '15', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 11, NULL, 29, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-04 16:20:19', '2024-09-04 16:36:44'),
+(305, 'Dulces', 'Dulces-VERDE', 'YoguetaVerde', '26', 90, 91, 'verde', NULL, 'dulce.jpg', '<p><span style=\"font-size: 18pt;\"><strong>Dulces Acidos&nbsp;</strong></span></p>\r\n<ul>\r\n<li>Variedad de Sabores</li>\r\n<li>Azucarados</li>\r\n<li>100 gr&nbsp;</li>\r\n</ul>', '<p><span style=\"font-size: 18pt;\"><strong>Yogueta</strong></span></p>\r\n<ul>\r\n<li>Envios Gratis</li>\r\n<li>Envase de vidrio</li>\r\n<li>Con stickers de regalo </li>\r\n</ul>', '11', '12', '13', '14', '15', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 11, NULL, 29, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-04 16:20:19', '2024-09-04 16:36:44'),
+(306, 'Frutas', 'Frutas', 'FrutasVarSept', '26', 90, 92, NULL, 'Estandar,Muy Pequeño', 'fruta.jpg', '<p><strong><span style=\"font-size: 18pt;\">Mariaig</span></strong></p>\r\n<p>wwwww</p>', '<p><strong><span style=\"font-size: 18pt;\">Descripci&oacute;n</span></strong></p>\r\n<p>wwwww</p>', '11', '12', '13', '14', '15', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 12, NULL, 29, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-04 16:29:38', '2024-09-04 16:34:00'),
+(307, 'Frutas', 'Frutas-ESTANDAR', 'FrutaEsta', '26', 90, 92, NULL, 'Estandar', 'fruta.jpg', '<p><strong><span style=\"font-size: 18pt;\">Mariaig</span></strong></p>\r\n<p>wwwww</p>', '<p><strong><span style=\"font-size: 18pt;\">Descripci&oacute;n</span></strong></p>\r\n<p>wwwww</p>', '11', '12', '13', '14', '15', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 5, NULL, 29, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-04 16:33:22', '2024-09-04 16:36:44'),
+(308, 'Frutas', 'Frutas-MUY-PEQUEñO', 'FrutaMuyPeq', '26', 90, 92, NULL, 'Muy Pequeño', 'fruta.jpg', '<p><strong><span style=\"font-size: 18pt;\">Mariaig</span></strong></p>\r\n<p>wwwww</p>', '<p><strong><span style=\"font-size: 18pt;\">Descripci&oacute;n</span></strong></p>\r\n<p>wwwww</p>', '11', '12', '13', '14', '15', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 12, NULL, 29, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-04 16:33:22', '2024-09-04 16:33:22'),
+(309, 'MixFrutVerd', 'MixFrutVerd', 'MixFrutVer', '26', 90, 93, 'rojo,verde', 'Mediano,XXL', 'images (9).jpg', '<p><span style=\"font-size: 18pt;\"><strong>Frutas Verduras Mix</strong></span></p>\r\n<ol>\r\n<li><span style=\"font-size: 12pt;\">-Mango</span></li>\r\n<li>-Frutilla</li>\r\n<li>- Kiwi</li>\r\n</ol>', '<p><span style=\"font-size: 18pt;\"><strong>Contenido</strong></span></p>\r\n<ol>\r\n<li><span style=\"font-size: 12pt;\">-Mix de frutas 100 gr<br></span></li>\r\n<li>-Se puede combinar sabores</li>\r\n<li>- Envase para llevar</li>\r\n</ol>', '11', '12', '13', '14', '15', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 12, NULL, 29, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-04 16:42:31', '2024-09-04 16:53:35'),
+(310, 'MixFrutVerd', 'MixFrutVerd-ROJO', 'MixMedRed', '26', 90, 93, 'rojo', 'Mediano', 'images (9).jpg', '<p><span style=\"font-size: 18pt;\"><strong>Frutas Verduras Mix</strong></span></p>\r\n<ol>\r\n<li><span style=\"font-size: 12pt;\">-Mango</span></li>\r\n<li>-Frutilla</li>\r\n<li>- Kiwi</li>\r\n</ol>', '<p><span style=\"font-size: 18pt;\"><strong>Contenido</strong></span></p>\r\n<ol>\r\n<li><span style=\"font-size: 12pt;\">-Mix de frutas 100 gr<br></span></li>\r\n<li>-Se puede combinar sabores</li>\r\n<li>- Envase para llevar</li>\r\n</ol>', '11', '12', '13', '14', '15', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 10, NULL, 29, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-04 16:53:29', '2024-09-04 16:55:20'),
+(311, 'MixFrutVerd', 'MixFrutVerd-VERDE', 'MixMedGreen', '26', 90, 93, 'verde', 'Mediano', 'images (9).jpg', '<p><span style=\"font-size: 18pt;\"><strong>Frutas Verduras Mix</strong></span></p>\r\n<ol>\r\n<li><span style=\"font-size: 12pt;\">-Mango</span></li>\r\n<li>-Frutilla</li>\r\n<li>- Kiwi</li>\r\n</ol>', '<p><span style=\"font-size: 18pt;\"><strong>Contenido</strong></span></p>\r\n<ol>\r\n<li><span style=\"font-size: 12pt;\">-Mix de frutas 100 gr<br></span></li>\r\n<li>-Se puede combinar sabores</li>\r\n<li>- Envase para llevar</li>\r\n</ol>', '11', '12', '13', '14', '15', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 10, NULL, 29, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-04 16:53:29', '2024-09-04 16:55:20'),
+(312, 'MixFrutVerd', 'MixFrutVerd-ROJO', 'MixXXLRed', '26', 90, 93, 'rojo', 'XXL', 'images (9).jpg', '<p><span style=\"font-size: 18pt;\"><strong>Frutas Verduras Mix</strong></span></p>\r\n<ol>\r\n<li><span style=\"font-size: 12pt;\">-Mango</span></li>\r\n<li>-Frutilla</li>\r\n<li>- Kiwi</li>\r\n</ol>', '<p><span style=\"font-size: 18pt;\"><strong>Contenido</strong></span></p>\r\n<ol>\r\n<li><span style=\"font-size: 12pt;\">-Mix de frutas 100 gr<br></span></li>\r\n<li>-Se puede combinar sabores</li>\r\n<li>- Envase para llevar</li>\r\n</ol>', '11', '12', '13', '14', '15', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 12, NULL, 29, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-04 16:53:29', '2024-09-04 16:53:29'),
+(313, 'MixFrutVerd', 'MixFrutVerd-VERDE', 'MixXXLGreen', '26', 90, 93, 'verde', 'XXL', 'images (9).jpg', '<p><span style=\"font-size: 18pt;\"><strong>Frutas Verduras Mix</strong></span></p>\r\n<ol>\r\n<li><span style=\"font-size: 12pt;\">-Mango</span></li>\r\n<li>-Frutilla</li>\r\n<li>- Kiwi</li>\r\n</ol>', '<p><span style=\"font-size: 18pt;\"><strong>Contenido</strong></span></p>\r\n<ol>\r\n<li><span style=\"font-size: 12pt;\">-Mix de frutas 100 gr<br></span></li>\r\n<li>-Se puede combinar sabores</li>\r\n<li>- Envase para llevar</li>\r\n</ol>', '11', '12', '13', '14', '15', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 12, NULL, 29, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-04 16:53:29', '2024-09-04 16:53:29'),
+(314, 'Casco de Ciclismo Aero Pro', 'casco-de-ciclismo-aero-pro', 'casco01', '7', 42, 31, '[\"negro\",\"azul\"]', '[\"mediano\",\"grande\"]', '1723123299.png', '...', '...', '50', '60', '55', '40', '70', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 20, NULL, 5, NULL, NULL, NULL, 1, NULL, 'Casco de Ciclismo Aero Pro', NULL, 'Casco de Ciclismo Aero Pro', '{\"negro\":\"1723123299.png\",\"azul\":\"1723123300.png\"}', '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(315, 'Casco de Ciclismo Aero Pro', 'casco-de-ciclismo-aero-pro-negro', 'casco01med', '7', 42, 31, '[\"negro\"]', '[\"mediano\"]', '1723123299.png', '...', '...', '50', '60', '55', '40', '70', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 20, NULL, 5, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(316, 'Casco de Ciclismo Aero Pro', 'casco-de-ciclismo-aero-pro-azul', 'casco02med', '7', 42, 31, '[\"azul\"]', '[\"mediano\"]', '1723123299.png', '...', '...', '50', '60', '55', '40', '70', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 20, NULL, 5, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(317, 'Casco de Ciclismo Aero Pro', 'casco-de-ciclismo-aero-pro-negro-2', 'casco01grande', '7', 42, 31, '[\"negro\"]', '[\"grande\"]', '1723123299.png', '...', '...', '50', '60', '55', '40', '70', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 20, NULL, 5, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(318, 'Casco de Ciclismo Aero Pro', 'casco-de-ciclismo-aero-pro-azul-2', 'casco02grande', '7', 42, 31, '[\"azul\"]', '[\"grande\"]', '1723123299.png', '...', '...', '50', '60', '55', '40', '70', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 20, NULL, 5, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(319, 'Guantes de Ciclismo Antideslizante', 'guantes-de-ciclismo-antideslizante', 'guante2', '7', 45, 32, '[\"negro\",\"verde\"]', '[\"peque\\u00f1o\",\"mediano\"]', '1723259790.png', '...', '...', '40', '45', '40', '30', '50', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 50, NULL, 6, NULL, NULL, NULL, 1, NULL, 'Guantes de Ciclismo Antideslizante', NULL, 'Guantes de Ciclismo Antideslizante', '{\"negro\":\"1723259790.png\",\"verde\":\"1723259791.png\"}', '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(320, 'Guantes de Ciclismo Antideslizante', 'guantes-de-ciclismo-antideslizante-negro', 'guante2negrope', '7', 45, 32, '[\"negro\"]', '[\"peque\\u00f1o\"]', '1723259790.png', '...', '...', '40', '45', '40', '30', '50', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 50, NULL, 6, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(321, 'Guantes de Ciclismo Antideslizante', 'guantes-de-ciclismo-antideslizante-verde', 'guante2verdepe', '7', 45, 32, '[\"verde\"]', '[\"peque\\u00f1o\"]', '1723259790.png', '...', '...', '40', '45', '40', '30', '50', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 50, NULL, 6, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(322, 'Guantes de Ciclismo Antideslizante', 'guantes-de-ciclismo-antideslizante-negro-2', 'guante2negromed', '7', 45, 32, '[\"negro\"]', '[\"mediano\"]', '1723259790.png', '...', '...', '40', '45', '40', '30', '50', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 50, NULL, 6, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(323, 'Guantes de Ciclismo Antideslizante', 'guantes-de-ciclismo-antideslizante-verde-2', 'guante2verdemed', '7', 45, 32, '[\"verde\"]', '[\"mediano\"]', '1723259790.png', '...', '...', '40', '45', '40', '30', '50', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 50, NULL, 6, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(324, 'Botas de Montaña Impermeables', 'botas-de-montana-impermeables', 'bota100', '9', 50, 33, '[\"marron\",\"negro\"]', '[\"grande\",\"extra_grande\"]', '1723588945.png', '...', '...', '100', '110', '95', '85', '120', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 15, NULL, 7, NULL, NULL, NULL, 1, NULL, 'Botas de Montaña Impermeables', NULL, 'Botas de Montaña Impermeables', '{\"marron\":\"1723588945.png\",\"negro\":\"1723588946.png\"}', '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(325, 'Botas de Montaña Impermeables', 'botas-de-montana-impermeables-marron', 'bota100marrongrande', '9', 50, 33, '[\"marron\"]', '[\"grande\"]', '1723588945.png', '...', '...', '100', '110', '95', '85', '120', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 15, NULL, 7, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(326, 'Botas de Montaña Impermeables', 'botas-de-montana-impermeables-negro', 'bota100negrogrande', '9', 50, 33, '[\"negro\"]', '[\"grande\"]', '1723588945.png', '...', '...', '100', '110', '95', '85', '120', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 15, NULL, 7, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(327, 'Botas de Montaña Impermeables', 'botas-de-montana-impermeables-marron-2', 'bota100marronextra', '9', 50, 33, '[\"marron\"]', '[\"extra_grande\"]', '1723588945.png', '...', '...', '100', '110', '95', '85', '120', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 15, NULL, 7, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(328, 'Botas de Montaña Impermeables', 'botas-de-montana-impermeables-negro-2', 'bota100negroextra', '9', 50, 33, '[\"negro\"]', '[\"extra_grande\"]', '1723588945.png', '...', '...', '100', '110', '95', '85', '120', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 15, NULL, 7, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(329, 'Camiseta Deportiva Transpirable', 'camiseta-deportiva-transpirable', 'cami123', '14', 38, 29, '[\"blanco\",\"negro\"]', '[\"peque\\u00f1o\",\"mediano\"]', '1723589000.png', '...', '...', '25', '30', '28', '20', '35', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 60, NULL, 3, NULL, NULL, NULL, 1, NULL, 'Camiseta Deportiva Transpirable', NULL, 'Camiseta Deportiva Transpirable', '{\"blanco\":\"1723589000.png\",\"negro\":\"1723589001.png\"}', '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(330, 'Camiseta Deportiva Transpirable', 'camiseta-deportiva-transpirable-blanco', 'cami123blancope', '14', 38, 29, '[\"blanco\"]', '[\"peque\\u00f1o\"]', '1723589000.png', '...', '...', '25', '30', '28', '20', '35', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 60, NULL, 3, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(331, 'Camiseta Deportiva Transpirable', 'camiseta-deportiva-transpirable-negro', 'cami123negrope', '14', 38, 29, '[\"negro\"]', '[\"peque\\u00f1o\"]', '1723589000.png', '...', '...', '25', '30', '28', '20', '35', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 60, NULL, 3, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(332, 'Camiseta Deportiva Transpirable', 'camiseta-deportiva-transpirable-blanco-2', 'cami123blancomed', '14', 38, 29, '[\"blanco\"]', '[\"mediano\"]', '1723589000.png', '...', '...', '25', '30', '28', '20', '35', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 60, NULL, 3, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(333, 'Camiseta Deportiva Transpirable', 'camiseta-deportiva-transpirable-negro-2', 'cami123negromed', '14', 38, 29, '[\"negro\"]', '[\"mediano\"]', '1723589000.png', '...', '...', '25', '30', '28', '20', '35', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 60, NULL, 3, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, '2024-09-05 09:45:00', '2024-09-05 09:45:00');
 
 -- --------------------------------------------------------
 
@@ -1822,8 +1923,8 @@ CREATE TABLE `product_reviews` (
 CREATE TABLE `product_variations` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `product_id` bigint(20) UNSIGNED NOT NULL,
-  `size` varchar(191) NOT NULL,
-  `color` varchar(191) NOT NULL,
+  `size` varchar(191) DEFAULT NULL,
+  `color` varchar(191) DEFAULT NULL,
   `sku` varchar(191) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -1834,14 +1935,44 @@ CREATE TABLE `product_variations` (
 --
 
 INSERT INTO `product_variations` (`id`, `product_id`, `size`, `color`, `sku`, `created_at`, `updated_at`) VALUES
-(68, 76, 'medium', 'negro', 'sku001-MEDIUM-BLACK', '2024-07-08 04:15:04', '2024-07-08 04:15:04'),
-(69, 76, 'medium', 'blanco', 'sku001-MEDIUM-WHITE', '2024-07-08 04:15:04', '2024-07-08 04:15:04'),
-(70, 76, 'medium', 'amarillo', 'sku001-MEDIUM-YELLOW', '2024-07-08 04:15:04', '2024-07-08 04:15:04'),
-(71, 81, 'large', 'blanco', 'sku003-LARGE-WHITE', '2024-07-08 07:05:12', '2024-07-08 07:05:12'),
-(72, 81, 'large', 'naranja', 'sku003-LARGE-ORANGE', '2024-07-08 07:05:12', '2024-07-08 07:05:12'),
-(77, 86, 'Mediano', 'azul', 'SP216BK-MEDIANO-AZUL', '2024-07-16 22:40:46', '2024-07-16 22:40:46'),
-(78, 86, 'Mediano', 'negro', 'SP216BK-MEDIANO-NEGRO', '2024-07-16 22:40:46', '2024-07-16 22:40:46'),
-(79, 89, 'Grande', 'negro', '-GRANDE-NEGRO', '2024-07-17 00:57:10', '2024-07-17 00:57:10');
+(196, 283, 'pequeño', 'rojo', 'pd210pe', '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(197, 283, 'pequeño', 'azul', 'pd21063pe', '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(198, 283, 'mediano', 'rojo', 'pd210me', '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(199, 283, 'mediano', 'azul', 'pd21780me', '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(200, 288, NULL, 'rojo', 'asdasdaa2', '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(201, 288, NULL, 'azul', 'dfgueritu9443', '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(202, 291, 'pequeño', NULL, 'pd210rojossss', '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(203, 291, 'mediano', NULL, 'pd210azusssssl', '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(204, 294, 'pequeño', 'gris', 'nuevogrispe', '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(205, 294, 'pequeño', 'negro', 'nuevonepe', '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(206, 294, 'mediano', 'gris', 'nuevogrisme', '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(207, 294, 'mediano', 'negro', 'nuevoneme', '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(208, 300, NULL, 'rojo', 'solocolorr', '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(209, 300, NULL, 'negro', 'solocolorne', '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(210, 303, NULL, 'rojo', 'YoguetaRojo', '2024-09-04 16:20:19', '2024-09-04 16:20:19'),
+(211, 303, NULL, 'verde', 'YoguetaVerde', '2024-09-04 16:20:19', '2024-09-04 16:20:19'),
+(214, 306, 'Estandar', NULL, 'FrutaEsta', '2024-09-04 16:33:51', '2024-09-04 16:33:51'),
+(215, 306, 'Muy Pequeño', NULL, 'FrutaMuyPeq', '2024-09-04 16:33:51', '2024-09-04 16:33:51'),
+(216, 309, 'Mediano', 'rojo', 'MixMedRed', '2024-09-04 16:53:29', '2024-09-04 16:53:29'),
+(217, 309, 'Mediano', 'verde', 'MixMedGreen', '2024-09-04 16:53:29', '2024-09-04 16:53:29'),
+(218, 309, 'XXL', 'rojo', 'MixXXLRed', '2024-09-04 16:53:29', '2024-09-04 16:53:29'),
+(219, 309, 'XXL', 'verde', 'MixXXLGreen', '2024-09-04 16:53:29', '2024-09-04 16:53:29'),
+(220, 314, 'mediano', 'negro', 'casco01med', '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(221, 314, 'mediano', 'azul', 'casco02med', '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(222, 314, 'grande', 'negro', 'casco01grande', '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(223, 314, 'grande', 'azul', 'casco02grande', '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(224, 319, 'pequeño', 'negro', 'guante2negrope', '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(225, 319, 'pequeño', 'verde', 'guante2verdepe', '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(226, 319, 'mediano', 'negro', 'guante2negromed', '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(227, 319, 'mediano', 'verde', 'guante2verdemed', '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(228, 324, 'grande', 'marron', 'bota100marrongrande', '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(229, 324, 'grande', 'negro', 'bota100negrogrande', '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(230, 324, 'extra_grande', 'marron', 'bota100marronextra', '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(231, 324, 'extra_grande', 'negro', 'bota100negroextra', '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(232, 329, 'pequeño', 'blanco', 'cami123blancope', '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(233, 329, 'pequeño', 'negro', 'cami123negrope', '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(234, 329, 'mediano', 'blanco', 'cami123blancomed', '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(235, 329, 'mediano', 'negro', 'cami123negromed', '2024-09-05 09:45:00', '2024-09-05 09:45:00');
 
 -- --------------------------------------------------------
 
@@ -1907,14 +2038,288 @@ CREATE TABLE `pro_images` (
 --
 
 INSERT INTO `pro_images` (`id`, `product_id`, `thumbnail`, `color`, `desc`, `created_at`, `updated_at`) VALUES
-(2, 76, 'product_images/sp216bl.png', 'black', NULL, '2024-07-08 04:15:04', '2024-07-08 04:15:04'),
-(3, 76, 'product_images/14110006002.png', 'white', NULL, '2024-07-08 04:15:04', '2024-07-08 04:15:04'),
-(4, 76, 'product_images/10164.png', 'yellow', NULL, '2024-07-08 04:15:04', '2024-07-08 04:15:04'),
-(7, 81, 'product_images/14130001002.png', 'white', NULL, '2024-07-08 07:05:12', '2024-07-08 07:05:12'),
-(8, 81, 'product_images/14110006005.png', 'orange', NULL, '2024-07-08 07:05:12', '2024-07-08 07:05:12'),
-(10, 86, 'product_images/Lente sp216bk.png', 'm', NULL, '2024-07-16 22:39:27', '2024-07-16 22:39:27'),
-(11, 86, 'product_images/Lente sp216bk.png', 'azul', NULL, '2024-07-16 22:40:20', '2024-07-16 22:40:20'),
-(12, 86, 'product_images/Lente sp216bk.png', 'negro', NULL, '2024-07-16 22:40:46', '2024-07-16 22:40:46');
+(6, 14, 'product_images/IMG-20240823-WA0003.jpg', 'm', NULL, '2024-08-23 14:55:50', '2024-08-23 14:55:50'),
+(7, 14, 'product_images/IMG-20240823-WA0002.jpg', 'm', NULL, '2024-08-23 14:55:50', '2024-08-23 14:55:50'),
+(8, 14, 'product_images/IMG-20240808-WA0008.jpg', 'm', NULL, '2024-08-23 14:55:50', '2024-08-23 14:55:50'),
+(9, 14, 'product_images/1723123242.png', 'negro', NULL, '2024-08-23 14:56:29', '2024-09-02 15:36:23'),
+(13, 17, 'product_images/mcbook.png', 'm', NULL, '2024-08-24 07:11:15', '2024-08-24 07:11:15'),
+(14, 17, 'product_images/mcbook1.png', 'm', NULL, '2024-08-24 07:11:15', '2024-08-24 07:11:15'),
+(15, 17, 'product_images/pretarjeta.png', 'm', NULL, '2024-08-24 07:11:15', '2024-08-24 07:11:15'),
+(16, 17, 'product_images/socialandrea.png', 'm', NULL, '2024-08-24 07:11:15', '2024-08-24 07:11:15'),
+(17, 17, 'product_images/andrea.png', 'm', NULL, '2024-08-24 07:11:15', '2024-08-24 07:11:15'),
+(24, 20, 'product_images/IMG-20240823-WA0000.jpg', 'm', NULL, '2024-08-24 19:10:40', '2024-08-24 19:10:40'),
+(25, 20, 'product_images/IMG-20240822-WA0048.jpg', 'm', NULL, '2024-08-24 19:10:40', '2024-08-24 19:10:40'),
+(26, 20, 'product_images/IMG-20240823-WA0002.jpg', 'm', NULL, '2024-08-24 19:10:40', '2024-08-24 19:10:40'),
+(27, 20, 'product_images/20240823_185258.jpg', 'blanco', NULL, '2024-08-24 19:10:58', '2024-08-24 19:10:58'),
+(28, 22, 'product_images/mcbook.png', 'm', NULL, '2024-08-24 21:28:45', '2024-08-24 21:28:45'),
+(29, 22, 'product_images/pretarjeta.png', 'm', NULL, '2024-08-24 21:28:45', '2024-08-24 21:28:45'),
+(30, 22, 'product_images/andrea.png', 'm', NULL, '2024-08-24 21:28:45', '2024-08-24 21:28:45'),
+(31, 23, 'product_images/mcbook.png', 'm', NULL, '2024-08-24 21:38:41', '2024-08-24 21:38:41'),
+(32, 23, 'product_images/pretarjeta.png', 'm', NULL, '2024-08-24 21:38:41', '2024-08-24 21:38:41'),
+(33, 23, 'product_images/andrea.png', 'm', NULL, '2024-08-24 21:38:41', '2024-08-24 21:38:41'),
+(34, 23, 'product_images/7f8414841c2933ed0e396c23598430f1a.jpg', 'verde', NULL, '2024-08-24 21:39:00', '2024-08-24 21:39:00'),
+(35, 24, 'product_images/logo.png', 'm', NULL, '2024-08-25 03:00:09', '2024-08-25 03:00:09'),
+(36, 24, 'product_images/IMG-20240124-WA0041-removebg-preview.png', 'm', NULL, '2024-08-25 03:00:09', '2024-08-25 03:00:09'),
+(39, 25, 'product_images/14110006005.png', 'rosa', NULL, '2024-08-25 04:07:20', '2024-08-25 04:07:20'),
+(40, 25, 'product_images/14130001002.png', 'Metal', NULL, '2024-08-25 04:07:20', '2024-08-25 04:07:20'),
+(41, 28, 'product_images/english-flag-vector-675964.jpg', 'm', NULL, '2024-08-25 04:08:57', '2024-08-25 04:08:57'),
+(42, 28, 'product_images/download.png', 'm', NULL, '2024-08-25 04:08:57', '2024-08-25 04:08:57'),
+(43, 28, 'product_images/logohorizontal.png', 'm', NULL, '2024-08-25 04:08:57', '2024-08-25 04:08:57'),
+(44, 26, 'product_images/english-flag-vector-675964.jpg', 'm', NULL, '2024-08-25 04:09:52', '2024-08-25 04:09:52'),
+(45, 26, 'product_images/download.png', 'm', NULL, '2024-08-25 04:09:52', '2024-08-25 04:09:52'),
+(46, 26, 'product_images/logohorizontal.png', 'm', NULL, '2024-08-25 04:09:52', '2024-08-25 04:09:52'),
+(47, 27, 'product_images/IMG_5071_rkauxh_1712164664.jpg', 'm', NULL, '2024-08-25 04:11:22', '2024-08-25 04:11:22'),
+(48, 27, 'product_images/image_750x_65cc96e678ac4.png', 'm', NULL, '2024-08-25 04:11:22', '2024-08-25 04:11:22'),
+(49, 27, 'product_images/1657090503-9ynVP5V0Tx.jpg', 'm', NULL, '2024-08-25 04:11:22', '2024-08-25 04:11:22'),
+(50, 30, 'product_images/10163.png', 'negro', NULL, '2024-08-25 04:19:54', '2024-08-25 04:19:54'),
+(51, 30, 'product_images/10162.png', 'amarillo', NULL, '2024-08-25 04:19:54', '2024-08-25 04:19:54'),
+(52, 31, 'product_images/images.jpg', 'm', NULL, '2024-08-25 04:21:33', '2024-08-25 04:21:33'),
+(53, 31, 'product_images/Screenshot_20240313-163712.jpg', 'm', NULL, '2024-08-25 04:21:33', '2024-08-25 04:21:33'),
+(54, 31, 'product_images/Screenshot 2024-03-06 15284411.png', 'm', NULL, '2024-08-25 04:21:33', '2024-08-25 04:21:33'),
+(55, 32, 'product_images/socialandrea.png', 'm', NULL, '2024-08-25 04:22:48', '2024-08-25 04:22:48'),
+(56, 32, 'product_images/english-flag-vector-675964.jpg', 'm', NULL, '2024-08-25 04:22:48', '2024-08-25 04:22:48'),
+(57, 32, 'product_images/1657090503-9ynVP5V0Tx.jpg', 'm', NULL, '2024-08-25 04:22:48', '2024-08-25 04:22:48'),
+(58, 35, 'product_images/mcbook.png', 'm', NULL, '2024-08-25 04:48:00', '2024-08-25 04:48:00'),
+(59, 35, 'product_images/mcbook2.png', 'm', NULL, '2024-08-25 04:48:00', '2024-08-25 04:48:00'),
+(60, 35, 'product_images/pretarjeta.png', 'm', NULL, '2024-08-25 04:48:00', '2024-08-25 04:48:00'),
+(61, 35, 'product_images/7f8414841c2933ed0e396c23598430f1a.jpg', 'rojo', NULL, '2024-08-25 04:49:45', '2024-08-25 04:49:45'),
+(62, 35, 'product_images/socialandrea.png', 'verde', NULL, '2024-08-25 04:49:45', '2024-08-25 04:49:45'),
+(63, 37, 'product_images/mcbook.png', 'm', NULL, '2024-08-25 04:54:19', '2024-08-25 04:54:19'),
+(64, 37, 'product_images/pretarjeta.png', 'm', NULL, '2024-08-25 04:54:19', '2024-08-25 04:54:19'),
+(65, 37, 'product_images/andrea.png', 'm', NULL, '2024-08-25 04:54:19', '2024-08-25 04:54:19'),
+(66, 37, 'product_images/7f8414841c2933ed0e396c23598430f1a.jpg', 'rojo', NULL, '2024-08-25 04:54:42', '2024-08-25 04:54:42'),
+(67, 37, 'product_images/Imagen de WhatsApp 2024-08-24 a las 23.14.55_1aaa6188.jpg', 'verde', NULL, '2024-08-25 04:54:42', '2024-08-25 04:54:42'),
+(68, 39, 'product_images/7f8414841c2933ed0e396c23598430f1a.jpg', 'verde', NULL, '2024-08-25 04:55:44', '2024-08-25 04:55:44'),
+(69, 39, 'product_images/7f8414841c2933ed0e396c23598430f1a.jpg', 'blanco', NULL, '2024-08-25 04:55:44', '2024-08-25 04:55:44'),
+(70, 41, 'product_images/7f8414841c2933ed0e396c23598430f1a.jpg', 'verde', NULL, '2024-08-25 04:57:39', '2024-08-25 04:57:39'),
+(71, 41, 'product_images/IMAGEN MOTO.png', 'blanco', NULL, '2024-08-25 04:57:39', '2024-08-25 04:57:39'),
+(72, 44, 'product_images/mcbook.png', 'm', NULL, '2024-08-25 05:07:39', '2024-08-25 05:07:39'),
+(73, 44, 'product_images/pretarjeta.png', 'm', NULL, '2024-08-25 05:07:39', '2024-08-25 05:07:39'),
+(74, 44, 'product_images/andrea.png', 'm', NULL, '2024-08-25 05:07:39', '2024-08-25 05:07:39'),
+(75, 44, 'product_images/andrea.png', 'rojo', NULL, '2024-08-25 05:08:11', '2024-08-25 05:08:11'),
+(76, 44, 'product_images/mcbook.png', 'azul', NULL, '2024-08-25 05:08:11', '2024-08-25 05:08:11'),
+(77, 45, 'product_images/Screenshot (62).png', 'm', NULL, '2024-08-25 05:13:40', '2024-08-25 05:13:40'),
+(78, 45, 'product_images/Screenshot (63).png', 'm', NULL, '2024-08-25 05:13:40', '2024-08-25 05:13:40'),
+(79, 45, 'product_images/Screenshot (64).png', 'm', NULL, '2024-08-25 05:13:40', '2024-08-25 05:13:40'),
+(80, 46, 'product_images/Screenshot (77).png', 'm', NULL, '2024-08-25 05:14:10', '2024-08-25 05:14:10'),
+(81, 46, 'product_images/Screenshot (78).png', 'm', NULL, '2024-08-25 05:14:10', '2024-08-25 05:14:10'),
+(82, 46, 'product_images/Screenshot (79).png', 'm', NULL, '2024-08-25 05:14:10', '2024-08-25 05:14:10'),
+(83, 47, 'product_images/mcbook.png', 'm', NULL, '2024-08-25 05:27:52', '2024-08-25 05:27:52'),
+(84, 47, 'product_images/pretarjeta.png', 'm', NULL, '2024-08-25 05:27:52', '2024-08-25 05:27:52'),
+(85, 47, 'product_images/andrea.png', 'm', NULL, '2024-08-25 05:27:52', '2024-08-25 05:27:52'),
+(86, 47, 'product_images/1723588795.png', 'rojo', NULL, '2024-08-25 05:28:42', '2024-09-02 16:28:11'),
+(87, 47, 'product_images/andrea.png', 'verde', NULL, '2024-08-25 05:28:42', '2024-08-25 05:28:42'),
+(88, 51, 'product_images/mcbook.png', 'm', NULL, '2024-08-25 05:30:41', '2024-08-25 05:30:41'),
+(89, 51, 'product_images/pretarjeta.png', 'm', NULL, '2024-08-25 05:30:41', '2024-08-25 05:30:41'),
+(90, 50, 'product_images/mcbook.png', 'm', NULL, '2024-08-25 05:31:15', '2024-08-25 05:31:15'),
+(91, 50, 'product_images/pretarjeta.png', 'm', NULL, '2024-08-25 05:31:15', '2024-08-25 05:31:15'),
+(92, 49, 'product_images/motorcycle icon.png', 'm', NULL, '2024-08-25 05:31:41', '2024-08-25 05:31:41'),
+(93, 49, 'product_images/linea de carga icon.png', 'm', NULL, '2024-08-25 05:31:41', '2024-08-25 05:31:41'),
+(94, 49, 'product_images/motorcycle.png', 'm', NULL, '2024-08-25 05:31:41', '2024-08-25 05:31:41'),
+(95, 48, 'product_images/parts.png', 'm', NULL, '2024-08-25 05:32:11', '2024-08-25 05:32:11'),
+(96, 48, 'product_images/blue.png', 'm', NULL, '2024-08-25 05:32:11', '2024-08-25 05:32:11'),
+(97, 48, 'product_images/black.png', 'm', NULL, '2024-08-25 05:32:11', '2024-08-25 05:32:11'),
+(98, 52, 'product_images/7f8414841c2933ed0e396c23598430f1a.jpg', 'verde', NULL, '2024-08-25 19:53:00', '2024-08-25 19:53:00'),
+(99, 54, 'product_images/Imagen de WhatsApp 2024-08-24 a las 23.14.55_1aaa6188.jpg', 'verde', NULL, '2024-08-25 19:54:21', '2024-08-25 19:54:21'),
+(100, 56, 'product_images/pretarjeta.png', 'azul', NULL, '2024-08-25 20:04:35', '2024-08-25 20:05:11'),
+(101, 69, 'product_images/mcbook.png', 'verde', NULL, '2024-08-25 23:06:00', '2024-08-25 23:06:00'),
+(102, 69, 'product_images/pretarjeta.png', 'azul', NULL, '2024-08-25 23:06:00', '2024-08-25 23:06:00'),
+(103, 72, 'product_images/mcbook1.png', 'verde', NULL, '2024-08-25 23:09:46', '2024-08-25 23:09:46'),
+(104, 72, 'product_images/andrea.png', 'azul', NULL, '2024-08-25 23:09:46', '2024-08-25 23:09:46'),
+(105, 73, 'product_images/mcbook.png', 'm', NULL, '2024-08-25 23:24:47', '2024-08-25 23:24:47'),
+(106, 73, 'product_images/mcbook2.png', 'm', NULL, '2024-08-25 23:24:47', '2024-08-25 23:24:47'),
+(107, 73, 'product_images/pretarjeta.png', 'm', NULL, '2024-08-25 23:24:47', '2024-08-25 23:24:47'),
+(108, 79, 'product_images/003-cpu1654088380.png', 'azul', NULL, '2024-08-31 04:18:36', '2024-08-31 04:18:36'),
+(109, 79, 'product_images/thumb-eletronices-cat1690538911.png', 'blanco', NULL, '2024-08-31 04:18:36', '2024-08-31 04:18:36'),
+(110, 80, 'product_images/003-cpu1654088380.png', 'm', NULL, '2024-08-31 04:34:58', '2024-08-31 04:34:58'),
+(111, 80, 'product_images/thumb-young-beautiful-cleaner-woman-holding-bucket-with-products-pointing-camera-against-blue-backdrop-201643715291.png', 'm', NULL, '2024-08-31 04:34:58', '2024-08-31 04:34:58'),
+(112, 80, 'product_images/thumb-young-beautiful-cleaner-woman-holding-bucket-with-products-pointing-camera-against-blue-backdrop-521643715484.png', 'm', NULL, '2024-08-31 04:34:58', '2024-08-31 04:34:58'),
+(113, 80, 'product_images/thumb-young-beautiful-cleaner-woman-holding-bucket-with-products-pointing-camera-against-blue-backdrop-191643709206.png', 'm', NULL, '2024-08-31 04:34:58', '2024-08-31 04:34:58'),
+(114, 81, 'product_images/thumb-eletronices-cat1690538911.png', 'm', NULL, '2024-08-31 04:36:13', '2024-08-31 04:36:13'),
+(115, 81, 'product_images/004-mop1654088380.png', 'm', NULL, '2024-08-31 04:36:13', '2024-08-31 04:36:13'),
+(116, 81, 'product_images/thumb-young-beautiful-cleaner-woman-holding-bucket-with-products-pointing-camera-against-blue-backdrop-91643715796.png', 'm', NULL, '2024-08-31 04:36:13', '2024-08-31 04:36:13'),
+(117, 81, 'product_images/002-house1654088380.png', 'm', NULL, '2024-08-31 04:36:13', '2024-08-31 04:36:13'),
+(124, 70, 'product_images/socialandrea.png', 'm', NULL, '2024-08-31 05:15:08', '2024-08-31 05:15:08'),
+(125, 70, 'product_images/logo.png', 'm', NULL, '2024-08-31 05:15:08', '2024-08-31 05:15:08'),
+(126, 70, 'product_images/logos bikebros.png', 'm', NULL, '2024-08-31 05:15:08', '2024-08-31 05:15:08'),
+(127, 71, 'product_images/image_750x_65cc96e678ac4.png', 'm', NULL, '2024-08-31 05:16:14', '2024-08-31 05:16:14'),
+(128, 71, 'product_images/image_750x_65be2ba984843.jpg', 'm', NULL, '2024-08-31 05:16:14', '2024-08-31 05:16:14'),
+(129, 71, 'product_images/img-20230525-175230-800x800.jpg', 'm', NULL, '2024-08-31 05:16:14', '2024-08-31 05:16:14'),
+(130, 84, 'product_images/logohorizontal.png', 'naranja', NULL, '2024-08-31 06:20:10', '2024-08-31 06:20:10'),
+(131, 84, 'product_images/download.png', 'gris', NULL, '2024-08-31 06:20:10', '2024-08-31 06:20:10'),
+(132, 85, 'product_images/logohorizontal.png', 'm', NULL, '2024-08-31 06:21:37', '2024-08-31 06:21:37'),
+(133, 85, 'product_images/149071.png', 'm', NULL, '2024-08-31 06:21:37', '2024-08-31 06:21:37'),
+(134, 85, 'product_images/1657090503-9ynVP5V0Tx.jpg', 'm', NULL, '2024-08-31 06:21:37', '2024-08-31 06:21:37'),
+(135, 85, 'product_images/Screenshot 2024-03-06 15284411.png', 'm', NULL, '2024-08-31 06:21:37', '2024-08-31 06:21:37'),
+(137, 86, 'product_images/14110006003.png', 'm', NULL, '2024-08-31 06:22:49', '2024-08-31 06:22:49'),
+(138, 86, 'product_images/14110006005.png', 'm', NULL, '2024-08-31 06:22:49', '2024-08-31 06:22:49'),
+(139, 86, 'product_images/14130001002.png', 'm', NULL, '2024-08-31 06:22:49', '2024-08-31 06:22:49'),
+(140, 107, 'product_images/1723588844.png', 'negro', NULL, '2024-09-02 13:56:07', '2024-09-02 16:34:58'),
+(141, 109, 'product_images/1723259685.png', 'rojo', NULL, '2024-09-02 13:56:07', '2024-09-02 13:56:07'),
+(142, 109, 'product_images/1723259586.png', 'azul', NULL, '2024-09-02 13:56:07', '2024-09-02 13:56:07'),
+(143, 114, 'product_images/1723588795.png', 'rojo', NULL, '2024-09-02 13:56:07', '2024-09-02 13:56:07'),
+(144, 114, 'product_images/1723588844.png', 'azul', NULL, '2024-09-02 13:56:07', '2024-09-02 13:56:07'),
+(145, 122, 'product_images/1723259685.png', 'rojo', NULL, '2024-09-02 14:28:50', '2024-09-02 14:28:50'),
+(146, 122, 'product_images/1723259586.png', 'azul', NULL, '2024-09-02 14:28:50', '2024-09-02 14:28:50'),
+(147, 127, 'product_images/1723588795.png', 'rojo', NULL, '2024-09-02 14:28:50', '2024-09-02 14:28:50'),
+(148, 127, 'product_images/1723588844.png', 'azul', NULL, '2024-09-02 14:28:50', '2024-09-02 14:28:50'),
+(149, 133, 'product_images/1723259685.png', 'rojo', NULL, '2024-09-02 14:38:39', '2024-09-02 14:38:39'),
+(150, 133, 'product_images/1723259586.png', 'azul', NULL, '2024-09-02 14:38:39', '2024-09-02 14:38:39'),
+(151, 134, 'product_images/1723588795.png', 'rojo', NULL, '2024-09-02 14:38:39', '2024-09-02 14:38:39'),
+(152, 134, 'product_images/1723588844.png', 'azul', NULL, '2024-09-02 14:38:39', '2024-09-02 14:38:39'),
+(153, 1, 'product_images/1723123242.png', 'negro', NULL, '2024-09-02 14:56:04', '2024-09-02 14:56:04'),
+(154, 3, 'product_images/1723259685.png', 'rojo', NULL, '2024-09-02 14:56:04', '2024-09-02 14:56:04'),
+(155, 3, 'product_images/1723259586.png', 'azul', NULL, '2024-09-02 14:56:04', '2024-09-02 14:56:04'),
+(156, 8, 'product_images/1723588795.png', 'rojo', NULL, '2024-09-02 14:56:04', '2024-09-02 14:56:04'),
+(157, 8, 'product_images/1723588844.png', 'azul', NULL, '2024-09-02 14:56:04', '2024-09-02 14:56:04'),
+(158, 16, 'product_images/1723259685.png', 'rojo', NULL, '2024-09-02 15:36:23', '2024-09-02 15:36:23'),
+(159, 16, 'product_images/1723259586.png', 'azul', NULL, '2024-09-02 15:36:23', '2024-09-02 15:36:23'),
+(160, 21, 'product_images/1723588795.png', 'rojo', NULL, '2024-09-02 15:36:23', '2024-09-02 15:36:23'),
+(161, 21, 'product_images/1723588844.png', 'azul', NULL, '2024-09-02 15:36:23', '2024-09-02 15:36:23'),
+(162, 27, 'product_images/1723123242.png', 'negro', NULL, '2024-09-02 16:15:03', '2024-09-02 16:15:03'),
+(163, 29, 'product_images/1723259685.png', 'rojo', NULL, '2024-09-02 16:15:03', '2024-09-02 16:15:03'),
+(164, 29, 'product_images/1723259586.png', 'azul', NULL, '2024-09-02 16:15:03', '2024-09-02 16:15:03'),
+(165, 34, 'product_images/1723588795.png', 'rojo', NULL, '2024-09-02 16:15:03', '2024-09-02 16:15:03'),
+(166, 34, 'product_images/1723588844.png', 'azul', NULL, '2024-09-02 16:15:03', '2024-09-02 16:15:03'),
+(167, 40, 'product_images/1723123242.png', 'negro', NULL, '2024-09-02 16:28:11', '2024-09-02 16:28:11'),
+(168, 42, 'product_images/1723259685.png', 'rojo', NULL, '2024-09-02 16:28:11', '2024-09-02 16:28:11'),
+(169, 42, 'product_images/1723259586.png', 'azul', NULL, '2024-09-02 16:28:11', '2024-09-02 16:28:11'),
+(170, 47, 'product_images/1723588844.png', 'azul', NULL, '2024-09-02 16:28:11', '2024-09-02 16:28:11'),
+(171, 58, 'product_images/1723123242.png', 'negro', NULL, '2024-09-02 16:29:22', '2024-09-02 16:29:22'),
+(172, 60, 'product_images/1723259685.png', 'rojo', NULL, '2024-09-02 16:29:22', '2024-09-02 16:29:22'),
+(173, 60, 'product_images/1723259586.png', 'azul', NULL, '2024-09-02 16:29:22', '2024-09-02 16:29:22'),
+(174, 65, 'product_images/1723588795.png', 'rojo', NULL, '2024-09-02 16:29:22', '2024-09-02 16:29:22'),
+(175, 65, 'product_images/1723588844.png', 'azul', NULL, '2024-09-02 16:29:22', '2024-09-02 16:29:22'),
+(176, 71, 'product_images/1723588795.png', 'gris', NULL, '2024-09-02 16:29:22', '2024-09-02 16:29:22'),
+(177, 71, 'product_images/1723588844.png', 'negro', NULL, '2024-09-02 16:29:22', '2024-09-02 16:29:22'),
+(178, 76, 'product_images/1723123242.png', 'negro', NULL, '2024-09-02 16:30:15', '2024-09-02 16:30:15'),
+(179, 78, 'product_images/1723259685.png', 'rojo', NULL, '2024-09-02 16:30:15', '2024-09-02 16:30:15'),
+(180, 78, 'product_images/1723259586.png', 'azul', NULL, '2024-09-02 16:30:15', '2024-09-02 16:30:15'),
+(181, 83, 'product_images/1723588795.png', 'rojo', NULL, '2024-09-02 16:30:15', '2024-09-02 16:30:15'),
+(182, 83, 'product_images/1723588844.png', 'azul', NULL, '2024-09-02 16:30:15', '2024-09-02 16:30:15'),
+(183, 89, 'product_images/1723588795.png', 'gris', NULL, '2024-09-02 16:30:15', '2024-09-02 16:30:15'),
+(184, 89, 'product_images/1723588844.png', 'negro', NULL, '2024-09-02 16:30:15', '2024-09-02 16:30:15'),
+(185, 94, 'product_images/1723123242.png', 'negro', NULL, '2024-09-02 16:34:58', '2024-09-02 16:34:58'),
+(186, 96, 'product_images/1723259685.png', 'rojo', NULL, '2024-09-02 16:34:58', '2024-09-02 16:34:58'),
+(187, 96, 'product_images/1723259586.png', 'azul', NULL, '2024-09-02 16:34:58', '2024-09-02 16:34:58'),
+(188, 101, 'product_images/1723588795.png', 'rojo', NULL, '2024-09-02 16:34:58', '2024-09-02 16:34:58'),
+(189, 101, 'product_images/1723588844.png', 'azul', NULL, '2024-09-02 16:34:58', '2024-09-02 16:34:58'),
+(190, 107, 'product_images/1723588795.png', 'gris', NULL, '2024-09-02 16:34:58', '2024-09-02 16:34:58'),
+(191, 112, 'product_images/Captura de pantalla 2024-08-25 211421.png', 'm', NULL, '2024-09-02 16:36:12', '2024-09-02 16:36:12'),
+(192, 112, 'product_images/mcbook.png', 'm', NULL, '2024-09-02 16:36:12', '2024-09-02 16:36:12'),
+(193, 112, 'product_images/andrea.png', 'm', NULL, '2024-09-02 16:36:12', '2024-09-02 16:36:12'),
+(194, 108, 'product_images/mcbook.png', 'm', NULL, '2024-09-02 16:45:24', '2024-09-02 16:45:24'),
+(195, 108, 'product_images/andrea.png', 'm', NULL, '2024-09-02 16:45:24', '2024-09-02 16:45:24'),
+(196, 113, 'product_images/14110006003.png', 'rojo', NULL, '2024-09-02 16:55:27', '2024-09-02 16:55:27'),
+(197, 113, 'product_images/14110006002.png', 'verde', NULL, '2024-09-02 16:55:27', '2024-09-02 16:55:27'),
+(198, 118, 'product_images/10162.png', 'm', NULL, '2024-09-02 22:07:11', '2024-09-02 22:07:11'),
+(199, 118, 'product_images/14110006003.png', 'm', NULL, '2024-09-02 22:07:11', '2024-09-02 22:07:11'),
+(200, 118, 'product_images/14110006005.png', 'm', NULL, '2024-09-02 22:07:11', '2024-09-02 22:07:11'),
+(201, 121, 'product_images/10162.png', 'm', NULL, '2024-09-02 22:18:50', '2024-09-02 22:18:50'),
+(202, 121, 'product_images/10163.png', 'm', NULL, '2024-09-02 22:18:50', '2024-09-02 22:18:50'),
+(203, 121, 'product_images/10164.png', 'm', NULL, '2024-09-02 22:18:50', '2024-09-02 22:18:50'),
+(204, 121, 'product_images/14110006002.png', 'm', NULL, '2024-09-02 22:18:50', '2024-09-02 22:18:50'),
+(205, 122, 'product_images/10162.png', 'm', NULL, '2024-09-02 22:19:38', '2024-09-02 22:19:38'),
+(206, 122, 'product_images/10163.png', 'm', NULL, '2024-09-02 22:19:38', '2024-09-02 22:19:38'),
+(207, 122, 'product_images/10164.png', 'm', NULL, '2024-09-02 22:19:38', '2024-09-02 22:19:38'),
+(208, 122, 'product_images/14110006002.png', 'm', NULL, '2024-09-02 22:19:38', '2024-09-02 22:19:38'),
+(209, 123, 'product_images/1723123242.png', 'negro', NULL, '2024-09-02 22:25:06', '2024-09-02 22:25:06'),
+(210, 125, 'product_images/1723259685.png', 'rojo', NULL, '2024-09-02 22:25:06', '2024-09-02 22:25:06'),
+(211, 125, 'product_images/1723259586.png', 'azul', NULL, '2024-09-02 22:25:06', '2024-09-02 22:25:06'),
+(212, 130, 'product_images/1723588795.png', 'rojo', NULL, '2024-09-02 22:25:06', '2024-09-02 22:25:06'),
+(213, 130, 'product_images/1723588844.png', 'azul', NULL, '2024-09-02 22:25:06', '2024-09-02 22:25:06'),
+(214, 136, 'product_images/1723588795.png', 'gris', NULL, '2024-09-02 22:25:06', '2024-09-02 22:25:06'),
+(215, 136, 'product_images/1723588844.png', 'negro', NULL, '2024-09-02 22:25:06', '2024-09-02 22:25:06'),
+(216, 143, 'product_images/1723123242.png', 'negro', NULL, '2024-09-02 22:28:04', '2024-09-02 22:28:04'),
+(217, 145, 'product_images/1723259685.png', 'rojo', NULL, '2024-09-02 22:28:04', '2024-09-02 22:28:04'),
+(218, 145, 'product_images/1723259586.png', 'azul', NULL, '2024-09-02 22:28:04', '2024-09-02 22:28:04'),
+(219, 150, 'product_images/1723588795.png', 'rojo', NULL, '2024-09-02 22:28:04', '2024-09-02 22:28:04'),
+(220, 150, 'product_images/1723588844.png', 'azul', NULL, '2024-09-02 22:28:04', '2024-09-02 22:28:04'),
+(221, 156, 'product_images/1723588795.png', 'gris', NULL, '2024-09-02 22:28:04', '2024-09-02 22:28:04'),
+(222, 156, 'product_images/1723588844.png', 'negro', NULL, '2024-09-02 22:28:04', '2024-09-02 22:28:04'),
+(223, 162, 'product_images/1723259082.png', 'rojo', NULL, '2024-09-02 22:28:04', '2024-09-02 22:28:04'),
+(224, 164, 'product_images/1723123242.png', 'negro', NULL, '2024-09-02 22:32:31', '2024-09-02 22:32:31'),
+(225, 166, 'product_images/1723259685.png', 'rojo', NULL, '2024-09-02 22:32:31', '2024-09-02 22:32:31'),
+(226, 166, 'product_images/1723259586.png', 'azul', NULL, '2024-09-02 22:32:31', '2024-09-02 22:32:31'),
+(227, 171, 'product_images/1723588795.png', 'rojo', NULL, '2024-09-02 22:32:31', '2024-09-02 22:32:31'),
+(228, 171, 'product_images/1723588844.png', 'azul', NULL, '2024-09-02 22:32:31', '2024-09-02 22:32:31'),
+(229, 177, 'product_images/1723588795.png', 'gris', NULL, '2024-09-02 22:32:31', '2024-09-02 22:32:31'),
+(230, 177, 'product_images/1723588844.png', 'negro', NULL, '2024-09-02 22:32:31', '2024-09-02 22:32:31'),
+(231, 183, 'product_images/1723259082.png', 'rojo', NULL, '2024-09-02 22:32:31', '2024-09-02 22:32:31'),
+(232, 183, 'product_images/1725315792.png', 'negro', NULL, '2024-09-02 22:32:31', '2024-09-02 22:32:31'),
+(233, 189, 'product_images/Screenshot (7).png', 'm', NULL, '2024-09-03 04:49:47', '2024-09-03 04:49:47'),
+(234, 192, 'product_images/Screenshot (58).png', 'marrón', NULL, '2024-09-03 05:09:00', '2024-09-03 05:09:00'),
+(235, 192, 'product_images/Screenshot (46).png', 'Metal', NULL, '2024-09-03 05:09:00', '2024-09-03 05:09:00'),
+(236, 192, 'product_images/Screenshot (65).png', 'Cromado', NULL, '2024-09-03 05:09:00', '2024-09-03 05:09:00'),
+(237, 196, 'product_images/pqjvedcnyp9xjpaxk4kv.jpg', 'negro', NULL, '2024-09-03 05:13:59', '2024-09-03 05:13:59'),
+(238, 198, 'product_images/podio shimano diseñado1.jpg', 'm', NULL, '2024-09-03 13:43:27', '2024-09-03 13:43:27'),
+(239, 198, 'product_images/416886449_7181054001956266_2827180045020882509_n.jpg', 'm', NULL, '2024-09-03 13:43:27', '2024-09-03 13:43:27'),
+(240, 198, 'product_images/podio shimano diseñado2.jpg', 'm', NULL, '2024-09-03 13:43:27', '2024-09-03 13:43:27'),
+(241, 198, 'product_images/ca77fc7f-5e12-41f6-9368-abff98303b23.webp', 'rojo', NULL, '2024-09-03 13:44:45', '2024-09-03 13:44:45'),
+(242, 198, 'product_images/botellon rockbros.jpg', 'verde', NULL, '2024-09-03 13:44:45', '2024-09-03 13:44:45'),
+(243, 201, 'product_images/llantas chaoy1.png', 'm', NULL, '2024-09-03 13:47:45', '2024-09-03 13:47:45'),
+(244, 201, 'product_images/llantas chaoy.png', 'm', NULL, '2024-09-03 13:47:45', '2024-09-03 13:47:45'),
+(245, 201, 'product_images/Guantes-Rockbros-S210BK-2.jpg', 'rojo', NULL, '2024-09-03 13:49:09', '2024-09-03 13:49:09'),
+(247, 199, 'product_images/ññl.png', 'm', NULL, '2024-09-03 13:59:52', '2024-09-03 13:59:52'),
+(248, 199, 'product_images/ll.jpg', 'm', NULL, '2024-09-03 13:59:52', '2024-09-03 13:59:52'),
+(249, 212, 'product_images/1723123242.png', 'negro', NULL, '2024-09-03 14:51:57', '2024-09-03 14:51:57'),
+(250, 214, 'product_images/1723259685.png', 'rojo', NULL, '2024-09-03 14:51:57', '2024-09-03 14:51:57'),
+(251, 214, 'product_images/1723259586.png', 'azul', NULL, '2024-09-03 14:51:57', '2024-09-03 14:51:57'),
+(252, 219, 'product_images/1723588795.png', 'rojo', NULL, '2024-09-03 14:51:57', '2024-09-03 14:51:57'),
+(253, 219, 'product_images/1723588844.png', 'azul', NULL, '2024-09-03 14:51:57', '2024-09-03 14:51:57'),
+(254, 225, 'product_images/1723588795.png', 'gris', NULL, '2024-09-03 14:51:57', '2024-09-03 14:51:57'),
+(255, 225, 'product_images/1723588844.png', 'negro', NULL, '2024-09-03 14:51:57', '2024-09-03 14:51:57'),
+(256, 231, 'product_images/1723259082.png', 'rojo', NULL, '2024-09-03 14:51:57', '2024-09-03 14:51:57'),
+(257, 231, 'product_images/1725315792.png', 'negro', NULL, '2024-09-03 14:51:57', '2024-09-03 14:51:57'),
+(258, 234, 'product_images/1725374111.jpeg', 'rojo', NULL, '2024-09-03 14:53:32', '2024-09-03 14:53:32'),
+(259, 234, 'product_images/1725374048.jpeg', 'verde', NULL, '2024-09-03 14:53:32', '2024-09-03 14:53:32'),
+(260, 247, 'product_images/14110006002.png', 'rojo', NULL, '2024-09-04 03:48:22', '2024-09-04 03:48:22'),
+(261, 247, 'product_images/14110006003.png', 'verde', NULL, '2024-09-04 03:48:22', '2024-09-04 03:48:22'),
+(262, 252, 'product_images/14110006003.png', 'rojo', NULL, '2024-09-04 03:52:41', '2024-09-04 03:52:41'),
+(263, 252, 'product_images/14110006005.png', 'verde', NULL, '2024-09-04 03:52:41', '2024-09-04 03:52:41'),
+(264, 258, 'product_images/Lente sp216bk.png', 'm', NULL, '2024-09-04 03:58:50', '2024-09-04 03:58:50'),
+(265, 258, 'product_images/sp216bl.png', 'm', NULL, '2024-09-04 03:58:50', '2024-09-04 03:58:50'),
+(266, 258, 'product_images/sp216ne.png', 'm', NULL, '2024-09-04 03:58:50', '2024-09-04 03:58:50'),
+(267, 260, 'product_images/1723123242.png', 'negro', NULL, '2024-09-04 13:49:26', '2024-09-04 13:49:26'),
+(268, 262, 'product_images/1723259685.png', 'rojo', NULL, '2024-09-04 13:49:26', '2024-09-04 13:49:26'),
+(269, 262, 'product_images/1723259586.png', 'azul', NULL, '2024-09-04 13:49:26', '2024-09-04 13:49:26'),
+(270, 267, 'product_images/1723588795.png', 'rojo', NULL, '2024-09-04 13:49:26', '2024-09-04 13:49:26'),
+(271, 267, 'product_images/1723588844.png', 'azul', NULL, '2024-09-04 13:49:26', '2024-09-04 13:49:26'),
+(272, 273, 'product_images/1723588795.png', 'gris', NULL, '2024-09-04 13:49:26', '2024-09-04 13:49:26'),
+(273, 273, 'product_images/1723588844.png', 'negro', NULL, '2024-09-04 13:49:26', '2024-09-04 13:49:26'),
+(274, 279, 'product_images/1723259082.png', 'rojo', NULL, '2024-09-04 13:49:26', '2024-09-04 13:49:26'),
+(275, 279, 'product_images/1725315792.png', 'negro', NULL, '2024-09-04 13:49:26', '2024-09-04 13:49:26'),
+(276, 283, 'product_images/1723259685.png', 'rojo', NULL, '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(277, 283, 'product_images/1723259586.png', 'azul', NULL, '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(278, 288, 'product_images/1723588795.png', 'rojo', NULL, '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(279, 288, 'product_images/1723588844.png', 'azul', NULL, '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(280, 294, 'product_images/1723588795.png', 'gris', NULL, '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(281, 294, 'product_images/1723588844.png', 'negro', NULL, '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(282, 300, 'product_images/1723259082.png', 'rojo', NULL, '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(283, 300, 'product_images/1725315792.png', 'negro', NULL, '2024-09-04 15:32:26', '2024-09-04 15:32:26'),
+(284, 303, 'product_images/images (9).jpg', 'm', NULL, '2024-09-04 16:18:51', '2024-09-04 16:18:51'),
+(285, 303, 'product_images/D_NQ_NP_875555-MCO70955224951_082023-O.webp', 'm', NULL, '2024-09-04 16:18:51', '2024-09-04 16:18:51'),
+(286, 303, 'product_images/CHUPETE-ALDOR-YOGUETA-SURTIDO-408GR.jpg', 'm', NULL, '2024-09-04 16:18:51', '2024-09-04 16:18:51'),
+(289, 304, 'product_images/rojo2.jpg', 'm', NULL, '2024-09-04 16:21:00', '2024-09-04 16:21:00'),
+(290, 304, 'product_images/rojo3.jpg', 'm', NULL, '2024-09-04 16:21:00', '2024-09-04 16:21:00'),
+(291, 305, 'product_images/verde2.jpg', 'm', NULL, '2024-09-04 16:21:45', '2024-09-04 16:21:45'),
+(292, 305, 'product_images/verde3.jpg', 'm', NULL, '2024-09-04 16:21:45', '2024-09-04 16:21:45'),
+(293, 306, 'product_images/verde1.jpg', 'm', NULL, '2024-09-04 16:33:41', '2024-09-04 16:33:41'),
+(294, 306, 'product_images/rojo1.png', 'm', NULL, '2024-09-04 16:33:41', '2024-09-04 16:33:41'),
+(295, 307, 'product_images/rojo2.jpg', 'm', NULL, '2024-09-04 16:35:07', '2024-09-04 16:35:07'),
+(296, 308, 'product_images/verde3.jpg', 'm', NULL, '2024-09-04 16:35:26', '2024-09-04 16:35:26'),
+(297, 309, 'product_images/D_NQ_NP_875555-MCO70955224951_082023-O.webp', 'm', NULL, '2024-09-04 16:47:24', '2024-09-04 16:47:24'),
+(298, 309, 'product_images/CHUPETE-ALDOR-YOGUETA-SURTIDO-408GR.jpg', 'm', NULL, '2024-09-04 16:47:24', '2024-09-04 16:47:24'),
+(299, 309, 'product_images/rojo1.png', 'rojo', NULL, '2024-09-04 16:53:29', '2024-09-04 16:53:29'),
+(300, 309, 'product_images/verde1.jpg', 'verde', NULL, '2024-09-04 16:53:29', '2024-09-04 16:53:29'),
+(301, 314, 'product_images/1723123299.png', 'negro', NULL, '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(302, 314, 'product_images/1723123300.png', 'azul', NULL, '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(303, 319, 'product_images/1723259790.png', 'negro', NULL, '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(304, 319, 'product_images/1723259791.png', 'verde', NULL, '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(305, 324, 'product_images/1723588945.png', 'marron', NULL, '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(306, 324, 'product_images/1723588946.png', 'negro', NULL, '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(307, 329, 'product_images/1723589000.png', 'blanco', NULL, '2024-09-05 09:45:00', '2024-09-05 09:45:00'),
+(308, 329, 'product_images/1723589001.png', 'negro', NULL, '2024-09-05 09:45:00', '2024-09-05 09:45:00');
 
 -- --------------------------------------------------------
 
@@ -1929,6 +2334,33 @@ CREATE TABLE `related_products` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `related_products`
+--
+
+INSERT INTO `related_products` (`id`, `product_id`, `related_item_id`, `created_at`, `updated_at`) VALUES
+(11, 141, 145146, '2024-08-08 07:01:58', '2024-08-08 07:01:58'),
+(12, 141, 144, '2024-08-08 07:04:25', '2024-08-08 07:04:25'),
+(13, 141, 144, '2024-08-08 15:11:14', '2024-08-08 15:11:14'),
+(14, 141, 144, '2024-08-10 03:17:25', '2024-08-10 03:17:25'),
+(15, 141, 144, '2024-08-10 03:17:25', '2024-08-10 03:17:25'),
+(16, 141, 149, '2024-08-10 03:17:25', '2024-08-10 03:17:25'),
+(26, 183, 144, '2024-08-10 05:26:35', '2024-08-10 05:26:35'),
+(27, 183, 144, '2024-08-10 05:26:35', '2024-08-10 05:26:35'),
+(28, 183, 149, '2024-08-10 05:26:35', '2024-08-10 05:26:35'),
+(53, 37, 144, '2024-08-11 06:36:18', '2024-08-11 06:36:18'),
+(54, 37, 149, '2024-08-11 06:36:18', '2024-08-11 06:36:18'),
+(66, 81, 80, '2024-08-15 22:52:19', '2024-08-15 22:52:19'),
+(67, 82, 80, '2024-08-15 22:56:17', '2024-08-15 22:56:17'),
+(68, 84, 80, '2024-08-15 23:03:08', '2024-08-15 23:03:08'),
+(69, 141, 92, '2024-08-16 13:16:59', '2024-08-16 13:16:59'),
+(70, 141, 129, '2024-08-16 13:17:04', '2024-08-16 13:17:04'),
+(73, 283, 144, '2024-08-18 15:27:12', '2024-08-18 15:27:12'),
+(74, 283, 149, '2024-08-18 15:27:12', '2024-08-18 15:27:12'),
+(76, 244, 244, '2024-09-04 04:05:56', '2024-09-04 04:05:56'),
+(77, 244, 245, '2024-09-04 04:06:02', '2024-09-04 04:06:02'),
+(78, 244, 247, '2024-09-04 04:06:07', '2024-09-04 04:06:07');
 
 -- --------------------------------------------------------
 
@@ -2614,7 +3046,190 @@ INSERT INTO `screen_times` (`id`, `user_id`, `product_id`, `url`, `time_spent`, 
 (580, 40, 84, 'https://bikebros.net/product-details/PRUEBA', 2093, '2024-07-16 21:58:30', '2024-07-16 21:58:30'),
 (581, 44, 76, 'https://bikebros.net/product-details/testing', 11771, '2024-07-16 22:45:43', '2024-07-16 22:45:43'),
 (582, 44, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros', 10889, '2024-07-16 22:46:02', '2024-07-16 22:46:02'),
-(583, 44, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-NEGRO', 14220, '2024-07-16 22:46:17', '2024-07-16 22:46:17');
+(583, 44, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-NEGRO', 14220, '2024-07-16 22:46:17', '2024-07-16 22:46:17'),
+(584, 44, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros', 9744, '2024-07-17 02:42:15', '2024-07-17 02:42:15'),
+(585, 33, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros', 6290, '2024-07-17 03:09:33', '2024-07-17 03:09:33'),
+(586, 33, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-NEGRO', 14608, '2024-07-17 03:09:49', '2024-07-17 03:09:49'),
+(587, 40, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros', 4383, '2024-07-17 12:01:59', '2024-07-17 12:01:59'),
+(588, 40, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-NEGRO', 6071, '2024-07-17 12:02:06', '2024-07-17 12:02:06'),
+(589, 40, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-NEGRO', 3771, '2024-07-17 12:02:10', '2024-07-17 12:02:10'),
+(590, 40, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-AZUL', 12125, '2024-07-17 12:02:22', '2024-07-17 12:02:22'),
+(591, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros', 2365, '2024-07-17 12:02:34', '2024-07-17 12:02:34'),
+(592, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-NEGRO', 3296, '2024-07-17 12:02:38', '2024-07-17 12:02:38'),
+(593, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-AZUL', 2987, '2024-07-17 12:02:41', '2024-07-17 12:02:41'),
+(594, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-AZUL', 1545, '2024-07-17 12:02:43', '2024-07-17 12:02:43'),
+(595, 40, 81, 'https://bikebros.net/product-details/testing-3', 2021, '2024-07-17 12:03:24', '2024-07-17 12:03:24'),
+(596, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros', 2816, '2024-07-17 12:04:08', '2024-07-17 12:04:08'),
+(597, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros', 2485, '2024-07-17 12:04:11', '2024-07-17 12:04:11'),
+(598, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros', 2040, '2024-07-17 12:04:27', '2024-07-17 12:04:27'),
+(599, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros', 1202, '2024-07-17 12:04:28', '2024-07-17 12:04:28'),
+(600, 40, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros', 3695, '2024-07-17 16:00:35', '2024-07-17 16:00:35'),
+(601, 40, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-NEGRO', 2228, '2024-07-17 16:00:37', '2024-07-17 16:00:37'),
+(602, 40, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-AZUL', 2226, '2024-07-17 16:00:40', '2024-07-17 16:00:40'),
+(603, 40, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-AZUL', 5479, '2024-07-17 16:00:46', '2024-07-17 16:00:46'),
+(604, 40, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-NEGRO', 1203, '2024-07-17 16:00:47', '2024-07-17 16:00:47'),
+(605, 40, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-NEGRO', 3292, '2024-07-17 16:00:51', '2024-07-17 16:00:51'),
+(606, 40, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-AZUL', 241290, '2024-07-17 16:07:19', '2024-07-17 16:07:19'),
+(607, 40, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-AZUL', 1692, '2024-07-17 16:07:21', '2024-07-17 16:07:21'),
+(608, 44, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros', 5639, '2024-07-18 19:36:14', '2024-07-18 19:36:14'),
+(609, 44, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-AZUL', 10728, '2024-07-18 19:36:26', '2024-07-18 19:36:26'),
+(610, 44, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-NEGRO', 8027, '2024-07-18 19:36:35', '2024-07-18 19:36:35'),
+(611, 44, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-AZUL', 6892, '2024-07-18 19:36:43', '2024-07-18 19:36:43'),
+(612, 44, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-NEGRO', 7564, '2024-07-18 19:36:51', '2024-07-18 19:36:51'),
+(613, 44, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-AZUL', 26032, '2024-07-18 19:37:18', '2024-07-18 19:37:18'),
+(614, 44, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-AZUL', 6596, '2024-07-18 19:37:26', '2024-07-18 19:37:26'),
+(615, 44, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-AZUL', 9346, '2024-07-18 19:37:36', '2024-07-18 19:37:36'),
+(616, 44, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-NEGRO', 3236, '2024-07-18 19:37:41', '2024-07-18 19:37:41'),
+(617, 44, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-NEGRO', 13168, '2024-07-18 19:37:51', '2024-07-18 19:37:51'),
+(618, 44, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-AZUL', 6665, '2024-07-18 19:37:58', '2024-07-18 19:37:58'),
+(619, 44, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-AZUL', 4582, '2024-07-18 19:38:04', '2024-07-18 19:38:04'),
+(620, 44, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-NEGRO', 5528, '2024-07-18 19:38:11', '2024-07-18 19:38:11'),
+(621, 44, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-NEGRO', 5892, '2024-07-18 19:38:18', '2024-07-18 19:38:18'),
+(622, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros', 1303, '2024-07-18 19:39:33', '2024-07-18 19:39:33'),
+(623, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros', 851, '2024-07-18 19:39:34', '2024-07-18 19:39:34'),
+(624, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros', 13454, '2024-07-18 19:39:48', '2024-07-18 19:39:48'),
+(625, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros', 9000, '2024-07-18 19:42:21', '2024-07-18 19:42:21'),
+(626, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros', 2228, '2024-07-18 19:42:23', '2024-07-18 19:42:23'),
+(627, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros', 21453, '2024-07-18 19:45:05', '2024-07-18 19:45:05'),
+(628, 44, 93, 'https://bikebros.net/product-details/Inflador-Giyo-120-psi', 31065, '2024-07-18 20:22:34', '2024-07-18 20:22:34'),
+(629, 34, 93, 'https://bikebros.net/product-details/Inflador-Giyo-120-psi', 13515, '2024-07-19 05:20:14', '2024-07-19 05:20:14'),
+(630, 34, 93, 'https://bikebros.net/product-details/Inflador-Giyo-120-psi', 4542, '2024-07-19 05:20:21', '2024-07-19 05:20:21'),
+(631, 33, 93, 'https://bikebros.net/product-details/Inflador-Giyo-120-psi', 11732, '2024-07-19 16:03:57', '2024-07-19 16:03:57'),
+(632, 33, 93, 'https://bikebros.net/product-details/Inflador-Giyo-120-psi', 4012, '2024-07-19 16:09:21', '2024-07-19 16:09:21'),
+(633, 33, 93, 'https://bikebros.net/product-details/Inflador-Giyo-120-psi', 18930, '2024-07-19 16:21:22', '2024-07-19 16:21:22'),
+(634, 33, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 10663, '2024-07-19 16:46:18', '2024-07-19 16:46:18'),
+(635, 33, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 5875, '2024-07-19 16:46:25', '2024-07-19 16:46:25'),
+(636, 34, 93, 'https://bikebros.net/product-details/Inflador-Giyo-120-psi', 24536, '2024-07-20 04:56:09', '2024-07-20 04:56:09'),
+(637, 34, 93, 'https://bikebros.net/product-details/Inflador-Giyo-120-psi-VERDE', 11804, '2024-07-20 05:30:09', '2024-07-20 05:30:09'),
+(638, 34, 93, 'https://bikebros.net/product-details/Inflador-Giyo-120-psi', 1918, '2024-07-20 05:30:28', '2024-07-20 05:30:28'),
+(639, 34, 93, 'https://bikebros.net/product-details/Inflador-Giyo-120-psi-VERDE', 13788, '2024-07-20 05:30:43', '2024-07-20 05:30:43'),
+(640, 34, 93, 'https://bikebros.net/product-details/Inflador-Giyo-120-psi', 2866, '2024-07-20 05:31:46', '2024-07-20 05:31:46'),
+(641, 34, 93, 'https://bikebros.net/product-details/Inflador-Giyo-120-psi-VERDE', 2847, '2024-07-20 05:31:51', '2024-07-20 05:31:51'),
+(642, 34, 93, 'https://bikebros.net/product-details/Inflador-Giyo-120-psi', 13728, '2024-07-20 05:32:35', '2024-07-20 05:32:35'),
+(643, 34, 93, 'https://bikebros.net/product-details/Inflador-Giyo-120-psi-VERDE', 7905, '2024-07-20 05:33:02', '2024-07-20 05:33:02'),
+(644, 34, 93, 'https://bikebros.net/product-details/Inflador-Giyo-120-psi-VERDE', 5678, '2024-07-20 05:33:56', '2024-07-20 05:33:56'),
+(645, 34, 93, 'https://bikebros.net/product-details/Inflador-Giyo-120-psi-VERDE', 3078, '2024-07-20 05:34:01', '2024-07-20 05:34:01'),
+(646, 34, 80, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados', 3146, '2024-07-20 05:34:36', '2024-07-20 05:34:36'),
+(647, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros', 2075, '2024-07-20 14:47:18', '2024-07-20 14:47:18'),
+(648, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-NEGRO', 2352, '2024-07-20 14:47:21', '2024-07-20 14:47:21'),
+(649, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-AZUL', 3207, '2024-07-20 14:47:24', '2024-07-20 14:47:24'),
+(650, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-AZUL', 1603, '2024-07-20 14:47:26', '2024-07-20 14:47:26'),
+(651, 33, 93, 'https://bikebros.net/product-details/Inflador-Giyo-120-psi', 3960, '2024-07-21 17:10:02', '2024-07-21 17:10:02'),
+(652, 33, 93, 'https://bikebros.net/product-details/Inflador-Giyo-120-psi', 2900, '2024-07-21 17:10:06', '2024-07-21 17:10:06'),
+(653, 33, 93, 'https://bikebros.net/product-details/Inflador-Giyo-120-psi', 3899, '2024-07-21 17:10:14', '2024-07-21 17:10:14'),
+(654, 33, 93, 'https://bikebros.net/product-details/Inflador-Giyo-120-psi', 3177, '2024-07-21 17:10:19', '2024-07-21 17:10:19'),
+(655, 33, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros', 3939, '2024-07-21 17:10:34', '2024-07-21 17:10:34'),
+(656, 33, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-AZUL', 5033, '2024-07-21 17:10:40', '2024-07-21 17:10:40'),
+(657, 33, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-NEGRO', 5837, '2024-07-21 17:10:51', '2024-07-21 17:10:51'),
+(658, 33, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros', 12297, '2024-07-21 17:11:09', '2024-07-21 17:11:09'),
+(659, 33, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros', 5012, '2024-07-21 17:16:19', '2024-07-21 17:16:19'),
+(660, 40, 93, 'https://bikebros.net/product-details/Inflador-Giyo-120-psi', 6165, '2024-07-23 02:01:57', '2024-07-23 02:01:57'),
+(661, 40, 93, 'https://bikebros.net/product-details/Inflador-Giyo-120-psi', 1979, '2024-07-23 02:01:59', '2024-07-23 02:01:59'),
+(662, 40, 93, 'https://bikebros.net/product-details/Inflador-Giyo-120-psi', 1576, '2024-07-23 02:02:40', '2024-07-23 02:02:40'),
+(663, 40, 93, 'https://bikebros.net/product-details/Inflador-Giyo-120-psi', 1384, '2024-07-23 02:02:41', '2024-07-23 02:02:41'),
+(664, 40, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros', 3044, '2024-07-23 02:05:38', '2024-07-23 02:05:38'),
+(665, 40, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros', 2970, '2024-07-23 02:05:42', '2024-07-23 02:05:42'),
+(666, 40, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-NEGRO', 1489, '2024-07-23 02:05:43', '2024-07-23 02:05:43'),
+(667, 40, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-AZUL', 1227, '2024-07-23 02:05:45', '2024-07-23 02:05:45'),
+(668, 40, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-AZUL', 4079, '2024-07-23 02:05:49', '2024-07-23 02:05:49'),
+(669, 40, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-AZUL', 125555, '2024-07-23 02:29:29', '2024-07-23 02:29:29'),
+(670, 33, 80, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados', 3215, '2024-07-23 09:07:07', '2024-07-23 09:07:07'),
+(671, 33, 80, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados', 7288, '2024-07-23 09:07:12', '2024-07-23 09:07:12'),
+(672, 33, 80, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados', 3812, '2024-07-23 09:07:17', '2024-07-23 09:07:17'),
+(673, 40, 93, 'https://bikebros.net/product-details/Inflador-Giyo-120-psi', 5474, '2024-07-23 17:12:05', '2024-07-23 17:12:05'),
+(674, 40, 93, 'https://bikebros.net/product-details/Inflador-Giyo-120-psi', 3732, '2024-07-23 17:12:10', '2024-07-23 17:12:10'),
+(675, 40, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-AZUL', 3062, '2024-07-23 17:12:34', '2024-07-23 17:12:34'),
+(676, 40, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-AZUL', 15757, '2024-07-23 17:12:51', '2024-07-23 17:12:51'),
+(677, 40, 93, 'https://bikebros.net/product-details/Inflador-Giyo-120-psi', 3210, '2024-07-23 21:42:59', '2024-07-23 21:42:59'),
+(678, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros', 5226, '2024-07-26 14:06:12', '2024-07-26 14:06:12'),
+(679, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros', 8887, '2024-07-26 14:06:23', '2024-07-26 14:06:23'),
+(680, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros', 20280, '2024-07-26 14:11:13', '2024-07-26 14:11:13'),
+(681, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-NEGRO', 6044, '2024-07-26 14:11:20', '2024-07-26 14:11:20'),
+(682, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-AZUL', 18453, '2024-07-26 14:11:40', '2024-07-26 14:11:40'),
+(683, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-NEGRO', 5962, '2024-07-26 14:11:47', '2024-07-26 14:11:47'),
+(684, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-NEGRO', 15825, '2024-07-26 14:11:57', '2024-07-26 14:11:57'),
+(685, 40, 93, 'https://bikebros.net/product-details/Inflador-Giyo-120-psi', 1485, '2024-07-26 23:37:23', '2024-07-26 23:37:23'),
+(686, 40, 93, 'https://bikebros.net/product-details/Inflador-Giyo-120-psi', 5994, '2024-07-26 23:37:30', '2024-07-26 23:37:30'),
+(687, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros', 1224, '2024-07-26 23:37:33', '2024-07-26 23:37:33'),
+(688, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros', 1872, '2024-07-26 23:37:35', '2024-07-26 23:37:35'),
+(689, 40, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros', 2058, '2024-07-26 23:38:37', '2024-07-26 23:38:37'),
+(690, 40, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros', 1700, '2024-07-26 23:38:39', '2024-07-26 23:38:39'),
+(691, 34, 93, 'https://bikebros.net/product-details/Inflador-Giyo-120-psi', 14163, '2024-07-27 04:03:06', '2024-07-27 04:03:06'),
+(692, 33, 81, 'https://bikebros.net/product-details/testing-3', 58874, '2024-07-27 04:20:29', '2024-07-27 04:20:29'),
+(693, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros', 2628, '2024-07-27 14:21:26', '2024-07-27 14:21:26'),
+(694, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-NEGRO', 198, '2024-07-27 14:21:27', '2024-07-27 14:21:27'),
+(695, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-NEGRO', 7657, '2024-07-27 14:21:34', '2024-07-27 14:21:34'),
+(696, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-NEGRO', 2265, '2024-07-27 14:21:37', '2024-07-27 14:21:37'),
+(697, 34, 138, 'https://bikebros.net/product-details/Product-Desc-500', 3784, '2024-07-29 14:51:18', '2024-07-29 14:51:18'),
+(698, 34, 138, 'https://bikebros.net/product-details/Product-Desc-500', 2184, '2024-07-29 14:51:23', '2024-07-29 14:51:23'),
+(699, 34, 93, 'https://bikebros.net/product-details/Inflador-Giyo-120-psi', 3695, '2024-07-29 14:54:57', '2024-07-29 14:54:57'),
+(700, 34, 93, 'https://bikebros.net/product-details/Inflador-Giyo-120-psi', 3028, '2024-07-29 14:55:03', '2024-07-29 14:55:03'),
+(701, 34, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros', 2372, '2024-07-29 14:55:45', '2024-07-29 14:55:45'),
+(702, 34, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros', 2061, '2024-07-29 14:55:50', '2024-07-29 14:55:50'),
+(703, 33, 138, 'https://bikebros.net/product-details/Product-Desc-500', 4108, '2024-07-29 15:12:41', '2024-07-29 15:12:41'),
+(704, 33, 138, 'https://bikebros.net/product-details/Product-Desc-500-GRIS', 7178, '2024-07-29 15:12:50', '2024-07-29 15:12:50'),
+(705, 33, 138, 'https://bikebros.net/product-details/Product-Desc-500-GRIS', 5629, '2024-07-29 15:12:57', '2024-07-29 15:12:57'),
+(706, 33, 138, 'https://bikebros.net/product-details/Product-Desc-500-ROSA', 3917, '2024-07-29 15:13:02', '2024-07-29 15:13:02'),
+(707, 33, 138, 'https://bikebros.net/product-details/Product-Desc-500-ROSA', 2801, '2024-07-29 15:13:06', '2024-07-29 15:13:06'),
+(708, 33, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros', 3213, '2024-07-29 17:46:21', '2024-07-29 17:46:21'),
+(709, 33, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros', 20417, '2024-07-29 17:46:59', '2024-07-29 17:46:59'),
+(710, 33, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-AZUL', 471935, '2024-07-29 17:54:54', '2024-07-29 17:54:54'),
+(711, 33, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros', 3147, '2024-07-29 17:55:11', '2024-07-29 17:55:11'),
+(712, 33, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-AZUL', 5553, '2024-07-29 17:55:17', '2024-07-29 17:55:17'),
+(713, 33, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-AZUL', 3536, '2024-07-29 17:55:22', '2024-07-29 17:55:22'),
+(714, 33, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-NEGRO', 5265, '2024-07-29 17:55:29', '2024-07-29 17:55:29'),
+(715, 33, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-NEGRO', 4416, '2024-07-29 17:55:35', '2024-07-29 17:55:35'),
+(716, 40, 93, 'https://bikebros.net/product-details/Inflador-Giyo-120-psi', 8345, '2024-07-29 19:05:26', '2024-07-29 19:05:26'),
+(717, 40, 93, 'https://bikebros.net/product-details/Inflador-Giyo-120-psi', 4261, '2024-07-29 19:05:31', '2024-07-29 19:05:31'),
+(718, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros', 3273, '2024-07-29 20:17:38', '2024-07-29 20:17:38'),
+(719, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-NEGRO', 1449, '2024-07-29 20:17:40', '2024-07-29 20:17:40'),
+(720, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-AZUL', 1381, '2024-07-29 20:17:42', '2024-07-29 20:17:42'),
+(721, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros', 2798, '2024-07-29 20:17:51', '2024-07-29 20:17:51'),
+(722, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros', 1992, '2024-07-29 20:18:00', '2024-07-29 20:18:00'),
+(723, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-NEGRO', 3876, '2024-07-29 20:18:04', '2024-07-29 20:18:04'),
+(724, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-AZUL', 3458, '2024-07-29 20:18:08', '2024-07-29 20:18:08'),
+(725, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-AZUL', 2369, '2024-07-29 20:18:11', '2024-07-29 20:18:11'),
+(726, 34, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros', 2437, '2024-07-30 04:41:38', '2024-07-30 04:41:38'),
+(727, 34, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-AZUL', 35417, '2024-07-30 04:44:48', '2024-07-30 04:44:48'),
+(728, 34, 81, 'https://bikebros.net/product-details/testing-3', 1947, '2024-07-30 04:45:19', '2024-07-30 04:45:19'),
+(729, 34, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 7874, '2024-07-30 04:46:47', '2024-07-30 04:46:47'),
+(730, 34, 80, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados', 9538, '2024-07-30 04:47:03', '2024-07-30 04:47:03'),
+(731, 34, 81, 'https://bikebros.net/product-details/testing-3', 4945, '2024-07-30 04:47:17', '2024-07-30 04:47:17'),
+(732, 34, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 37327, '2024-07-30 04:49:01', '2024-07-30 04:49:01'),
+(733, 34, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 2003, '2024-07-30 04:49:04', '2024-07-30 04:49:04'),
+(734, 34, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 3913, '2024-07-30 04:51:20', '2024-07-30 04:51:20'),
+(735, 34, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 1566, '2024-07-30 04:51:23', '2024-07-30 04:51:23'),
+(736, 34, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 2225, '2024-07-30 04:51:27', '2024-07-30 04:51:27'),
+(737, 34, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros', 2166, '2024-07-30 04:51:43', '2024-07-30 04:51:43'),
+(738, 34, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-NEGRO', 2131, '2024-07-30 04:51:47', '2024-07-30 04:51:47'),
+(739, 34, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-AZUL', 3575, '2024-07-30 04:51:52', '2024-07-30 04:51:52'),
+(740, 34, 80, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-Polarizados', 3397, '2024-07-30 04:52:02', '2024-07-30 04:52:02'),
+(741, 34, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-AZUL', 2633, '2024-07-30 05:02:28', '2024-07-30 05:02:28'),
+(742, 34, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-AZUL', 1611, '2024-07-30 05:02:32', '2024-07-30 05:02:32'),
+(743, 34, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-NEGRO', 2516, '2024-07-30 05:02:36', '2024-07-30 05:02:36'),
+(744, 34, 81, 'https://bikebros.net/product-details/testing-3', 3116, '2024-07-30 05:02:46', '2024-07-30 05:02:46'),
+(745, 34, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 1739, '2024-07-30 05:02:49', '2024-07-30 05:02:49'),
+(746, 34, 81, 'https://bikebros.net/product-details/testing-3-WHITE', 8880, '2024-07-30 05:02:59', '2024-07-30 05:02:59'),
+(747, 34, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros', 2809, '2024-07-30 07:46:57', '2024-07-30 07:46:57'),
+(748, 34, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-NEGRO', 2110, '2024-07-30 07:47:01', '2024-07-30 07:47:01'),
+(749, 33, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros', 3973, '2024-08-03 16:02:06', '2024-08-03 16:02:06'),
+(750, 33, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-AZUL', 4219, '2024-08-03 16:02:11', '2024-08-03 16:02:11'),
+(751, 33, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-NEGRO', 14820, '2024-08-03 16:02:27', '2024-08-03 16:02:27'),
+(752, 33, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-NEGRO', 7624, '2024-08-03 16:02:37', '2024-08-03 16:02:37'),
+(753, 40, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros', 54, '2024-08-03 16:09:18', '2024-08-03 16:09:18'),
+(754, 40, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros', 5668, '2024-08-03 16:09:24', '2024-08-03 16:09:24'),
+(755, 40, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-NEGRO', 2575, '2024-08-03 16:09:27', '2024-08-03 16:09:27'),
+(756, 40, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-AZUL', 37269, '2024-08-03 16:10:04', '2024-08-03 16:10:04'),
+(757, 40, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-NEGRO', 2932, '2024-08-03 16:10:08', '2024-08-03 16:10:08'),
+(758, 40, 93, 'https://bikebros.net/product-details/Inflador-Giyo-120-psi', 19307, '2024-08-03 16:10:32', '2024-08-03 16:10:32'),
+(759, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros', 5108, '2024-08-03 16:10:41', '2024-08-03 16:10:41'),
+(760, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-NEGRO', 2120, '2024-08-03 16:10:44', '2024-08-03 16:10:44'),
+(761, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-AZUL', 6322, '2024-08-03 16:10:50', '2024-08-03 16:10:50'),
+(762, 40, 90, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216BL-Fotocrom%C3%A1ticos-Rockbros-NEGRO', 14641, '2024-08-03 16:11:05', '2024-08-03 16:11:05'),
+(763, 40, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros', 6198, '2024-08-03 16:11:53', '2024-08-03 16:11:53'),
+(764, 40, 86, 'https://bikebros.net/product-details/Lentes-De-Ciclismo-SP216-Fotocrom%C3%A1ticos-Rockbros-NEGRO', 27204, '2024-08-03 16:12:20', '2024-08-03 16:12:20'),
+(765, 40, 81, 'https://bikebros.net/product-details/testing-3', 6379, '2024-08-03 16:12:37', '2024-08-03 16:12:37'),
+(766, 40, 81, 'https://bikebros.net/product-details/testing-3-ORANGE', 6999, '2024-08-03 16:12:44', '2024-08-03 16:12:44');
 
 -- --------------------------------------------------------
 
@@ -2854,6 +3469,31 @@ INSERT INTO `settings` (`id`, `option_key`, `option_value`, `created_at`, `updat
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `sizes`
+--
+
+CREATE TABLE `sizes` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `sizes`
+--
+
+INSERT INTO `sizes` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(2, 'Pequeño', '2024-08-08 05:41:16', '2024-08-08 05:41:16'),
+(3, 'Mediano', '2024-08-08 05:41:35', '2024-08-08 05:41:35'),
+(5, 'XXL', '2024-08-08 05:42:09', '2024-08-08 05:42:25'),
+(6, 'Estandar', '2024-08-16 13:10:46', '2024-08-16 13:10:46'),
+(7, 'Extra Small', '2024-08-22 16:18:01', '2024-08-22 16:18:01'),
+(8, 'Muy Pequeño', '2024-09-03 13:40:40', '2024-09-03 13:40:40');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `states`
 --
 
@@ -2907,11 +3547,10 @@ CREATE TABLE `subcategories` (
 --
 
 INSERT INTO `subcategories` (`id`, `uuid`, `parent_category_id`, `category_id`, `name`, `slug`, `meta_title`, `meta_description`, `meta_keywords`, `og_image`, `created_at`, `updated_at`) VALUES
-(1, 'f9ec5844-335b-4b4e-b47e-cdfcec086803', 7, 0, 'Llanta', 'Llanta', 'Llanta', 'Llanta', 'Llanta', 'uploads/meta/1721181135-1ocai5Zwwr.svg', '2024-06-25 01:50:30', '2024-07-17 01:52:15'),
+(1, 'f9ec5844-335b-4b4e-b47e-cdfcec086803', 7, 0, 'Llanta', 'Llanta', 'Llanta', 'Llanta', 'Llanta', 'uploads/meta/1721184693-ZWB3mf93IJ.png', '2024-06-25 01:50:30', '2024-07-17 02:51:33'),
 (2, 'f76206e5-8d59-4cd7-bb29-1e3e022fda6a', 7, 0, 'Accesorios', 'Accesorios', 'Accesorios', 'Accesorios', 'Accesorios', 'uploads/meta/1721181017-wDnXZ9y8Fm.svg', '2024-06-25 01:51:19', '2024-07-17 01:50:17'),
-(3, 'e0fb190e-2bad-4b44-8a2b-fffb564baeef', 7, 0, 'Partes', 'Partes', 'Partes', 'Partes', 'Partes', 'uploads/meta/1721181231-txeymEvZLe.svg', '2024-06-25 01:51:39', '2024-07-17 01:53:51'),
+(3, 'e0fb190e-2bad-4b44-8a2b-fffb564baeef', 7, 0, 'Partes', 'Partes', 'Partes', 'Partes', 'Partes', 'uploads/meta/1721186194-0er1x931bQ.png', '2024-06-25 01:51:39', '2024-07-17 03:16:34'),
 (4, 'ecb485c6-5c94-4a35-af58-0e0e8ce78995', 7, 0, 'Bicicletas Enteras', 'Bicicletas-Enteras', 'Bicicletas Enteras', 'Bicicletas Enteras', 'Bicicletas Enteras', 'uploads/meta/1721181343-sfTU6xX6yp.svg', '2024-06-25 01:51:58', '2024-07-17 01:55:43'),
-(5, '8e926200-b8ab-4064-bab9-9aa7719a61bf', 7, 4, 'GT', 'GT', 'GT', 'GT', 'GT', NULL, '2024-06-28 01:33:13', '2024-06-28 01:33:13'),
 (6, 'cb1f26c7-e929-4f96-8650-47c123b4681a', 7, 4, 'Viking X', 'Viking-X', 'Viking X', 'Viking X', 'Viking X', NULL, '2024-06-28 11:41:13', '2024-06-28 11:41:13'),
 (7, '5dda2d9c-5c5f-4985-b2fc-8f2fcddba2e6', 7, 4, 'Gary Fisher', 'Gary-Fisher', 'Gary Fisher', 'Gary Fisher', 'Gary Fisher', NULL, '2024-06-28 11:41:42', '2024-06-28 11:41:42'),
 (8, '68becc36-18ea-4f9e-a51f-b04fee0dec11', 7, 3, 'Cuadro', 'Cuadro', 'Cuadro', 'Cuadro', 'Cuadro', NULL, '2024-06-28 11:45:08', '2024-06-28 11:45:08'),
@@ -2949,10 +3588,41 @@ INSERT INTO `subcategories` (`id`, `uuid`, `parent_category_id`, `category_id`, 
 (40, '5c3650c2-e548-42b4-bb5d-6a32438573f9', 7, 2, 'Cinta protectora', 'Cinta-protectora', 'Cinta protectora', 'Cinta protectora', 'Cinta protectora', NULL, '2024-06-28 12:02:33', '2024-06-28 12:02:33'),
 (41, '511612c2-23c0-4fd0-9457-7c6a42ac644c', 7, 1, 'Llanta', 'Llanta', 'Llanta', 'Llanta', 'Llanta', '', '2024-06-28 12:03:21', '2024-07-17 00:48:17'),
 (42, '92e50482-28a5-4375-bbcc-4ce0b2d0abbe', 7, 1, 'Camara', 'Camara', 'Camara', 'Camara', 'Camara', NULL, '2024-06-28 12:03:50', '2024-06-28 12:03:50'),
-(43, 'a9aa8d82-193a-4d77-8fa5-5ce1e2988845', 14, 3, 'Deore', 'Deore', 'Deore1', 'Deore2', 'Shimano Deore', 'uploads/meta/1719595475-SmOd8ptFuK.jpg', '2024-06-28 17:24:35', '2024-06-28 17:24:35'),
 (44, 'ecf4cc39-3639-49c4-99bd-9994668c41f9', 9, 3, 'freno mt200', 'freno-mt200', 'freno mt200', 'mt200', 'mt200', 'uploads/meta/1719596399-6qvFp0pEZU.jpg', '2024-06-28 17:39:59', '2024-06-28 17:50:38'),
-(45, '9ef52d5b-d258-4303-8793-83d2ad0fa642', 14, 3, 'Frenos', 'Frenos', 'Frenos', 'Frenos', 'Frenos', 'uploads/meta/1719620619-7KqYRZyIro.jpg', '2024-06-29 00:23:39', '2024-06-29 00:23:39'),
-(46, '0ef37769-49fd-4d79-8eed-c1d7dce6ef4d', 14, 1, 'xzx', 'xzx', 'xzx', 'xzx', 'xzx', 'uploads/meta/1719635852-F9ZkeCNFlK.png', '2024-06-29 04:37:32', '2024-07-14 07:15:31');
+(53, '7de43eb4-f859-416b-b333-cfbe2bbde783', NULL, 52, 'Child preuba', 'Child-preuba', 'Child preuba', 'Child preuba', 'Child preuba', 'uploads/meta/1723257754-lPN8u3HP0x.png', '2024-08-10 02:42:34', '2024-08-10 02:42:34'),
+(55, 'cd675529-e44a-4bf7-a670-d69cf67d9fc6', 14, 0, 'Deore', 'Deore', 'Deore', 'Deore', 'Deore', 'uploads/meta/1723589569-S3OmqGQ3u8.png', '2024-08-13 22:52:49', '2024-08-13 22:52:49'),
+(57, '12cd2d03-e4da-464a-9127-1e714706e59e', 14, 55, 'Caja Trasera.', 'Caja-Trasera', 'Caja Trasera.', 'Caja Trasera.', 'Caja Trasera.', NULL, '2024-08-13 22:58:55', '2024-08-13 23:05:54'),
+(58, 'fd2d0d76-390e-437b-a41c-2f0bf99524e5', 15, 0, 'Llanta burro', 'Llanta-burro', 'Llanta burro', 'Llanta burro', 'Llanta burro', 'uploads/meta/1723590042-gFjczrYmBf.jpeg', '2024-08-13 23:00:42', '2024-08-13 23:00:42'),
+(59, '1108950a-84c7-437a-b2f9-e6732170a88d', 15, 58, 'rombo', 'rombo', 'rombo', 'rombo', 'rombo', NULL, '2024-08-13 23:01:13', '2024-08-13 23:01:13'),
+(61, '5d281134-ab5c-4435-b22e-ebcb038a6e69', 14, 55, 'Freno.', 'Freno', 'Freno.', 'Freno.', 'Freno.', 'uploads/meta/1723640551-rIkLqm5CLE.jpg', '2024-08-14 13:02:31', '2024-08-14 13:02:31'),
+(62, '9ad33cba-9a94-41be-9a22-71718f0613c1', 19, 0, '29deagosto', '29deagosto', '29deagosto', '29deagosto', '29deagosto', 'uploads/meta/1723763227-mrdb40BySs.jpeg', '2024-08-15 23:07:07', '2024-08-15 23:07:07'),
+(63, '0ffc23dc-ec92-4649-9786-19b9e18dbc03', 19, 62, '1995', '1995', '1995', '1995', '1995', 'uploads/meta/1723763268-15p211Zh18.jpeg', '2024-08-15 23:07:48', '2024-08-15 23:07:48'),
+(64, '415b25ff-d050-4aa6-891d-7d5654845181', 19, 62, '1222', '1222', NULL, NULL, NULL, NULL, '2024-08-15 23:10:39', '2024-08-15 23:10:39'),
+(67, 'c5effd9d-9e39-40c1-9ea6-7346c19a9efc', 19, 0, 'subcat', 'subcat', 'subcat', 'subcat', 'subcat', 'uploads/meta/1723780777-1WOw8Ga9bQ.png', '2024-08-16 03:59:37', '2024-08-16 03:59:37'),
+(68, '3d2046ed-f4f6-49fb-baf4-0a480b9c639f', 19, 67, 'childcat', 'childcat', 'childcat', 'childcat', 'childcat', NULL, '2024-08-16 04:00:09', '2024-08-16 04:00:09'),
+(69, '9290b665-3717-4e39-8794-9bda8ce23b75', 25, 0, 'Arsh', 'Arsh', 'arsh', 'arsh', 'arsh', NULL, '2024-08-16 04:24:59', '2024-09-04 13:20:04'),
+(70, '71a5cbfe-c985-43e7-a184-bbfd80858fa5', 19, 0, 'pruebasub3', 'pruebasub3', 'pruebasub3', 'pruebasub3', 'pruebasub3', 'uploads/meta/1723785002-G3aBx6d0FN.png', '2024-08-16 05:10:02', '2024-08-16 05:10:02'),
+(71, 'e9c564f2-de7e-4c1d-abcc-d85aff8b4e11', 19, 0, 'Subcat2', 'Subcat2', 'Subcat2', 'Subcat2', 'Subcat2', 'uploads/meta/1723786291-4FqPI5VBKe.png', '2024-08-16 05:31:31', '2024-08-16 05:31:31'),
+(72, '39bbb804-8f29-4b8c-8b92-b947dbd8b16e', 19, 71, 'childcat2', 'childcat2', 'childcat2', 'childcat2', 'childcat2', NULL, '2024-08-16 05:32:00', '2024-08-16 05:32:00'),
+(73, '29df4a76-42c1-4eaa-b461-85e94ca83919', 19, 0, 'subprueba', 'subprueba', 'subprueba', 'subprueba', 'subprueba', 'uploads/meta/1723810621-HffDFZKf5n.jpg', '2024-08-16 12:17:01', '2024-08-16 12:17:01'),
+(74, '69f68086-e711-4618-914b-c99f0aed4592', 19, 73, 'childprueba', 'childprueba', 'childprueba', 'childprueba', 'childprueba', NULL, '2024-08-16 12:17:39', '2024-08-16 12:17:39'),
+(75, '00c505c1-87d2-42ad-bbdb-b61719e46c0e', 20, 0, 'Silhouette', 'Silhouette', 'Silhouette', 'Silhouette', 'Silhouette', 'uploads/meta/1723813794-akLzOUDO9e.jpeg', '2024-08-16 13:09:54', '2024-08-16 13:09:54'),
+(76, '4763fe5c-db81-49e5-98e9-029ecb4877c7', 20, 75, 'Cameo4', 'Cameo4', 'Cameo4', 'Cameo4', 'Cameo4', NULL, '2024-08-16 13:10:14', '2024-08-16 13:10:14'),
+(77, 'dd480a4d-4c22-42a2-8a4a-50e9e7a41251', 21, 0, 'TIENDA 1', 'TIENDA-1', 'TIENDA 1', 'TIENDA 1', 'TIENDA 1', 'uploads/meta/1724342941-s6iAdUfQlA.jpeg', '2024-08-22 16:09:01', '2024-08-22 16:09:01'),
+(78, '68feb447-da8e-4313-8241-e9c047757690', 21, 77, 'Neco', 'Neco', 'Neco', 'Neco', 'Neco', NULL, '2024-08-22 16:09:29', '2024-08-22 16:09:29'),
+(79, '880fa0f9-80ca-4a2c-acb1-800025cae89b', 22, 0, 'SubCateSep', 'SubCateSep', 'SubCateSep', 'SubCateSep', 'SubCateSep', 'uploads/meta/1725370686-xYsYkp1k8r.jpg', '2024-09-03 13:38:06', '2024-09-03 13:38:06'),
+(80, '10e76f81-03c1-4500-9e80-5f29fe090de1', 22, 79, 'Enero', 'Enero', 'Enero', 'Enero', 'Enero', NULL, '2024-09-03 13:39:13', '2024-09-03 13:39:13'),
+(81, '80672d94-30e6-48cf-80bf-f9a41d946055', 22, 79, 'Febrero', 'Febrero', 'Febrero', 'Febrero', 'Febrero', NULL, '2024-09-03 13:39:39', '2024-09-03 13:39:39'),
+(82, '48ba20b4-c6bb-4bcd-9945-db6f1f62c026', 7, 1, 'sdfsdfsdfsdf', 'sdfsdfsdfsdf', 'sdfsadsadsa', 'sadsadad', 'asdsada', NULL, '2024-09-04 03:30:28', '2024-09-04 03:30:28'),
+(83, 'd1f657df-8a99-474c-8864-a636655d3102', 9, 69, 'testing cheild', 'testing-cheild', 'testing cheild', 'testing cheild', 'testing cheild', NULL, '2024-09-04 04:42:32', '2024-09-04 04:42:32'),
+(86, '51abc97e-cd8e-4a09-bfa9-a39329e2374b', 9, 0, 'subcategory testasd', 'subcategory-testasd', 'subcategory test', 'subcategory test', 'subcategory test', NULL, '2024-09-04 05:18:35', '2024-09-04 05:19:04'),
+(87, '9766a727-28de-4ec9-bddf-bbb93367d9be', 9, 86, 'childcategory test final', 'childcategory-test-final', 'childcategory test', 'childcategory test', 'childcategory test', NULL, '2024-09-04 05:24:16', '2024-09-04 05:24:51'),
+(88, '46534f41-15b2-4600-9071-d83190c40b6a', 24, 0, 'sdfadsad', 'sdfadsad', 'sdfadsad', 'sdfadsad', 'sdfadsad', NULL, '2024-09-04 13:13:57', '2024-09-04 13:13:57'),
+(89, 'f410f72d-b29a-4dcf-a1de-35e67782ae5a', 25, 69, 'asdadsadadsadadsad', 'asdadsadadsadadsad', NULL, NULL, NULL, NULL, '2024-09-04 13:20:56', '2024-09-04 13:20:56'),
+(90, '878dbb64-d688-4f81-bfc3-bdd5bf4d7ab3', 26, 0, 'Días', 'Días', 'Días', 'Días', 'Días', 'uploads/meta/1725465943-WVnyJQYVce.jpg', '2024-09-04 16:05:43', '2024-09-04 16:05:43'),
+(91, '0c63434d-700b-4f1b-804c-9319cbb368cd', 26, 90, 'Lunes', 'Lunes', 'Lunes', 'Lunes', 'Lunes', NULL, '2024-09-04 16:06:04', '2024-09-04 16:06:04'),
+(92, 'f2da7143-9160-4f9e-ace0-d60a8d5a166a', 26, 90, 'Martes', 'Martes', 'Martes', 'Martes', 'Martes', NULL, '2024-09-04 16:06:25', '2024-09-04 16:06:25'),
+(93, 'd8328afd-5f0e-451d-8fac-1f8657d43f7b', 26, 90, 'Miercoles', 'Miercoles', 'Miercoles', 'Miercoles', 'Miercoles', NULL, '2024-09-04 16:06:45', '2024-09-04 16:06:45');
 
 -- --------------------------------------------------------
 
@@ -3235,7 +3905,594 @@ INSERT INTO `time_logs` (`id`, `user_id`, `start_time`, `end_time`, `created_at`
 (63, 40, '2024-07-16 21:56:53', NULL, '2024-07-16 21:56:53', '2024-07-16 21:56:53'),
 (64, 44, '2024-07-16 22:42:31', NULL, '2024-07-16 22:42:31', '2024-07-16 22:42:31'),
 (65, 34, '2024-07-17 00:11:30', NULL, '2024-07-17 00:11:30', '2024-07-17 00:11:30'),
-(66, 40, '2024-07-17 00:58:25', NULL, '2024-07-17 00:58:25', '2024-07-17 00:58:25');
+(66, 40, '2024-07-17 00:58:25', NULL, '2024-07-17 00:58:25', '2024-07-17 00:58:25'),
+(67, 44, '2024-07-17 02:40:03', '2024-07-17 02:52:36', '2024-07-17 02:40:03', '2024-07-17 02:52:36'),
+(68, 44, '2024-07-17 02:52:39', '2024-07-17 02:53:16', '2024-07-17 02:52:39', '2024-07-17 02:53:16'),
+(69, 44, '2024-07-17 02:53:19', '2024-07-17 02:53:28', '2024-07-17 02:53:19', '2024-07-17 02:53:28'),
+(70, 33, '2024-07-17 03:06:46', '2024-07-17 03:10:27', '2024-07-17 03:06:46', '2024-07-17 03:10:27'),
+(71, 33, '2024-07-17 03:10:51', '2024-07-17 03:18:46', '2024-07-17 03:10:51', '2024-07-17 03:18:46'),
+(72, 34, '2024-07-17 06:22:00', NULL, '2024-07-17 06:22:00', '2024-07-17 06:22:00'),
+(73, 40, '2024-07-17 12:00:50', NULL, '2024-07-17 12:00:50', '2024-07-17 12:00:50'),
+(74, 34, '2024-07-17 13:38:53', NULL, '2024-07-17 13:38:53', '2024-07-17 13:38:53'),
+(75, 34, '2024-07-17 14:04:55', NULL, '2024-07-17 14:04:55', '2024-07-17 14:04:55'),
+(76, 40, '2024-07-17 15:58:20', NULL, '2024-07-17 15:58:20', '2024-07-17 15:58:20'),
+(77, 44, '2024-07-18 19:19:29', '2024-07-18 19:50:41', '2024-07-18 19:19:29', '2024-07-18 19:50:41'),
+(78, 40, '2024-07-18 19:39:19', NULL, '2024-07-18 19:39:19', '2024-07-18 19:39:19'),
+(79, 44, '2024-07-18 20:04:18', '2024-07-18 20:05:05', '2024-07-18 20:04:18', '2024-07-18 20:05:05'),
+(80, 33, '2024-07-18 20:13:53', '2024-07-18 20:14:36', '2024-07-18 20:13:53', '2024-07-18 20:14:36'),
+(81, 33, '2024-07-18 20:14:39', '2024-07-18 20:14:52', '2024-07-18 20:14:39', '2024-07-18 20:14:52'),
+(82, 44, '2024-07-18 20:17:45', '2024-07-18 20:22:39', '2024-07-18 20:17:45', '2024-07-18 20:22:39'),
+(83, 34, '2024-07-19 05:19:15', '2024-07-19 05:22:33', '2024-07-19 05:19:15', '2024-07-19 05:22:33'),
+(84, 34, '2024-07-19 05:25:49', NULL, '2024-07-19 05:25:49', '2024-07-19 05:25:49'),
+(85, 33, '2024-07-19 15:54:54', '2024-07-19 16:39:01', '2024-07-19 15:54:54', '2024-07-19 16:39:01'),
+(86, 33, '2024-07-19 16:39:52', '2024-07-19 16:40:27', '2024-07-19 16:39:52', '2024-07-19 16:40:27'),
+(87, 33, '2024-07-19 16:43:11', NULL, '2024-07-19 16:43:11', '2024-07-19 16:43:11'),
+(88, 33, '2024-07-20 03:06:32', NULL, '2024-07-20 03:06:32', '2024-07-20 03:06:32'),
+(89, 34, '2024-07-20 04:52:31', NULL, '2024-07-20 04:52:31', '2024-07-20 04:52:31'),
+(90, 33, '2024-07-20 11:01:22', NULL, '2024-07-20 11:01:22', '2024-07-20 11:01:22'),
+(91, 34, '2024-07-20 11:24:13', NULL, '2024-07-20 11:24:13', '2024-07-20 11:24:13'),
+(92, 33, '2024-07-20 11:37:45', NULL, '2024-07-20 11:37:45', '2024-07-20 11:37:45'),
+(93, 40, '2024-07-20 14:46:40', NULL, '2024-07-20 14:46:40', '2024-07-20 14:46:40'),
+(94, 34, '2024-07-21 03:00:00', NULL, '2024-07-21 03:00:00', '2024-07-21 03:00:00'),
+(95, 33, '2024-07-21 17:07:19', NULL, '2024-07-21 17:07:19', '2024-07-21 17:07:19'),
+(96, 34, '2024-07-22 08:45:41', NULL, '2024-07-22 08:45:41', '2024-07-22 08:45:41'),
+(97, 34, '2024-07-22 09:07:42', NULL, '2024-07-22 09:07:42', '2024-07-22 09:07:42'),
+(98, 34, '2024-07-22 13:32:06', NULL, '2024-07-22 13:32:06', '2024-07-22 13:32:06'),
+(99, 34, '2024-07-22 13:39:42', NULL, '2024-07-22 13:39:42', '2024-07-22 13:39:42'),
+(100, 34, '2024-07-22 13:50:22', NULL, '2024-07-22 13:50:22', '2024-07-22 13:50:22'),
+(101, 34, '2024-07-22 13:59:42', '2024-07-22 14:00:10', '2024-07-22 13:59:42', '2024-07-22 14:00:10'),
+(102, 34, '2024-07-22 14:01:36', NULL, '2024-07-22 14:01:36', '2024-07-22 14:01:36'),
+(103, 34, '2024-07-22 14:12:45', NULL, '2024-07-22 14:12:45', '2024-07-22 14:12:45'),
+(104, 34, '2024-07-22 14:21:29', NULL, '2024-07-22 14:21:29', '2024-07-22 14:21:29'),
+(105, 34, '2024-07-22 14:38:51', NULL, '2024-07-22 14:38:51', '2024-07-22 14:38:51'),
+(106, 34, '2024-07-22 14:51:56', NULL, '2024-07-22 14:51:56', '2024-07-22 14:51:56'),
+(107, 34, '2024-07-22 15:03:29', NULL, '2024-07-22 15:03:29', '2024-07-22 15:03:29'),
+(108, 34, '2024-07-22 15:09:17', NULL, '2024-07-22 15:09:17', '2024-07-22 15:09:17'),
+(109, 34, '2024-07-22 15:20:16', NULL, '2024-07-22 15:20:16', '2024-07-22 15:20:16'),
+(110, 34, '2024-07-22 15:24:24', NULL, '2024-07-22 15:24:24', '2024-07-22 15:24:24'),
+(111, 34, '2024-07-22 15:35:47', '2024-07-22 15:35:59', '2024-07-22 15:35:47', '2024-07-22 15:35:59'),
+(112, 34, '2024-07-22 15:40:01', NULL, '2024-07-22 15:40:01', '2024-07-22 15:40:01'),
+(113, 34, '2024-07-22 15:51:51', NULL, '2024-07-22 15:51:51', '2024-07-22 15:51:51'),
+(114, 34, '2024-07-22 16:11:30', NULL, '2024-07-22 16:11:30', '2024-07-22 16:11:30'),
+(115, 34, '2024-07-22 16:18:20', NULL, '2024-07-22 16:18:20', '2024-07-22 16:18:20'),
+(116, 34, '2024-07-22 16:24:23', NULL, '2024-07-22 16:24:23', '2024-07-22 16:24:23'),
+(117, 33, '2024-07-22 21:17:46', NULL, '2024-07-22 21:17:46', '2024-07-22 21:17:46'),
+(118, 40, '2024-07-23 02:00:14', NULL, '2024-07-23 02:00:14', '2024-07-23 02:00:14'),
+(119, 40, '2024-07-23 02:24:24', NULL, '2024-07-23 02:24:24', '2024-07-23 02:24:24'),
+(120, 34, '2024-07-23 07:12:28', NULL, '2024-07-23 07:12:28', '2024-07-23 07:12:28'),
+(121, 34, '2024-07-23 07:52:13', '2024-07-23 07:53:17', '2024-07-23 07:52:13', '2024-07-23 07:53:17'),
+(122, 34, '2024-07-23 08:04:24', '2024-07-23 08:06:20', '2024-07-23 08:04:24', '2024-07-23 08:06:20'),
+(123, 33, '2024-07-23 09:06:48', '2024-07-23 09:08:47', '2024-07-23 09:06:48', '2024-07-23 09:08:47'),
+(124, 34, '2024-07-23 09:10:25', '2024-07-23 09:11:30', '2024-07-23 09:10:25', '2024-07-23 09:11:30'),
+(125, 40, '2024-07-23 16:18:43', '2024-07-23 16:19:44', '2024-07-23 16:18:43', '2024-07-23 16:19:44'),
+(126, 33, '2024-07-23 16:54:20', '2024-07-23 16:55:03', '2024-07-23 16:54:20', '2024-07-23 16:55:03'),
+(127, 40, '2024-07-23 17:11:32', '2024-07-23 17:13:23', '2024-07-23 17:11:32', '2024-07-23 17:13:23'),
+(128, 40, '2024-07-23 21:42:33', '2024-07-23 21:44:12', '2024-07-23 21:42:33', '2024-07-23 21:44:12'),
+(129, 41, '2024-07-24 03:58:45', '2024-07-24 03:59:50', '2024-07-24 03:58:45', '2024-07-24 03:59:50'),
+(130, 40, '2024-07-26 14:02:11', '2024-07-26 14:05:52', '2024-07-26 14:02:11', '2024-07-26 14:05:52'),
+(131, 40, '2024-07-26 14:05:57', '2024-07-26 14:08:51', '2024-07-26 14:05:57', '2024-07-26 14:08:51'),
+(132, 40, '2024-07-26 14:08:57', '2024-07-26 14:10:06', '2024-07-26 14:08:57', '2024-07-26 14:10:06'),
+(133, 40, '2024-07-26 14:10:32', '2024-07-26 14:12:06', '2024-07-26 14:10:32', '2024-07-26 14:12:06'),
+(134, 40, '2024-07-26 23:37:08', '2024-07-26 23:41:02', '2024-07-26 23:37:08', '2024-07-26 23:41:02'),
+(135, 40, '2024-07-26 23:41:53', '2024-07-26 23:43:08', '2024-07-26 23:41:53', '2024-07-26 23:43:08'),
+(136, 34, '2024-07-27 04:02:24', '2024-07-27 04:04:14', '2024-07-27 04:02:24', '2024-07-27 04:04:14'),
+(137, 34, '2024-07-27 04:07:24', '2024-07-27 04:09:05', '2024-07-27 04:07:24', '2024-07-27 04:09:05'),
+(138, 34, '2024-07-27 04:11:34', '2024-07-27 04:12:47', '2024-07-27 04:11:34', '2024-07-27 04:12:47'),
+(139, 33, '2024-07-27 04:16:16', '2024-07-27 04:18:05', '2024-07-27 04:16:16', '2024-07-27 04:18:05'),
+(140, 33, '2024-07-27 04:19:18', '2024-07-27 04:20:36', '2024-07-27 04:19:18', '2024-07-27 04:20:36'),
+(141, 33, '2024-07-27 04:24:50', '2024-07-27 04:26:32', '2024-07-27 04:24:50', '2024-07-27 04:26:32'),
+(142, 33, '2024-07-27 04:26:48', '2024-07-27 04:27:55', '2024-07-27 04:26:48', '2024-07-27 04:27:55'),
+(143, 33, '2024-07-27 04:29:49', '2024-07-27 04:31:25', '2024-07-27 04:29:49', '2024-07-27 04:31:25'),
+(144, 34, '2024-07-27 04:37:42', '2024-07-27 04:39:03', '2024-07-27 04:37:42', '2024-07-27 04:39:03'),
+(145, 34, '2024-07-27 04:42:02', '2024-07-27 04:43:24', '2024-07-27 04:42:02', '2024-07-27 04:43:24'),
+(146, 34, '2024-07-27 04:50:04', '2024-07-27 04:51:23', '2024-07-27 04:50:04', '2024-07-27 04:51:23'),
+(147, 40, '2024-07-27 14:20:25', '2024-07-27 14:22:45', '2024-07-27 14:20:25', '2024-07-27 14:22:45'),
+(148, 34, '2024-07-29 14:50:50', '2024-07-29 14:52:43', '2024-07-29 14:50:50', '2024-07-29 14:52:43'),
+(149, 34, '2024-07-29 14:54:43', NULL, '2024-07-29 14:54:43', '2024-07-29 14:54:43'),
+(150, 33, '2024-07-29 15:12:19', NULL, '2024-07-29 15:12:19', '2024-07-29 15:12:19'),
+(151, 33, '2024-07-29 17:45:59', '2024-07-29 18:45:03', '2024-07-29 17:45:59', '2024-07-29 18:45:03'),
+(152, 33, '2024-07-29 18:45:07', '2024-07-29 18:45:19', '2024-07-29 18:45:07', '2024-07-29 18:45:19'),
+(153, 44, '2024-07-29 18:45:30', '2024-07-29 18:48:14', '2024-07-29 18:45:30', '2024-07-29 18:48:14'),
+(154, 40, '2024-07-29 19:04:58', NULL, '2024-07-29 19:04:58', '2024-07-29 19:04:58'),
+(155, 40, '2024-07-29 19:08:18', NULL, '2024-07-29 19:08:18', '2024-07-29 19:08:18'),
+(156, 40, '2024-07-29 20:16:48', NULL, '2024-07-29 20:16:48', '2024-07-29 20:16:48'),
+(157, 34, '2024-07-30 04:41:07', '2024-07-30 05:32:08', '2024-07-30 04:41:07', '2024-07-30 05:32:08'),
+(158, 34, '2024-07-30 05:43:18', '2024-07-30 06:17:10', '2024-07-30 05:43:18', '2024-07-30 06:17:10'),
+(159, 34, '2024-07-30 06:31:55', '2024-07-30 06:41:06', '2024-07-30 06:31:55', '2024-07-30 06:41:06'),
+(160, 34, '2024-07-30 06:45:11', '2024-07-30 06:46:42', '2024-07-30 06:45:11', '2024-07-30 06:46:42'),
+(161, 34, '2024-07-30 06:52:22', '2024-07-30 06:54:15', '2024-07-30 06:52:22', '2024-07-30 06:54:15'),
+(162, 34, '2024-07-30 07:03:40', '2024-07-30 07:05:01', '2024-07-30 07:03:40', '2024-07-30 07:05:01'),
+(163, 34, '2024-07-30 07:07:56', '2024-07-30 07:09:01', '2024-07-30 07:07:56', '2024-07-30 07:09:01'),
+(164, 34, '2024-07-30 07:11:03', '2024-07-30 07:12:07', '2024-07-30 07:11:03', '2024-07-30 07:12:07'),
+(165, 34, '2024-07-30 07:21:07', '2024-07-30 07:26:37', '2024-07-30 07:21:07', '2024-07-30 07:26:37'),
+(166, 34, '2024-07-30 07:46:32', '2024-07-30 08:09:03', '2024-07-30 07:46:32', '2024-07-30 08:09:03'),
+(167, 40, '2024-08-03 02:02:53', '2024-08-03 02:04:25', '2024-08-03 02:02:53', '2024-08-03 02:04:25'),
+(168, 40, '2024-08-03 02:10:22', '2024-08-03 02:12:36', '2024-08-03 02:10:22', '2024-08-03 02:12:36'),
+(169, 40, '2024-08-03 13:57:13', '2024-08-03 13:58:18', '2024-08-03 13:57:13', '2024-08-03 13:58:18'),
+(170, 40, '2024-08-03 13:58:35', NULL, '2024-08-03 13:58:35', '2024-08-03 13:58:35'),
+(171, 40, '2024-08-03 15:48:25', '2024-08-03 16:03:37', '2024-08-03 15:48:25', '2024-08-03 16:03:37'),
+(172, 44, '2024-08-03 15:48:44', '2024-08-03 15:52:01', '2024-08-03 15:48:44', '2024-08-03 15:52:01'),
+(173, 33, '2024-08-03 15:53:55', '2024-08-03 15:55:35', '2024-08-03 15:53:55', '2024-08-03 15:55:35'),
+(174, 33, '2024-08-03 15:58:17', '2024-08-03 16:05:22', '2024-08-03 15:58:17', '2024-08-03 16:05:22'),
+(175, 40, '2024-08-03 16:07:09', '2024-08-03 16:08:15', '2024-08-03 16:07:09', '2024-08-03 16:08:15'),
+(176, 40, '2024-08-03 16:09:10', NULL, '2024-08-03 16:09:10', '2024-08-03 16:09:10'),
+(177, 33, '2024-08-05 15:10:07', '2024-08-05 15:16:05', '2024-08-05 15:10:07', '2024-08-05 15:16:05'),
+(178, 34, '2024-08-06 06:54:04', '2024-08-06 07:00:52', '2024-08-06 06:54:04', '2024-08-06 07:00:52'),
+(179, 34, '2024-08-06 07:03:58', '2024-08-06 07:07:53', '2024-08-06 07:03:58', '2024-08-06 07:07:53'),
+(180, 34, '2024-08-06 07:18:28', '2024-08-06 07:32:49', '2024-08-06 07:18:28', '2024-08-06 07:32:49'),
+(181, 40, '2024-08-07 20:07:24', '2024-08-07 20:26:41', '2024-08-07 20:07:24', '2024-08-07 20:26:41'),
+(182, 44, '2024-08-08 01:01:30', '2024-08-08 01:07:43', '2024-08-08 01:01:30', '2024-08-08 01:07:43'),
+(183, 44, '2024-08-08 01:39:28', '2024-08-08 03:34:20', '2024-08-08 01:39:28', '2024-08-08 03:34:20'),
+(184, 44, '2024-08-08 03:43:11', '2024-08-08 03:45:13', '2024-08-08 03:43:11', '2024-08-08 03:45:13'),
+(185, 44, '2024-08-08 03:50:43', '2024-08-08 03:51:58', '2024-08-08 03:50:43', '2024-08-08 03:51:58'),
+(186, 44, '2024-08-08 03:53:46', '2024-08-08 04:08:49', '2024-08-08 03:53:46', '2024-08-08 04:08:49'),
+(187, 44, '2024-08-08 13:03:12', '2024-08-08 13:04:20', '2024-08-08 13:03:12', '2024-08-08 13:04:20'),
+(188, 33, '2024-08-08 15:11:34', '2024-08-08 15:27:25', '2024-08-08 15:11:34', '2024-08-08 15:27:25'),
+(189, 44, '2024-08-10 02:36:39', '2024-08-10 02:37:09', '2024-08-10 02:36:39', '2024-08-10 02:37:09'),
+(190, 33, '2024-08-10 02:43:44', '2024-08-10 02:44:15', '2024-08-10 02:43:44', '2024-08-10 02:44:15'),
+(191, 44, '2024-08-10 02:46:23', '2024-08-10 02:47:06', '2024-08-10 02:46:23', '2024-08-10 02:47:06'),
+(192, 44, '2024-08-10 03:19:59', NULL, '2024-08-10 03:19:59', '2024-08-10 03:19:59'),
+(193, 44, '2024-08-10 03:20:10', NULL, '2024-08-10 03:20:10', '2024-08-10 03:20:10'),
+(194, 33, '2024-08-10 03:20:26', NULL, '2024-08-10 03:20:26', '2024-08-10 03:20:26'),
+(195, 44, '2024-08-10 03:20:44', NULL, '2024-08-10 03:20:44', '2024-08-10 03:20:44'),
+(196, 40, '2024-08-10 03:21:43', NULL, '2024-08-10 03:21:43', '2024-08-10 03:21:43'),
+(197, 33, '2024-08-10 03:22:08', NULL, '2024-08-10 03:22:08', '2024-08-10 03:22:08'),
+(198, 33, '2024-08-10 03:22:58', NULL, '2024-08-10 03:22:58', '2024-08-10 03:22:58'),
+(199, 34, '2024-08-10 03:23:24', NULL, '2024-08-10 03:23:24', '2024-08-10 03:23:24'),
+(200, 33, '2024-08-10 03:24:04', NULL, '2024-08-10 03:24:04', '2024-08-10 03:24:04'),
+(201, 33, '2024-08-10 03:24:26', NULL, '2024-08-10 03:24:26', '2024-08-10 03:24:26'),
+(202, 33, '2024-08-10 03:28:33', NULL, '2024-08-10 03:28:33', '2024-08-10 03:28:33'),
+(203, 34, '2024-08-10 03:29:30', '2024-08-10 03:50:24', '2024-08-10 03:29:30', '2024-08-10 03:50:24'),
+(204, 33, '2024-08-10 03:31:44', NULL, '2024-08-10 03:31:44', '2024-08-10 03:31:44'),
+(205, 44, '2024-08-10 03:49:52', '2024-08-10 03:50:53', '2024-08-10 03:49:52', '2024-08-10 03:50:53'),
+(206, 44, '2024-08-10 03:51:29', NULL, '2024-08-10 03:51:29', '2024-08-10 03:51:29'),
+(207, 34, '2024-08-10 03:52:49', NULL, '2024-08-10 03:52:49', '2024-08-10 03:52:49'),
+(208, 44, '2024-08-10 04:14:43', '2024-08-10 04:16:33', '2024-08-10 04:14:43', '2024-08-10 04:16:33'),
+(209, 44, '2024-08-10 04:17:35', '2024-08-10 04:19:39', '2024-08-10 04:17:35', '2024-08-10 04:19:39'),
+(210, 34, '2024-08-10 05:12:47', '2024-08-10 05:15:51', '2024-08-10 05:12:47', '2024-08-10 05:15:51'),
+(211, 34, '2024-08-10 05:16:15', '2024-08-10 05:26:59', '2024-08-10 05:16:15', '2024-08-10 05:26:59'),
+(212, 34, '2024-08-10 05:27:20', '2024-08-10 05:44:52', '2024-08-10 05:27:20', '2024-08-10 05:44:52'),
+(213, 34, '2024-08-10 06:43:22', '2024-08-10 06:59:04', '2024-08-10 06:43:22', '2024-08-10 06:59:04'),
+(214, 34, '2024-08-10 06:59:59', '2024-08-10 07:11:24', '2024-08-10 06:59:59', '2024-08-10 07:11:24'),
+(215, 34, '2024-08-10 07:15:51', '2024-08-10 07:20:15', '2024-08-10 07:15:51', '2024-08-10 07:20:15'),
+(216, 34, '2024-08-10 07:20:32', '2024-08-10 07:21:44', '2024-08-10 07:20:32', '2024-08-10 07:21:44'),
+(217, 34, '2024-08-10 07:22:07', '2024-08-10 07:39:59', '2024-08-10 07:22:07', '2024-08-10 07:39:59'),
+(218, 34, '2024-08-10 07:41:39', '2024-08-10 08:00:07', '2024-08-10 07:41:39', '2024-08-10 08:00:07'),
+(219, 34, '2024-08-10 08:01:59', '2024-08-10 08:04:27', '2024-08-10 08:01:59', '2024-08-10 08:04:27'),
+(220, 34, '2024-08-10 08:04:52', '2024-08-10 08:07:05', '2024-08-10 08:04:52', '2024-08-10 08:07:05'),
+(221, 34, '2024-08-10 08:10:08', '2024-08-10 08:39:03', '2024-08-10 08:10:08', '2024-08-10 08:39:03'),
+(222, 34, '2024-08-10 08:43:57', '2024-08-10 08:47:29', '2024-08-10 08:43:57', '2024-08-10 08:47:29'),
+(223, 34, '2024-08-10 08:59:58', '2024-08-10 09:08:34', '2024-08-10 08:59:58', '2024-08-10 09:08:34'),
+(224, 34, '2024-08-10 09:10:13', '2024-08-10 09:59:01', '2024-08-10 09:10:13', '2024-08-10 09:59:01'),
+(225, 44, '2024-08-10 16:47:17', '2024-08-10 16:48:48', '2024-08-10 16:47:17', '2024-08-10 16:48:48'),
+(226, 44, '2024-08-10 17:03:17', '2024-08-10 17:04:30', '2024-08-10 17:03:17', '2024-08-10 17:04:30'),
+(227, 33, '2024-08-10 17:13:31', '2024-08-10 17:14:37', '2024-08-10 17:13:31', '2024-08-10 17:14:37'),
+(228, 34, '2024-08-10 17:30:14', '2024-08-10 17:33:14', '2024-08-10 17:30:14', '2024-08-10 17:33:14'),
+(229, 33, '2024-08-10 18:22:32', '2024-08-10 18:24:53', '2024-08-10 18:22:32', '2024-08-10 18:24:53'),
+(230, 40, '2024-08-10 21:31:34', NULL, '2024-08-10 21:31:34', '2024-08-10 21:31:34'),
+(231, 40, '2024-08-11 04:10:43', NULL, '2024-08-11 04:10:43', '2024-08-11 04:10:43'),
+(232, 34, '2024-08-11 06:20:36', '2024-08-11 06:53:52', '2024-08-11 06:20:36', '2024-08-11 06:53:52'),
+(233, 34, '2024-08-11 06:56:49', NULL, '2024-08-11 06:56:49', '2024-08-11 06:56:49'),
+(234, 34, '2024-08-11 07:10:35', NULL, '2024-08-11 07:10:35', '2024-08-11 07:10:35'),
+(235, 34, '2024-08-11 07:13:30', '2024-08-11 07:35:23', '2024-08-11 07:13:30', '2024-08-11 07:35:23'),
+(236, 34, '2024-08-11 07:35:40', '2024-08-11 07:40:13', '2024-08-11 07:35:40', '2024-08-11 07:40:13'),
+(237, 34, '2024-08-11 07:43:11', '2024-08-11 07:48:34', '2024-08-11 07:43:11', '2024-08-11 07:48:34'),
+(238, 34, '2024-08-11 07:50:38', '2024-08-11 07:56:20', '2024-08-11 07:50:38', '2024-08-11 07:56:20'),
+(239, 34, '2024-08-11 07:56:39', '2024-08-11 07:59:33', '2024-08-11 07:56:39', '2024-08-11 07:59:33'),
+(240, 34, '2024-08-11 08:00:29', '2024-08-11 08:32:10', '2024-08-11 08:00:29', '2024-08-11 08:32:10'),
+(241, 34, '2024-08-11 08:32:56', '2024-08-11 08:58:42', '2024-08-11 08:32:56', '2024-08-11 08:58:42'),
+(242, 34, '2024-08-11 11:53:01', '2024-08-11 11:55:36', '2024-08-11 11:53:01', '2024-08-11 11:55:36'),
+(243, 34, '2024-08-11 14:37:13', '2024-08-11 14:54:50', '2024-08-11 14:37:13', '2024-08-11 14:54:50'),
+(244, 34, '2024-08-11 14:55:16', '2024-08-11 15:56:40', '2024-08-11 14:55:16', '2024-08-11 15:56:40'),
+(245, 33, '2024-08-11 15:59:42', '2024-08-11 16:01:00', '2024-08-11 15:59:42', '2024-08-11 16:01:00'),
+(246, 33, '2024-08-11 16:05:07', NULL, '2024-08-11 16:05:07', '2024-08-11 16:05:07'),
+(247, 33, '2024-08-11 16:06:28', '2024-08-11 16:07:48', '2024-08-11 16:06:28', '2024-08-11 16:07:48'),
+(248, 33, '2024-08-11 17:00:43', '2024-08-11 17:16:00', '2024-08-11 17:00:43', '2024-08-11 17:16:00'),
+(249, 34, '2024-08-11 17:18:08', NULL, '2024-08-11 17:18:08', '2024-08-11 17:18:08'),
+(250, 34, '2024-08-11 17:25:47', NULL, '2024-08-11 17:25:47', '2024-08-11 17:25:47'),
+(251, 33, '2024-08-11 17:34:07', NULL, '2024-08-11 17:34:07', '2024-08-11 17:34:07'),
+(252, 40, '2024-08-11 23:52:04', NULL, '2024-08-11 23:52:04', '2024-08-11 23:52:04'),
+(253, 33, '2024-08-12 00:49:40', NULL, '2024-08-12 00:49:40', '2024-08-12 00:49:40'),
+(254, 40, '2024-08-12 01:19:24', NULL, '2024-08-12 01:19:24', '2024-08-12 01:19:24'),
+(255, 33, '2024-08-12 01:20:32', '2024-08-12 01:25:27', '2024-08-12 01:20:32', '2024-08-12 01:25:27'),
+(256, 33, '2024-08-12 01:29:35', '2024-08-12 01:30:37', '2024-08-12 01:29:35', '2024-08-12 01:30:37'),
+(257, 34, '2024-08-12 04:01:37', '2024-08-12 04:17:23', '2024-08-12 04:01:37', '2024-08-12 04:17:23'),
+(258, 34, '2024-08-12 04:21:10', '2024-08-12 04:35:09', '2024-08-12 04:21:10', '2024-08-12 04:35:09'),
+(259, 34, '2024-08-12 04:35:35', '2024-08-12 05:24:32', '2024-08-12 04:35:35', '2024-08-12 05:24:32'),
+(260, 34, '2024-08-12 05:24:52', '2024-08-12 05:43:11', '2024-08-12 05:24:52', '2024-08-12 05:43:11'),
+(261, 33, '2024-08-13 15:11:59', '2024-08-13 15:15:50', '2024-08-13 15:11:59', '2024-08-13 15:15:50'),
+(262, 40, '2024-08-13 15:22:46', NULL, '2024-08-13 15:22:46', '2024-08-13 15:22:46'),
+(263, 33, '2024-08-13 15:22:52', '2024-08-13 15:23:54', '2024-08-13 15:22:52', '2024-08-13 15:23:54'),
+(264, 40, '2024-08-13 15:23:28', '2024-08-13 15:30:06', '2024-08-13 15:23:28', '2024-08-13 15:30:06'),
+(265, 44, '2024-08-13 15:23:41', NULL, '2024-08-13 15:23:41', '2024-08-13 15:23:41'),
+(266, 44, '2024-08-13 15:23:44', NULL, '2024-08-13 15:23:44', '2024-08-13 15:23:44'),
+(267, 44, '2024-08-13 15:23:52', '2024-08-13 15:29:36', '2024-08-13 15:23:52', '2024-08-13 15:29:36'),
+(268, 44, '2024-08-13 15:30:18', '2024-08-13 15:31:27', '2024-08-13 15:30:18', '2024-08-13 15:31:27'),
+(269, 40, '2024-08-13 15:32:13', '2024-08-13 15:33:13', '2024-08-13 15:32:13', '2024-08-13 15:33:13'),
+(270, 44, '2024-08-13 15:32:15', '2024-08-13 15:33:16', '2024-08-13 15:32:15', '2024-08-13 15:33:16'),
+(271, 40, '2024-08-13 15:34:11', '2024-08-13 15:37:49', '2024-08-13 15:34:11', '2024-08-13 15:37:49'),
+(272, 44, '2024-08-13 15:34:18', '2024-08-13 15:36:33', '2024-08-13 15:34:18', '2024-08-13 15:36:33'),
+(273, 44, '2024-08-13 15:37:23', '2024-08-13 15:38:37', '2024-08-13 15:37:23', '2024-08-13 15:38:37'),
+(274, 44, '2024-08-13 15:38:57', '2024-08-13 15:44:50', '2024-08-13 15:38:57', '2024-08-13 15:44:50'),
+(275, 40, '2024-08-13 15:39:41', '2024-08-13 15:40:46', '2024-08-13 15:39:41', '2024-08-13 15:40:46'),
+(276, 40, '2024-08-13 15:43:00', '2024-08-13 15:44:42', '2024-08-13 15:43:00', '2024-08-13 15:44:42'),
+(277, 33, '2024-08-13 15:51:45', '2024-08-13 16:25:17', '2024-08-13 15:51:45', '2024-08-13 16:25:17'),
+(278, 34, '2024-08-13 16:13:29', NULL, '2024-08-13 16:13:29', '2024-08-13 16:13:29'),
+(279, 34, '2024-08-13 16:24:30', '2024-08-13 16:40:17', '2024-08-13 16:24:30', '2024-08-13 16:40:17'),
+(280, 34, '2024-08-13 16:41:00', '2024-08-13 16:45:27', '2024-08-13 16:41:00', '2024-08-13 16:45:27'),
+(281, 34, '2024-08-13 16:45:50', '2024-08-13 17:01:42', '2024-08-13 16:45:50', '2024-08-13 17:01:42'),
+(282, 34, '2024-08-13 17:05:18', '2024-08-13 17:21:13', '2024-08-13 17:05:18', '2024-08-13 17:21:13'),
+(283, 44, '2024-08-13 17:07:39', NULL, '2024-08-13 17:07:39', '2024-08-13 17:07:39'),
+(284, 44, '2024-08-13 17:10:44', '2024-08-13 17:11:45', '2024-08-13 17:10:44', '2024-08-13 17:11:45'),
+(285, 34, '2024-08-13 17:26:16', '2024-08-13 17:31:57', '2024-08-13 17:26:16', '2024-08-13 17:31:57'),
+(286, 34, '2024-08-13 17:41:14', '2024-08-13 17:45:12', '2024-08-13 17:41:14', '2024-08-13 17:45:12'),
+(287, 44, '2024-08-13 17:45:26', '2024-08-13 17:50:54', '2024-08-13 17:45:26', '2024-08-13 17:50:54'),
+(288, 34, '2024-08-13 17:47:25', '2024-08-13 17:59:15', '2024-08-13 17:47:25', '2024-08-13 17:59:15'),
+(289, 44, '2024-08-13 17:50:59', NULL, '2024-08-13 17:50:59', '2024-08-13 17:50:59'),
+(290, 44, '2024-08-13 17:51:06', NULL, '2024-08-13 17:51:06', '2024-08-13 17:51:06'),
+(291, 34, '2024-08-13 17:59:41', '2024-08-13 18:02:34', '2024-08-13 17:59:41', '2024-08-13 18:02:34'),
+(292, 44, '2024-08-13 18:01:07', '2024-08-13 18:02:08', '2024-08-13 18:01:07', '2024-08-13 18:02:08'),
+(293, 44, '2024-08-13 18:04:29', '2024-08-13 18:05:36', '2024-08-13 18:04:29', '2024-08-13 18:05:36'),
+(294, 34, '2024-08-13 18:09:07', '2024-08-13 18:37:59', '2024-08-13 18:09:07', '2024-08-13 18:37:59'),
+(295, 44, '2024-08-13 18:14:48', '2024-08-13 18:16:17', '2024-08-13 18:14:48', '2024-08-13 18:16:17'),
+(296, 44, '2024-08-13 18:20:54', '2024-08-13 18:22:11', '2024-08-13 18:20:54', '2024-08-13 18:22:11'),
+(297, 44, '2024-08-13 18:23:09', '2024-08-13 18:24:40', '2024-08-13 18:23:09', '2024-08-13 18:24:40'),
+(298, 40, '2024-08-13 19:49:52', NULL, '2024-08-13 19:49:52', '2024-08-13 19:49:52'),
+(299, 44, '2024-08-13 20:52:15', '2024-08-13 20:53:54', '2024-08-13 20:52:15', '2024-08-13 20:53:54'),
+(300, 44, '2024-08-13 20:53:57', NULL, '2024-08-13 20:53:57', '2024-08-13 20:53:57'),
+(301, 40, '2024-08-13 22:16:36', '2024-08-13 22:33:33', '2024-08-13 22:16:36', '2024-08-13 22:33:33'),
+(302, 40, '2024-08-13 22:34:38', NULL, '2024-08-13 22:34:38', '2024-08-13 22:34:38'),
+(303, 40, '2024-08-13 22:36:49', NULL, '2024-08-13 22:36:49', '2024-08-13 22:36:49'),
+(304, 40, '2024-08-13 22:47:04', '2024-08-13 22:55:48', '2024-08-13 22:47:04', '2024-08-13 22:55:48'),
+(305, 40, '2024-08-13 22:57:05', '2024-08-13 23:23:24', '2024-08-13 22:57:05', '2024-08-13 23:23:24'),
+(306, 44, '2024-08-13 23:06:46', '2024-08-13 23:11:27', '2024-08-13 23:06:46', '2024-08-13 23:11:27'),
+(307, 44, '2024-08-13 23:11:42', '2024-08-13 23:16:09', '2024-08-13 23:11:42', '2024-08-13 23:16:09'),
+(308, 44, '2024-08-13 23:22:16', '2024-08-13 23:23:38', '2024-08-13 23:22:16', '2024-08-13 23:23:38'),
+(309, 44, '2024-08-13 23:27:48', '2024-08-13 23:44:22', '2024-08-13 23:27:48', '2024-08-13 23:44:22'),
+(310, 40, '2024-08-13 23:31:05', '2024-08-13 23:34:00', '2024-08-13 23:31:05', '2024-08-13 23:34:00'),
+(311, 40, '2024-08-13 23:37:19', '2024-08-13 23:42:45', '2024-08-13 23:37:19', '2024-08-13 23:42:45'),
+(312, 40, '2024-08-13 23:43:15', NULL, '2024-08-13 23:43:15', '2024-08-13 23:43:15'),
+(313, 40, '2024-08-13 23:47:59', '2024-08-14 03:14:24', '2024-08-13 23:47:59', '2024-08-14 03:14:24'),
+(314, 34, '2024-08-14 03:34:46', '2024-08-14 03:38:51', '2024-08-14 03:34:46', '2024-08-14 03:38:51'),
+(315, 34, '2024-08-14 03:43:00', NULL, '2024-08-14 03:43:00', '2024-08-14 03:43:00'),
+(316, 34, '2024-08-14 04:08:48', '2024-08-14 04:20:41', '2024-08-14 04:08:48', '2024-08-14 04:20:41'),
+(317, 34, '2024-08-14 04:20:55', '2024-08-14 05:04:11', '2024-08-14 04:20:55', '2024-08-14 05:04:11'),
+(318, 44, '2024-08-14 06:44:42', NULL, '2024-08-14 06:44:42', '2024-08-14 06:44:42'),
+(319, 44, '2024-08-14 06:47:12', '2024-08-14 06:48:25', '2024-08-14 06:47:12', '2024-08-14 06:48:25'),
+(320, 44, '2024-08-14 06:52:33', '2024-08-14 06:53:41', '2024-08-14 06:52:33', '2024-08-14 06:53:41'),
+(321, 44, '2024-08-14 06:54:55', '2024-08-14 06:55:56', '2024-08-14 06:54:55', '2024-08-14 06:55:56'),
+(322, 44, '2024-08-14 06:59:14', '2024-08-14 07:02:32', '2024-08-14 06:59:14', '2024-08-14 07:02:32'),
+(323, 44, '2024-08-14 07:06:37', '2024-08-14 07:10:57', '2024-08-14 07:06:37', '2024-08-14 07:10:57'),
+(324, 44, '2024-08-14 07:14:37', '2024-08-14 07:16:19', '2024-08-14 07:14:37', '2024-08-14 07:16:19'),
+(325, 44, '2024-08-14 07:29:04', '2024-08-14 07:31:05', '2024-08-14 07:29:04', '2024-08-14 07:31:05'),
+(326, 44, '2024-08-14 07:33:35', '2024-08-14 07:34:43', '2024-08-14 07:33:35', '2024-08-14 07:34:43'),
+(327, 34, '2024-08-14 07:41:51', NULL, '2024-08-14 07:41:51', '2024-08-14 07:41:51'),
+(328, 34, '2024-08-14 07:46:16', '2024-08-14 08:03:11', '2024-08-14 07:46:16', '2024-08-14 08:03:11'),
+(329, 40, '2024-08-14 12:52:46', '2024-08-14 13:00:42', '2024-08-14 12:52:46', '2024-08-14 13:00:42'),
+(330, 40, '2024-08-14 13:02:49', '2024-08-14 13:05:18', '2024-08-14 13:02:49', '2024-08-14 13:05:18'),
+(331, 40, '2024-08-14 13:05:32', NULL, '2024-08-14 13:05:32', '2024-08-14 13:05:32'),
+(332, 40, '2024-08-14 14:48:24', '2024-08-14 14:52:43', '2024-08-14 14:48:24', '2024-08-14 14:52:43'),
+(333, 40, '2024-08-14 18:11:53', NULL, '2024-08-14 18:11:53', '2024-08-14 18:11:53'),
+(334, 40, '2024-08-14 18:12:27', NULL, '2024-08-14 18:12:27', '2024-08-14 18:12:27'),
+(335, 44, '2024-08-14 21:43:33', '2024-08-14 21:54:06', '2024-08-14 21:43:33', '2024-08-14 21:54:06'),
+(336, 44, '2024-08-14 21:54:22', '2024-08-14 22:05:41', '2024-08-14 21:54:22', '2024-08-14 22:05:41'),
+(337, 44, '2024-08-14 22:19:54', '2024-08-14 22:22:08', '2024-08-14 22:19:54', '2024-08-14 22:22:08'),
+(338, 34, '2024-08-15 03:13:59', '2024-08-15 03:20:57', '2024-08-15 03:13:59', '2024-08-15 03:20:57'),
+(339, 34, '2024-08-15 03:21:13', '2024-08-15 03:30:22', '2024-08-15 03:21:13', '2024-08-15 03:30:22'),
+(340, 34, '2024-08-15 03:32:53', '2024-08-15 03:37:51', '2024-08-15 03:32:53', '2024-08-15 03:37:51'),
+(341, 34, '2024-08-15 03:39:53', '2024-08-15 03:54:01', '2024-08-15 03:39:53', '2024-08-15 03:54:01'),
+(342, 34, '2024-08-15 03:57:18', NULL, '2024-08-15 03:57:18', '2024-08-15 03:57:18'),
+(343, 34, '2024-08-15 03:57:26', '2024-08-15 04:06:47', '2024-08-15 03:57:26', '2024-08-15 04:06:47'),
+(344, 34, '2024-08-15 04:07:06', '2024-08-15 04:12:56', '2024-08-15 04:07:06', '2024-08-15 04:12:56'),
+(345, 34, '2024-08-15 04:14:36', '2024-08-15 04:23:58', '2024-08-15 04:14:36', '2024-08-15 04:23:58'),
+(346, 34, '2024-08-15 04:24:38', '2024-08-15 04:33:17', '2024-08-15 04:24:38', '2024-08-15 04:33:17'),
+(347, 34, '2024-08-15 04:33:39', '2024-08-15 04:35:15', '2024-08-15 04:33:39', '2024-08-15 04:35:15'),
+(348, 34, '2024-08-15 05:05:56', '2024-08-15 05:33:29', '2024-08-15 05:05:56', '2024-08-15 05:33:29'),
+(349, 34, '2024-08-15 05:37:03', '2024-08-15 05:40:06', '2024-08-15 05:37:03', '2024-08-15 05:40:06'),
+(350, 34, '2024-08-15 06:30:22', '2024-08-15 06:37:14', '2024-08-15 06:30:22', '2024-08-15 06:37:14'),
+(351, 44, '2024-08-15 12:49:21', NULL, '2024-08-15 12:49:21', '2024-08-15 12:49:21'),
+(352, 44, '2024-08-15 12:50:11', '2024-08-15 12:54:50', '2024-08-15 12:50:11', '2024-08-15 12:54:50'),
+(353, 44, '2024-08-15 13:04:43', '2024-08-15 13:05:21', '2024-08-15 13:04:43', '2024-08-15 13:05:21'),
+(354, 44, '2024-08-15 13:05:27', '2024-08-15 13:06:32', '2024-08-15 13:05:27', '2024-08-15 13:06:32'),
+(355, 34, '2024-08-15 13:10:32', '2024-08-15 13:33:13', '2024-08-15 13:10:32', '2024-08-15 13:33:13'),
+(356, 44, '2024-08-15 13:46:35', '2024-08-15 13:48:01', '2024-08-15 13:46:35', '2024-08-15 13:48:01'),
+(357, 34, '2024-08-15 14:08:32', NULL, '2024-08-15 14:08:32', '2024-08-15 14:08:32'),
+(358, 34, '2024-08-15 14:19:47', NULL, '2024-08-15 14:19:47', '2024-08-15 14:19:47'),
+(359, 34, '2024-08-15 14:23:58', NULL, '2024-08-15 14:23:58', '2024-08-15 14:23:58'),
+(360, 44, '2024-08-15 14:27:04', '2024-08-15 14:42:26', '2024-08-15 14:27:04', '2024-08-15 14:42:26'),
+(361, 34, '2024-08-15 14:31:05', '2024-08-15 14:38:33', '2024-08-15 14:31:05', '2024-08-15 14:38:33'),
+(362, 34, '2024-08-15 14:41:31', '2024-08-15 15:19:45', '2024-08-15 14:41:31', '2024-08-15 15:19:45'),
+(363, 33, '2024-08-15 16:23:39', NULL, '2024-08-15 16:23:39', '2024-08-15 16:23:39'),
+(364, 34, '2024-08-15 16:29:36', '2024-08-15 16:43:47', '2024-08-15 16:29:36', '2024-08-15 16:43:47'),
+(365, 34, '2024-08-15 16:45:00', '2024-08-15 17:14:49', '2024-08-15 16:45:00', '2024-08-15 17:14:49'),
+(366, 34, '2024-08-15 17:15:05', '2024-08-15 17:25:47', '2024-08-15 17:15:05', '2024-08-15 17:25:47'),
+(367, 34, '2024-08-15 17:26:04', '2024-08-15 17:33:42', '2024-08-15 17:26:04', '2024-08-15 17:33:42'),
+(368, 34, '2024-08-15 17:33:59', '2024-08-15 17:49:38', '2024-08-15 17:33:59', '2024-08-15 17:49:38'),
+(369, 34, '2024-08-15 17:52:22', NULL, '2024-08-15 17:52:22', '2024-08-15 17:52:22'),
+(370, 33, '2024-08-15 18:00:49', NULL, '2024-08-15 18:00:49', '2024-08-15 18:00:49'),
+(371, 40, '2024-08-15 22:43:43', NULL, '2024-08-15 22:43:43', '2024-08-15 22:43:43'),
+(372, 40, '2024-08-15 22:49:39', '2024-08-15 22:59:46', '2024-08-15 22:49:39', '2024-08-15 22:59:46'),
+(373, 40, '2024-08-15 23:03:35', '2024-08-15 23:05:25', '2024-08-15 23:03:35', '2024-08-15 23:05:25'),
+(374, 40, '2024-08-15 23:05:59', '2024-08-15 23:09:59', '2024-08-15 23:05:59', '2024-08-15 23:09:59'),
+(375, 40, '2024-08-15 23:10:52', NULL, '2024-08-15 23:10:52', '2024-08-15 23:10:52'),
+(376, 44, '2024-08-15 23:17:36', '2024-08-15 23:20:37', '2024-08-15 23:17:36', '2024-08-15 23:20:37'),
+(377, 44, '2024-08-15 23:20:42', '2024-08-15 23:21:51', '2024-08-15 23:20:42', '2024-08-15 23:21:51'),
+(378, 44, '2024-08-15 23:21:56', '2024-08-15 23:26:50', '2024-08-15 23:21:56', '2024-08-15 23:26:50'),
+(379, 44, '2024-08-15 23:27:14', '2024-08-15 23:42:27', '2024-08-15 23:27:14', '2024-08-15 23:42:27'),
+(380, 34, '2024-08-16 04:00:11', '2024-08-16 04:24:43', '2024-08-16 04:00:11', '2024-08-16 04:24:43'),
+(381, 44, '2024-08-16 04:00:45', '2024-08-16 04:02:18', '2024-08-16 04:00:45', '2024-08-16 04:02:18'),
+(382, 44, '2024-08-16 04:26:15', '2024-08-16 04:27:26', '2024-08-16 04:26:15', '2024-08-16 04:27:26'),
+(383, 34, '2024-08-16 04:28:43', '2024-08-16 05:12:21', '2024-08-16 04:28:43', '2024-08-16 05:12:21'),
+(384, 44, '2024-08-16 04:42:57', '2024-08-16 04:46:55', '2024-08-16 04:42:57', '2024-08-16 04:46:55'),
+(385, 44, '2024-08-16 04:47:59', '2024-08-16 04:58:35', '2024-08-16 04:47:59', '2024-08-16 04:58:35'),
+(386, 44, '2024-08-16 05:00:26', '2024-08-16 05:19:48', '2024-08-16 05:00:26', '2024-08-16 05:19:48'),
+(387, 34, '2024-08-16 05:27:11', '2024-08-16 05:58:48', '2024-08-16 05:27:11', '2024-08-16 05:58:48'),
+(388, 44, '2024-08-16 05:32:11', '2024-08-16 05:33:45', '2024-08-16 05:32:11', '2024-08-16 05:33:45'),
+(389, 44, '2024-08-16 05:34:22', '2024-08-16 05:35:55', '2024-08-16 05:34:22', '2024-08-16 05:35:55'),
+(390, 44, '2024-08-16 05:36:32', '2024-08-16 05:37:45', '2024-08-16 05:36:32', '2024-08-16 05:37:45'),
+(391, 44, '2024-08-16 05:38:07', '2024-08-16 05:39:44', '2024-08-16 05:38:07', '2024-08-16 05:39:44'),
+(392, 44, '2024-08-16 05:47:45', '2024-08-16 05:49:02', '2024-08-16 05:47:45', '2024-08-16 05:49:02'),
+(393, 44, '2024-08-16 05:51:23', '2024-08-16 05:55:53', '2024-08-16 05:51:23', '2024-08-16 05:55:53'),
+(394, 34, '2024-08-16 05:59:11', '2024-08-16 06:15:00', '2024-08-16 05:59:11', '2024-08-16 06:15:00'),
+(395, 34, '2024-08-16 08:52:21', '2024-08-16 09:34:03', '2024-08-16 08:52:21', '2024-08-16 09:34:03'),
+(396, 34, '2024-08-16 09:41:12', '2024-08-16 09:43:08', '2024-08-16 09:41:12', '2024-08-16 09:43:08'),
+(397, 34, '2024-08-16 10:16:35', '2024-08-16 10:43:46', '2024-08-16 10:16:35', '2024-08-16 10:43:46'),
+(398, 40, '2024-08-16 12:18:02', NULL, '2024-08-16 12:18:02', '2024-08-16 12:18:02'),
+(399, 34, '2024-08-16 13:07:36', NULL, '2024-08-16 13:07:36', '2024-08-16 13:07:36'),
+(400, 40, '2024-08-16 13:11:29', '2024-08-16 13:18:49', '2024-08-16 13:11:29', '2024-08-16 13:18:49'),
+(401, 34, '2024-08-16 13:16:14', '2024-08-16 13:55:19', '2024-08-16 13:16:14', '2024-08-16 13:55:19'),
+(402, 40, '2024-08-16 13:20:26', '2024-08-16 13:35:58', '2024-08-16 13:20:26', '2024-08-16 13:35:58'),
+(403, 40, '2024-08-16 13:38:28', '2024-08-16 13:39:41', '2024-08-16 13:38:28', '2024-08-16 13:39:41'),
+(404, 40, '2024-08-16 13:40:52', '2024-08-16 13:52:27', '2024-08-16 13:40:52', '2024-08-16 13:52:27'),
+(405, 40, '2024-08-16 13:53:28', NULL, '2024-08-16 13:53:28', '2024-08-16 13:53:28'),
+(406, 44, '2024-08-16 13:54:54', '2024-08-16 14:01:44', '2024-08-16 13:54:54', '2024-08-16 14:01:44'),
+(407, 40, '2024-08-16 14:02:08', '2024-08-16 14:09:14', '2024-08-16 14:02:08', '2024-08-16 14:09:14'),
+(408, 44, '2024-08-16 14:03:30', '2024-08-16 14:15:40', '2024-08-16 14:03:30', '2024-08-16 14:15:40'),
+(409, 44, '2024-08-16 14:32:51', '2024-08-16 14:34:15', '2024-08-16 14:32:51', '2024-08-16 14:34:15'),
+(410, 44, '2024-08-16 20:26:30', '2024-08-16 20:42:47', '2024-08-16 20:26:30', '2024-08-16 20:42:47'),
+(411, 34, '2024-08-17 06:22:27', '2024-08-17 06:53:04', '2024-08-17 06:22:27', '2024-08-17 06:53:04'),
+(412, 44, '2024-08-17 06:37:39', '2024-08-17 06:40:09', '2024-08-17 06:37:39', '2024-08-17 06:40:09'),
+(413, 44, '2024-08-17 06:40:19', '2024-08-17 06:41:27', '2024-08-17 06:40:19', '2024-08-17 06:41:27'),
+(414, 44, '2024-08-17 06:48:32', '2024-08-17 07:04:37', '2024-08-17 06:48:32', '2024-08-17 07:04:37'),
+(415, 34, '2024-08-17 07:04:54', '2024-08-17 07:18:53', '2024-08-17 07:04:54', '2024-08-17 07:18:53'),
+(416, 34, '2024-08-17 07:19:10', '2024-08-17 07:52:48', '2024-08-17 07:19:10', '2024-08-17 07:52:48'),
+(417, 34, '2024-08-17 07:53:17', '2024-08-17 08:13:43', '2024-08-17 07:53:17', '2024-08-17 08:13:43'),
+(418, 34, '2024-08-17 08:16:23', '2024-08-17 08:39:27', '2024-08-17 08:16:23', '2024-08-17 08:39:27'),
+(419, 34, '2024-08-17 08:39:58', '2024-08-17 08:58:50', '2024-08-17 08:39:58', '2024-08-17 08:58:50'),
+(420, 34, '2024-08-17 09:05:12', '2024-08-17 09:21:34', '2024-08-17 09:05:12', '2024-08-17 09:21:34'),
+(421, 34, '2024-08-17 09:26:46', '2024-08-17 09:39:38', '2024-08-17 09:26:46', '2024-08-17 09:39:38'),
+(422, 34, '2024-08-17 09:43:38', '2024-08-17 09:52:32', '2024-08-17 09:43:38', '2024-08-17 09:52:32'),
+(423, 34, '2024-08-17 09:52:46', '2024-08-17 10:35:43', '2024-08-17 09:52:46', '2024-08-17 10:35:43'),
+(424, 34, '2024-08-17 10:37:38', '2024-08-17 11:43:57', '2024-08-17 10:37:38', '2024-08-17 11:43:57'),
+(425, 34, '2024-08-17 11:44:18', '2024-08-17 12:10:28', '2024-08-17 11:44:18', '2024-08-17 12:10:28'),
+(426, 44, '2024-08-17 12:25:05', NULL, '2024-08-17 12:25:05', '2024-08-17 12:25:05'),
+(427, 34, '2024-08-18 05:49:34', '2024-08-18 06:26:52', '2024-08-18 05:49:34', '2024-08-18 06:26:52'),
+(428, 34, '2024-08-18 07:20:16', '2024-08-18 07:39:47', '2024-08-18 07:20:16', '2024-08-18 07:39:47'),
+(429, 44, '2024-08-18 14:32:21', '2024-08-18 14:41:02', '2024-08-18 14:32:21', '2024-08-18 14:41:02'),
+(430, 40, '2024-08-18 14:34:12', NULL, '2024-08-18 14:34:12', '2024-08-18 14:34:12'),
+(431, 40, '2024-08-18 14:40:04', NULL, '2024-08-18 14:40:04', '2024-08-18 14:40:04'),
+(432, 44, '2024-08-18 14:46:49', NULL, '2024-08-18 14:46:49', '2024-08-18 14:46:49'),
+(433, 40, '2024-08-18 14:48:09', '2024-08-18 15:55:23', '2024-08-18 14:48:09', '2024-08-18 15:55:23'),
+(434, 34, '2024-08-18 14:48:22', NULL, '2024-08-18 14:48:22', '2024-08-18 14:48:22'),
+(435, 34, '2024-08-18 15:15:30', '2024-08-18 15:25:15', '2024-08-18 15:15:30', '2024-08-18 15:25:15'),
+(436, 44, '2024-08-18 15:27:46', '2024-08-18 15:29:13', '2024-08-18 15:27:46', '2024-08-18 15:29:13'),
+(437, 44, '2024-08-18 15:36:12', '2024-08-18 15:52:20', '2024-08-18 15:36:12', '2024-08-18 15:52:20'),
+(438, 34, '2024-08-18 15:37:52', '2024-08-18 15:39:34', '2024-08-18 15:37:52', '2024-08-18 15:39:34'),
+(439, 40, '2024-08-18 15:55:33', NULL, '2024-08-18 15:55:33', '2024-08-18 15:55:33'),
+(440, 40, '2024-08-18 16:17:46', NULL, '2024-08-18 16:17:46', '2024-08-18 16:17:46'),
+(441, 40, '2024-08-18 16:22:14', '2024-08-18 16:24:06', '2024-08-18 16:22:14', '2024-08-18 16:24:06'),
+(442, 44, '2024-08-18 19:59:09', '2024-08-18 20:03:36', '2024-08-18 19:59:09', '2024-08-18 20:03:36'),
+(443, 44, '2024-08-18 23:19:47', '2024-08-18 23:25:46', '2024-08-18 23:19:47', '2024-08-18 23:25:46'),
+(444, 44, '2024-08-18 23:26:21', '2024-08-18 23:28:34', '2024-08-18 23:26:21', '2024-08-18 23:28:34'),
+(445, 44, '2024-08-19 00:03:15', '2024-08-19 00:21:41', '2024-08-19 00:03:15', '2024-08-19 00:21:41'),
+(446, 44, '2024-08-19 03:53:25', '2024-08-19 04:03:18', '2024-08-19 03:53:25', '2024-08-19 04:03:18'),
+(447, 44, '2024-08-19 04:03:30', '2024-08-19 04:19:35', '2024-08-19 04:03:30', '2024-08-19 04:19:35'),
+(448, 44, '2024-08-19 04:34:22', '2024-08-19 04:48:32', '2024-08-19 04:34:22', '2024-08-19 04:48:32'),
+(449, 34, '2024-08-19 04:46:22', '2024-08-19 04:59:16', '2024-08-19 04:46:22', '2024-08-19 04:59:16'),
+(450, 34, '2024-08-19 05:01:48', '2024-08-19 05:26:26', '2024-08-19 05:01:48', '2024-08-19 05:26:26'),
+(451, 34, '2024-08-19 05:32:43', '2024-08-19 05:34:37', '2024-08-19 05:32:43', '2024-08-19 05:34:37'),
+(452, 34, '2024-08-19 05:34:56', '2024-08-19 05:57:01', '2024-08-19 05:34:56', '2024-08-19 05:57:01'),
+(453, 40, '2024-08-19 06:34:59', NULL, '2024-08-19 06:34:59', '2024-08-19 06:34:59'),
+(454, 44, '2024-08-19 11:02:26', '2024-08-19 11:22:26', '2024-08-19 11:02:26', '2024-08-19 11:22:26'),
+(455, 34, '2024-08-19 11:48:48', '2024-08-19 12:07:13', '2024-08-19 11:48:48', '2024-08-19 12:07:13'),
+(456, 40, '2024-08-19 11:56:13', NULL, '2024-08-19 11:56:13', '2024-08-19 11:56:13'),
+(457, 34, '2024-08-19 12:14:06', '2024-08-19 12:33:21', '2024-08-19 12:14:06', '2024-08-19 12:33:21'),
+(458, 34, '2024-08-19 12:49:19', '2024-08-19 12:57:22', '2024-08-19 12:49:19', '2024-08-19 12:57:22'),
+(459, 34, '2024-08-19 12:58:16', '2024-08-19 13:27:06', '2024-08-19 12:58:16', '2024-08-19 13:27:06'),
+(460, 34, '2024-08-19 13:27:20', '2024-08-19 14:20:17', '2024-08-19 13:27:20', '2024-08-19 14:20:17'),
+(461, 44, '2024-08-19 14:08:15', '2024-08-19 14:11:40', '2024-08-19 14:08:15', '2024-08-19 14:11:40'),
+(462, 44, '2024-08-19 14:12:40', '2024-08-19 14:28:40', '2024-08-19 14:12:40', '2024-08-19 14:28:40'),
+(463, 44, '2024-08-19 14:32:20', '2024-08-19 14:33:20', '2024-08-19 14:32:20', '2024-08-19 14:33:20'),
+(464, 44, '2024-08-19 14:42:33', '2024-08-19 14:45:57', '2024-08-19 14:42:33', '2024-08-19 14:45:57'),
+(465, 34, '2024-08-19 15:04:14', '2024-08-19 15:31:57', '2024-08-19 15:04:14', '2024-08-19 15:31:57'),
+(466, 34, '2024-08-20 06:15:41', '2024-08-20 07:48:21', '2024-08-20 06:15:41', '2024-08-20 07:48:21'),
+(467, 34, '2024-08-20 08:00:04', '2024-08-20 08:17:32', '2024-08-20 08:00:04', '2024-08-20 08:17:32'),
+(468, 33, '2024-08-20 08:40:32', NULL, '2024-08-20 08:40:32', '2024-08-20 08:40:32'),
+(469, 44, '2024-08-20 08:46:01', '2024-08-20 08:48:24', '2024-08-20 08:46:01', '2024-08-20 08:48:24'),
+(470, 44, '2024-08-20 08:48:27', '2024-08-20 08:51:31', '2024-08-20 08:48:27', '2024-08-20 08:51:31'),
+(471, 34, '2024-08-20 08:53:22', '2024-08-20 08:54:47', '2024-08-20 08:53:22', '2024-08-20 08:54:47'),
+(472, 40, '2024-08-20 21:46:48', '2024-08-20 21:47:50', '2024-08-20 21:46:48', '2024-08-20 21:47:50'),
+(473, 40, '2024-08-20 21:52:22', '2024-08-20 21:53:23', '2024-08-20 21:52:22', '2024-08-20 21:53:23'),
+(474, 34, '2024-08-22 06:13:36', '2024-08-22 06:15:58', '2024-08-22 06:13:36', '2024-08-22 06:15:58'),
+(475, 40, '2024-08-22 16:11:04', '2024-08-22 16:37:16', '2024-08-22 16:11:04', '2024-08-22 16:37:16'),
+(476, 40, '2024-08-22 16:37:25', '2024-08-22 16:56:47', '2024-08-22 16:37:25', '2024-08-22 16:56:47'),
+(477, 44, '2024-08-22 19:29:18', '2024-08-22 19:58:39', '2024-08-22 19:29:18', '2024-08-22 19:58:39'),
+(478, 44, '2024-08-23 02:47:05', '2024-08-23 02:50:00', '2024-08-23 02:47:05', '2024-08-23 02:50:00'),
+(479, 44, '2024-08-23 03:09:53', '2024-08-23 03:11:33', '2024-08-23 03:09:53', '2024-08-23 03:11:33'),
+(480, 34, '2024-08-23 03:18:21', '2024-08-23 03:33:44', '2024-08-23 03:18:21', '2024-08-23 03:33:44'),
+(481, 34, '2024-08-23 03:40:45', '2024-08-23 03:56:01', '2024-08-23 03:40:45', '2024-08-23 03:56:01'),
+(482, 34, '2024-08-23 04:16:02', '2024-08-23 04:59:17', '2024-08-23 04:16:02', '2024-08-23 04:59:17'),
+(483, 34, '2024-08-23 06:04:40', '2024-08-23 06:53:07', '2024-08-23 06:04:40', '2024-08-23 06:53:07'),
+(484, 34, '2024-08-23 06:53:27', NULL, '2024-08-23 06:53:27', '2024-08-23 06:53:27'),
+(485, 34, '2024-08-23 09:08:23', NULL, '2024-08-23 09:08:23', '2024-08-23 09:08:23'),
+(486, 44, '2024-08-23 12:12:30', '2024-08-23 12:13:39', '2024-08-23 12:12:30', '2024-08-23 12:13:39'),
+(487, 44, '2024-08-23 12:15:48', '2024-08-23 12:18:05', '2024-08-23 12:15:48', '2024-08-23 12:18:05'),
+(488, 34, '2024-08-23 12:21:22', NULL, '2024-08-23 12:21:22', '2024-08-23 12:21:22'),
+(489, 40, '2024-08-23 14:56:46', '2024-08-23 15:55:52', '2024-08-23 14:56:46', '2024-08-23 15:55:52'),
+(490, 34, '2024-08-24 04:04:56', '2024-08-24 04:16:53', '2024-08-24 04:04:56', '2024-08-24 04:16:53'),
+(491, 34, '2024-08-24 04:19:53', '2024-08-24 04:44:24', '2024-08-24 04:19:53', '2024-08-24 04:44:24'),
+(492, 44, '2024-08-24 04:57:14', '2024-08-24 04:58:20', '2024-08-24 04:57:14', '2024-08-24 04:58:20'),
+(493, 44, '2024-08-24 05:18:54', '2024-08-24 05:20:02', '2024-08-24 05:18:54', '2024-08-24 05:20:02'),
+(494, 34, '2024-08-24 05:46:26', '2024-08-24 05:47:29', '2024-08-24 05:46:26', '2024-08-24 05:47:29'),
+(495, 34, '2024-08-24 05:48:00', '2024-08-24 06:07:08', '2024-08-24 05:48:00', '2024-08-24 06:07:08'),
+(496, 44, '2024-08-24 05:54:02', '2024-08-24 06:00:12', '2024-08-24 05:54:02', '2024-08-24 06:00:12'),
+(497, 44, '2024-08-24 06:15:22', NULL, '2024-08-24 06:15:22', '2024-08-24 06:15:22'),
+(498, 34, '2024-08-24 06:20:49', '2024-08-24 06:23:55', '2024-08-24 06:20:49', '2024-08-24 06:23:55'),
+(499, 34, '2024-08-24 06:25:32', '2024-08-24 06:28:39', '2024-08-24 06:25:32', '2024-08-24 06:28:39'),
+(500, 34, '2024-08-24 06:28:55', '2024-08-24 06:45:33', '2024-08-24 06:28:55', '2024-08-24 06:45:33'),
+(501, 44, '2024-08-24 06:45:23', '2024-08-24 06:46:34', '2024-08-24 06:45:23', '2024-08-24 06:46:34'),
+(502, 44, '2024-08-24 06:53:14', '2024-08-24 06:54:15', '2024-08-24 06:53:14', '2024-08-24 06:54:15'),
+(503, 34, '2024-08-24 06:56:46', NULL, '2024-08-24 06:56:46', '2024-08-24 06:56:46'),
+(504, 44, '2024-08-24 06:56:46', '2024-08-24 06:58:30', '2024-08-24 06:56:46', '2024-08-24 06:58:30'),
+(505, 34, '2024-08-24 07:10:31', '2024-08-24 07:12:34', '2024-08-24 07:10:31', '2024-08-24 07:12:34'),
+(506, 44, '2024-08-24 07:12:43', '2024-08-24 07:14:42', '2024-08-24 07:12:43', '2024-08-24 07:14:42'),
+(507, 34, '2024-08-24 07:12:54', '2024-08-24 07:37:59', '2024-08-24 07:12:54', '2024-08-24 07:37:59'),
+(508, 34, '2024-08-24 07:45:28', '2024-08-24 07:59:45', '2024-08-24 07:45:28', '2024-08-24 07:59:45'),
+(509, 40, '2024-08-24 16:09:42', NULL, '2024-08-24 16:09:42', '2024-08-24 16:09:42'),
+(510, 44, '2024-08-24 16:43:04', '2024-08-24 16:44:29', '2024-08-24 16:43:04', '2024-08-24 16:44:29'),
+(511, 44, '2024-08-24 16:44:36', '2024-08-24 16:45:45', '2024-08-24 16:44:36', '2024-08-24 16:45:45'),
+(512, 44, '2024-08-24 16:48:30', '2024-08-24 17:03:42', '2024-08-24 16:48:30', '2024-08-24 17:03:42'),
+(513, 34, '2024-08-24 17:01:25', '2024-08-24 17:03:56', '2024-08-24 17:01:25', '2024-08-24 17:03:56'),
+(514, 34, '2024-08-24 17:05:08', NULL, '2024-08-24 17:05:08', '2024-08-24 17:05:08'),
+(515, 44, '2024-08-24 17:07:55', '2024-08-24 17:13:21', '2024-08-24 17:07:55', '2024-08-24 17:13:21'),
+(516, 34, '2024-08-24 17:11:14', '2024-08-24 17:19:01', '2024-08-24 17:11:14', '2024-08-24 17:19:01'),
+(517, 44, '2024-08-24 17:13:31', '2024-08-24 17:14:41', '2024-08-24 17:13:31', '2024-08-24 17:14:41'),
+(518, 34, '2024-08-24 17:19:21', '2024-08-24 17:35:29', '2024-08-24 17:19:21', '2024-08-24 17:35:29'),
+(519, 44, '2024-08-24 21:40:27', '2024-08-24 21:42:03', '2024-08-24 21:40:27', '2024-08-24 21:42:03'),
+(520, 44, '2024-08-24 23:52:57', NULL, '2024-08-24 23:52:57', '2024-08-24 23:52:57'),
+(521, 34, '2024-08-25 02:24:36', '2024-08-25 02:45:18', '2024-08-25 02:24:36', '2024-08-25 02:45:18'),
+(522, 34, '2024-08-25 02:46:34', '2024-08-25 02:53:44', '2024-08-25 02:46:34', '2024-08-25 02:53:44'),
+(523, 34, '2024-08-25 02:54:05', '2024-08-25 02:55:24', '2024-08-25 02:54:05', '2024-08-25 02:55:24');
+INSERT INTO `time_logs` (`id`, `user_id`, `start_time`, `end_time`, `created_at`, `updated_at`) VALUES
+(524, 34, '2024-08-25 02:56:39', '2024-08-25 02:58:12', '2024-08-25 02:56:39', '2024-08-25 02:58:12'),
+(525, 34, '2024-08-25 03:01:28', '2024-08-25 03:21:37', '2024-08-25 03:01:28', '2024-08-25 03:21:37'),
+(526, 34, '2024-08-25 03:21:51', '2024-08-25 03:29:23', '2024-08-25 03:21:51', '2024-08-25 03:29:23'),
+(527, 34, '2024-08-25 03:29:52', '2024-08-25 03:36:44', '2024-08-25 03:29:52', '2024-08-25 03:36:44'),
+(528, 44, '2024-08-25 04:40:00', '2024-08-25 04:41:26', '2024-08-25 04:40:00', '2024-08-25 04:41:26'),
+(529, 34, '2024-08-25 04:40:18', '2024-08-25 04:41:47', '2024-08-25 04:40:18', '2024-08-25 04:41:47'),
+(530, 34, '2024-08-25 04:42:12', '2024-08-25 05:09:08', '2024-08-25 04:42:12', '2024-08-25 05:09:08'),
+(531, 44, '2024-08-25 04:50:19', '2024-08-25 04:51:26', '2024-08-25 04:50:19', '2024-08-25 04:51:26'),
+(532, 44, '2024-08-25 04:58:04', '2024-08-25 04:59:11', '2024-08-25 04:58:04', '2024-08-25 04:59:11'),
+(533, 44, '2024-08-25 04:59:27', '2024-08-25 05:01:29', '2024-08-25 04:59:27', '2024-08-25 05:01:29'),
+(534, 44, '2024-08-25 05:08:33', '2024-08-25 05:10:06', '2024-08-25 05:08:33', '2024-08-25 05:10:06'),
+(535, 44, '2024-08-25 05:18:41', '2024-08-25 05:20:13', '2024-08-25 05:18:41', '2024-08-25 05:20:13'),
+(536, 44, '2024-08-25 05:22:29', '2024-08-25 05:31:05', '2024-08-25 05:22:29', '2024-08-25 05:31:05'),
+(537, 44, '2024-08-25 05:32:25', '2024-08-25 05:35:51', '2024-08-25 05:32:25', '2024-08-25 05:35:51'),
+(538, 44, '2024-08-25 05:35:54', '2024-08-25 05:37:30', '2024-08-25 05:35:54', '2024-08-25 05:37:30'),
+(539, 34, '2024-08-25 01:59:15', '2024-08-25 02:31:52', '2024-08-25 05:59:15', '2024-08-25 06:31:52'),
+(540, 34, '2024-08-25 03:27:26', '2024-08-25 03:37:12', '2024-08-25 07:27:26', '2024-08-25 07:37:12'),
+(541, 34, '2024-08-25 03:38:57', '2024-08-25 03:40:19', '2024-08-25 07:38:57', '2024-08-25 07:40:19'),
+(542, 44, '2024-08-25 03:41:31', '2024-08-25 03:57:15', '2024-08-25 07:41:31', '2024-08-25 07:57:15'),
+(543, 34, '2024-08-25 03:58:39', '2024-08-25 04:07:10', '2024-08-25 07:58:39', '2024-08-25 08:07:10'),
+(544, 34, '2024-08-25 04:07:29', '2024-08-25 04:27:02', '2024-08-25 08:07:29', '2024-08-25 08:27:02'),
+(545, 44, '2024-08-25 15:48:30', '2024-08-25 15:49:32', '2024-08-25 19:48:30', '2024-08-25 19:49:32'),
+(546, 44, '2024-08-25 15:51:02', '2024-08-25 16:06:44', '2024-08-25 19:51:02', '2024-08-25 20:06:44'),
+(547, 44, '2024-08-25 19:01:44', '2024-08-25 19:03:51', '2024-08-25 23:01:44', '2024-08-25 23:03:51'),
+(548, 44, '2024-08-25 19:06:16', '2024-08-25 19:15:33', '2024-08-25 23:06:16', '2024-08-25 23:15:33'),
+(549, 44, '2024-08-25 19:25:04', NULL, '2024-08-25 23:25:04', '2024-08-25 23:25:04'),
+(550, 40, '2024-08-29 14:42:46', '2024-08-29 14:43:48', '2024-08-29 18:42:46', '2024-08-29 18:43:48'),
+(551, 44, '2024-08-30 06:16:44', '2024-08-30 06:36:52', '2024-08-30 10:16:44', '2024-08-30 10:36:52'),
+(552, 44, '2024-08-30 06:40:17', '2024-08-30 06:50:51', '2024-08-30 10:40:17', '2024-08-30 10:50:51'),
+(553, 44, '2024-08-30 06:50:56', '2024-08-30 07:07:24', '2024-08-30 10:50:56', '2024-08-30 11:07:24'),
+(554, 44, '2024-08-30 07:58:52', '2024-08-30 08:20:29', '2024-08-30 11:58:52', '2024-08-30 12:20:29'),
+(555, 44, '2024-08-30 16:28:11', '2024-08-30 16:43:49', '2024-08-30 20:28:11', '2024-08-30 20:43:49'),
+(556, 34, '2024-08-30 23:56:08', '2024-08-31 00:03:23', '2024-08-31 03:56:08', '2024-08-31 04:03:23'),
+(557, 34, '2024-08-31 00:19:31', '2024-08-31 00:22:39', '2024-08-31 04:19:31', '2024-08-31 04:22:39'),
+(558, 34, '2024-08-31 00:33:35', '2024-08-31 00:52:02', '2024-08-31 04:33:35', '2024-08-31 04:52:02'),
+(559, 34, '2024-08-31 01:04:00', '2024-08-31 01:09:35', '2024-08-31 05:04:00', '2024-08-31 05:09:35'),
+(560, 34, '2024-08-31 01:12:01', '2024-08-31 01:17:32', '2024-08-31 05:12:01', '2024-08-31 05:17:32'),
+(561, 34, '2024-08-31 01:21:48', '2024-08-31 01:27:34', '2024-08-31 05:21:48', '2024-08-31 05:27:34'),
+(562, 34, '2024-08-31 01:28:17', '2024-08-31 01:45:21', '2024-08-31 05:28:17', '2024-08-31 05:45:21'),
+(563, 34, '2024-08-31 01:58:30', '2024-08-31 02:10:53', '2024-08-31 05:58:30', '2024-08-31 06:10:53'),
+(564, 34, '2024-08-31 02:12:15', '2024-08-31 02:34:41', '2024-08-31 06:12:15', '2024-08-31 06:34:41'),
+(565, 44, '2024-09-01 22:41:22', '2024-09-01 22:58:37', '2024-09-02 02:41:22', '2024-09-02 02:58:37'),
+(566, 44, '2024-09-02 09:34:37', '2024-09-02 09:46:28', '2024-09-02 13:34:37', '2024-09-02 13:46:28'),
+(567, 44, '2024-09-02 09:53:17', NULL, '2024-09-02 13:53:17', '2024-09-02 13:53:17'),
+(568, 44, '2024-09-02 09:56:28', '2024-09-02 09:57:34', '2024-09-02 13:56:28', '2024-09-02 13:57:34'),
+(569, 34, '2024-09-02 10:40:38', '2024-09-02 10:43:18', '2024-09-02 14:40:38', '2024-09-02 14:43:18'),
+(570, 44, '2024-09-02 11:09:24', '2024-09-02 11:15:52', '2024-09-02 15:09:24', '2024-09-02 15:15:52'),
+(571, 34, '2024-09-02 11:17:58', '2024-09-02 11:32:58', '2024-09-02 15:17:58', '2024-09-02 15:32:58'),
+(572, 44, '2024-09-02 11:24:09', '2024-09-02 11:25:24', '2024-09-02 15:24:09', '2024-09-02 15:25:24'),
+(573, 34, '2024-09-02 11:36:56', '2024-09-02 12:01:09', '2024-09-02 15:36:56', '2024-09-02 16:01:09'),
+(574, 44, '2024-09-02 12:15:20', '2024-09-02 12:27:56', '2024-09-02 16:15:20', '2024-09-02 16:27:56'),
+(575, 44, '2024-09-02 12:28:25', '2024-09-02 12:34:32', '2024-09-02 16:28:25', '2024-09-02 16:34:32'),
+(576, 33, '2024-09-02 12:34:37', '2024-09-02 12:41:24', '2024-09-02 16:34:37', '2024-09-02 16:41:24'),
+(577, 33, '2024-09-02 12:42:02', '2024-09-02 12:44:44', '2024-09-02 16:42:02', '2024-09-02 16:44:44'),
+(578, 33, '2024-09-02 12:44:46', '2024-09-02 12:53:01', '2024-09-02 16:44:46', '2024-09-02 16:53:01'),
+(579, 33, '2024-09-02 12:55:47', '2024-09-02 13:14:59', '2024-09-02 16:55:47', '2024-09-02 17:14:59'),
+(580, 33, '2024-09-02 18:04:33', '2024-09-02 18:16:09', '2024-09-02 22:04:33', '2024-09-02 22:16:09'),
+(581, 33, '2024-09-02 18:16:15', '2024-09-02 18:21:24', '2024-09-02 22:16:15', '2024-09-02 22:21:24'),
+(582, 44, '2024-09-02 18:25:21', '2024-09-02 18:43:19', '2024-09-02 22:25:21', '2024-09-02 22:43:19'),
+(583, 44, '2024-09-03 00:28:52', '2024-09-03 00:42:00', '2024-09-03 04:28:52', '2024-09-03 04:42:00'),
+(584, 34, '2024-09-03 00:34:28', '2024-09-03 00:40:59', '2024-09-03 04:34:28', '2024-09-03 04:40:59'),
+(585, 34, '2024-09-03 00:41:41', '2024-09-03 00:46:12', '2024-09-03 04:41:41', '2024-09-03 04:46:12'),
+(586, 44, '2024-09-03 00:42:26', '2024-09-03 00:45:24', '2024-09-03 04:42:26', '2024-09-03 04:45:24'),
+(587, 44, '2024-09-03 00:48:37', '2024-09-03 00:50:34', '2024-09-03 04:48:37', '2024-09-03 04:50:34'),
+(588, 34, '2024-09-03 01:02:07', '2024-09-03 01:03:52', '2024-09-03 05:02:07', '2024-09-03 05:03:52'),
+(589, 34, '2024-09-03 01:09:32', NULL, '2024-09-03 05:09:32', '2024-09-03 05:09:32'),
+(590, 40, '2024-09-03 09:34:16', '2024-09-03 09:37:28', '2024-09-03 13:34:16', '2024-09-03 13:37:28'),
+(591, 40, '2024-09-03 09:38:12', '2024-09-03 09:39:22', '2024-09-03 13:38:12', '2024-09-03 13:39:22'),
+(592, 40, '2024-09-03 09:39:43', '2024-09-03 09:40:44', '2024-09-03 13:39:43', '2024-09-03 13:40:44'),
+(593, 40, '2024-09-03 09:49:28', '2024-09-03 09:55:39', '2024-09-03 13:49:28', '2024-09-03 13:55:39'),
+(594, 40, '2024-09-03 10:00:14', '2024-09-03 10:07:56', '2024-09-03 14:00:14', '2024-09-03 14:07:56'),
+(595, 40, '2024-09-03 10:48:30', '2024-09-03 11:17:07', '2024-09-03 14:48:30', '2024-09-03 15:17:07'),
+(596, 40, '2024-09-03 11:33:44', '2024-09-03 11:49:18', '2024-09-03 15:33:44', '2024-09-03 15:49:18'),
+(597, 44, '2024-09-03 16:27:22', '2024-09-03 16:28:22', '2024-09-03 20:27:22', '2024-09-03 20:28:22'),
+(598, 34, '2024-09-03 22:10:58', '2024-09-03 22:27:30', '2024-09-04 02:10:58', '2024-09-04 02:27:30'),
+(599, 34, '2024-09-03 22:30:52', '2024-09-03 22:35:56', '2024-09-04 02:30:52', '2024-09-04 02:35:56'),
+(600, 44, '2024-09-03 22:40:23', '2024-09-03 22:41:33', '2024-09-04 02:40:23', '2024-09-04 02:41:33'),
+(601, 34, '2024-09-03 22:59:33', '2024-09-03 23:00:36', '2024-09-04 02:59:33', '2024-09-04 03:00:36'),
+(602, 44, '2024-09-03 23:45:52', '2024-09-03 23:56:21', '2024-09-04 03:45:52', '2024-09-04 03:56:21'),
+(603, 44, '2024-09-03 23:59:04', '2024-09-04 00:03:22', '2024-09-04 03:59:04', '2024-09-04 04:03:22'),
+(604, 44, '2024-09-04 00:03:32', '2024-09-04 00:12:42', '2024-09-04 04:03:32', '2024-09-04 04:12:42'),
+(605, 34, '2024-09-04 00:15:10', '2024-09-04 00:30:48', '2024-09-04 04:15:10', '2024-09-04 04:30:48'),
+(606, 34, '2024-09-04 00:42:06', '2024-09-04 00:58:06', '2024-09-04 04:42:06', '2024-09-04 04:58:06'),
+(607, 34, '2024-09-04 01:26:36', '2024-09-04 01:42:58', '2024-09-04 05:26:36', '2024-09-04 05:42:58'),
+(608, 44, '2024-09-04 09:13:35', '2024-09-04 09:45:30', '2024-09-04 13:13:35', '2024-09-04 13:45:30'),
+(609, 34, '2024-09-04 09:22:58', '2024-09-04 09:25:21', '2024-09-04 13:22:58', '2024-09-04 13:25:21'),
+(610, 34, '2024-09-04 09:28:18', '2024-09-04 09:42:14', '2024-09-04 13:28:18', '2024-09-04 13:42:14'),
+(611, 44, '2024-09-04 09:49:37', '2024-09-04 09:57:44', '2024-09-04 13:49:37', '2024-09-04 13:57:44'),
+(612, 44, '2024-09-04 09:59:16', '2024-09-04 10:01:54', '2024-09-04 13:59:16', '2024-09-04 14:01:54'),
+(613, 34, '2024-09-04 10:02:23', '2024-09-04 10:04:29', '2024-09-04 14:02:23', '2024-09-04 14:04:29'),
+(614, 34, '2024-09-04 10:08:54', '2024-09-04 10:11:09', '2024-09-04 14:08:54', '2024-09-04 14:11:09'),
+(615, 44, '2024-09-04 10:11:51', '2024-09-04 10:13:20', '2024-09-04 14:11:51', '2024-09-04 14:13:20'),
+(616, 44, '2024-09-04 10:15:47', '2024-09-04 10:17:09', '2024-09-04 14:15:47', '2024-09-04 14:17:09'),
+(617, 44, '2024-09-04 10:18:43', '2024-09-04 10:21:00', '2024-09-04 14:18:43', '2024-09-04 14:21:00'),
+(618, 34, '2024-09-04 10:20:05', '2024-09-04 10:38:15', '2024-09-04 14:20:05', '2024-09-04 14:38:15'),
+(619, 44, '2024-09-04 10:32:07', '2024-09-04 10:33:37', '2024-09-04 14:32:07', '2024-09-04 14:33:37'),
+(620, 44, '2024-09-04 10:33:41', '2024-09-04 10:35:48', '2024-09-04 14:33:41', '2024-09-04 14:35:48'),
+(621, 44, '2024-09-04 10:36:01', '2024-09-04 10:39:10', '2024-09-04 14:36:01', '2024-09-04 14:39:10'),
+(622, 44, '2024-09-04 10:40:52', '2024-09-04 10:41:57', '2024-09-04 14:40:52', '2024-09-04 14:41:57'),
+(623, 44, '2024-09-04 10:48:01', '2024-09-04 10:52:55', '2024-09-04 14:48:01', '2024-09-04 14:52:55'),
+(624, 34, '2024-09-04 10:50:53', '2024-09-04 10:56:08', '2024-09-04 14:50:53', '2024-09-04 14:56:08'),
+(625, 44, '2024-09-04 10:58:50', '2024-09-04 11:11:53', '2024-09-04 14:58:50', '2024-09-04 15:11:53'),
+(626, 34, '2024-09-04 11:01:06', '2024-09-04 11:09:58', '2024-09-04 15:01:06', '2024-09-04 15:09:58'),
+(627, 44, '2024-09-04 11:13:36', '2024-09-04 11:17:39', '2024-09-04 15:13:36', '2024-09-04 15:17:39'),
+(628, 34, '2024-09-04 11:18:24', '2024-09-04 11:39:42', '2024-09-04 15:18:24', '2024-09-04 15:39:42'),
+(629, 44, '2024-09-04 11:19:27', '2024-09-04 11:20:33', '2024-09-04 15:19:27', '2024-09-04 15:20:33'),
+(630, 44, '2024-09-04 11:23:12', '2024-09-04 11:24:17', '2024-09-04 15:23:12', '2024-09-04 15:24:17'),
+(631, 44, '2024-09-04 11:25:35', '2024-09-04 11:26:54', '2024-09-04 15:25:35', '2024-09-04 15:26:54'),
+(632, 44, '2024-09-04 11:32:36', '2024-09-04 11:39:34', '2024-09-04 15:32:36', '2024-09-04 15:39:34'),
+(633, 44, '2024-09-04 11:41:20', '2024-09-04 11:42:32', '2024-09-04 15:41:20', '2024-09-04 15:42:32'),
+(634, 40, '2024-09-04 12:22:20', '2024-09-04 12:39:41', '2024-09-04 16:22:20', '2024-09-04 16:39:41'),
+(635, 40, '2024-09-04 12:39:50', '2024-09-04 12:41:45', '2024-09-04 16:39:50', '2024-09-04 16:41:45'),
+(636, 40, '2024-09-04 12:53:47', '2024-09-04 13:09:23', '2024-09-04 16:53:47', '2024-09-04 17:09:23'),
+(637, 40, '2024-09-04 13:16:33', '2024-09-04 13:18:41', '2024-09-04 17:16:33', '2024-09-04 17:18:41'),
+(638, 40, '2024-09-04 13:19:13', '2024-09-04 13:34:19', '2024-09-04 17:19:13', '2024-09-04 17:34:19'),
+(639, 34, '2024-09-05 05:46:10', '2024-09-05 05:56:10', '2024-09-05 09:46:10', '2024-09-05 09:56:10'),
+(640, 44, '2024-09-05 06:51:21', '2024-09-05 07:13:21', '2024-09-05 10:51:21', '2024-09-05 11:13:21'),
+(641, 44, '2024-09-05 07:42:08', '2024-09-05 07:48:06', '2024-09-05 11:42:08', '2024-09-05 11:48:06'),
+(642, 44, '2024-09-05 07:55:39', '2024-09-05 07:56:51', '2024-09-05 11:55:39', '2024-09-05 11:56:51'),
+(643, 44, '2024-09-05 07:57:11', '2024-09-05 07:58:14', '2024-09-05 11:57:11', '2024-09-05 11:58:14'),
+(644, 44, '2024-09-05 07:58:50', '2024-09-05 07:59:52', '2024-09-05 11:58:50', '2024-09-05 11:59:52'),
+(645, 44, '2024-09-05 08:00:44', '2024-09-05 08:02:25', '2024-09-05 12:00:44', '2024-09-05 12:02:25'),
+(646, 44, '2024-09-05 08:03:46', '2024-09-05 08:05:21', '2024-09-05 12:03:46', '2024-09-05 12:05:21'),
+(647, 44, '2024-09-05 08:05:31', NULL, '2024-09-05 12:05:31', '2024-09-05 12:05:31'),
+(648, 34, '2024-09-05 08:07:05', '2024-09-05 08:41:12', '2024-09-05 12:07:05', '2024-09-05 12:41:12'),
+(649, 44, '2024-09-05 08:15:23', '2024-09-05 08:16:37', '2024-09-05 12:15:23', '2024-09-05 12:16:37'),
+(650, 44, '2024-09-05 08:16:42', '2024-09-05 08:17:57', '2024-09-05 12:16:42', '2024-09-05 12:17:57'),
+(651, 44, '2024-09-05 08:19:15', '2024-09-05 08:20:34', '2024-09-05 12:19:15', '2024-09-05 12:20:34'),
+(652, 44, '2024-09-05 08:27:32', NULL, '2024-09-05 12:27:32', '2024-09-05 12:27:32');
 
 -- --------------------------------------------------------
 
@@ -3246,6 +4503,7 @@ INSERT INTO `time_logs` (`id`, `user_id`, `start_time`, `end_time`, `created_at`
 CREATE TABLE `users` (
   `id` int(10) UNSIGNED NOT NULL,
   `account_type` varchar(255) DEFAULT NULL,
+  `last_seen` timestamp NULL DEFAULT NULL,
   `price` varchar(255) DEFAULT NULL,
   `role` int(11) DEFAULT 2,
   `permissions` varchar(255) DEFAULT NULL,
@@ -3261,7 +4519,6 @@ CREATE TABLE `users` (
   `location` varchar(255) DEFAULT NULL,
   `department` varchar(255) DEFAULT NULL,
   `store` varchar(255) DEFAULT NULL,
-  `last_seen` timestamp NULL DEFAULT NULL,
   `is_online` tinyint(4) DEFAULT 0,
   `is_active` tinyint(4) DEFAULT 1,
   `status` int(11) DEFAULT 1,
@@ -3287,19 +4544,19 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `account_type`, `price`, `role`, `permissions`, `name`, `email`, `email_verified_at`, `password`, `custom_password`, `mobile_number`, `city`, `categories`, `alter_mobile_number`, `location`, `department`, `store`, `last_seen`, `is_online`, `is_active`, `status`, `about`, `photo_url`, `profile_photo`, `remember_token`, `ip_address`, `balance`, `is_system`, `is_subscribed`, `privacy`, `gender`, `created_by`, `deleted_at`, `language`, `is_super_admin`, `created_at`, `updated_at`) VALUES
-(1, 'admin', NULL, 1, NULL, 'SUPER ADMINISTRADOR', 'brosbikebros@gmail.com', '2023-03-23 07:45:02', '$2y$10$JwWeMW9Bor7BOTT32MwwFOOKvFV8kqqk99PbHQtezyrl1Ky3KCp.2', NULL, '8878326802', 'bolivia', NULL, NULL, NULL, NULL, NULL, '2024-07-17 00:49:48', 1, 1, 1, NULL, NULL, '149071.png', NULL, NULL, NULL, 1, 0, 1, 1, NULL, NULL, 'es', 1, '2023-03-23 07:45:02', '2024-07-17 00:49:48'),
-(33, NULL, 'price2', 2, NULL, 'Juan', 'adminer@gmail.com', '2023-03-23 07:45:02', 'citas.social12323', NULL, '4353535353', 'ythgfh', '7,9,14', '45677890', 'dfgfdghdf', 'Oruro', 'xiu', '2024-07-16 21:54:22', 1, 1, 1, NULL, NULL, 'Screenshot (18).png', NULL, '189.28.76.199', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-27 05:18:44', '2024-07-16 21:54:22'),
-(34, NULL, 'price4', 2, NULL, 'Aasif Ahmed', 'arstech2a@gmail.com', '2023-03-23 07:45:02', 'Berlin@3sss', NULL, NULL, 'Indore', '7,9,14,15', '987643210', 'Indore', 'medical', 'arsmedicap', '2024-07-17 00:11:30', 1, 1, 1, NULL, NULL, NULL, NULL, '2409:40c4:16f:29ec:9964:56de:485b:29c0', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-27 05:47:33', '2024-07-17 00:11:30'),
-(35, NULL, 'price5', 2, NULL, 'Aasif Ahmed', 'sdafsfsdafsdafsdf@cfgdf.cvo', NULL, 'sdafsdfsdfsdfdsfsdaf', NULL, NULL, 'Indore', 'motorcycle', 'sadfsdfsdfdsafdsf', 'sdffsadfsdfa', 'sdafdsafsaf', 'sdfssdf', NULL, 0, 1, 1, NULL, NULL, NULL, NULL, '2409:40c4:16f:29ec:9964:56de:485b:29c0', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-27 05:54:00', '2024-06-27 05:54:00'),
-(36, NULL, 'price2', 2, NULL, 'sdfsfs', 'ccfgdfgdgd@sdfs', NULL, 'dfgfdgdfgfdgfgfdg', NULL, NULL, 'fdggfdgdgd', 'loadline', 'dfgdgdgg', 'gdgdgfdgfdgfd', 'dfdsfsfs', 'dsfsfsfsdfd', NULL, 0, 1, 1, NULL, NULL, NULL, NULL, '2409:40c4:16f:29ec:9964:56de:485b:29c0', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-27 07:35:58', '2024-06-27 07:35:58'),
-(38, NULL, 'price5', 2, NULL, 'sdf', 'dsfdssdf@dfsfftgdr', '2024-06-27 15:36:10', 'dfgdgdfgdgdgd', NULL, NULL, 'sdfsfsfd', 'motorcycle', 'dfgdgdfgdfgfdgf', 'sdfsffsff', 'sdsf', 'sdfsfsd', NULL, 0, 1, 1, NULL, NULL, '', NULL, '2409:40c4:16f:29ec:9964:56de:485b:29c0', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-27 15:36:10', '2024-06-27 15:36:10'),
-(39, NULL, 'price1', 2, NULL, 'Usuario Prueba', 'userprueba@gmail.com', '2024-06-28 16:55:29', 'user.prueba123', NULL, '4353535353sda', 'La PAz', '7,14', '54567865', 'La Paz', 'LA PAz', 'Tienda1', '2024-07-05 18:20:15', 1, 1, 1, NULL, NULL, '', NULL, '2409:40c4:11cc:430f:3512:e55f:2aa4:26b0', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-28 16:55:29', '2024-07-05 18:20:15'),
-(40, NULL, 'price5', 2, NULL, 'Maribel Prueba', 'ml.urquizo@gmail.com', '2024-06-28 17:11:50', 'Mari12345', NULL, '888999', 'La Paz', '7,9,14,15', '7889999', 'Plaza Scout', 'La Paz', 'Bk', '2024-07-17 00:58:25', 1, 1, 1, NULL, NULL, '', NULL, '190.129.166.100', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-28 17:11:50', '2024-07-17 00:58:25'),
-(41, NULL, 'price1', 2, NULL, 'Ivan prueba precio 1 BICICLETA', '1iayalaq1@gmail.com', '2024-06-28 23:20:52', '9207111', NULL, '7655', 'LA PAZ', '7,14', '2841594', 'RIO SECEO #100, FRENTE AL HOSPITAL DEL NORTE', 'EL ALTO', 'BIKECENTER', '2024-07-03 03:32:00', 1, 1, 1, NULL, NULL, '', NULL, '189.28.92.132', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-28 23:20:52', '2024-07-03 03:32:00'),
-(42, NULL, 'price4', 2, NULL, 'dsfdsfdsfsdfsdfsd', 'ddsfsdf@sfsdfsdfsefsdfs', '2024-06-29 05:09:22', 'fsdfsdfdsdfgfdgdfgfdgd', NULL, '9589642080', 'fsdfsddsfdsfsddsfsdfsdsdsd', '7,9', 'sdfsdfererwesererwe', 'sdsdfsddssdsdfdxdffg', 'vxcfvsdfsdfsdfsdfsdfsdfsd', 'fsfdsfsdfsdfsdfsddsfdfsdd', '2024-06-30 04:56:44', 1, 1, 1, NULL, NULL, '', NULL, '2409:40c4:11cc:430f:3512:e55f:2aa4:26b0', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-29 05:09:22', '2024-06-30 04:56:44'),
-(43, NULL, 'price4', 2, NULL, 'das', 'brosbikebros23@gmail.com', '2024-06-29 11:28:15', 'bike.bros12323', NULL, NULL, 'dsfdsf', '9,14,15', '43534567', 'iewwui', 'ssfs', 'das', '2024-06-30 05:21:40', 1, 1, 1, NULL, NULL, '', NULL, '2800:cd0:4252:de00:917e:5d66:f6b:79f7', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-29 11:28:15', '2024-06-30 05:21:40'),
-(44, NULL, 'price5', 2, NULL, 'Ivan', 'jago1410@gmail.com', '2024-07-10 07:57:15', 'bike.bros123', NULL, NULL, 'La Paz', '7,9,14,15', '78999098', 'La Paz', 'La Paz', 'Nose', '2024-07-16 22:42:31', 1, 1, 1, NULL, NULL, '', NULL, '189.28.76.199', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-07-10 07:57:15', '2024-07-16 22:42:31');
+INSERT INTO `users` (`id`, `account_type`, `last_seen`, `price`, `role`, `permissions`, `name`, `email`, `email_verified_at`, `password`, `custom_password`, `mobile_number`, `city`, `categories`, `alter_mobile_number`, `location`, `department`, `store`, `is_online`, `is_active`, `status`, `about`, `photo_url`, `profile_photo`, `remember_token`, `ip_address`, `balance`, `is_system`, `is_subscribed`, `privacy`, `gender`, `created_by`, `deleted_at`, `language`, `is_super_admin`, `created_at`, `updated_at`) VALUES
+(1, 'admin', '2024-09-05 11:46:48', NULL, 1, NULL, 'SUPER ADMINISTRADOR', 'brosbikebros@gmail.com', '2023-03-23 07:45:02', '$2y$10$DgLFdOuhPuObgVJb5z0s0eIom2CdNnqg.nLDsrMlegD7HY41R/AMa', NULL, '8878326802', 'bolivia', NULL, NULL, NULL, NULL, NULL, 1, 1, 1, NULL, NULL, '149071.png', NULL, NULL, NULL, 1, 0, 1, 1, NULL, NULL, 'es', 1, '2023-03-23 07:45:02', '2024-09-05 11:46:48'),
+(33, NULL, '2024-09-02 18:21:24', 'price2', 2, NULL, 'Juan', 'adminer@gmail.com', '2023-03-23 07:45:02', 'citas.social12323', NULL, '4353535353', 'ythgfh', '7,9,14', '45677890', 'dfgfdghdf', 'Oruro', 'xiu', 0, 1, 1, NULL, NULL, 'Screenshot (18).png', NULL, '2001:1388:5e21:2cac:5845:41b7:8a11:fa6c', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-27 05:18:44', '2024-09-02 22:21:24'),
+(34, NULL, '2024-09-05 08:41:12', 'price4', 2, NULL, 'Aasif Ahmed', 'arstech2a@gmail.com', '2023-03-23 07:45:02', 'Berlin@3sss', NULL, '4353535353', 'Indore', '7,9,14,15,19', '987643210', 'Indore', 'medical', 'arsmedicap', 0, 1, 1, NULL, NULL, NULL, NULL, '2409:40c4:16f:b9b8:1064:80aa:56e2:ec17', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-27 05:47:33', '2024-09-05 12:41:12'),
+(35, NULL, NULL, 'price5', 2, NULL, 'sdafsfsdafsdafsdf', 'sdafsfsdafsdafsdf@cfgdf.cvo', NULL, 'sdafsdfsdfsdfdsfsdaf', NULL, NULL, 'Indore', 'motorcycle', 'sadfsdfsdfdsafdsf', 'sdffsadfsdfa', 'sdafdsafsaf', 'sdfssdf', 0, 1, 1, NULL, NULL, NULL, NULL, '2409:40c4:16f:29ec:9964:56de:485b:29c0', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-27 05:54:00', '2024-06-27 05:54:00'),
+(36, NULL, NULL, 'price2', 2, NULL, 'sdfsfs', 'ccfgdfgdgd@sdfs', NULL, 'dfgfdgdfgfdgfgfdg', NULL, NULL, 'fdggfdgdgd', 'loadline', 'dfgdgdgg', 'gdgdgfdgfdgfd', 'dfdsfsfs', 'dsfsfsfsdfd', 0, 1, 1, NULL, NULL, NULL, NULL, '2409:40c4:16f:29ec:9964:56de:485b:29c0', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-27 07:35:58', '2024-06-27 07:35:58'),
+(38, NULL, NULL, 'price5', 2, NULL, 'sdf', 'dsfdssdf@dfsfftgdr', '2024-06-27 15:36:10', 'dfgdgdfgdgdgd', NULL, NULL, 'sdfsfsfd', 'motorcycle', 'dfgdgdfgdfgfdgf', 'sdfsffsff', 'sdsf', 'sdfsfsd', 0, 1, 1, NULL, NULL, '', NULL, '2409:40c4:16f:29ec:9964:56de:485b:29c0', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-27 15:36:10', '2024-06-27 15:36:10'),
+(39, NULL, '2024-07-05 18:20:15', 'price1', 2, NULL, 'Usuario Prueba', 'userprueba@gmail.com', '2024-06-28 16:55:29', 'user.prueba123', NULL, '4353535353sda', 'La PAz', '7,14', '54567865', 'La Paz', 'LA PAz', 'Tienda1', 1, 1, 1, NULL, NULL, '', NULL, '2409:40c4:11cc:430f:3512:e55f:2aa4:26b0', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-28 16:55:29', '2024-07-05 18:20:15'),
+(40, NULL, '2024-09-04 13:34:19', 'price5', 2, NULL, 'Maribel Prueba', 'ml.urquizo@gmail.com', '2024-06-28 17:11:50', '12345', NULL, '888999', 'La Paz', '7,9,14,15,26', '7889999', 'Plaza Scout', 'La Paz', 'Bk', 0, 1, 1, NULL, NULL, '', NULL, '2800:cd0:180a:7200:e422:f4f8:fecd:5b7b', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-28 17:11:50', '2024-09-04 17:34:19'),
+(41, NULL, '2024-07-24 03:58:45', 'price1', 2, NULL, 'Ivan prueba precio 1 BICICLETA', '1iayalaq1@gmail.com', '2024-06-28 23:20:52', '9207111', NULL, '7655', 'LA PAZ', '7,14', '2841594', 'RIO SECEO #100, FRENTE AL HOSPITAL DEL NORTE', 'EL ALTO', 'BIKECENTER', 1, 1, 1, NULL, NULL, '', NULL, '189.28.92.132', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-28 23:20:52', '2024-07-24 03:58:45'),
+(42, NULL, '2024-06-30 04:56:44', 'price4', 2, NULL, 'dsfdsfdsfsdfsdfsd', 'ddsfsdf@sfsdfsdfsefsdfs', '2024-06-29 05:09:22', 'fsdfsdfdsdfgfdgdfgfdgd', NULL, '9589642080', 'fsdfsddsfdsfsddsfsdfsdsdsd', '7,9', 'sdfsdfererwesererwe', 'sdsdfsddssdsdfdxdffg', 'vxcfvsdfsdfsdfsdfsdfsdfsd', 'fsfdsfsdfsdfsdfsddsfdfsdd', 1, 1, 1, NULL, NULL, '', NULL, '2409:40c4:11cc:430f:3512:e55f:2aa4:26b0', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-29 05:09:22', '2024-06-30 04:56:44'),
+(43, NULL, '2024-06-30 05:21:40', 'price4', 2, NULL, 'das', 'brosbikebros23@gmail.com', '2024-06-29 11:28:15', 'bike.bros12323', NULL, NULL, 'dsfdsf', '9,14,15', '43534567', 'iewwui', 'ssfs', 'das', 1, 1, 1, NULL, NULL, '', NULL, '2800:cd0:4252:de00:917e:5d66:f6b:79f7', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-06-29 11:28:15', '2024-06-30 05:21:40'),
+(44, NULL, '2024-09-05 12:27:32', 'price5', 2, NULL, 'Ivan', 'jago1410@gmail.com', '2024-07-10 07:57:15', 'bike.bros123', NULL, '87666554', 'La Paz', '7,9,14,15,19,20', '78999098', 'La Paz', 'La Paz', 'Nose', 1, 1, 1, NULL, NULL, '', NULL, '177.222.36.247', NULL, 0, NULL, 1, NULL, NULL, NULL, '\'en\'', 0, '2024-07-10 07:57:15', '2024-09-05 12:27:32');
 
 -- --------------------------------------------------------
 
@@ -3323,7 +4580,9 @@ CREATE TABLE `wishlists` (
 
 INSERT INTO `wishlists` (`id`, `user_id`, `product_id`, `price`, `is_stock`, `created_at`, `updated_at`) VALUES
 (6, 33, 76, 20.00, 1, '2024-07-10 07:39:27', '2024-07-10 07:39:27'),
-(7, 44, 81, 98.00, 1, '2024-07-10 08:31:24', '2024-07-10 08:31:24');
+(7, 44, 81, 98.00, 1, '2024-07-10 08:31:24', '2024-07-10 08:31:24'),
+(14, 44, 16, 43.00, 1, '2024-08-24 06:45:28', '2024-08-24 06:45:28'),
+(15, 44, 17, 160.00, 1, '2024-08-24 07:12:58', '2024-08-24 07:12:58');
 
 --
 -- Indexes for dumped tables
@@ -3504,6 +4763,12 @@ ALTER TABLE `mail_templates`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `media`
+--
+ALTER TABLE `media`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `media_options`
 --
 ALTER TABLE `media_options`
@@ -3582,8 +4847,7 @@ ALTER TABLE `permissions`
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `products_slug_unique` (`slug`);
+  ADD KEY `id` (`id`) USING BTREE;
 
 --
 -- Indexes for table `product_reviews`
@@ -3596,7 +4860,6 @@ ALTER TABLE `product_reviews`
 --
 ALTER TABLE `product_variations`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `product_variations_sku_unique` (`sku`),
   ADD KEY `product_variations_product_id_foreign` (`product_id`);
 
 --
@@ -3641,6 +4904,12 @@ ALTER TABLE `screen_times`
 -- Indexes for table `settings`
 --
 ALTER TABLE `settings`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `sizes`
+--
+ALTER TABLE `sizes`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -3775,7 +5044,7 @@ ALTER TABLE `bank_details`
 -- AUTO_INCREMENT for table `banners`
 --
 ALTER TABLE `banners`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `billing_details`
@@ -3811,7 +5080,7 @@ ALTER TABLE `blog_tags`
 -- AUTO_INCREMENT for table `brands`
 --
 ALTER TABLE `brands`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `campaigns`
@@ -3823,13 +5092,13 @@ ALTER TABLE `campaigns`
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=413;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `chats`
@@ -3859,7 +5128,7 @@ ALTER TABLE `client_logos`
 -- AUTO_INCREMENT for table `colors`
 --
 ALTER TABLE `colors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `contact_us`
@@ -3910,6 +5179,12 @@ ALTER TABLE `mail_templates`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
+-- AUTO_INCREMENT for table `media`
+--
+ALTER TABLE `media`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+
+--
 -- AUTO_INCREMENT for table `media_options`
 --
 ALTER TABLE `media_options`
@@ -3937,13 +5212,13 @@ ALTER TABLE `notifications`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `our_histories`
@@ -3967,7 +5242,7 @@ ALTER TABLE `password_resets`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `payment_gateway`
@@ -3985,7 +5260,7 @@ ALTER TABLE `permissions`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=334;
 
 --
 -- AUTO_INCREMENT for table `product_reviews`
@@ -3997,7 +5272,7 @@ ALTER TABLE `product_reviews`
 -- AUTO_INCREMENT for table `product_variations`
 --
 ALTER TABLE `product_variations`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=236;
 
 --
 -- AUTO_INCREMENT for table `pro_categories`
@@ -4009,13 +5284,13 @@ ALTER TABLE `pro_categories`
 -- AUTO_INCREMENT for table `pro_images`
 --
 ALTER TABLE `pro_images`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=309;
 
 --
 -- AUTO_INCREMENT for table `related_products`
 --
 ALTER TABLE `related_products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -4027,13 +5302,19 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `screen_times`
 --
 ALTER TABLE `screen_times`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=584;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=767;
 
 --
 -- AUTO_INCREMENT for table `settings`
 --
 ALTER TABLE `settings`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=310;
+
+--
+-- AUTO_INCREMENT for table `sizes`
+--
+ALTER TABLE `sizes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `states`
@@ -4045,7 +5326,7 @@ ALTER TABLE `states`
 -- AUTO_INCREMENT for table `subcategories`
 --
 ALTER TABLE `subcategories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
 
 --
 -- AUTO_INCREMENT for table `support_ticket_questions`
@@ -4105,7 +5386,7 @@ ALTER TABLE `ticket_related_services`
 -- AUTO_INCREMENT for table `time_logs`
 --
 ALTER TABLE `time_logs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=653;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -4117,7 +5398,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `wishlists`
 --
 ALTER TABLE `wishlists`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Constraints for dumped tables

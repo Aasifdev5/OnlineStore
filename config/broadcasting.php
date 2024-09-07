@@ -31,15 +31,19 @@ return [
     'connections' => [
 
         'pusher' => [
-        'driver' => 'pusher',
-        'key' => env('PUSHER_APP_KEY'),
-        'secret' => env('PUSHER_APP_SECRET'),
-        'app_id' => env('PUSHER_APP_ID'),
-        'options' => [
-            'cluster' => env('PUSHER_APP_CLUSTER'),
-            'useTLS' => true,
+            'driver' => 'pusher',
+            'key' => get_option('pusher_app_key'),
+            'secret' => get_option('pusher_app_secret'),
+            'app_id' => get_option('pusher_app_id'),
+            'options' => [
+                'cluster' => 'ap2',
+                'useTLS' => true
+            ],
+            'client_options' => [
+                // Guzzle client options: https://docs.guzzlephp.org/en/stable/request-options.html
+            ],
         ],
-    ],
+
 
         'ably' => [
             'driver' => 'ably',

@@ -32,7 +32,7 @@ class OrderPlaced extends Mailable
     public function build()
     {
         return $this->view('emails.order_placed')
-                    ->subject('Your Order has been placed')
+                    ->subject('Su orden ha sido puesta')
                     ->with([
                         'order' => $this->order,
                     ]);

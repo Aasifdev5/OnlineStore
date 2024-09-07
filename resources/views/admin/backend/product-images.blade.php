@@ -1,6 +1,6 @@
 @extends('admin.Master')
 
-@section('title', __('Multiple Images'))
+@section('title', __('Varias imágenes'))
 
 @section('content')
     <div class="page-body">
@@ -15,12 +15,12 @@
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        {{ __('Multiple Images') }}
+                                        {{ __('Varias imágenes') }}
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="float-right">
                                             <a href="{{ route('backend.products') }}" class="btn btn-warning pull-right"><i
-                                                    class="fa fa-reply"></i> {{ __('Back to List') }}</a>
+                                                    class="fa fa-reply"></i> {{ __('Volver a la lista') }}</a>
                                         </div>
                                     </div>
                                 </div>
@@ -29,40 +29,40 @@
                                 <div class="col-lg-3" style="margin-top: 25px;">
                                     <div class="card">
                                         <div class="card-header">
-                                            {{ __('Product') }}
+                                            {{ __('Producto') }}
                                         </div>
                                         <ul class="nav flex-column nav-pills" id="myTab" role="tablist">
                                             <li class="nav-item">
                                                 <a class="nav-link " id="product-tab" data-toggle="tab"
                                                     href="{{ route('backend.product', [$datalist['id']]) }}" role="tab"
                                                     aria-controls="product" aria-selected="true"><i class="fa fa-truck"></i>
-                                                    {{ __('Product') }}</a>
+                                                    {{ __('Producto') }}</a>
                                             </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" id="price-tab" data-toggle="tab"
-                                                    href="{{ route('backend.price', [$datalist['id']]) }}" role="tab" aria-controls="price"
-                                                    aria-selected="false"><i class="fa fa-money"></i>
-                                                    {{ __('Discount Manage') }}</a>
-                                            </li>
+                                            <!--<li class="nav-item">-->
+                                            <!--    <a class="nav-link" id="price-tab" data-toggle="tab"-->
+                                            <!--        href="{{ route('backend.price', [$datalist['id']]) }}" role="tab" aria-controls="price"-->
+                                            <!--        aria-selected="false"><i class="fa fa-money"></i>-->
+                                            <!--        {{ __('Discount Manage') }}</a>-->
+                                            <!--</li>-->
                                             <li class="nav-item">
                                                 <a class="nav-link" id="inventory-tab" data-toggle="tab"
                                                     href="{{ route('backend.inventory', [$datalist['id']]) }}" role="tab"
                                                     aria-controls="inventory" aria-selected="false"><i
-                                                        class="fa fa-balance-scale"></i> {{ __('Inventory') }}</a>
+                                                        class="fa fa-balance-scale"></i> {{ __('Inventario') }}</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link active" id="images-tab" data-toggle="tab"
                                                     href="{{ route('backend.product-images', [$datalist['id']]) }}" role="tab"
                                                     aria-controls="images" aria-selected="false"><i
-                                                        class="fa fa-picture-o"></i> {{ __('Multiple Images') }}</a>
+                                                        class="fa fa-picture-o"></i> {{ __('Varias imágenes') }}</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" id="variations-tab" data-toggle="tab"
                                                     href="{{ route('backend.variations', [$datalist['id']]) }}" role="tab"
                                                     aria-controls="variations" aria-selected="false"><i
-                                                        class="fa fa-hourglass-end"></i> {{ __('Variations') }}</a>
+                                                        class="fa fa-hourglass-end"></i> {{ __('Variaciones') }}</a>
                                             </li>
-                                            <li class="nav-item"><a class="nav-link" href="{{ route('backend.related-products', [$datalist['id']]) }}"><i class="fa fa-compass"></i>{{ __('Related Products') }}</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="{{ route('backend.related-products', [$datalist['id']]) }}"><i class="fa fa-compass"></i>{{ __('Productos relacionados') }}</a></li>
                                             <li class="nav-item">
                                                 <a class="nav-link" id="seo-tab" data-toggle="tab"
                                                     href="{{ route('backend.product-seo', [$datalist['id']]) }}" role="tab"
@@ -127,7 +127,7 @@
                                                                 <div class="upload-img-box-container">
                                                                     <button type="button" id="upload-button">
                                                                         <i class="fa fa-camera" aria-hidden="true"></i>
-                                                                        <span>{{ __('Select Images') }}</span>
+                                                                        <span>{{ __('Seleccionar imágenes') }}</span>
                                                                     </button>
                                                                     <input type="file" name="product_images[]" id="og_images"
                                                                         multiple accept="image/*" hidden
@@ -142,7 +142,7 @@
                                                                 <p>
                                                                     <span
                                                                         class="text-black">{{ __('Tamaño Recomendado') }}:</span>
-                                                                    400px x 400px
+                                                                    300px x 300px
                                                                 </p>
                                                             </div>
                                                             <script>
@@ -200,7 +200,7 @@
                                                     <div class="row mt-15">
                                                         <div class="col-lg-12">
                                                             <button type="submit"
-                                                                class="btn btn-primary">{{ __('Next Step') }}</button>
+                                                                class="btn btn-primary">{{ __('Próximo paso') }}</button>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -210,7 +210,7 @@
                                                 <div id="tp_datalist">
                                                     <div class="col-sm-12">
                                                         @php
-                                                            $imagelist = \App\Models\Pro_image::where('product_id', $datalist->id)->orderBy('id', 'desc')->paginate(15);
+                                                            $imagelist = \App\Models\Pro_image::where('product_id', $datalist->id)->orderBy('id', 'asc')->paginate(15);
                                                         @endphp
 
                                                         <div class="row">
@@ -218,10 +218,10 @@
                                                             @foreach($imagelist as $row)
                                                             <div class="col-md-4 col-sm-6 mb-4">
                                                                 <div class="card">
-                                                                    <img src="{{ asset($row->thumbnail) }}" class="card-img-top" alt="Image">
+                                                                    <img src="{{ asset($row->thumbnail) }}" class="card-img-top" alt="Image" width="200px" height="200px">
                                                                     <div class="card-body">
                                                                         <a onClick="onDelete({{ $row->id }})" class="media-image-remove btn btn-danger btn-sm" href="javascript:void(0);">
-                                                                            <i class="fa fa-remove"></i> {{ __('Delete') }}
+                                                                            <i class="fa fa-remove"></i> {{ __('Borrar') }}
                                                                         </a>
                                                                     </div>
                                                                 </div>
@@ -229,7 +229,7 @@
                                                             @endforeach
                                                             @else
                                                                 <div class="col-sm-12">
-                                                                    <h5 class="text-center">{{ __('No data available') }}</h5>
+                                                                    <h5 class="text-center">{{ __('Datos no disponibles') }}</h5>
                                                                 </div>
                                                             @endif
                                                         </div>
@@ -256,7 +256,7 @@
 
     <script>
         function onDelete(id) {
-            if (!confirm('Are you sure you want to delete this image?')) {
+            if (!confirm('¿Estás seguro de que deseas eliminar esta imagen?')) {
                 return;
             }
 
@@ -277,7 +277,7 @@
                 },
                 error: function(xhr, status, error) {
                     console.error(xhr.responseText);
-                    toastr.error("Failed to delete image. Please try again later.");
+                    toastr.error("No se pudo eliminar la imagen. Por favor, inténtelo de nuevo más tarde.");
                 }
             });
         }

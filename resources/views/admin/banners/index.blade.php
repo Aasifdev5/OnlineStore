@@ -10,7 +10,7 @@ LISTA DE BANNERS
             <div class="row">
                 <div class="col">
                     <div class="page-header-left">
-                        <h3>Social Citas</h3>
+                        <h3>BIKEBROS</h3>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="dashboard"><i data-feather="home"></i></a></li>
 
@@ -46,43 +46,46 @@ LISTA DE BANNERS
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="display" id="advance-1">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">#</th>
-                                        <th> Nombre</th>
-                                        <th>Banner</th>
-                                        <th>Acción</th>
+                               <thead>
+    <tr>
+        <th class="text-center">#</th>
+        <th> Título 1</th>
+        <th> Título 2</th>
+        <th> Título 3</th>
+        <th>Botón</th>
+        <th>Enlace de botón</th>
+        <th> Banner</th>
+        <th> Acción</th>
+    </tr>
+</thead>
+<tbody>
+    <?php
+    $count = 1;
+    ?>
+    @foreach ($banners as $row)
+    <tr>
+        <td class="text-center">{{ $count++ }}</td>
+        <td>{{ $row->title1 }}</td>
+        <td>{{ $row->title2 }}</td>
+        <td>{{ $row->title3 }}</td>
+        <td>{{$row->button}}</td>
+        <td>{{$row->link}}</td>
+        <td><img src="{{ asset($row->image) }}" alt="{{ $row->title1 }}" width="100" height="100"></td>
+        <td>
+            <a href="{{ route('admin.banners.edit', ['banner' => $row->id]) }}" class="btn btn-sm btn-success">Editar</a>
 
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $count = 1;
-                                    ?>
-                                    @foreach ($banners as $row)
-                                    <tr>
-                                        <td class="text-center">{{ $count++ }}</td>
-                                        <td>{{ $row->title }}</td>
-                                        <td><img src="{{ asset('images/banners/' . $row->image) }}" alt="{{ $row->title }}" width="100" height="100"></td>
-                                        <td>
+            <a href="{{ route('admin.banners.destroy', ['banner' => $row->id]) }}" class="btn btn-sm btn-danger" type="submit" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $row->id }}').submit();">Eliminar</a>
 
-                                            <a href="{{ route('admin.banners.edit', ['banner' => $row->id]) }}" class="btn btn-sm btn-success" type="submit">Editar</a>
+            <!-- Delete Form -->
+            <form id="delete-form-{{ $row->id }}" action="{{ route('admin.banners.destroy', ['banner' => $row->id]) }}" method="POST" style="display: none;">
+                @csrf
+                @method('DELETE')
+            </form>
+        </td>
+    </tr>
+    @endforeach
+</tbody>
 
-                                            <a href="{{ route('admin.banners.destroy', ['banner' => $row->id]) }}" class="btn btn-sm btn btn-danger" type="submit" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $row->id }}').submit();">Eliminar</a>
-
-                                            <!-- Delete Form -->
-                                            <form id="delete-form-{{ $row->id }}" action="{{ route('admin.banners.destroy', ['banner' => $row->id]) }}" method="POST" style="display: none;">
-                                                @csrf
-                                                @method('DELETE')
-                                            </form>
-                                        </td>
-
-
-
-
-                                    </tr>
-                                    @endforeach
-                                </tbody>
                             </table>
                         </div>
                     </div>

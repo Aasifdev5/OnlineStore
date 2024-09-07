@@ -35,7 +35,7 @@ class OrderController extends Controller
 
         $OrderId = DB::transaction(function () use ($request, $user_id, $total_amount) {
             $userDetails = User::find($user_id);
-
+            
             // Create the order
             $order = Order::create([
                 'user_id' => $user_id,
@@ -49,10 +49,10 @@ class OrderController extends Controller
 
             foreach ($request->cart_products as $cart_product) {
                 $product = Product::find($cart_product['product_id']);
-
+                
                 if ($product) {
                     $productVariation = ProductVariations::where('sku', $product->sku)->first();
-
+                    
                     $color = $productVariation ? $productVariation->color : '';
 
                     OrderItem::create([
@@ -61,6 +61,8 @@ class OrderController extends Controller
                         'color' => $color,
                         'quantity' => $cart_product['quantity'],
                         'price' => $cart_product['price'],
+                        'size' => $cart_product['size'],
+                        'sku' => $cart_product['sku'],
                     ]);
 
                     // Update product stock
@@ -77,6 +79,8 @@ class OrderController extends Controller
                     'product_id' => $cart_product['product_id'],
                     'quantity' => $cart_product['quantity'],
                     'price' => $cart_product['price'],
+                    'size' => $cart_product['size'],
+                    'sku' => $cart_product['sku'],
                 ];
             }, $request->cart_products);
 
@@ -90,7 +94,7 @@ class OrderController extends Controller
                 'payer_email' => $payer->email,
                 'user_id' => $user_id,
                 'product_details' => $serializedProductDetails,
-                'amount' => $request->amount,
+                'amount' => $total_amount,
                 'accepted' => false,
             ]);
 
@@ -111,6 +115,7 @@ class OrderController extends Controller
             return $order->id; // Return the order ID
         });
 
-        return redirect()->route('invoice.generate', ['id' => $OrderId]);
+        return redirect()->route('OrderSuccess', ['id' => $OrderId]);
+
     }
 }
