@@ -355,13 +355,13 @@
                                             0
                                         @endif
                                     </span>
-                                    <span class="minicart__btn--text">Mi carrito <br> <span
+                                    <span class="minicart__btn--text">Mi Carrito <br> <span
                                             class="minicart__btn--text__price">@php
                                             $total = \App\Models\Cart::where('user_id', Session::get('LoggedIn'))
                                                                     ->selectRaw('SUM(price * quantity) as total')
                                                                     ->pluck('total')
                                                                     ->first();
-                                            $formattedTotal = $total ? 'BS' . number_format($total, 2) : 'BS0.00';
+                                            $formattedTotal = $total ? 'Bs ' . number_format($total, 2) : 'Bs 0.00';
                                         @endphp
                                         {{ $formattedTotal }}
 
@@ -389,7 +389,7 @@
                                         </g>
                                     </svg>
                                     <span class="items__count">0</span>
-                                    <span class="minicart__btn--text"> carrito <br> <span
+                                    <span class="minicart__btn--text"> Carrito <br> <span
                                             class="minicart__btn--text__price">BS0.00</span></span>
                                 </a>
                             </li>
@@ -890,7 +890,16 @@
                     <span class="offcanvas__stikcy--toolbar__label">Tienda</span>
                     </a>
                 </li>
+                 
                 @if (!empty($user_session))
+                <li class="offcanvas__stikcy--toolbar__list ">
+                    <a class="offcanvas__stikcy--toolbar__btn search__open--btn" href="javascript:void(0)" data-offcanvas>
+                        <span class="offcanvas__stikcy--toolbar__icon"> 
+                            <svg xmlns="http://www.w3.org/2000/svg"  width="22.51" height="20.443" viewBox="0 0 512 512"><path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448"/></svg>   
+                        </span>
+                    <span class="offcanvas__stikcy--toolbar__label">Search</span>
+                    </a>
+                </li>
                 <li class="offcanvas__stikcy--toolbar__list">
                     <a class="offcanvas__stikcy--toolbar__btn minicart__open--btn" href="{{ url('cart') }}"
                         data-offcanvas>
@@ -912,7 +921,7 @@
                                 </g>
                             </svg>
                         </span>
-                        <span class="offcanvas__stikcy--toolbar__label">carrito</span>
+                        <span class="offcanvas__stikcy--toolbar__label">Carrito</span>
                         <span class="items__count">@php
                             $count = \App\Models\Cart::where('user_id', Session::get('LoggedIn'))->count();
                            @endphp
@@ -945,7 +954,7 @@
                                 </g>
                             </svg>
                         </span>
-                        <span class="offcanvas__stikcy--toolbar__label">carrito</span>
+                        <span class="offcanvas__stikcy--toolbar__label">Carrito</span>
                         <span class="items__count">
                                0
                            </span>
@@ -956,7 +965,7 @@
                 <li class="offcanvas__stikcy--toolbar__list">
                     <a class="offcanvas__stikcy--toolbar__btn" href="{{ url('wishlist') }}">
                         <span class="offcanvas__stikcy--toolbar__icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26"
                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round" class=" -heart">
                                 <path
@@ -964,7 +973,7 @@
                                 </path>
                             </svg>
                         </span>
-                        <span class="offcanvas__stikcy--toolbar__label">Lista de deseos</span>
+                        <span class="offcanvas__stikcy--toolbar__label">Wishlist</span>
                         <span class="items__count">@php
                             $count = \App\Models\Wishlist::where('user_id', Session::get('LoggedIn'))->count();
                            @endphp
@@ -979,7 +988,7 @@
                 <li class="offcanvas__stikcy--toolbar__list">
                     <a class="offcanvas__stikcy--toolbar__btn" href="{{ url('Userlogin') }}">
                         <span class="offcanvas__stikcy--toolbar__icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26"
                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round" class=" -heart">
                                 <path
@@ -987,7 +996,7 @@
                                 </path>
                             </svg>
                         </span>
-                        <span class="offcanvas__stikcy--toolbar__label">Lista de deseos</span>
+                        <span class="offcanvas__stikcy--toolbar__label">Wishlist</span>
                         <span class="items__count">
                                0
                            </span>
@@ -1003,19 +1012,18 @@
         <div class="predictive__search--box ">
             <div class="predictive__search--box__inner">
                 <h2 class="predictive__search--title">Buscar productos</h2>
-                <form class="predictive__search--form" action="#">
-                    <label>
-                        <input class="predictive__search--input" placeholder="Search Here" type="text">
-                    </label>
-                    <button class="predictive__search--button text-white" aria-label="search button"><svg
-                            class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg"
-                            width="30.51" height="25.443" viewBox="0 0 512 512">
-                            <path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z"
-                                fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" />
-                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10"
-                                stroke-width="32" d="M338.29 338.29L448 448" />
-                        </svg> </button>
-                </form>
+                <form class="predictive__search--form" action="/search" method="GET">
+    <label>
+        <input class="predictive__search--input" name="query" placeholder="Buscar aquí" type="text">
+    </label>
+    <button class="predictive__search--button text-white" aria-label="botón de búsqueda">
+        <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" width="30.51" height="25.443" viewBox="0 0 512 512">
+            <path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" />
+            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448" />
+        </svg>
+    </button>
+</form>
+
             </div>
             <button class="predictive__search--close__btn" aria-label="search close" data-offcanvas>
                 <svg class="predictive__search--close__icon" xmlns="http://www.w3.org/2000/svg" width="40.51"

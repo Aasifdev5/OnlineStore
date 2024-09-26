@@ -48,7 +48,7 @@ Productos según categoría
                                         <div class="price__filter--group">
                                             <label class="price__filter--label" for="Filter-Price-GTE2">De</label>
                                             <div class="price__filter--input border-radius-5 d-flex align-items-center">
-                                                <span class="price__filter--currency">BS</span>
+                                                <span class="price__filter--currency">Bs</span>
                                                 <input class="price__filter--input__field border-0" name="min_price" id="Filter-Price-GTE2" type="number" placeholder="0" min="0" max="250.00">
                                             </div>
                                         </div>
@@ -58,7 +58,7 @@ Productos según categoría
                                         <div class="price__filter--group">
                                             <label class="price__filter--label" for="Filter-Price-LTE2">A</label>
                                             <div class="price__filter--input border-radius-5 d-flex align-items-center">
-                                                <span class="price__filter--currency">BS</span>
+                                                <span class="price__filter--currency">Bs</span>
                                                 <input class="price__filter--input__field border-0" name="max_price" id="Filter-Price-LTE2" type="number" min="0" placeholder="250.00" max="250.00">
                                             </div>
                                         </div>
@@ -174,11 +174,13 @@ if (in_array($category, $allCategoryIds)) {
         ->where('parent_category_id', $category)
         ->where('category_id', 0)
         ->select('id', 'name', 'og_image')
+        ->orderBy('name', 'asc')
         ->get();
 }else {
             $categories = \App\Models\Subcategory::whereIn('parent_category_id', $userCategories)
                 ->where('parent_category_id', $category)
                 ->select('id', 'name', 'og_image')
+                ->orderBy('name', 'asc')
                 ->get();
         }
     @endphp
@@ -320,7 +322,7 @@ if (in_array($category, $allCategoryIds)) {
                                                     <div class="product__card--content">
                                                         <h3 class="product__card--title"><a href="{{ url('product-details') }}/{{ $row->slug }}" data-product-id="{{ $row->id }}">{{ $row->title }}</a></h3>
                                                         <div class="product__card--price">
-                                                            <h2 class="current__price" style="color:grey">{{ 'BS '.$price }}</h2>
+                                                            <h2 class="current__price" style="color:grey">{{ 'Bs '.$price }}</h2>
                                                            
                                                         </div>
                                                         <div class="product__card--footer">
@@ -414,7 +416,7 @@ if (in_array($category, $allCategoryIds)) {
                                                         <h3 class="product__card--title"><a href="{{ url('product-details') }}{{ '/' . $row->slug }}" data-product-id="{{ $row->id }}">{{$row->title}} </a></h3>
 
                                                         <div class="product__list--price">
-                                                            <h2 class="current__price" style="color:grey">{{ 'BS '.$price }} </h2>
+                                                            <h2 class="current__price" style="color:grey">{{ 'Bs '.$price }} </h2>
 
                                                         </div>
                                                         <p class="product__card--content__desc mb-20">{{$row->short}}</p>

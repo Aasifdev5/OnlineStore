@@ -511,7 +511,9 @@
                             <li><a class="sidebar-header" href="{{ url('admin/users') }}"><i
                                         data-feather="users"></i><span>{{ __('Gestión de Usuarios') }} </span></a>
                             </li>
-
+ <li><a class="sidebar-header" href="{{ url('admin/shopkeepers') }}"><i
+                                        data-feather="users"></i><span>{{ __('Gestión de tendero') }} </span></a>
+                            </li>
                             <li><a class="sidebar-header" href="#"><i data-feather="layers"></i><span>
                                         {{ __('Gestión de productos') }} </span><i
                                         class="fa fa-angle-right pull-right"></i></a>
@@ -574,7 +576,12 @@
 
                         </ul>
                     @endif
-                    @if ($user_session->is_super_admin == 0 and $user_session->account_type == 'admin')
+                    @if ($user_session->is_super_admin == 0 and $user_session->account_type == 'shopkeeper')
+                    <ul class="sidebar-menu">
+                     <li><a class="sidebar-header" href="{{ url('admin/transactions_report') }}"><i
+                                        data-feather="dollar-sign"></i><span>{{ __('Solicitudes de pedido') }} </span></a>
+                            </li>
+                            </ul>
                     @endif
                 </div>
             </div>

@@ -124,11 +124,11 @@
                                                         </div>
                                                     </div>
                                                     <div class="row">
-                                                        <div class="col-sm-4">
+                                                      <div class="col-sm-4">
     <label class="col-form-label">Categoría</label>
     <select name="categories" id="categories" class="select2 form-control">
         <option value="">Selecciona una categoría</option>
-         @php
+        @php
             $categories = \App\Models\Category::all();
         @endphp
         @foreach($categories as $category)
@@ -161,86 +161,84 @@
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script>
-   $(document).ready(function() {
-       var baseUrl = "https://bikebros.net";
-       
-        // Function to fetch subcategories based on selected category
-        $('#categories').change(function() {
-            var categoryId = $(this).val();
-            if (categoryId) {
-                 var url = baseUrl + '/admin/get-subcategories/' + categoryId;
-                $.ajax({
-                    url: url,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(data) {
-                        updateSubcategories(data);
-                    }
-                });
-            } else {
-                resetSubcategories();
-            }
+    $(document).ready(function() {
+    var baseUrl = "https://bikebros.net";
+
+    // Function to fetch subcategories based on selected category
+    $('#categories').change(function() {
+        var categoryId = $(this).val();
+        if (categoryId) {
+            var url = baseUrl + '/admin/get-subcategories/' + categoryId;
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    updateSubcategories(data);
+                }
+            });
+        } else {
+            resetSubcategories();
+        }
+        resetChildcategories(); // Reset child category when category changes
+    });
+
+    // Function to fetch child categories based on selected subcategory
+    $('#subcategory_id').change(function() {
+        var subcategoryId = $(this).val();
+        var categoryId = $('#categories').val(); // Get the selected category
+        if (subcategoryId && categoryId) {
+            var url = baseUrl + '/admin/get-childcategories/' + categoryId + '/' + subcategoryId;
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    updateChildcategories(data);
+                }
+            });
+        } else {
             resetChildcategories();
-        });
-
-        // Function to fetch child categories based on selected subcategory
-        $('#subcategory_id').change(function() {
-            var subcategoryId = $(this).val();
-            if (subcategoryId) {
-                 var url = baseUrl + '/admin/get-childcategories/' + subcategoryId;
-                $.ajax({
-                    url: url,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(data) {
-                        updateChildcategories(data);
-                    }
-                });
-            } else {
-                resetChildcategories();
-            }
-        });
-
-        // Function to update subcategory select options
-        function updateSubcategories(data) {
-            $('#subcategory_id').empty().append('<option value="0">No Subcategoría</option>');
-            $.each(data, function(key, value) {
-                var selected = (value.id == {{ $datalist->subcategory_id }}) ? 'selected' : '';
-                $('#subcategory_id').append('<option value="' + value.id + '" ' + selected + '>' + value.name + '</option>');
-            });
-            $('#subcategory_id').trigger('change');
-        }
-
-        // Function to reset subcategory select
-        function resetSubcategories() {
-            $('#subcategory_id').empty().append('<option value="0">No Subcategoría</option>');
-        }
-
-        // Function to update child category select options
-        function updateChildcategories(data) {
-            $('#childcategory').empty().append('<option value="0">No categoría infantil</option>');
-            $.each(data, function(key, value) {
-                var selected = (value.id == {{ $datalist->childcategory }}) ? 'selected' : '';
-                $('#childcategory').append('<option value="' + value.id + '" ' + selected + '>' + value.name + '</option>');
-            });
-        }
-
-        // Function to reset child category select
-        function resetChildcategories() {
-            $('#childcategory').empty().append('<option value="0">No categoría infantil</option>');
-        }
-
-        // Initialize selects based on pre-existing data
-        if ($('#categories').val()) {
-            $('#categories').trigger('change');
         }
     });
+
+    // Function to update subcategory select options
+    function updateSubcategories(data) {
+        $('#subcategory_id').empty().append('<option value="0">No Subcategoría</option>');
+        $.each(data, function(key, value) {
+            var selected = (value.id == {{ $datalist->subcategory_id }}) ? 'selected' : '';
+            $('#subcategory_id').append('<option value="' + value.id + '" ' + selected + '>' + value.name + '</option>');
+        });
+        $('#subcategory_id').trigger('change');
+    }
+
+    // Function to reset subcategory select
+    function resetSubcategories() {
+        $('#subcategory_id').empty().append('<option value="0">No Subcategoría</option>');
+    }
+
+    // Function to update child category select options
+    function updateChildcategories(data) {
+        $('#childcategory').empty().append('<option value="0">No categoría infantil</option>');
+        $.each(data, function(key, value) {
+            var selected = (value.id == {{ $datalist->childcategory }}) ? 'selected' : '';
+            $('#childcategory').append('<option value="' + value.id + '" ' + selected + '>' + value.name + '</option>');
+        });
+    }
+
+    // Function to reset child category select
+    function resetChildcategories() {
+        $('#childcategory').empty().append('<option value="0">No categoría infantil</option>');
+    }
+
+    // Initialize selects based on pre-existing data
+    if ($('#categories').val()) {
+        $('#categories').trigger('change');
+    }
+});
+
 </script>
-
-
-
 
 
 

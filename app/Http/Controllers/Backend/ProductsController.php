@@ -230,16 +230,41 @@ class ProductsController extends Controller
         }
     }
 public function getSubcategories($categoryId)
-    {
-        $subcategories = Subcategory::where('parent_category_id', $categoryId)->get();
-        return response()->json($subcategories);
+{
+    // Fetch subcategories based on the category logic
+    $allCategoryIds = \App\Models\Category::pluck('id')->toArray();
+
+    if (in_array($categoryId, $allCategoryIds)) {
+        // If the category ID is in the main categories, fetch only subcategories with category_id as 0
+        $subcategories = \App\Models\Subcategory::where('parent_category_id', $categoryId)
+            ->where('category_id', 0)
+            ->select('id', 'name', 'og_image')
+            ->orderBy('name', 'asc')
+            ->get();
+    } else {
+        // Otherwise, fetch all subcategories under the parent category
+        $subcategories = \App\Models\Subcategory::where('parent_category_id', $categoryId)
+            ->select('id', 'name', 'og_image')
+            ->orderBy('name', 'asc')
+            ->get();
     }
 
-    public function getChildcategories($subcategoryId)
-    {
-        $childcategories = Subcategory::where('category_id', $subcategoryId)->get();
-        return response()->json($childcategories);
-    }
+    return response()->json($subcategories);
+}
+
+
+ public function getChildcategories($categoryId, $subcategoryId)
+{
+    // Fetch child categories based on both the category and subcategory
+    $childcategories = \App\Models\Subcategory::where('parent_category_id', $categoryId)
+                    ->where('category_id', $subcategoryId)
+                    ->select('id', 'category_id', 'name', 'slug')
+                    ->get();
+
+    return response()->json($childcategories);
+}
+
+
 
 
     //get Price

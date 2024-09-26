@@ -85,7 +85,7 @@
     $categories = \App\Models\Category::whereIn('id', $userCategories)->select('id', 'name','slug','image')->get();
 @endphp
 @foreach ($categories as $parentCategory)
-    <div class="col-lg-2 col-md-4 col-sm-4 col-6 mb-25">
+    <div class="col-lg-2 col-md-4 col-sm-4 col-6" style="margin-bottom: -2.2rem;">
         <div class="categories__card text-center" style="transition: background-color 0.3s ease;">
             <a class="categories__card--link" href="{{ url('productbyCategory') }}/{{ $parentCategory->id }}" 
                style="display: block; text-decoration: none; transition: background-color 0.3s ease, color 0.3s ease;">

@@ -81,7 +81,7 @@
 
                         <div class="col-sm-12">
                             <div class="card-body">
-                                <div class="account__login--header mb-25">
+                                <div class="account__login--header">
                                     <h2 class="account__login--header__title mb-10">Iniciar sesión</h2>
                                     <p class="account__login--header__desc">Inicia sesión si eres un cliente recurrente.</p>
                                 </div>

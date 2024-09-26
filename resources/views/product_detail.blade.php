@@ -46,15 +46,42 @@
                                         ->where('color', 'm')
                                         ->orderBy('id', 'asc')
                                         ->get();
-
+                                    
                                 @endphp
-                                
-                                    @if (!empty($productImages) && count($productImages) > 1)
+                                 @if (count($productImages) == 0)
+                                 @php
+                                   $productImages = \App\Models\Pro_image::where('product_id', $product->id)
+                                        ->where('color', 'm')
+                                        ->orderBy('id', 'asc')
+                                        ->get();
+                                 
+                                 @endphp
                                         @foreach ($productImages as $row)
-                                            <div class="swiper-slide" style="height: 400px;">
+                                            <div class="swiper-slide" style="height: 490px;">
     <div class="product__media--preview__items">
         <a class="product__media--preview__items--link glightbox" data-gallery="product-media-preview" href="{{ asset($row->thumbnail) }}">
-            <img class="product__media--preview__items--img" src="{{ asset($row->thumbnail) }}" alt="product-media-img" style="height: 582px;">
+            <img class="product__media--preview__items--img" src="{{ asset($row->thumbnail) }}" alt="product-media-img" style=";">
+        </a>
+        <div class="product__media--view__icon">
+            <a class="product__media--view__icon--link glightbox" href="{{ asset($row->thumbnail) }}" data-gallery="product-media-zoom">
+                <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" width="22.51" height="22.443" viewBox="0 0 512 512">
+                    <path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"></path>
+                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448"></path>
+                </svg>
+                <span class="visually-hidden">product view</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+                                        @endforeach
+                                        @endif
+                                    @if (!empty($productImages) && count($productImages) > 1)
+                                        @foreach ($productImages as $row)
+                                            <div class="swiper-slide" style="height: 490px;">
+    <div class="product__media--preview__items">
+        <a class="product__media--preview__items--link glightbox" data-gallery="product-media-preview" href="{{ asset($row->thumbnail) }}">
+            <img class="product__media--preview__items--img" src="{{ asset($row->thumbnail) }}" alt="product-media-img" style="">
         </a>
         <div class="product__media--view__icon">
             <a class="product__media--view__icon--link glightbox" href="{{ asset($row->thumbnail) }}" data-gallery="product-media-zoom">
@@ -78,10 +105,10 @@
                                         ->first();
 
                                 @endphp
-                                        <div class="swiper-slide" style="height: 400px;">
+                                        <div class="swiper-slide" style="height: 490px;">
     <div class="product__media--preview__items">
         <a class="product__media--preview__items--link glightbox" data-gallery="product-media-preview" href="{{ asset($productImage->thumbnail) }}">
-            <img class="product__media--preview__items--img" src="{{ asset($productImage->thumbnail) }}" alt="product-media-img" style="height: 582px;">
+            <img class="product__media--preview__items--img" src="{{ asset($productImage->thumbnail) }}" alt="product-media-img" style="height:;">
         </a>
         <div class="product__media--view__icon">
             <a class="product__media--view__icon--link glightbox" href="{{ asset($productImage->thumbnail) }}" data-gallery="product-media-zoom">
@@ -171,7 +198,7 @@
                     <div class="col">
                         <div class="product__details--info">
                             <form action="#">
-                                <h2 class="product__details--info__title mb-15">{{ $IsVariationProductDetails->title }}</h2>
+                                <h2 class="product__details--info__title mb-15" style="margin-top:55px;">{{ $IsVariationProductDetails->title }}</h2>
                                 <div class="product__details--info__price mb-12">
                                     <h2 class="current__price" style="color:grey">
                                         @if ($user_session->price == 'price1')
@@ -697,10 +724,10 @@
                                 <div class="swiper-wrapper" id="productMediaSlider">
                                     @if (!empty($productImages) && count($productImages) > 1)
                                         @foreach ($productImages as $row)
-                                            <div class="swiper-slide" style="height: 440px;">
+                                            <div class="swiper-slide" style="height: 490px;">
     <div class="product__media--preview__items">
         <a class="product__media--preview__items--link glightbox" data-gallery="product-media-preview" href="{{ asset($row->thumbnail) }}">
-            <img class="product__media--preview__items--img" src="{{ asset($row->thumbnail) }}" alt="product-media-img" style="height: 582px;">
+            <img class="product__media--preview__items--img" src="{{ asset($row->thumbnail) }}" alt="product-media-img" style="height: ;">
         </a>
         <div class="product__media--view__icon">
             <a class="product__media--view__icon--link glightbox" href="{{ asset($row->thumbnail) }}" data-gallery="product-media-zoom">
@@ -856,7 +883,7 @@ if (!empty($vcolor)) {
                     <div class="col">
                         <div class="product__details--info">
                             <form action="#">
-                                <h2 class="product__details--info__title mb-15">{{ $product->title }}</h2>
+                                <h2 class="product__details--info__title mb-15" style="margin-top:55px;">{{ $product->title }}</h2>
                                 <div class="product__details--info__price mb-12">
                                     <h2 class="current__price" style="color:grey">
                                         @if ($user_session->price == 'price1')

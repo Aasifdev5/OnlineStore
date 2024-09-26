@@ -95,7 +95,7 @@
                 </div>
             </td>
             <td class="cart__table--body__list">
-                <h2 class="cart__price" style="color:grey">{{ 'BS ' . $item->price }}</h2>
+                <h2 class="cart__price" style="color:grey">{{ 'Bs ' . $item->price }}</h2>
             </td>
             <td class="cart__table--body__list text-center">
                 <span class="in__stock text__secondary">

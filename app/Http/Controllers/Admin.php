@@ -518,7 +518,7 @@ class Admin extends Controller
         try {
             $permission = Permissions::findOrFail($id);
             $permission->delete();
-            return response()->json(['success' => 'Permission deleted successfully.']);
+            return response()->json(['success' => 'Permission Eliminado con éxito.']);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Failed to delete permission.'], 500);
         }
@@ -581,7 +581,7 @@ class Admin extends Controller
 
         ]);
 
-        $data = user::where('email', $request->email)->where('account_type', 'admin')->first();
+        $data = user::where('email', $request->email)->first();
         // print_r($data->password);
 
         // die;
@@ -743,6 +743,15 @@ protected function calculateYearlyData()
             return view('admin/users', compact('user_session', 'usersData'));
         }
     }
+     public function shopkeepers(Request $request)
+    {
+        if (Session::has('LoggedIn')) {
+            $usersData = DB::table("users")->where('is_super_admin', '0')->get();
+            $user_session = User::where('id', Session::get('LoggedIn'))->first();
+
+            return view('admin/shopkeepers', compact('user_session', 'usersData'));
+        }
+    }
     public function country(Request $request)
     {
         if (Session::has('LoggedIn')) {
@@ -768,6 +777,15 @@ protected function calculateYearlyData()
             $user_session = User::where('id', Session::get('LoggedIn'))->first();
 
             return view('admin/edit_user', compact('user_session', 'userData'));
+        }
+    }
+     public function edit_shopkeeper(Request $request, $id)
+    {
+        if (Session::has('LoggedIn')) {
+            $userData = DB::table("users")->where('id', $id)->where('is_super_admin', '0')->first();
+            $user_session = User::where('id', Session::get('LoggedIn'))->first();
+
+            return view('admin/edit_shopkeeper', compact('user_session', 'userData'));
         }
     }
     public function change_password(Request $request)
@@ -845,6 +863,16 @@ protected function calculateYearlyData()
             return view('admin.add_user', compact('user_session'));
         }
     }
+    public function add_shopkeeper()
+    {
+        if (Session::has('LoggedIn')) {
+
+
+            $user_session = User::where('id', Session::get('LoggedIn'))->first();
+
+            return view('admin.add_shopkeeper', compact('user_session'));
+        }
+    }
     public function save_user(Request $request)
     {
 
@@ -900,6 +928,50 @@ protected function calculateYearlyData()
             return back()->with('fail', 'failed');
         }
     }
+     public function save_shopkeeper(Request $request)
+    {
+
+        $user = new User();
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|unique:users',
+            'password' => 'required',
+           
+        ]);
+        if (!empty($request->profile_photo)) {
+
+            $image = $request->file('profile_photo')->getClientOriginalName();
+            $final =  $request->profile_photo->move(public_path('profile_photo'), $image);
+            $profile = $_FILES['profile_photo']['name'];
+        }else{
+            $profile = '';
+        }
+
+        // dd($request->all());
+
+        // Create a new user instance
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'email_verified_at'=>date('Y-m-d H:i:s'),
+            'password' => $request->password,
+            'custom_password' =>  $request->password,
+            'account_type' =>  'shopkeeper',
+          
+            'profile_photo' => $profile,
+            'status' => $request->status,
+            'ip_address' => request()->ip(),
+        ]);
+
+        // Send email verification notification
+        $user->notify(new VerifyEmailNotification($user));
+
+        if ($user) {
+            return redirect('admin\shopkeepers')->with('success', 'El comerciante se agregó correctamente');
+        } else {
+            return back()->with('fail', 'failed');
+        }
+    }
     public function delete_user($id)
     {
 
@@ -907,12 +979,23 @@ protected function calculateYearlyData()
 
         if ($user) {
             $user->delete();
-            return back()->with('success', 'Deleted Successfully');
+            return back()->with('success', 'Eliminado con éxito');
         } else {
             return back()->with('error', 'User not found');
         }
     }
+public function delete_shopkeeper($id)
+    {
 
+        $user = User::where('id', '=', $id)->first();
+
+        if ($user) {
+            $user->delete();
+            return back()->with('success', 'Eliminado con éxito');
+        } else {
+            return back()->with('error', 'User not found');
+        }
+    }
 
 
     public function edit_profile()
@@ -1017,6 +1100,58 @@ protected function calculateYearlyData()
         ]);
         if ($data) {
             return redirect('admin/users')->with('success', 'User Updted Successfully');
+        } else {
+            return back()->with('fail', 'Failed');
+        }
+    }
+    public function update_shopkeeper(Request $request)
+    {
+        $user = User::findOrFail($request->user_id);
+        // Perform validation, including potentially unique email for existing users other than the current one
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|unique:users,email,' . $user->id, // Exclude current user from email uniqueness check
+            // 'password' => 'nullable|confirmed', // Only validate password if provided
+         
+        ]);
+
+        // Update user information only if fields are filled (prevents unnecessary updates)
+        if ($request->has('name')) {
+            $user->name = $request->name;
+        }
+        if ($request->has('email')) {
+            $user->email = $request->email;
+        }
+
+
+        if (!empty($request->profile_photo)) {
+
+            $image = $request->file('profile_photo')->getClientOriginalName();
+            $final =  $request->profile_photo->move(public_path('profile_photo'), $image);
+            $profile = $_FILES['profile_photo']['name'];
+        }
+        $check = User::find($request->user_id);
+
+        if (empty($request->profile_photo)) {
+
+            $profile = $check->profile_photo;
+        }
+        $data = User::find(Session::get('LoggedIn'));
+        $data = User::where('id', '=', $request->user_id)->update([
+           'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+           
+            'custom_password' =>  $request->password,
+           'account_type' =>  'shopkeeper',
+            'status' => $request->status,
+            'ip_address' => request()->ip(),
+            'profile_photo' => $profile,
+
+
+        ]);
+        if ($data) {
+            return redirect('admin/shopkeepers')->with('success', 'Actualizado con éxito');
         } else {
             return back()->with('fail', 'Failed');
         }

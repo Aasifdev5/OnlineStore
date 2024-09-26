@@ -727,6 +727,38 @@ $latestProductId = $product->id;
             return Redirect()->with('fail', 'Tienes que iniciar sesión primero');
         }
     }
+     public function search(Request $request)
+    {
+        if (Session::has('LoggedIn')) {
+
+            $pages = Page::all();
+            $user_session = User::where('id', Session::get('LoggedIn'))->first();
+            $userCategories = !empty($user_session->categories) ? explode(',', $user_session->categories) : [];
+
+$query = $request->input('query');
+
+// Retrieve paginated products based on user categories and search query
+$products = Product::whereIn('category', $userCategories)
+    ->when($query, function ($q) use ($query) {
+        // Apply search condition if query exists
+        $q->where('title', 'like', '%' . $query . '%');
+    })
+    ->whereNotIn('sku', function($query) {
+        // Exclude products with SKUs found in product_variations table
+        $query->select('sku')->from('product_variations');
+    })
+    ->orderBy('id', 'desc') // Order by ID descending
+    ->paginate(9); // Paginate with 9 products per page
+
+
+
+
+            $general_setting = GeneralSetting::find('1');
+            return view('search-results', compact('products', 'user_session',  'general_setting', 'pages'));
+        } else {
+            return Redirect()->with('fail', 'Tienes que iniciar sesión primero');
+        }
+    }
     public function filterProducts(Request $request)
 {
     

@@ -90,6 +90,7 @@ Route::get('/filter-products',[UserController::class, 'filterProducts']);
     Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard')->middleware('isLoggedIn');
     Route::post('/ProjectStore', [UserController::class, 'ProjectStore'])->name('ProjectStore');
     Route::get('shop', [UserController::class, 'shop'])->name('shop')->middleware('isLoggedIn');
+    Route::get('search', [UserController::class, 'search'])->name('search')->middleware('isLoggedIn');
     Route::post('/post-insert', [UserController::class, 'Ad_insert'])->name('Ad_insert')->middleware('isLoggedIn');
     Route::get('/back/{id}', [UserController::class, 'back'])->name('back')->middleware('isLoggedIn');
     Route::get('address', [UserController::class, 'address'])->name('address')->middleware('isLoggedIn');
@@ -438,7 +439,8 @@ Route::prefix('colors')->group(function () {
         Route::post('saveProductsData', [ProductsController::class, 'saveProductsData'])->name('saveProductsData');
         Route::delete('/deleteProducts/{id}', [ProductsController::class, 'deleteProducts'])->name('backend.deleteProducts');
 Route::get('/get-subcategories/{categoryId}', [ProductsController::class, 'getSubcategories']);
-Route::get('/get-childcategories/{subcategoryId}', [ProductsController::class, 'getChildcategories']);
+Route::get('/get-childcategories/{categoryId}/{subcategoryId}', [ProductsController::class, 'getChildcategories']);
+
 
         Route::post('/hasProductSlug', [ProductsController::class, 'hasProductSlug'])->name('backend.hasProductSlug');
         //Update
@@ -568,7 +570,15 @@ Route::get('/get-childcategories/{subcategoryId}', [ProductsController::class, '
         Route::post('save_user', [Admin::class, 'save_user'])->middleware('AdminIsLoggedIn');
 
         Route::get('user/delete_user/{id}', [Admin::class, 'delete_user'])->middleware('AdminIsLoggedIn');
+        
+Route::get('shopkeepers', [Admin::class, 'shopkeepers'])->name('shopkeepers')->middleware('AdminIsLoggedIn');
+        Route::get('shopkeeper/edit/{id}', [Admin::class, 'edit_shopkeeper'])->name('edit_shopkeeper')->middleware('AdminIsLoggedIn');
+        Route::post('update_shopkeeper', [Admin::class, 'update_shopkeeper'])->name('update_shopkeeper');
 
+        Route::get('add_shopkeeper', [Admin::class, 'add_shopkeeper'])->middleware('AdminIsLoggedIn');
+        Route::post('save_shopkeeper', [Admin::class, 'save_shopkeeper'])->middleware('AdminIsLoggedIn');
+
+        Route::get('shopkeeper/delete_shopkeeper/{id}', [Admin::class, 'delete_shopkeeper'])->middleware('AdminIsLoggedIn');
 
         Route::name('mail-templates.')->prefix('mail-templates')->group(function () {
             Route::get('/', [MailTemplateController::class, 'index'])->name('index')->middleware('AdminIsLoggedIn');
